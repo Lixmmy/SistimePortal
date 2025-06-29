@@ -1,9 +1,31 @@
 part of 'profil_bloc.dart';
 
-abstract class ProfilState extends Equatable {
-  const ProfilState();  
+sealed class ProfilState extends Equatable {
+  const ProfilState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
-class ProfilInitial extends ProfilState {}
+
+final class ProfilInitial extends ProfilState {}
+
+final class ProfilLoading extends ProfilState {}
+
+final class ProfilLoaded extends ProfilState {
+  final Profil detailUser;
+
+  const ProfilLoaded(this.detailUser);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [detailUser];
+}
+
+final class ProfilError extends ProfilState {
+  final String message;
+
+  const ProfilError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

@@ -5,5 +5,5 @@ import '../../../../core/error/failure.dart';
 import '../entities/profil.dart';
 
 abstract class ProfilRepository {
-  Future<Either<Failure,Profil>> getMahasiswa(int nim);
+  Future<Either<Failure,Profil>> getMahasiswa(String nim);
 }

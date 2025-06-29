@@ -9,24 +9,24 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ProfilRepositoryImplementation extends ProfilRepository {
   final ProfilRemoteDatasource profilRemoteDataSourceImplementation;
-  final ProflLocalDatasource profilLocalDatasource;
+  final ProfilLocalDataSource profilLocalDataSource;
 
   ProfilRepositoryImplementation({
-    required this.profilLocalDatasource,
+    required this.profilLocalDataSource,
     required this.profilRemoteDataSourceImplementation,
   });
   @override
-  Future<Either<FailureConncectInternet, Profil>> getMahasiswa(int nim) async {
+  Future<Either<Failure, Profil>> getMahasiswa(String nim) async {
     try {
       final List<ConnectivityResult> connectivityPlus = await (Connectivity()
           .checkConnectivity());
       if (connectivityPlus.contains(ConnectivityResult.none)) {
-        final localData = await profilLocalDatasource
+        final localData = await profilLocalDataSource
             .getSavedProfilData(); 
         if (localData != null) {
           return Right(localData);
         } else {
-          return Left(FailureConncectInternet(error: 'not have connection'));
+          return Left(Failure());
         }
       } else {
         ProfilModel hasil = await profilRemoteDataSourceImplementation
@@ -34,7 +34,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         return Right(hasil);
       }
     } catch (e) {
-      return Left(FailureConncectInternet(error: 'not have connection'));
+      return Left(Failure());
     }
   }
 }

@@ -10,7 +10,7 @@ class GetMahasiswa {
 
   const GetMahasiswa(this.profilRepo);
   
- Future<Either<Failure, Profil>> execute(int nim)async{
+ Future<Either<Failure, Profil>> execute(String nim)async{
     return await profilRepo.getMahasiswa(nim);
   }
 }
