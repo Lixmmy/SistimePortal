@@ -24,7 +24,7 @@ class LoadingScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('images/logo_sbp.jpg', height: 100),
+                    Image.asset('images/logo_stmik.png', height: 80),
                     const Text(
                       'STMIK TIME',
                       style: TextStyle(

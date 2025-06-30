@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/custom_widgets/ListProfil.dart';
 import 'package:newsistime/custom_widgets/text_customize.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
@@ -42,14 +43,20 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
           icon: Icon(Icons.arrow_back),
         ),
       ),
-      body: BlocBuilder<ProfilBloc, ProfilState>(
+      body: BlocConsumer<ProfilBloc, ProfilState>(
         bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
-        builder: (context, state) {
+        listener: (context, state) {
           if (state is ProfilLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ProfilLoaded) {
+            LoadingManager().show(context);
+          } else {
+            if (LoadingManager().isShowing) {
+              LoadingManager().dismiss();
+            }
+          }
+        },
+        builder: (context, state) {
+          if (state is ProfilLoaded) {
             Profil profil = state.detailUser;
-
             return Column(
               children: [
                 Container(
@@ -92,14 +99,17 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                 ListProfil(title: 'Email', subtitle: profil.email),
                 ListProfil(
                   title: 'Jurusan',
-                  subtitle:profil.programStudi['namaProgramstudi'],
+                  subtitle: profil.programStudi['namaProgramstudi'],
                 ),
                 ListProfil(
                   title: 'Angkatan',
                   subtitle: profil.tahunAngkatan.toString(),
                 ),
                 ListProfil(title: 'Agama', subtitle: profil.agama['agama']),
-                ListProfil(title: 'No.Hp', subtitle: profil.noTeleponMahasiswa.toString()),
+                ListProfil(
+                  title: 'No.Hp',
+                  subtitle: profil.noTeleponMahasiswa.toString(),
+                ),
                 SizedBox(height: 20),
                 OutlinedButton(
                   onPressed: () {},

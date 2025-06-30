@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/custom_widgets/custom_menu_profil.dart';
 import 'package:newsistime/custom_widgets/text_customize.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/injection.dart';
 import 'package:go_router/go_router.dart';
+
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
 
@@ -52,11 +54,15 @@ class _ProfilPageState extends State<ProfilPage> {
               ),
             );
           }
+          if (state is ProfilLoading) {
+            LoadingManager().show(context);
+          } else {
+            if (LoadingManager().isShowing) {
+              LoadingManager().dismiss();
+            }
+          }
         },
         builder: (context, state) {
-          if (state is ProfilLoading) {
-            return Center(child: const CircularProgressIndicator());
-          }
           if (state is ProfilLoaded) {
             Profil profil = state.detailUser;
             return SingleChildScrollView(
