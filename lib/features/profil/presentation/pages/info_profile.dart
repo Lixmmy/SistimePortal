@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
-import 'package:newsistime/custom_widgets/ListProfil.dart';
+import 'package:newsistime/custom_widgets/list_profil.dart';
 import 'package:newsistime/custom_widgets/text_customize.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
