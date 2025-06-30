@@ -14,7 +14,7 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
       emit(ProfilLoading());
       Either<Failure, Profil> hasilGetMahasiswa = await getMahasiswa.execute(event.nim);
       hasilGetMahasiswa.fold((leftHasilGetMahasiswa){
-       emit( ProfilError(message: 'Cannot get mahasiswa data'));
+       emit( ProfilError(message: leftHasilGetMahasiswa.toString()));
       }, (rightHasilGetMahasiswa){
         emit(ProfilLoaded(rightHasilGetMahasiswa));
       });

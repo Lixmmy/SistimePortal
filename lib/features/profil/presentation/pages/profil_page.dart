@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:newsistime/custom_widgets/custom_menu_profil.dart';
 import 'package:newsistime/custom_widgets/text_customize.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:newsistime/injection.dart';
-
+import 'package:go_router/go_router.dart';
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
 
@@ -27,38 +27,39 @@ class _ProfilPageState extends State<ProfilPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfilBloc, ProfilState>(
-      bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
-      listener: (context, state) {
-        if (state is ProfilError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('error: ${state.message}'),
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        }
-      },
-      builder: (context, state) {
-        if (state is ProfilLoading) {
-          return const CircularProgressIndicator();
-        }
-        if (state is ProfilLoaded) {
-          Profil profil = state.detailUser;
-          return Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              backgroundColor: Color.fromARGB(255, 95, 189, 252),
-              title: Text(
-                'Info Profil',
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 95, 189, 252),
+        title: Text(
+          'Info Profil',
+          style: GoogleFonts.inter(
+            color: Colors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+
+      body: BlocConsumer<ProfilBloc, ProfilState>(
+        bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
+        listener: (context, state) {
+          if (state is ProfilError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('error: ${state.message}'),
+                duration: const Duration(seconds: 2),
               ),
-            ),
-            body: SingleChildScrollView(
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is ProfilLoading) {
+            return Center(child: const CircularProgressIndicator());
+          }
+          if (state is ProfilLoaded) {
+            Profil profil = state.detailUser;
+            return SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +106,9 @@ class _ProfilPageState extends State<ProfilPage> {
                       CustomMenuProfil(
                         label: 'Info Profile',
                         icon: Icons.edit,
-                        // onPressed: () => context.goNamed('infoProfilPage'),
+                        onPressed: () {
+                          context.pushNamed('infoProfilPage');
+                        },
                       ),
                       CustomMenuProfil(label: 'Bahasa', icon: Icons.language),
                       CustomMenuProfil(
@@ -122,15 +125,12 @@ class _ProfilPageState extends State<ProfilPage> {
                   ),
                 ],
               ),
-            ),
-          );
-        }
-        // Optionally handle other states or show a fallback UI
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: Center(child: Text('Data profil tidak tersedia')),
-        );
-      },
+            );
+          }
+          // Optionally handle other states or show a fallback UI
+          return Center(child: Text('Data profil tidak tersedia'));
+        },
+      ),
     );
   }
 }
