@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsistime/core/router/router.dart';
+import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/injection.dart';
 
 void main() async{
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: myRouter(),
+      themeMode: ThemeMode.system,
+      theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
     );
   }

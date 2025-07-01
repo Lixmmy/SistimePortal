@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
+import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/custom_widgets/list_profil.dart';
 import 'package:newsistime/custom_widgets/text_customize.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
@@ -27,15 +28,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 95, 189, 252),
-        title: Text(
-          'Info Profile',
-          style: GoogleFonts.inter(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text('Info Profil'),
         leading: IconButton(
           onPressed: () {
             context.goNamed('profilPage');
@@ -113,24 +106,8 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                 SizedBox(height: 20),
                 OutlinedButton(
                   onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    side: BorderSide(
-                      color: Color.fromARGB(255, 95, 189, 252),
-                      width: 2,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(15),
-                    ),
-                  ),
-                  child: TextCustomize(
-                    text: 'Edit Profil',
-                    style: GoogleFonts.inter(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  style: Theme.of(context).outlinedButtonTheme.style,
+                  child: TextCustomize(text: 'Edit Profil'),
                 ),
               ],
             );

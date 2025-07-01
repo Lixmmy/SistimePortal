@@ -31,17 +31,7 @@ class _ProfilPageState extends State<ProfilPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 95, 189, 252),
-        title: Text(
-          'Info Profil',
-          style: GoogleFonts.inter(
-            color: Colors.white,
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      appBar: AppBar(title: Text('Profil')),
 
       body: BlocConsumer<ProfilBloc, ProfilState>(
         bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),

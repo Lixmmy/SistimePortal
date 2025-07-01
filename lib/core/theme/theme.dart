@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   // Warna-warna utama aplikasi
-  static const Color primaryColor = Color(0xFF6200EE);
-  static const Color primaryLightColor = Color(0xFFBB86FC);
-  static const Color accentColor = Color(0xFF03DAC6);
+  static const Color primaryColor = Color.fromARGB(255, 95, 189, 252);
+  static const Color primaryLightColor = Color(0xFFF61F1F);
+  static const Color accentColor = Color(0xFF0d3753);
   static const Color errorColor = Color(0xFFB00020);
   static const Color backgroundColor = Colors.white;
   static const Color textColor = Colors.black87;
@@ -14,6 +14,9 @@ class AppTheme {
 
   // Tema terang (Light Theme)
   static final ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
+    fontFamily: 'Inter',
+    brightness: Brightness.light,
     primaryColor: primaryColor,
     primaryColorLight: primaryLightColor,
     hintColor: accentColor, // Warna aksen untuk input, dll.
@@ -88,8 +91,8 @@ class AppTheme {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        foregroundColor: primaryColor,
-        side: const BorderSide(color: primaryColor),
+        foregroundColor: textColor,
+        side: const BorderSide(color: primaryColor,width: 2),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -140,6 +143,5 @@ class AppTheme {
     // bottomNavigationBarTheme: const BottomNavigationBarThemeData(...),
   );
 
-  // Anda juga bisa membuat tema gelap (Dark Theme) di sini
-  // static final ThemeData darkTheme = ThemeData(...);
+  static final ThemeData darkTheme = ThemeData();
 }

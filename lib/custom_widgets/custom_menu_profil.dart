@@ -21,7 +21,7 @@ class CustomMenuProfil extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(255, 95, 189, 252),
+            color: Theme.of(context).primaryColor,
             blurRadius: 5.0,
             offset: const Offset(2, 3),
           ),
