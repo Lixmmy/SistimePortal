@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:newsistime/core/error/message_exception.dart';
-import 'package:newsistime/features/profil/data/models/profil_model.dart';
+import '../../../../core/error/message_exception.dart';
+import '../models/profil_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ProfilRemoteDatasource {

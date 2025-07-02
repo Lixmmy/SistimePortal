@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
-import 'package:newsistime/custom_widgets/custom_menu_profil.dart';
-import 'package:newsistime/custom_widgets/text_customize.dart';
-import 'package:newsistime/features/profil/domain/entities/profil.dart';
-import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
-import 'package:newsistime/injection.dart';
+import '../../../../core/loading/loading_manage.dart';
+import '../../../../custom_widgets/custom_menu_profil.dart';
+import '../../../../custom_widgets/text_customize.dart';
+import '../../domain/entities/profil.dart';
+import '../bloc/profil_bloc.dart';
+import '../../../../injection.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfilPage extends StatefulWidget {
@@ -106,7 +105,7 @@ class _ProfilPageState extends State<ProfilPage> {
                           context.pushNamed('infoProfilPage');
                         },
                       ),
-                      CustomMenuProfil(label: 'Bahasa', icon: Icons.language),
+                      CustomMenuProfil(label: 'Bahasa', icon: Icons.language,onPressed:() => context.pushNamed('selectionLanguage'),),
                       CustomMenuProfil(
                         label: 'Kartu Tanda Mahasiswa',
                         icon: Icons.badge,

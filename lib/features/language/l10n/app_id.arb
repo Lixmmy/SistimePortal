@@ -1,0 +1,15 @@
+{
+  "@@locale": "id",
+  "helloWorld": "Halo Dunia!",
+  "welcomeMessage": "Selamat datang, {userName}!",
+  "itemCount": "{count, plural, =0{Tidak ada item} =1{1 item} other{{count} item}}",
+  "infoProfil": "Info Profil",
+  "language": "Bahasa",
+  "studentIdCard": "Kartu Tanda Mahasiswa",
+  "changePassword": "Ganti Kata Sandi",
+  "logout": "Keluar",
+  "profileDataNotAvailable": "Data profil tidak tersedia",
+  "selectLanguage": "Pilih Bahasa",
+  "languageSettings": "Pengaturan Bahasa",
+  "languageChangedConfirmation": "Bahasa berhasil diubah ke {languageName}"
+}

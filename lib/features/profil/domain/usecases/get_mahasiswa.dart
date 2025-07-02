@@ -1,6 +1,5 @@
 // ignore: depend_on_referenced_packages
 import 'package:dartz/dartz.dart';
-
 import 'package:newsistime/core/error/failure.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/domain/repositories/profil_repository.dart';

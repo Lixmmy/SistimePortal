@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:newsistime/custom_widgets/text_customize.dart';
+import 'text_customize.dart';
 
 class ListProfil extends StatelessWidget {
 

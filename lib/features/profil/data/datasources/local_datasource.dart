@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:newsistime/core/helper/secure_storage.dart';
-import 'package:newsistime/features/profil/data/models/profil_model.dart';
+import '../../../../core/helper/secure_storage.dart';
+import '../models/profil_model.dart';
 
 
 abstract class ProfilLocalDataSource {

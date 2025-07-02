@@ -1,4 +1,4 @@
-import 'package:newsistime/features/profil/domain/entities/profil.dart';
+import '../../domain/entities/profil.dart';
 
 class ProfilModel extends Profil {
   const ProfilModel(

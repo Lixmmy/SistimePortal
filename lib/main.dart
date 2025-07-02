@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newsistime/core/router/router.dart';
-import 'package:newsistime/core/theme/theme.dart';
-import 'package:newsistime/injection.dart';
+import 'package:newsistime/features/language/l10n/app_localizations.dart';
+import 'core/router/router.dart';
+import 'core/theme/theme.dart';
+import 'injection.dart';
 
 void main() async{
   await init();
@@ -18,6 +19,8 @@ class MyApp extends StatelessWidget {
       routerConfig: myRouter(),
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       debugShowCheckedModeBanner: false,
     );
   }

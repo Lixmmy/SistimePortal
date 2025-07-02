@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/failure.dart';
-import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
-import 'package:newsistime/features/profil/data/datasources/remote_datasource.dart';
-import 'package:newsistime/features/profil/data/models/profil_model.dart';
+import '../../../../core/error/failure.dart';
+import '../datasources/local_datasource.dart';
+import '../datasources/remote_datasource.dart';
+import '../models/profil_model.dart';
 import '../../domain/entities/profil.dart';
 import '../../domain/repositories/profil_repository.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
