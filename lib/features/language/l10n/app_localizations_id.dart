@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -27,6 +28,9 @@ class AppLocalizationsId extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get profil => 'Profil';
 
   @override
   String get infoProfil => 'Info Profil';

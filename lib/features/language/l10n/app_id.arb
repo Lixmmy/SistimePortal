@@ -3,6 +3,7 @@
   "helloWorld": "Halo Dunia!",
   "welcomeMessage": "Selamat datang, {userName}!",
   "itemCount": "{count, plural, =0{Tidak ada item} =1{1 item} other{{count} item}}",
+  "profil" : "Profil",
   "infoProfil": "Info Profil",
   "language": "Bahasa",
   "studentIdCard": "Kartu Tanda Mahasiswa",

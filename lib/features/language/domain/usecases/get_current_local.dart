@@ -1,5 +1,3 @@
-
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:newsistime/core/error/failure.dart';
@@ -9,7 +7,7 @@ class GetCurrentLocal {
   final AppLanguageRepository appLanguageRepository;
   const GetCurrentLocal(this.appLanguageRepository);
 
-   Future<Either<Failure, Locale>> execute()async{
+  Future<Either<Failure, Locale>> execute() async {
     return await appLanguageRepository.getCurrentLocale();
   }
 }

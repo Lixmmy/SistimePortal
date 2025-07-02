@@ -29,6 +29,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get profil => 'Profile';
+
+  @override
   String get infoProfil => 'Profile Info';
 
   @override

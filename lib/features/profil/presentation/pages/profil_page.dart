@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/features/language/l10n/app_localizations.dart';
+import 'package:newsistime/features/language/l10n/app_localizations_en.dart';
 import '../../../../core/loading/loading_manage.dart';
 import '../../../../custom_widgets/custom_menu_profil.dart';
 import '../../../../custom_widgets/text_customize.dart';
@@ -28,9 +30,10 @@ class _ProfilPageState extends State<ProfilPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: Text('Profil')),
+      appBar: AppBar(title: Text(appLocalizations.infoProfil)),
 
       body: BlocConsumer<ProfilBloc, ProfilState>(
         bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
@@ -99,7 +102,7 @@ class _ProfilPageState extends State<ProfilPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       CustomMenuProfil(
-                        label: 'Info Profile',
+                        label: appLocalizations.,
                         icon: Icons.edit,
                         onPressed: () {
                           context.pushNamed('infoProfilPage');
