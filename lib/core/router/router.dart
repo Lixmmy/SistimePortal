@@ -33,8 +33,8 @@ GoRouter myRouter() {
       ),
       GoRoute(path: '/selection_language', name: 'selectionLanguage', builder: (context, state) {
         return BlocProvider(
-          create: (context) => LanguageBloc(),
-          child: LanguageSelectionPage(),
+          create: (context) => LanguageBloc(getCurrentLanguage: myInjection(), setLanguage: myInjection()),
+          child: SelectionLanguagePage(),
         );
       })
     ],

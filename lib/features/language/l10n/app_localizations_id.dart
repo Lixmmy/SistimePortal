@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -10,27 +9,12 @@ class AppLocalizationsId extends AppLocalizations {
   AppLocalizationsId([String locale = 'id']) : super(locale);
 
   @override
-  String get helloWorld => 'Halo Dunia!';
-
-  @override
   String welcomeMessage(Object userName) {
     return 'Selamat datang, $userName!';
   }
 
   @override
-  String itemCount(num count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count item',
-      one: '1 item',
-      zero: 'Tidak ada item',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get profil => 'Profil';
+  String get profile => 'Profil';
 
   @override
   String get infoProfil => 'Info Profil';

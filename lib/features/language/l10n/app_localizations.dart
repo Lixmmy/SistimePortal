@@ -98,23 +98,17 @@ abstract class AppLocalizations {
     Locale('id'),
   ];
 
-  /// No description provided for @helloWorld.
-  ///
-  /// In id, this message translates to:
-  /// **'Halo Dunia!'**
-  String get helloWorld;
-
   /// No description provided for @welcomeMessage.
   ///
   /// In id, this message translates to:
   /// **'Selamat datang, {userName}!'**
   String welcomeMessage(Object userName);
 
-  /// No description provided for @itemCount.
+  /// No description provided for @profile.
   ///
   /// In id, this message translates to:
-  /// **'{count, plural, =0{Tidak ada item} =1{1 item} other{{count} item}}'**
-  String itemCount(num count);
+  /// **'Profil'**
+  String get profile;
 
   /// No description provided for @infoProfil.
   ///

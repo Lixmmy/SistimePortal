@@ -1,4 +1,4 @@
-part of 'language_bloc.dart'; // Penting: Ini adalah bagian dari language_bloc.dart
+part of 'language_bloc.dart';
 
 abstract class LanguageEvent extends Equatable {
   const LanguageEvent();
@@ -7,11 +7,15 @@ abstract class LanguageEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LanguageChanged extends LanguageEvent {
-  final Langugage;
+class GetLanguageEvent extends LanguageEvent {
+  const GetLanguageEvent();
+}
 
-  const LanguageChanged(this.locale);
+class LanguageChangedEvent extends LanguageEvent {
+  final AppLanguage appLanguage; // Perbaiki typo di sini
+
+  const LanguageChangedEvent(this.appLanguage);
 
   @override
-  List<Object> get props => [locale];
+  List<Object> get props => [appLanguage];
 }

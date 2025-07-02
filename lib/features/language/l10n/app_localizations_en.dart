@@ -9,27 +9,12 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get helloWorld => 'Hello World!';
-
-  @override
   String welcomeMessage(Object userName) {
     return 'Welcome, $userName!';
   }
 
   @override
-  String itemCount(num count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count items',
-      one: '1 item',
-      zero: 'No items',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get profil => 'Profile';
+  String get profile => 'Profile';
 
   @override
   String get infoProfil => 'Profile Info';

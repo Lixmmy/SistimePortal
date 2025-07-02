@@ -1,10 +1,36 @@
-part of 'language_bloc.dart'; // Penting: Ini adalah bagian dari language_bloc.dart
+part of 'language_bloc.dart';
 
-class LanguageState extends Equatable {
+abstract class LanguageState extends Equatable {
+  final Locale locale; // Tambahkan properti locale
+  const LanguageState(this.locale); // Tambahkan constructor
+
+  @override
+  List<Object?> get props => [locale];
+}
+
+class LanguageInitial extends LanguageState {
+  const LanguageInitial({Locale locale = const Locale('id')}) : super(locale); // Set default locale
+}
+
+class LanguageLoading extends LanguageState {
+  const LanguageLoading({required Locale locale}) : super(locale); // Tambahkan locale
+}
+
+class LanguageLoaded extends LanguageState {
   final Locale locale;
 
-  const LanguageState(this.locale);
+  const LanguageLoaded({required this.locale}) : super(locale);
 
   @override
   List<Object> get props => [locale];
+}
+
+class LanguageError extends LanguageState {
+  final String message;
+  final Locale locale; // Tambahkan locale untuk menjaga state sebelumnya
+
+  const LanguageError({required this.message, required this.locale}) : super(locale);
+
+  @override
+  List<Object> get props => [message, locale];
 }

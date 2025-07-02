@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/features/language/l10n/app_localizations.dart';
-import 'package:newsistime/features/language/l10n/app_localizations_en.dart';
 import '../../../../core/loading/loading_manage.dart';
 import '../../../../custom_widgets/custom_menu_profil.dart';
 import '../../../../custom_widgets/text_customize.dart';
@@ -32,8 +31,7 @@ class _ProfilPageState extends State<ProfilPage> {
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(title: Text(appLocalizations.infoProfil)),
+      appBar: AppBar(title: Text(appLocalizations.profile)),
 
       body: BlocConsumer<ProfilBloc, ProfilState>(
         bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
@@ -102,20 +100,20 @@ class _ProfilPageState extends State<ProfilPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       CustomMenuProfil(
-                        label: appLocalizations.,
+                        label: appLocalizations.infoProfil,
                         icon: Icons.edit,
                         onPressed: () {
                           context.pushNamed('infoProfilPage');
                         },
                       ),
-                      CustomMenuProfil(label: 'Bahasa', icon: Icons.language,onPressed:() => context.pushNamed('selectionLanguage'),),
+                      CustomMenuProfil(label: appLocalizations.languageSettings, icon: Icons.language,onPressed:() => context.pushNamed('selectionLanguage'),),
                       CustomMenuProfil(
-                        label: 'Kartu Tanda Mahasiswa',
+                        label: appLocalizations.studentIdCard,
                         icon: Icons.badge,
                       ),
 
                       CustomMenuProfil(
-                        label: 'Ganti Password',
+                        label: appLocalizations.changePassword,
                         icon: Icons.lock,
                       ),
                       CustomMenuProfil(label: 'Logout', icon: Icons.logout),

@@ -158,7 +158,7 @@ class AppTheme {
     primaryColorLight: primayColorA30,
     hintColor: accentColor, // Warna aksen untuk input, dll.
     scaffoldBackgroundColor: surfaceDarkColorA0,
-    colorScheme: ColorScheme.light(
+    colorScheme: ColorScheme.dark(
       primary: primaryColorA0,
       primaryContainer: primayColorA30,
       secondary: accentColor,

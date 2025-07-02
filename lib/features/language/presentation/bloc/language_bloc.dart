@@ -1,40 +1,56 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:newsistime/core/error/failure.dart';
+import 'package:newsistime/features/language/domain/entities/app_language.dart';
+import 'package:newsistime/features/language/domain/usecases/get_current_local.dart';
+import 'package:newsistime/features/language/domain/usecases/save_locale.dart';
 
-part 'language_event.dart'; // Hubungkan dengan file event
-part 'language_state.dart'; // Hubungkan dengan file state
+part 'language_event.dart';
+part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
-  // Inisialisasi Bloc dengan state awal (misalnya, bahasa Inggris)
-  LanguageBloc() : super(const LanguageState(Locale('id', ''))) {
-    // Daftarkan handler untuk event LanguageChanged
-    on<LanguageChanged>((event, emit) {
-      emit(LanguageState(event.locale));
-      // Anda bisa menambahkan logika untuk menyimpan locale ke shared_preferences di sini
-      // _saveLocaleToPreferences(event.locale);
-    });
+  final GetCurrentLocal getCurrentLanguage;
+  final SaveLocale setLanguage; // Use case untuk menyimpan bahasa
+
+  LanguageBloc({required this.getCurrentLanguage, required this.setLanguage})
+    : super(const LanguageInitial(locale: Locale('id'))) {
+    // Sesuaikan dengan locale default Anda
+    on<GetLanguageEvent>(_onGetLanguage);
+    on<LanguageChangedEvent>(_onLanguageChanged);
+  }
+  Future<void> _onGetLanguage(
+    GetLanguageEvent event,
+    Emitter<LanguageState> emit,
+  ) async {
+    emit(LanguageLoading(locale: state.locale)); // Sertakan locale saat loading
+    Either<Failure, Locale> hasilGetCurrentLanguage = await getCurrentLanguage
+        .execute();
+    hasilGetCurrentLanguage.fold(
+      (failure) => emit(
+        LanguageError(message: 'Failed to get language', locale: state.locale),
+      ), // Sertakan locale saat error
+      (locale) => emit(LanguageLoaded(locale: locale)),
+    );
   }
 
-  // Opsional: Fungsi untuk menyimpan locale ke shared_preferences
-  // Future<void> _saveLocaleToPreferences(Locale locale) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('languageCode', locale.languageCode);
-  // }
-
-  // Opsional: Fungsi untuk memuat locale dari shared_preferences saat inisialisasi
-  // Future<void> _loadLocaleFromPreferences() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? langCode = prefs.getString('languageCode');
-  //   if (langCode != null && state.locale.languageCode != langCode) {
-  //     add(LanguageChanged(Locale(langCode)));
-  //   }
-  // }
-
-  // Daftar bahasa yang didukung (bisa juga dari AppLocalizations.supportedLocales)
-  List<Locale> get supportedLocales => const [
-        Locale('en', ''),
-        Locale('id', ''),
-        // Tambahkan locale lain jika ada
-      ];
+  Future<void> _onLanguageChanged(
+    LanguageChangedEvent event,
+    Emitter<LanguageState> emit,
+  ) async {
+    emit(LanguageLoading(locale: state.locale)); // Sertakan locale saat loading
+    Either<Failure, Locale> hasilGetCurrentLanguage = await setLanguage.execute(
+      event.appLanguage.locale,
+    );
+    hasilGetCurrentLanguage.fold(
+      (failure) => emit(
+        LanguageError(
+          message: 'Failed to change language',
+          locale: state.locale,
+        ),
+      ), // Sertakan locale saat error
+      (_) => emit(LanguageLoaded(locale: event.appLanguage.locale)),
+    );
+  }
 }

@@ -24,7 +24,6 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Info Profil'),
         leading: IconButton(
