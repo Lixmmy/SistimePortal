@@ -14,7 +14,7 @@ enum AppLanguage {
   static AppLanguage fromLanguageCode(String languageCode) {
     return AppLanguage.values.firstWhere(
       (appLang) => appLang.locale.languageCode == languageCode,
-      orElse: () => AppLanguage.english, // Default jika tidak ditemukan
+      orElse: () => AppLanguage.indonesian, // Default jika tidak ditemukan
     );
   }
 }

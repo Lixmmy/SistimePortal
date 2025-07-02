@@ -45,7 +45,6 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
               ),
             );
           } else if (state is LanguageLoaded) {
-            // Tampilkan snackbar konfirmasi dan tutup halaman
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(appLocalizations.languageChangedConfirmation(state.locale.languageCode == 'en' ? 'English' : 'Bahasa Indonesia')), // Gunakan nama bahasa yang sesuai
@@ -57,15 +56,8 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
           }
         },
         builder: (context, state) {
-          // Jika state adalah LanguageInitial, muat bahasa.
-          // Ini penting untuk memastikan currentLocale tidak null pada build pertama.
-          if (state is LanguageInitial) {
-            context.read<LanguageBloc>().add(const GetLanguageEvent());
-            return const Center(child: CircularProgressIndicator()); // Tampilkan loading sampai bahasa dimuat
-          }
-
-          if (state is LanguageLoaded || state is LanguageLoading || state is LanguageError) { // Tangani semua state
-            final currentLocale = state.locale; // Locale selalu ada di LanguageState
+          if (state is LanguageLoaded || state is LanguageLoading || state is LanguageError) { 
+            final currentLocale = state.locale; 
 
             return ListView.separated(
               itemCount: AppLanguage.values.length,
@@ -84,14 +76,12 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
                       context.read<LanguageBloc>().add(
                         LanguageChangedEvent(appLanguage),
                       );
-                    }
-                    // Jangan pop di sini, biarkan listener yang menangani pop setelah sukses
+                    }  
                   },
                 );
               },
             );
           }
-          // Fallback untuk state yang tidak terduga
           return const Center(child: Text('Unexpected state'));
         },
       ),
