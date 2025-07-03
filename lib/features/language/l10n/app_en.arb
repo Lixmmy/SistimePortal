@@ -10,5 +10,12 @@
   "profileDataNotAvailable": "Profile data not available",
   "selectLanguage": "Select Language",
   "languageSettings": "Language Settings",
-  "languageChangedConfirmation": "Language changed to {languageName}"
+  "languageChangedConfirmation": "Language changed to {languageName}",
+  "email": "Email",
+  "major": "Major",
+  "yearOfEntry": "Year of entry",
+  "religion": "Religion",
+  "noHp": "Phone Number",
+  "editProfile": "Edit Profile"
+
 }

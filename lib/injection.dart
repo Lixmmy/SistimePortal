@@ -39,12 +39,12 @@ Future<void> init() async {
 
   //! External
 
-  myInjection.registerFactory(
-    () => LanguageBloc(
-      getCurrentLanguage: myInjection(),
-      setLanguage: myInjection(),
-    ),
-  );
+  myInjection.registerLazySingleton( // <--- GANTI INI
+  () => LanguageBloc(
+    getCurrentLanguage: myInjection(),
+    setLanguage: myInjection(),
+  ),
+);
 
   // Use cases
   myInjection.registerLazySingleton(() => GetCurrentLocal(myInjection()));

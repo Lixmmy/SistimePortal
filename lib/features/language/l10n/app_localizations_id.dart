@@ -44,4 +44,22 @@ class AppLocalizationsId extends AppLocalizations {
   String languageChangedConfirmation(Object languageName) {
     return 'Bahasa berhasil diubah ke $languageName';
   }
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get major => 'Jurusan';
+
+  @override
+  String get yearOfEntry => 'Angkatan';
+
+  @override
+  String get religion => 'Agama';
+
+  @override
+  String get noHp => 'No.Hp';
+
+  @override
+  String get editProfile => 'Edit Profil';
 }

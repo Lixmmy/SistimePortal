@@ -10,5 +10,11 @@
   "profileDataNotAvailable": "Data profil tidak tersedia",
   "selectLanguage": "Pilih Bahasa",
   "languageSettings": "Pengaturan Bahasa",
-  "languageChangedConfirmation": "Bahasa berhasil diubah ke {languageName}"
+  "languageChangedConfirmation": "Bahasa berhasil diubah ke {languageName}",
+  "email": "Email",
+  "major": "Jurusan",
+  "yearOfEntry": "Angkatan",
+  "religion": "Agama",
+  "noHp": "No.Hp",
+  "editProfile": "Edit Profil"
 }

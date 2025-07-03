@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
 import '../../features/profil/presentation/pages/info_profile.dart';
@@ -31,12 +30,13 @@ GoRouter myRouter() {
           ),
         ],
       ),
-      GoRoute(path: '/selection_language', name: 'selectionLanguage', builder: (context, state) {
-        return BlocProvider(
-          create: (context) => LanguageBloc(getCurrentLanguage: myInjection(), setLanguage: myInjection()),
-          child: SelectionLanguagePage(),
-        );
-      })
+      GoRoute(
+        path: '/selection_language',
+        name: 'selectionLanguage',
+        builder: (context, state) {
+          return SelectionLanguagePage();
+        },
+      ),
     ],
   );
 }

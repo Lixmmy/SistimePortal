@@ -12,8 +12,7 @@ class GetLanguageEvent extends LanguageEvent {
 }
 
 class LanguageChangedEvent extends LanguageEvent {
-  final AppLanguage appLanguage; // Perbaiki typo di sini
-
+  final AppLanguage appLanguage; 
   const LanguageChangedEvent(this.appLanguage);
 
   @override

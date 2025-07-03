@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsistime/features/language/l10n/app_localizations.dart';
 import '../../../../core/loading/loading_manage.dart';
 import '../../../../custom_widgets/list_profil.dart';
 import '../../../../custom_widgets/text_customize.dart';
@@ -23,9 +24,11 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Info Profil'),
+        title: Text(appLocalizations.infoProfil),
         leading: IconButton(
           onPressed: () {
             context.goNamed('profilPage');
@@ -86,25 +89,25 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                   ),
                 ),
                 SizedBox(height: 25),
-                ListProfil(title: 'Email', subtitle: profil.email),
+                ListProfil(title: appLocalizations.email, subtitle: profil.email),
                 ListProfil(
-                  title: 'Jurusan',
+                  title: appLocalizations.major,
                   subtitle: profil.programStudi['namaProgramstudi'],
                 ),
                 ListProfil(
-                  title: 'Angkatan',
+                  title: appLocalizations.yearOfEntry,
                   subtitle: profil.tahunAngkatan.toString(),
                 ),
-                ListProfil(title: 'Agama', subtitle: profil.agama['agama']),
+                ListProfil(title: appLocalizations.religion, subtitle: profil.agama['agama']),
                 ListProfil(
-                  title: 'No.Hp',
+                  title: appLocalizations.noHp,
                   subtitle: profil.noTeleponMahasiswa.toString(),
                 ),
                 SizedBox(height: 20),
                 OutlinedButton(
                   onPressed: () {},
                   style: Theme.of(context).outlinedButtonTheme.style,
-                  child: TextCustomize(text: 'Edit Profil'),
+                  child: TextCustomize(text: appLocalizations.editProfile),
                 ),
               ],
             );

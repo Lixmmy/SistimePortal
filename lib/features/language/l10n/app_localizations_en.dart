@@ -44,4 +44,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String languageChangedConfirmation(Object languageName) {
     return 'Language changed to $languageName';
   }
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get major => 'Major';
+
+  @override
+  String get yearOfEntry => 'Year of entry';
+
+  @override
+  String get religion => 'Religion';
+
+  @override
+  String get noHp => 'Phone Number';
+
+  @override
+  String get editProfile => 'Edit Profile';
 }

@@ -6,7 +6,6 @@ import 'package:newsistime/features/language/l10n/app_localizations.dart'; // Un
 import 'package:newsistime/features/language/domain/entities/app_language.dart'; // Penting: Import AppLanguage entity
 import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
 
-import '../../../../core/loading/loading_manage.dart';
 
 class SelectionLanguagePage extends StatefulWidget {
   const SelectionLanguagePage({super.key});
@@ -29,14 +28,6 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
       appBar: AppBar(title: Text(appLocalizations.selectLanguage)),
       body: BlocConsumer<LanguageBloc, LanguageState>(
         listener: (context, state) {
-          if (state is LanguageLoading) {
-            LoadingManager().show(context);
-          } else {
-            if (LoadingManager().isShowing) {
-              LoadingManager().dismiss();
-            }
-          }
-
           if (state is LanguageError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -44,27 +35,41 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
                 duration: const Duration(seconds: 2),
               ),
             );
-          } else if (state is LanguageLoaded) {
+          } else if (state is LanguageChangedSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(appLocalizations.languageChangedConfirmation(state.locale.languageCode == 'en' ? 'English' : 'Bahasa Indonesia')), // Gunakan nama bahasa yang sesuai
+                content: Text(
+                  appLocalizations.languageChangedConfirmation(
+                    state.locale.languageCode == 'en'
+                        ? 'English'
+                        : 'Bahasa Indonesia',
+                  ),
+                ),
                 duration: const Duration(seconds: 2),
               ),
             );
-            // Tutup halaman setelah bahasa berhasil dimuat
-            Navigator.of(context).pop();
+            Navigator.of(
+              context,
+            ).pop(); 
           }
         },
         builder: (context, state) {
-          if (state is LanguageLoaded || state is LanguageLoading || state is LanguageError) { 
-            final currentLocale = state.locale; 
+          if (state is LanguageLoading) {
+            return const CircularProgressIndicator();
+          } else if (state is LanguageLoaded ||
+              state is LanguageError ||
+              state is LanguageInitial) {
+            final currentLocale =
+                state.locale; // Locale akan tersedia di semua state ini
 
             return ListView.separated(
               itemCount: AppLanguage.values.length,
               separatorBuilder: (context, index) => const Divider(height: 1),
               itemBuilder: (context, index) {
                 final appLanguage = AppLanguage.values[index];
-                final isSelected = currentLocale.languageCode == appLanguage.locale.languageCode;
+                final isSelected =
+                    currentLocale.languageCode ==
+                    appLanguage.locale.languageCode;
 
                 return ListTile(
                   title: Text(appLanguage.name),
@@ -76,13 +81,15 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
                       context.read<LanguageBloc>().add(
                         LanguageChangedEvent(appLanguage),
                       );
-                    }  
+                    }
                   },
                 );
               },
             );
           }
-          return const Center(child: Text('Unexpected state'));
+          return const Center(
+            child: Text('Unexpected state'),
+          ); 
         },
       ),
     );

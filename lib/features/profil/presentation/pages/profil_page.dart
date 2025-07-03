@@ -124,7 +124,7 @@ class _ProfilPageState extends State<ProfilPage> {
             );
           }
           // Optionally handle other states or show a fallback UI
-          return Center(child: Text('Data profil tidak tersedia'));
+          return SizedBox.shrink();
         },
       ),
     );

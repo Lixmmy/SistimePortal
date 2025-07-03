@@ -34,3 +34,9 @@ class LanguageError extends LanguageState {
   @override
   List<Object> get props => [message, locale];
 }
+class LanguageChangedSuccess extends LanguageLoaded { // Atau bisa jadi state terpisah
+  const LanguageChangedSuccess({required super.locale});
+
+  @override
+  List<Object> get props => [locale];
+}

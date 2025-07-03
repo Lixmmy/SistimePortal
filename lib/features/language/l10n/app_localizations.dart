@@ -163,6 +163,42 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Bahasa berhasil diubah ke {languageName}'**
   String languageChangedConfirmation(Object languageName);
+
+  /// No description provided for @email.
+  ///
+  /// In id, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @major.
+  ///
+  /// In id, this message translates to:
+  /// **'Jurusan'**
+  String get major;
+
+  /// No description provided for @yearOfEntry.
+  ///
+  /// In id, this message translates to:
+  /// **'Angkatan'**
+  String get yearOfEntry;
+
+  /// No description provided for @religion.
+  ///
+  /// In id, this message translates to:
+  /// **'Agama'**
+  String get religion;
+
+  /// No description provided for @noHp.
+  ///
+  /// In id, this message translates to:
+  /// **'No.Hp'**
+  String get noHp;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In id, this message translates to:
+  /// **'Edit Profil'**
+  String get editProfile;
 }
 
 class _AppLocalizationsDelegate

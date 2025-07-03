@@ -24,7 +24,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     GetLanguageEvent event,
     Emitter<LanguageState> emit,
   ) async {
-    emit(LanguageLoading(locale: state.locale)); // Sertakan locale saat loading
+    emit(LanguageLoading(locale: state.locale));
     Either<Failure, Locale> hasilGetCurrentLanguage = await getCurrentLanguage
         .execute();
     hasilGetCurrentLanguage.fold(
@@ -35,22 +35,27 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     );
   }
 
+  // language_bloc.dart
+  // ...
   Future<void> _onLanguageChanged(
     LanguageChangedEvent event,
     Emitter<LanguageState> emit,
   ) async {
-    emit(LanguageLoading(locale: state.locale)); // Sertakan locale saat loading
-    Either<Failure, Locale> hasilGetCurrentLanguage = await setLanguage.execute(
+    emit(LanguageLoading(locale: state.locale));
+    Either<Failure, Locale> result = await setLanguage.execute(
       event.appLanguage.locale,
     );
-    hasilGetCurrentLanguage.fold(
+    result.fold(
       (failure) => emit(
         LanguageError(
           message: 'Failed to change language',
           locale: state.locale,
         ),
-      ), // Sertakan locale saat error
-      (_) => emit(LanguageLoaded(locale: event.appLanguage.locale)),
+      ),
+      (locale) => emit(
+        LanguageChangedSuccess(locale: event.appLanguage.locale),
+      ), 
     );
   }
+  
 }
