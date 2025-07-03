@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/features/language/l10n/app_localizations.dart';
 import '../../../../core/loading/loading_manage.dart';
-import '../../../../custom_widgets/list_profil.dart';
+import '../widgets/list_profil.dart';
 import '../../../../custom_widgets/text_customize.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';
@@ -31,7 +31,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
         title: Text(appLocalizations.infoProfil),
         leading: IconButton(
           onPressed: () {
-            context.goNamed('profilPage');
+            context.pop();
           },
           icon: Icon(Icons.arrow_back),
         ),
