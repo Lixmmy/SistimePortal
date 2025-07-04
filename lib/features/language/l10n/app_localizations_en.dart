@@ -62,4 +62,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editProfile => 'Edit Profile';
+
+  @override
+  String get studentIdNumber => 'Student ID Number';
+
+  @override
+  String get studentCard => 'Student Card';
+
+  @override
+  String get identityCard => 'identity card';
+
+  @override
+  String get placeAndDateOfBirth => 'Place and Date of Birth';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get studyPrograms => 'Study Programs';
+
+  @override
+  String get validUntil => 'Valid Until';
 }

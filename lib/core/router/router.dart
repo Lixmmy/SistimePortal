@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
+import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
 import '../../features/profil/presentation/pages/info_profile.dart';
 import '../../features/profil/presentation/pages/profil_page.dart';
@@ -35,6 +36,13 @@ GoRouter myRouter() {
         name: 'selectionLanguage',
         builder: (context, state) {
           return SelectionLanguagePage();
+        },
+      ),
+      GoRoute(
+        path: '/id_card',
+        name: 'idCard',
+        builder: (context, state) {
+          return IdCard();
         },
       ),
     ],

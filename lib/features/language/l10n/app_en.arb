@@ -16,6 +16,14 @@
   "yearOfEntry": "Year of entry",
   "religion": "Religion",
   "noHp": "Phone Number",
-  "editProfile": "Edit Profile"
+  "editProfile": "Edit Profile",
+  "studentIdNumber":"Student ID Number",
+  "studentCard" : "Student Card",
+  "identityCard": "identity card",
+  "placeAndDateOfBirth" : "Place and Date of Birth",
+  "name" : "Name",
+  "studyPrograms" : "Study Programs",
+  "validUntil": "Valid Until"
+  
 
 }

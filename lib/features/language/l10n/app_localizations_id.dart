@@ -62,4 +62,25 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get editProfile => 'Edit Profil';
+
+  @override
+  String get studentIdNumber => 'No. Induk Mahasiswa';
+
+  @override
+  String get studentCard => 'Kartu Tanda Mahasiswa';
+
+  @override
+  String get identityCard => 'Kartu Indentitas';
+
+  @override
+  String get placeAndDateOfBirth => 'Tempat/Tgl Lahir';
+
+  @override
+  String get name => 'Nama';
+
+  @override
+  String get studyPrograms => 'Program Studi';
+
+  @override
+  String get validUntil => 'Berlaku Sampai';
 }

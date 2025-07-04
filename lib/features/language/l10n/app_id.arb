@@ -16,5 +16,12 @@
   "yearOfEntry": "Angkatan",
   "religion": "Agama",
   "noHp": "No.Hp",
-  "editProfile": "Edit Profil"
+  "editProfile": "Edit Profil",
+  "studentIdNumber":"No. Induk Mahasiswa",
+  "studentCard" : "Kartu Tanda Mahasiswa",
+  "identityCard": "Kartu Indentitas",
+  "placeAndDateOfBirth" : "Tempat/Tgl Lahir",
+  "name" : "Nama",
+  "studyPrograms" : "Program Studi",
+  "validUntil": "Berlaku Sampai"
 }

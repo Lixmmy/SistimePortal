@@ -76,6 +76,8 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                       ),
                       TextCustomize(
                         text: profil.user['username'],

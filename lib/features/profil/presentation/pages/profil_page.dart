@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/features/language/l10n/app_localizations.dart';
+import 'package:newsistime/features/profil/presentation/widgets/custom_menu_profil.dart';
 import '../../../../core/loading/loading_manage.dart';
-import '../../../../custom_widgets/custom_menu_profil.dart';
 import '../../../../custom_widgets/text_customize.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';
@@ -69,24 +69,28 @@ class _ProfilPageState extends State<ProfilPage> {
                           color: Colors.grey[700],
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextCustomize(
-                            text: profil.namaMahasiswa,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextCustomize(
+                              text: profil.namaMahasiswa,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          TextCustomize(
-                            text: profil.user['username'],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
+                            TextCustomize(
+                              text: profil.user['username'],
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -106,10 +110,17 @@ class _ProfilPageState extends State<ProfilPage> {
                           context.pushNamed('infoProfilPage');
                         },
                       ),
-                      CustomMenuProfil(label: appLocalizations.languageSettings, icon: Icons.language,onPressed:() => context.pushNamed('selectionLanguage'),),
+                      CustomMenuProfil(
+                        label: appLocalizations.languageSettings,
+                        icon: Icons.language,
+                        onPressed: () => context.pushNamed('selectionLanguage'),
+                      ),
                       CustomMenuProfil(
                         label: appLocalizations.studentIdCard,
                         icon: Icons.badge,
+                        onPressed: () {
+                          context.pushNamed('idCard');
+                        },
                       ),
 
                       CustomMenuProfil(

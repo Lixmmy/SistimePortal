@@ -199,6 +199,48 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Edit Profil'**
   String get editProfile;
+
+  /// No description provided for @studentIdNumber.
+  ///
+  /// In id, this message translates to:
+  /// **'No. Induk Mahasiswa'**
+  String get studentIdNumber;
+
+  /// No description provided for @studentCard.
+  ///
+  /// In id, this message translates to:
+  /// **'Kartu Tanda Mahasiswa'**
+  String get studentCard;
+
+  /// No description provided for @identityCard.
+  ///
+  /// In id, this message translates to:
+  /// **'Kartu Indentitas'**
+  String get identityCard;
+
+  /// No description provided for @placeAndDateOfBirth.
+  ///
+  /// In id, this message translates to:
+  /// **'Tempat/Tgl Lahir'**
+  String get placeAndDateOfBirth;
+
+  /// No description provided for @name.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama'**
+  String get name;
+
+  /// No description provided for @studyPrograms.
+  ///
+  /// In id, this message translates to:
+  /// **'Program Studi'**
+  String get studyPrograms;
+
+  /// No description provided for @validUntil.
+  ///
+  /// In id, this message translates to:
+  /// **'Berlaku Sampai'**
+  String get validUntil;
 }
 
 class _AppLocalizationsDelegate

@@ -32,10 +32,12 @@ class ListProfil extends StatelessWidget {
               text: title,
               style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w600)
             ),
-            TextCustomize(
-              text: subtitle,
-              style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.normal)
-    
+            Flexible(
+              child: TextCustomize(
+                text: subtitle,
+                style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.normal),
+                textAlign: TextAlign.right,
+              ),
             )
           ],
         ),
