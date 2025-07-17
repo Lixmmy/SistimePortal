@@ -80,13 +80,8 @@ class IdCard extends StatelessWidget {
                           child: Text(
                             'STMIK\nTIME',
                             textAlign: TextAlign.right,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w900,
-
-                              height: 1.0,
-                            ),
+                            style: Theme.of(context).textTheme.headlineLarge
+                                ?.copyWith(color: Colors.white, height: 1),
                           ),
                         ),
                       ],
@@ -94,11 +89,7 @@ class IdCard extends StatelessWidget {
                     SizedBox(height: 20),
                     Text(
                       appLocalizations.studentCard,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                     Row(
                       children: [

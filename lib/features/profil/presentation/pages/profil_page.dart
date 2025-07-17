@@ -77,17 +77,11 @@ class _ProfilPageState extends State<ProfilPage> {
                               text: profil.namaMahasiswa,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context).textTheme.titleMedium
                             ),
                             TextCustomize(
                               text: profil.user['username'],
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium
                             ),
                           ],
                         ),

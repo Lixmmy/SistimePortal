@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../custom_widgets/text_customize.dart';
 
 class ListProfil extends StatelessWidget {
@@ -30,12 +29,12 @@ class ListProfil extends StatelessWidget {
           children: [
             TextCustomize(
               text: title,
-              style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w600)
+              style: Theme.of(context).textTheme.titleSmall
             ),
             Flexible(
               child: TextCustomize(
                 text: subtitle,
-                style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.normal),
+                style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.right,
               ),
             )

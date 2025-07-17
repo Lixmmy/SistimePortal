@@ -72,10 +72,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       TextCustomize(
                         text: profil.namaMahasiswa,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),

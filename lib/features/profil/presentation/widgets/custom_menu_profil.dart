@@ -36,7 +36,7 @@ class CustomMenuProfil extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               label,
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.labelSmall,
             ),
           ],
         ),

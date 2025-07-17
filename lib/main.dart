@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             themeMode: ThemeMode.system,
             theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
           );
         },
       ),
