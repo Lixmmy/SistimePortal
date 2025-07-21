@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/features/home/presentation/pages/home_page.dart';
+import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
@@ -9,7 +11,7 @@ import '../../injection.dart';
 
 GoRouter myRouter() {
   return GoRouter(
-    initialLocation: '/profil_page',
+    initialLocation: '/selected_page',
     routes: [
       ShellRoute(
         builder: (context, state, child) {
@@ -43,6 +45,20 @@ GoRouter myRouter() {
         name: 'idCard',
         builder: (context, state) {
           return IdCard();
+        },
+      ),
+      GoRoute(
+        path: '/home_page',
+        name: 'homePage',
+        builder: (context, state) {
+          return const HomePage();
+        },
+      ),
+      GoRoute(
+        path: '/selected_page',
+        name: 'selectedPage',
+        builder: (context, state) {
+          return const SelectedPage();
         },
       ),
     ],

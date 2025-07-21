@@ -46,7 +46,7 @@ class AppTheme {
       titleTextStyle: GoogleFonts.inter(
         color: textDarkColor,
         fontSize: 24,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.normal,
       ),
     ),
     textTheme: TextTheme(
@@ -186,6 +186,15 @@ class AppTheme {
       backgroundColor: primaryColorA0,
       elevation: 4,
       shadowColor: textLightColor.withAlpha(150),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: primaryColorA0,
+      selectedItemColor: textDarkColor,
+      unselectedItemColor: Colors.black38,
+      selectedLabelStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold),
+      unselectedLabelStyle: GoogleFonts.inter(fontSize: 12),
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
     ),
   );
 
