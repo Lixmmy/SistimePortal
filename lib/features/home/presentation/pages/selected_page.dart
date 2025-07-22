@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/widgets/bnb.dart';
+import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/profil_page.dart';
 
 class SelectedPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class _SelectedPageState extends State<SelectedPage> {
 
   final List<Widget> _pages = [
     const HomePage(), 
+    const NilaiPage(),
     const ProfilPage(),
   ];
   void _onItemTapped(int index) {

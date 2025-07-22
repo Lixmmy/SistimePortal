@@ -2,7 +2,11 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
+import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
+import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
+import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
+import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
 import '../../features/profil/presentation/pages/info_profile.dart';
@@ -61,6 +65,27 @@ GoRouter myRouter() {
           return const SelectedPage();
         },
       ),
+      GoRoute(
+        path: 'krs_page',
+        name: 'krsPage',
+        builder: (context, state) => KrsPage(),
+      ),
+      GoRoute(
+        path: 'nilai_page',
+        name: 'nilaiPage',
+        builder: (context, state) => const NilaiPage(),
+      ),
+      GoRoute(
+        path: 'khs_page',
+        name: 'khsPage',
+        builder: (context, state) => const KhsPage(),
+      ),
+      GoRoute(
+        path: 'pam_page',
+        name: 'pamPage',
+        builder: (context, state) => const PamPage(),
+      ),
+      
     ],
   );
 }

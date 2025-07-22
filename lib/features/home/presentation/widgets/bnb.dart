@@ -19,10 +19,10 @@ class Bnb extends StatelessWidget {
         icon: Icon(Icons.home),
         label: 'Home',
       ),
-      // BottomNavigationBarItem(
-      //   icon: Icon(Icons.grade),
-      //   label: 'Nilai',
-      // ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.grade),
+        label: 'Nilai',
+      ),
       // BottomNavigationBarItem(
       //   icon: Icon(Icons.upload),
       //   label: 'Upload',

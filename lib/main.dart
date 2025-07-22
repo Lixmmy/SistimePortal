@@ -6,7 +6,7 @@ import 'core/router/router.dart';
 import 'core/theme/theme.dart';
 import 'injection.dart';
 
-void main() async{
+void main() async {
   await init();
   runApp(const MyApp());
 }
@@ -17,12 +17,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-   return BlocProvider(
-      create: (context) => myInjection<LanguageBloc>()
-        ..add(const GetLanguageEvent()), 
+    return BlocProvider(
+      create: (context) =>
+          myInjection<LanguageBloc>()..add(const GetLanguageEvent()),
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
-         
           final currentLocale = state.locale;
 
           return MaterialApp.router(
@@ -33,8 +32,8 @@ class MyApp extends StatelessWidget {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             themeMode: ThemeMode.system,
             theme: AppTheme.lightTheme,
+
             // darkTheme: AppTheme.darkTheme,
-            
           );
         },
       ),

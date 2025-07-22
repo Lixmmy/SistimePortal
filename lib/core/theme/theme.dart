@@ -49,6 +49,18 @@ class AppTheme {
         fontWeight: FontWeight.normal,
       ),
     ),
+    tabBarTheme: TabBarThemeData(
+      
+      labelColor: Colors.black,
+      unselectedLabelColor: Colors.black38,
+      indicator: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: primaryColorA0, width: 2.0),
+        ),
+      ),
+      labelStyle: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold),
+      unselectedLabelStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.normal),
+    ),
     textTheme: TextTheme(
       displayLarge: GoogleFonts.inter(
         fontSize: 57,
