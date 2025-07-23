@@ -48,18 +48,20 @@ class AppTheme {
         fontSize: 24,
         fontWeight: FontWeight.normal,
       ),
-      toolbarHeight: 150
+      toolbarHeight: 150,
     ),
     tabBarTheme: TabBarThemeData(
       labelColor: Colors.black,
       unselectedLabelColor: Colors.black38,
-      indicator: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: primaryColorA0, width: 2.0),
-        ),
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(color: Colors.green, width: 2.0),
+        insets: const EdgeInsets.symmetric(horizontal: 40, vertical: 4.0),
       ),
       labelStyle: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold),
-      unselectedLabelStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.normal),
+      unselectedLabelStyle: GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.normal,
+      ),
     ),
     textTheme: TextTheme(
       displayLarge: GoogleFonts.inter(
@@ -145,7 +147,10 @@ class AppTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: primayColorA30,
-        textStyle: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.normal),
+        textStyle: GoogleFonts.inter(
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
@@ -203,10 +208,23 @@ class AppTheme {
       backgroundColor: primaryColorA0,
       selectedItemColor: textDarkColor,
       unselectedItemColor: Colors.black38,
-      selectedLabelStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold),
+      selectedLabelStyle: GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+      ),
       unselectedLabelStyle: GoogleFonts.inter(fontSize: 12),
       showSelectedLabels: true,
       showUnselectedLabels: true,
+    ),
+    dataTableTheme: DataTableThemeData(
+      dataRowColor: WidgetStateProperty.all(surfaceLightColorA10),
+      headingRowColor: WidgetStateProperty.all(primaryColorA0),
+      headingTextStyle: GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: textDarkColor,
+      ),
+      dataTextStyle: GoogleFonts.inter(fontSize: 14, color: textLightColor),
     ),
   );
 
@@ -286,7 +304,10 @@ class AppTheme {
         color: textDarkColor,
       ),
       bodyLarge: GoogleFonts.inter(fontSize: 18, color: textLightColor),
-      bodyMedium: GoogleFonts.inter(fontSize: 16, color: const Color.fromRGBO(0, 0, 0, 0.867)),
+      bodyMedium: GoogleFonts.inter(
+        fontSize: 16,
+        color: const Color.fromRGBO(0, 0, 0, 0.867),
+      ),
       bodySmall: GoogleFonts.inter(fontSize: 12, color: textLightColor),
       labelLarge: GoogleFonts.inter(
         fontSize: 18,
@@ -323,7 +344,10 @@ class AppTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: surfaceDarkColorA40,
-        textStyle: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.normal),
+        textStyle: GoogleFonts.inter(
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
