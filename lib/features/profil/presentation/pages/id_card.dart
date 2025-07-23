@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
+import 'package:newsistime/custom_widgets/appbarcustom.dart';
 import 'package:newsistime/features/language/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
@@ -17,13 +18,14 @@ class IdCard extends StatelessWidget {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(appLocalizations.identityCard),
+      appBar: AppBarCustom(
+        title: appLocalizations.identityCard,
+        isShowBackButton: true,
         leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             context.pop();
           },
-          icon: Icon(Icons.arrow_back),
         ),
       ),
       body: BlocConsumer<ProfilBloc, ProfilState>(

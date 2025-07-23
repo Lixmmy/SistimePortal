@@ -36,9 +36,7 @@ class Bnb extends StatelessWidget {
     return BottomNavigationBar(
       items: navItems,
       currentIndex: selectedIndex,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey,
-      onTap: onItemTapped, // Callback yang diteruskan ke parent
+      onTap: onItemTapped, 
       type: BottomNavigationBarType.fixed,
     );
   }

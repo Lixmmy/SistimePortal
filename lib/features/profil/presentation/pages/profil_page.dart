@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/custom_widgets/appbarcustom.dart';
 import 'package:newsistime/features/language/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/presentation/widgets/custom_menu_profil.dart';
 import '../../../../core/loading/loading_manage.dart';
@@ -31,7 +32,7 @@ class _ProfilPageState extends State<ProfilPage> {
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(appLocalizations.profile)),
+      appBar: AppBarCustom(title: appLocalizations.profile),
 
       body: BlocConsumer<ProfilBloc, ProfilState>(
         bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
@@ -77,11 +78,11 @@ class _ProfilPageState extends State<ProfilPage> {
                               text: profil.namaMahasiswa,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.titleMedium
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                             TextCustomize(
                               text: profil.user['username'],
-                              style: Theme.of(context).textTheme.bodyMedium
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
                         ),

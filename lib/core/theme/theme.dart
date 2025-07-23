@@ -48,9 +48,9 @@ class AppTheme {
         fontSize: 24,
         fontWeight: FontWeight.normal,
       ),
+      toolbarHeight: 150
     ),
     tabBarTheme: TabBarThemeData(
-      
       labelColor: Colors.black,
       unselectedLabelColor: Colors.black38,
       indicator: BoxDecoration(

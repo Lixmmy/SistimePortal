@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsistime/custom_widgets/appbarcustom.dart';
 import 'package:newsistime/features/language/l10n/app_localizations.dart';
 import '../../../../core/loading/loading_manage.dart';
 import '../widgets/list_profil.dart';
@@ -27,13 +28,14 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(appLocalizations.infoProfil),
+      appBar: AppBarCustom(
+        title: appLocalizations.infoProfil,
+        isShowBackButton: true,
         leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             context.pop();
           },
-          icon: Icon(Icons.arrow_back),
         ),
       ),
       body: BlocConsumer<ProfilBloc, ProfilState>(
