@@ -224,8 +224,29 @@ class AppTheme {
         fontWeight: FontWeight.bold,
         color: textDarkColor,
       ),
+      dataRowMinHeight: 40,
+      dataRowMaxHeight: 50,
+      columnSpacing: 10,
       dataTextStyle: GoogleFonts.inter(fontSize: 14, color: textLightColor),
     ),
+    dialogTheme: DialogThemeData(
+      backgroundColor: surfaceLightColorA0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      titleTextStyle: GoogleFonts.inter(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: textLightColor,
+      ),
+      contentTextStyle: GoogleFonts.inter(
+        fontSize: 16,
+        color: textLightColor,
+      ),
+      actionsPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      elevation: 3,
+      shadowColor: textLightColor.withAlpha(150),
+    )
   );
 
   static final ThemeData darkTheme = ThemeData(

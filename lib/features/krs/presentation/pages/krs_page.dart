@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsistime/custom_widgets/form_alert.dart';
 
 class KrsPage extends StatelessWidget {
   const KrsPage({super.key});
@@ -8,9 +9,6 @@ class KrsPage extends StatelessWidget {
     return Scaffold(
       body: FittedBox(
         child: DataTable(
-          columnSpacing: 10,
-          dataRowMinHeight: 40,
-          dataRowMaxHeight: 50,
           columns: [
             DataColumn(label: Text('Tahun Ajaran')),
             DataColumn(label: Text('Semester')),
@@ -23,7 +21,11 @@ class KrsPage extends StatelessWidget {
                 DataCell(Text('2023/2024')),
                 DataCell(Text('Ganjil')),
                 DataCell(Text('Aktif')),
-                DataCell(IconButton(icon: Icon(Icons.edit), onPressed: () {})),
+                DataCell(IconButton(icon: Icon(Icons.edit), onPressed: () {
+                  showDialog(context: context, builder: (BuildContext context){
+                    return FormAlert();
+                  });
+                })),
               ],
             ),
              DataRow(

@@ -8,22 +8,24 @@ class KhsPage extends StatelessWidget {
     return Scaffold(
       body: FittedBox(
         child: DataTable(
-          columnSpacing: 5,
-          dataTextStyle: Theme.of(context).dataTableTheme.dataTextStyle?.copyWith(
-            fontSize: 20
-          ),
-          headingTextStyle: Theme.of(context).dataTableTheme.headingTextStyle?.copyWith(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          dataRowMinHeight: 40,
+          columnSpacing: Theme.of(
+            context,
+          ).dataTableTheme.copyWith(columnSpacing: 10).columnSpacing,
+          dataTextStyle: Theme.of(
+            context,
+          ).dataTableTheme.dataTextStyle?.copyWith(fontSize: 20),
+          headingTextStyle: Theme.of(context).dataTableTheme.headingTextStyle
+              ?.copyWith(fontSize: 20, fontWeight: FontWeight.bold),
           dataRowMaxHeight: 60,
           columns: [
             DataColumn(label: Text('No')),
             DataColumn(label: Text('Tahun Ajaran')),
             DataColumn(label: Text('Semester')),
-            DataColumn(label: Text('IPK Semester'),),
-            DataColumn(label: Text('Aksi', ),headingRowAlignment: MainAxisAlignment.end),
+            DataColumn(label: Text('IPK Semester')),
+            DataColumn(
+              label: Text('Aksi'),
+              headingRowAlignment: MainAxisAlignment.end,
+            ),
           ],
           rows: [
             DataRow(
@@ -31,7 +33,7 @@ class KhsPage extends StatelessWidget {
                 DataCell(Text('1')),
                 DataCell(Text('2023/2024')),
                 DataCell(Text('6')),
-                DataCell(Text('4.00'),),
+                DataCell(Text('4.00')),
                 DataCell(
                   Row(
                     children: [
