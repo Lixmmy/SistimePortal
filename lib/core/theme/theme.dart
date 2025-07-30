@@ -204,17 +204,38 @@ class AppTheme {
       elevation: 4,
       shadowColor: textLightColor.withAlpha(150),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    navigationBarTheme: NavigationBarThemeData(
       backgroundColor: primaryColorA0,
-      selectedItemColor: textDarkColor,
-      unselectedItemColor: Colors.black38,
-      selectedLabelStyle: GoogleFonts.inter(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-      ),
-      unselectedLabelStyle: GoogleFonts.inter(fontSize: 12),
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
+      indicatorColor: Colors.white70,
+      height: 65,
+      labelTextStyle: WidgetStateTextStyle.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return GoogleFonts.inter(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: Colors.white,
+          );
+        }
+        return GoogleFonts.inter(
+          fontWeight: FontWeight.normal,
+          fontSize: 12,
+          color: Colors.black54,
+        );
+      }),
+      iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return IconThemeData(color: primaryColorA0, size: 26);
+        }
+        return IconThemeData(color: primayColorA50);
+      }),
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+      overlayColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.pressed) ||
+            states.contains(WidgetState.selected)) {
+          return Colors.white;
+        }
+        return Colors.amber;
+      }),
     ),
     dataTableTheme: DataTableThemeData(
       dataRowColor: WidgetStateProperty.all(surfaceLightColorA10),
@@ -231,22 +252,20 @@ class AppTheme {
     ),
     dialogTheme: DialogThemeData(
       backgroundColor: surfaceLightColorA0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       titleTextStyle: GoogleFonts.inter(
         fontSize: 20,
         fontWeight: FontWeight.bold,
         color: textLightColor,
       ),
-      contentTextStyle: GoogleFonts.inter(
-        fontSize: 16,
-        color: textLightColor,
+      contentTextStyle: GoogleFonts.inter(fontSize: 16, color: textLightColor),
+      actionsPadding: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+        vertical: 8.0,
       ),
-      actionsPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       elevation: 3,
       shadowColor: textLightColor.withAlpha(150),
-    )
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(

@@ -14,30 +14,20 @@ class Bnb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // List untuk konfigurasi BottomNavigationBarItem
-    final List<BottomNavigationBarItem> navItems = const [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.grade),
-        label: 'Nilai',
-      ),
-      // BottomNavigationBarItem(
-      //   icon: Icon(Icons.upload),
-      //   label: 'Upload',
-      // ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        label: 'Profil',
-      ),
+    List<Widget> destinations = [
+      NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+      NavigationDestination(icon: Icon(Icons.garage), label: 'Nilai'),
+      NavigationDestination(icon: Icon(Icons.people), label: 'Profil'),
     ];
 
-    return BottomNavigationBar(
-      items: navItems,
-      currentIndex: selectedIndex,
-      onTap: onItemTapped, 
-      type: BottomNavigationBarType.fixed,
+    return ClipRRect(
+      borderRadius: BorderRadiusGeometry.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
+      child: NavigationBar(
+        destinations: destinations,
+        selectedIndex: selectedIndex,
+        onDestinationSelected: onItemTapped,
+        animationDuration: Duration(milliseconds: 1000),
+      ),
     );
   }
 }
