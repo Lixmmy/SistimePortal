@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/custom_widgets/appbarcustom.dart';
-import 'package:newsistime/features/language/l10n/app_localizations.dart';
+import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/presentation/widgets/custom_menu_profil.dart';
 import '../../../../core/loading/loading_manage.dart';
 import '../../../../custom_widgets/text_customize.dart';
@@ -35,7 +35,7 @@ class _ProfilPageState extends State<ProfilPage> {
       appBar: AppBarCustom(title: appLocalizations.profile),
 
       body: BlocConsumer<ProfilBloc, ProfilState>(
-        bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
+        bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244089')),
         listener: (context, state) {
           if (state is ProfilError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -81,7 +81,7 @@ class _ProfilPageState extends State<ProfilPage> {
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             TextCustomize(
-                              text: profil.user['username'],
+                              text: profil.user.username,
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],

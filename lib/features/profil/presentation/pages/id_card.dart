@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/custom_widgets/appbarcustom.dart';
-import 'package:newsistime/features/language/l10n/app_localizations.dart';
+import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
@@ -102,7 +102,7 @@ class IdCard extends StatelessWidget {
                             children: [
                               BuildInfoRow(
                                 label: appLocalizations.studentIdCard,
-                                value: profil.user['username'],
+                                value: profil.user.username!,
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.name,
@@ -115,7 +115,7 @@ class IdCard extends StatelessWidget {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.studyPrograms,
-                                value: profil.programStudi['namaProgramstudi'],
+                                value: profil.programStudi.namaProgramStudi!,
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.validUntil,

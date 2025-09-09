@@ -2,10 +2,10 @@
 
 import 'package:dartz/dartz.dart'; // Untuk Either
 import 'package:flutter/material.dart'; // Untuk Locale
-import 'package:newsistime/core/error/failure.dart';
+import 'package:newsistime/core/error/message_exc.dart';
 
 
 abstract class AppLanguageRepository {
-  Future<Either<Failure, Locale>> getCurrentLocale();
-  Future<Either<Failure, void>> saveLocale(Locale locale);
+  Future<Either<MessageExc, Locale>> getCurrentLocale();
+  Future<Either<MessageExc, void>> saveLocale(Locale locale);
 }

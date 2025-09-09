@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/features/language/l10n/app_localizations.dart'; // Untuk lokalisasi string
+import 'package:newsistime/custom_widgets/appbarcustom.dart';
+import 'package:newsistime/l10n/app_localizations.dart'; // Untuk lokalisasi string
 import 'package:newsistime/features/language/domain/entities/app_language.dart'; // Penting: Import AppLanguage entity
 import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
-
 
 class SelectionLanguagePage extends StatefulWidget {
   const SelectionLanguagePage({super.key});
@@ -25,7 +25,7 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
     final appLocalizations = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(appLocalizations.selectLanguage)),
+      appBar: AppBarCustom(title: appLocalizations.selectLanguage),
       body: BlocConsumer<LanguageBloc, LanguageState>(
         listener: (context, state) {
           if (state is LanguageError) {
@@ -36,31 +36,15 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
               ),
             );
           } else if (state is LanguageChangedSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  appLocalizations.languageChangedConfirmation(
-                    state.locale.languageCode == 'en'
-                        ? 'English'
-                        : 'Bahasa Indonesia',
-                  ),
-                ),
-                duration: const Duration(seconds: 2),
-              ),
-            );
-            Navigator.of(
-              context,
-            ).pop(); 
+            Navigator.of(context).pop();
           }
         },
         builder: (context, state) {
-          if (state is LanguageLoading) {
-            return const CircularProgressIndicator();
-          } else if (state is LanguageLoaded ||
+          if (state is LanguageLoaded ||
               state is LanguageError ||
               state is LanguageInitial) {
             final currentLocale =
-                state.locale; // Locale akan tersedia di semua state ini
+                state.locale;
 
             return ListView.separated(
               itemCount: AppLanguage.values.length,
@@ -87,9 +71,7 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
               },
             );
           }
-          return const Center(
-            child: Text('Unexpected state'),
-          ); 
+          return const Center(child: Text('Unexpected state'));
         },
       ),
     );

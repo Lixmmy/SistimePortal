@@ -39,7 +39,7 @@ class AppTheme {
       onSurface: textLightColor,
     ),
     appBarTheme: AppBarTheme(
-      color: primaryColorA0,
+      backgroundColor: primaryColorA0,
       foregroundColor: textDarkColor, // Warna teks dan ikon di AppBar
       elevation: 0, // Tanpa bayangan
       centerTitle: true,

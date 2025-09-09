@@ -13,7 +13,7 @@ class BuildInfoRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            flex: 4, // Adjust flex to control width of label
+            flex: 4, 
             child: Text(
               label,
               style: Theme.of(
@@ -29,7 +29,7 @@ class BuildInfoRow extends StatelessWidget {
           ),
           SizedBox(width: 5),
           Expanded(
-            flex: 6, // Adjust flex to control width of value
+            flex: 6,
             child: Text(
               value,
               style: Theme.of(

@@ -28,7 +28,10 @@ class _SelectedPageState extends State<SelectedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      body: _pages[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: Bnb(selectedIndex: _selectedIndex, onItemTapped: _onItemTapped),
     );
   }

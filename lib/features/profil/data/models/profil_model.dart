@@ -1,51 +1,86 @@
-import '../../domain/entities/profil.dart';
+import 'package:newsistime/features/profil/data/models/biodata_kampus_model.dart';
+import 'package:newsistime/features/profil/domain/entities/profil.dart';
 
-class ProfilModel extends Profil {
-  const ProfilModel(
-    {
-    required super.user,
-    required super.agama,
-    required super.idPendaftaran,
-    required super.kampus,
-    required super.programStudi,
-    required super.sekolah,
-    required super.status,
-    required super.waktuKuliah,
-    required super.email,
-    required super.namaMahasiswa,
-    super.tempatLahir,
-    super.tanggalLahir,
-    super.alamatMahasiswa,
-    super.jenisKelamin,
-    super.alamatOrangtua,
-    super.anakKe,
-    super.golonganDarah,
-    super.hobi,
-    super.jumlahSaudara,
-    super.jurusanSekolah,
-    super.kewarganegaraan,
-    super.keterangan,
-    super.namaAyah,
-    super.namaIbu,
-    super.noIjazah,
-    super.noTeleponMahasiswa,
-    super.noTeleponOrangtua,
-    super.tahunAngkatan,
-    super.pekerjaanOrangtua,
-    super.pendidikanOrangtua,
-    super.tahunLulus, 
+class ProfilModel {
+  final int idPendaftaran;
+  final UserModel user;
+  final AgamaModel agama;
+  final KampusModel kampus;
+  final ProgramStudiModel programStudi;
+  final SekolahModel sekolah;
+  final StatusModel status;
+  final WaktuKuliahModel waktuKuliah;
+  final String email;
+  final String namaMahasiswa;
+  final String? tempatLahir;
+  final int? tanggalLahir;
+  final String? alamatMahasiswa;
+  final String? jenisKelamin;
+  final String? alamatOrangtua;
+  final int? anakKe;
+  final String? golonganDarah;
+  final String? hobi;
+  final int? jumlahSaudara;
+  final String? jurusanSekolah;
+  final String? kewarganegaraan;
+  final String? keterangan;
+  final String? namaAyah;
+  final String? namaIbu;
+  final int? tanggalIjazah;
+  final int? tanggalPendaftaran;
+  final String? noIjazah;
+  final String? noTeleponMahasiswa;
+  final String? noTeleponOrangtua;
+  final int? tahunAngkatan;
+  final String? pekerjaanOrangtua;
+  final String? pendidikanOrangtua;
+  final int? tahunLulus;
+  const ProfilModel({
+    required this.idPendaftaran,
+    required this.user,
+    required this.agama,
+    required this.kampus,
+    required this.programStudi,
+    required this.sekolah,
+    required this.status,
+    required this.waktuKuliah,
+    required this.email,
+    required this.namaMahasiswa,
+    this.tempatLahir,
+    this.tanggalLahir,
+    this.tanggalPendaftaran,
+    this.tanggalIjazah,
+    this.alamatMahasiswa,
+    this.jenisKelamin,
+    this.alamatOrangtua,
+    this.anakKe,
+    this.golonganDarah,
+    this.hobi,
+    this.jumlahSaudara,
+    this.jurusanSekolah,
+    this.kewarganegaraan,
+    this.keterangan,
+    this.namaAyah,
+    this.namaIbu,
+    this.noIjazah,
+    this.noTeleponMahasiswa,
+    this.noTeleponOrangtua,
+    this.tahunAngkatan,
+    this.pekerjaanOrangtua,
+    this.pendidikanOrangtua,
+    this.tahunLulus,
   });
 
   factory ProfilModel.fromjson(Map<String, dynamic> datajson) {
     return ProfilModel(
-      user: datajson['user'],
-      agama: datajson['agama'],
+      user: UserModel.fromJson(datajson['user']),
+      agama: AgamaModel.fromJson(datajson['agama']),
       idPendaftaran: datajson['idPendaftaran'],
-      kampus: datajson['kampus'],
-      programStudi: datajson['programStudi'],
-      sekolah: datajson['sekolah'],
-      status: datajson['status'],
-      waktuKuliah: datajson['waktuKuliah'],
+      kampus: KampusModel.fromJson(datajson['kampus']),
+      programStudi: ProgramStudiModel.fromJson(datajson['programStudi']),
+      sekolah: SekolahModel.fromJson(datajson['sekolah']),
+      status: StatusModel.fromJson(datajson['status']),
+      waktuKuliah: WaktuKuliahModel.fromJson(datajson['waktuKuliah']),
       email: datajson['email'],
       namaMahasiswa: datajson['namaMahasiswa'],
       tempatLahir: datajson['tempatLahir'],
@@ -69,21 +104,23 @@ class ProfilModel extends Profil {
       pekerjaanOrangtua: datajson['pekerjaanOrangtua'],
       pendidikanOrangtua: datajson['pendidikanOrangtua'],
       tahunLulus: datajson['tahunLulus'],
+      tanggalIjazah: datajson['tanggalIjazah'],
+      tanggalPendaftaran: datajson['tanggalPendaftaran'],
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
-      'user': user,
-      'agama': agama,
+      'user': user.toJson(),
+      'agama': agama.toJson(),
       'idPendaftaran': idPendaftaran,
-      'kampus': kampus,
-      'programStudi': programStudi,
-      'sekolah': sekolah,
-      'status': status,
-      'waktuKuliah': waktuKuliah,
+      'kampus': kampus.toJson(),
+      'programStudi': programStudi.toJson(),
+      'sekolah': sekolah.toJson(),
+      'status': status.toJson(),
+      'waktuKuliah': waktuKuliah.toJson(),
       'email': email,
-      'nama': namaMahasiswa,
+      'namaMahasiswa': namaMahasiswa,
       'tempatLahir': tempatLahir,
       'tanggalLahir': tanggalLahir,
       'alamatMahasiswa': alamatMahasiswa,
@@ -105,6 +142,46 @@ class ProfilModel extends Profil {
       'pekerjaanOrangtua': pekerjaanOrangtua,
       'pendidikanOrangtua': pendidikanOrangtua,
       'tahunLulus': tahunLulus,
+      'tanggalIjazah': tanggalIjazah,
+      'tanggalPendaftaran': tanggalPendaftaran,
     };
+  }
+
+  Profil toEntity() {
+    return Profil(
+      idPendaftaran: idPendaftaran,
+      user: user.toEntity(),
+      agama: agama.toEntity(),
+      kampus: kampus.toEntity(),
+      programStudi: programStudi.toEntity(),
+      sekolah: sekolah.toEntity(),
+      status: status.toEntity(),
+      waktuKuliah: waktuKuliah.toEntity(),
+      email: email,
+      namaMahasiswa: namaMahasiswa,
+      tempatLahir: tempatLahir,
+      tanggalLahir: tanggalLahir,
+      alamatMahasiswa: alamatMahasiswa,
+      jenisKelamin: jenisKelamin,
+      alamatOrangtua: alamatOrangtua,
+      anakKe: anakKe,
+      golonganDarah: golonganDarah,
+      hobi: hobi,
+      jumlahSaudara: jumlahSaudara,
+      jurusanSekolah: jurusanSekolah,
+      kewarganegaraan: kewarganegaraan,
+      keterangan: keterangan,
+      namaAyah: namaAyah,
+      namaIbu: namaIbu,
+      tanggalIjazah: tanggalIjazah,
+      tanggalPendaftaran: tanggalPendaftaran,
+      noIjazah: noIjazah,
+      noTeleponMahasiswa: noTeleponMahasiswa,
+      noTeleponOrangtua: noTeleponOrangtua,
+      tahunAngkatan: tahunAngkatan,
+      pekerjaanOrangtua: pekerjaanOrangtua,
+      pendidikanOrangtua: pendidikanOrangtua,
+      tahunLulus: tahunLulus,
+    );
   }
 }

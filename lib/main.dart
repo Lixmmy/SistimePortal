@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/features/language/l10n/app_localizations.dart';
+import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
 import 'core/router/router.dart';
 import 'core/theme/theme.dart';

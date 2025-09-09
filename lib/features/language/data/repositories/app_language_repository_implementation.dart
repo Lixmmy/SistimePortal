@@ -1,16 +1,16 @@
 import 'dart:ui';
 
 import 'package:dartz/dartz.dart';
+import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/language/data/datasources/language_local_data_source.dart';
 import 'package:newsistime/features/language/domain/repositories/app_language_repository.dart';
-import '../../../../core/error/failure.dart';
 
 class AppLanguageRepositoryImplementation extends AppLanguageRepository {
   final LanguageLocalDataSource languageLocalDataSource;
   AppLanguageRepositoryImplementation({required this.languageLocalDataSource});
 
   @override
-  Future<Either<Failure, Locale>> getCurrentLocale() async {
+  Future<Either<MessageExc, Locale>> getCurrentLocale() async {
     try {
       final languageCodeString = await languageLocalDataSource
           .getSavedLanguage();
@@ -21,18 +21,18 @@ class AppLanguageRepositoryImplementation extends AppLanguageRepository {
         return const Right(Locale('id'));
       }
     } catch (e) {
-      return Left(Failure());
+      return Left(MessageExc.unknown(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, void>> saveLocale(Locale locale) async {
+  Future<Either<MessageExc, void>> saveLocale(Locale locale) async {
     try {
       await languageLocalDataSource.saveLanguage(locale.languageCode);
       // ignore: void_checks
       return const Right(unit);
     } catch (e) {
-      return Left(Failure());
+      return Left(MessageExc.unknown(e.toString()));
     }
   }
 }

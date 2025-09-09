@@ -1,14 +1,20 @@
 import 'package:equatable/equatable.dart';
+import 'package:newsistime/features/profil/domain/entities/biodata_kampus.dart';
+
+//buat class programstudi
+//buat class agama
+//buat class kampus
+
 
 class Profil extends Equatable {
   final int idPendaftaran;
-  final Map<String, dynamic>user;
-  final Map<String, dynamic> agama;
-  final Map<String, dynamic> kampus;
-  final Map<String, dynamic> programStudi;
-  final Map<String, dynamic> sekolah;
-  final Map<String, dynamic> status;
-  final Map<String, dynamic> waktuKuliah;
+  final User user;
+  final Agama agama;
+  final Kampus kampus;
+  final ProgramStudi programStudi;
+  final Sekolah sekolah;
+  final Status status;
+  final WaktuKuliah waktuKuliah;
   final String email;
   final String namaMahasiswa;
   final String? tempatLahir;
@@ -25,15 +31,16 @@ class Profil extends Equatable {
   final String? keterangan;
   final String? namaAyah;
   final String? namaIbu;
-  final int? noIjazah;
+  final String? noIjazah;
   final String? noTeleponMahasiswa;
   final String? noTeleponOrangtua;
   final int? tahunAngkatan;
   final String? pekerjaanOrangtua;
   final String? pendidikanOrangtua;
+  final int? tanggalIjazah;
+  final int? tanggalPendaftaran;
   final int? tahunLulus;
-  const Profil(
-    {
+  const Profil({
     required this.user,
     required this.agama,
     required this.idPendaftaran,
@@ -46,6 +53,7 @@ class Profil extends Equatable {
     required this.namaMahasiswa,
     this.tempatLahir,
     this.tanggalLahir,
+    this.tanggalPendaftaran,
     this.alamatMahasiswa,
     this.jenisKelamin,
     this.alamatOrangtua,
@@ -64,7 +72,8 @@ class Profil extends Equatable {
     this.tahunAngkatan,
     this.pekerjaanOrangtua,
     this.pendidikanOrangtua,
-    this.tahunLulus, 
+    this.tanggalIjazah,
+    this.tahunLulus,
   });
 
   @override

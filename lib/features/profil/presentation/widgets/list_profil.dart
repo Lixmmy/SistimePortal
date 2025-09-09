@@ -31,10 +31,13 @@ class ListProfil extends StatelessWidget {
               text: title,
               style: Theme.of(context).textTheme.titleSmall
             ),
+            const SizedBox(width: 5),
             Flexible(
               child: TextCustomize(
                 text: subtitle,
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Colors.grey
+                ),
                 textAlign: TextAlign.right,
               ),
             )

@@ -35,10 +35,8 @@ class ProfilLocalDataSourceImplementation extends ProfilLocalDataSource {
         return null;
       }
       final profilJson = jsonDecode(jsonString) as Map<String, dynamic>;
-      return ProfilModel.fromjson(
-        profilJson,
-      ); // Perhatikan penggunaan `fromjson`
-    } catch (e) {
+      return ProfilModel.fromjson(profilJson);
+        } catch (e) {
       debugPrint('SecureStorage: Failed to read profil data: $e');
       return null;
     }

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/core/error/failure.dart';
+import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/language/domain/entities/app_language.dart';
 import 'package:newsistime/features/language/domain/usecases/get_current_local.dart';
 import 'package:newsistime/features/language/domain/usecases/save_locale.dart';
@@ -12,7 +12,7 @@ part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   final GetCurrentLocal getCurrentLanguage;
-  final SaveLocale setLanguage; // Use case untuk menyimpan bahasa
+  final SaveLocale setLanguage; 
 
   LanguageBloc({required this.getCurrentLanguage, required this.setLanguage})
     : super(const LanguageInitial(locale: Locale('id'))) {
@@ -25,7 +25,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     Emitter<LanguageState> emit,
   ) async {
     emit(LanguageLoading(locale: state.locale));
-    Either<Failure, Locale> hasilGetCurrentLanguage = await getCurrentLanguage
+    Either<MessageExc, Locale> hasilGetCurrentLanguage = await getCurrentLanguage
         .execute();
     hasilGetCurrentLanguage.fold(
       (failure) => emit(
@@ -42,7 +42,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     Emitter<LanguageState> emit,
   ) async {
     emit(LanguageLoading(locale: state.locale));
-    Either<Failure, Locale> result = await setLanguage.execute(
+    Either<MessageExc, Locale> result = await setLanguage.execute(
       event.appLanguage.locale,
     );
     result.fold(

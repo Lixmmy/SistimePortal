@@ -37,6 +37,9 @@ class CustomMenuProfil extends StatelessWidget {
             Text(
               label,
               style: Theme.of(context).textTheme.labelSmall,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
           ],
         ),
