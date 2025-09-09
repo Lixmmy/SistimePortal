@@ -179,7 +179,7 @@ class AppTheme {
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
-        borderSide: const BorderSide(color: Colors.transparent),
+        borderSide: const BorderSide(color: Colors.black),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
@@ -190,7 +190,7 @@ class AppTheme {
         borderSide: const BorderSide(color: errorColor, width: 2.0),
       ),
       labelStyle: const TextStyle(color: textLightColor),
-      hintStyle: GoogleFonts.inter(color: textLightColor.withValues()),
+      hintStyle: GoogleFonts.inter(color: textLightColor.withValues(alpha: 0.4)),
     ),
 
     cardTheme: CardThemeData(

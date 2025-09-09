@@ -83,4 +83,13 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get validUntil => 'Berlaku Sampai';
+
+  @override
+  String get editPhoto => 'Edit Foto';
+
+  @override
+  String get placeOfBirth => 'Tempat Lahir';
+
+  @override
+  String get dateOfBirth => 'Tanggal Lahir';
 }

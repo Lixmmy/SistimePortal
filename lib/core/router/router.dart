@@ -7,6 +7,7 @@ import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
+import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
 import '../../features/profil/presentation/pages/info_profile.dart';
@@ -34,6 +35,11 @@ GoRouter myRouter() {
             path: '/info_profil_page',
             name: 'infoProfilPage',
             builder: (context, state) => InfoProfilePage(),
+          ),
+          GoRoute(
+            path: '/edit_profil_page',
+            name: 'editProfilPage',
+            builder: (context, state) => EditProfile(),
           ),
         ],
       ),

@@ -83,4 +83,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validUntil => 'Valid Until';
+
+  @override
+  String get editPhoto => 'Edit Photo';
+
+  @override
+  String get placeOfBirth => 'Place of Birth';
+
+  @override
+  String get dateOfBirth => 'Date of Birth';
 }

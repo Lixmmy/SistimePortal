@@ -23,5 +23,8 @@
   "placeAndDateOfBirth" : "Tempat/Tgl Lahir",
   "name" : "Nama",
   "studyPrograms" : "Program Studi",
-  "validUntil": "Berlaku Sampai"
+  "validUntil": "Berlaku Sampai",
+  "editPhoto" : "Edit Foto",
+  "placeOfBirth" : "Tempat Lahir",
+  "dateOfBirth" : "Tanggal Lahir"
 }

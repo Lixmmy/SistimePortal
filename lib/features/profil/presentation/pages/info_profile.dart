@@ -45,7 +45,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
           SliverToBoxAdapter(
             child: BlocConsumer<ProfilBloc, ProfilState>(
               bloc: myInjection<ProfilBloc>()
-                ..add(ProfilGetMahasiswa('2244089')),
+                ..add(ProfilGetMahasiswa('2244068')),
               listener: (context, state) {
                 if (state is ProfilLoading) {
                   LoadingManager().show(context);
@@ -119,7 +119,9 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       SizedBox(height: 20),
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.pushNamed('editProfilPage');
+                        },
                         style: Theme.of(context).outlinedButtonTheme.style,
                         child: TextCustomize(
                           text: appLocalizations.editProfile,

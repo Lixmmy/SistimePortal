@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'core/router/router.dart';
 import 'core/theme/theme.dart';
 import 'injection.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
   await init();
   runApp(const MyApp());
 }

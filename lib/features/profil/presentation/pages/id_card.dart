@@ -129,9 +129,9 @@ class IdCard extends StatelessWidget {
                           flex: 2,
                           child: CircleAvatar(
                             radius: 40,
-                            backgroundImage: AssetImage(
-                              'assets/felix_profile.jpg',
-                            ), // Add Felix's picture
+                            // backgroundImage: AssetImage(
+                            //   'assets/felix_profile.jpg',
+                            // ), // Add Felix's picture
                             backgroundColor: Colors.white,
                           ),
                         ),

@@ -23,7 +23,9 @@
   "placeAndDateOfBirth" : "Place and Date of Birth",
   "name" : "Name",
   "studyPrograms" : "Study Programs",
-  "validUntil": "Valid Until"
-  
+  "validUntil": "Valid Until",
+  "editPhoto" : "Edit Photo",
+  "placeOfBirth" : "Place of Birth",
+  "dateOfBirth" : "Date of Birth"
 
 }

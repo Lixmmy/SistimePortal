@@ -241,6 +241,24 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Berlaku Sampai'**
   String get validUntil;
+
+  /// No description provided for @editPhoto.
+  ///
+  /// In id, this message translates to:
+  /// **'Edit Foto'**
+  String get editPhoto;
+
+  /// No description provided for @placeOfBirth.
+  ///
+  /// In id, this message translates to:
+  /// **'Tempat Lahir'**
+  String get placeOfBirth;
+
+  /// No description provided for @dateOfBirth.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal Lahir'**
+  String get dateOfBirth;
 }
 
 class _AppLocalizationsDelegate
