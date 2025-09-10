@@ -17,6 +17,8 @@ class LanguageLoading extends LanguageState {
 }
 
 class LanguageLoaded extends LanguageState {
+  @override
+  // ignore: overridden_fields
   final Locale locale;
 
   const LanguageLoaded({required this.locale}) : super(locale);
@@ -27,6 +29,8 @@ class LanguageLoaded extends LanguageState {
 
 class LanguageError extends LanguageState {
   final String message;
+  @override
+  // ignore: overridden_fields
   final Locale locale; // Tambahkan locale untuk menjaga state sebelumnya
 
   const LanguageError({required this.message, required this.locale}) : super(locale);

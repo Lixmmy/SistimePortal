@@ -9,6 +9,8 @@ import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
+import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
+import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
 import '../../features/profil/presentation/pages/info_profile.dart';
 import '../../features/profil/presentation/pages/profil_page.dart';
@@ -91,7 +93,16 @@ GoRouter myRouter() {
         name: 'pamPage',
         builder: (context, state) => const PamPage(),
       ),
-      
+      GoRoute(
+        path: 'transkrip_page',
+        name: 'transkripPage',
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => TranskripBloc(getTranskrip: myInjection()),
+            child: TranskripPage(),
+          );
+        },
+      ),
     ],
   );
 }

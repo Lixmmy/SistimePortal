@@ -287,7 +287,7 @@ class AppTheme {
       onSurface: textLightColor,
     ),
     appBarTheme: const AppBarTheme(
-      color: surfaceDarkColorA10,
+      backgroundColor: surfaceDarkColorA10,
       foregroundColor: textDarkColor, // Warna teks dan ikon di AppBar
       elevation: 0, // Tanpa bayangan
       centerTitle: true,

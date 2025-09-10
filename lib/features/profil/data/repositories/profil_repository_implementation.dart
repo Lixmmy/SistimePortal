@@ -27,10 +27,9 @@ class ProfilRepositoryImplementation extends ProfilRepository {
           return Left(MessageExc.api('No local data found'));
         }
       } else {
-        final Profil hasil = await profilRemoteDataSourceImplementation.getMahasiswa(
-          nim,
-        );
-        // profilLocalDataSource.savedProfilData(hasil);
+        final Profil hasil = await profilRemoteDataSourceImplementation
+            .getMahasiswa(nim);
+        profilLocalDataSource.savedProfilData(hasil);
         return Right(hasil);
       }
     } catch (e) {

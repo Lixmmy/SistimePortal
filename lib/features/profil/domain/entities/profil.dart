@@ -5,7 +5,6 @@ import 'package:newsistime/features/profil/domain/entities/biodata_kampus.dart';
 //buat class agama
 //buat class kampus
 
-
 class Profil extends Equatable {
   final int idPendaftaran;
   final User user;
@@ -110,4 +109,78 @@ class Profil extends Equatable {
     pendidikanOrangtua,
     tahunLulus,
   ];
+  Map<String, dynamic> toJson() {
+    return {
+      'idPendaftaran': idPendaftaran,
+      'user': user.toJson(),
+      'agama': agama.toJson(),
+      'kampus': kampus.toJson(),
+      'programStudi': programStudi.toJson(),
+      'sekolah': sekolah.toJson(),
+      'status': status.toJson(),
+      'waktuKuliah': waktuKuliah.toJson(),
+      'email': email,
+      'namaMahasiswa': namaMahasiswa,
+      'tempatLahir': tempatLahir,
+      'tanggalLahir': tanggalLahir,
+      'alamatMahasiswa': alamatMahasiswa,
+      'jenisKelamin': jenisKelamin,
+      'alamatOrangtua': alamatOrangtua,
+      'anakKe': anakKe,
+      'golonganDarah': golonganDarah,
+      'hobi': hobi,
+      'jumlahSaudara': jumlahSaudara,
+      'jurusanSekolah': jurusanSekolah,
+      'kewarganegaraan': kewarganegaraan,
+      'keterangan': keterangan,
+      'namaAyah': namaAyah,
+      'namaIbu': namaIbu,
+      'noIjazah': noIjazah,
+      'noTeleponMahasiswa': noTeleponMahasiswa,
+      'noTeleponOrangtua': noTeleponOrangtua,
+      'tahunAngkatan': tahunAngkatan,
+      'pekerjaanOrangtua': pekerjaanOrangtua,
+      'pendidikanOrangtua': pendidikanOrangtua,
+      'tanggalIjazah': tanggalIjazah,
+      'tahunLulus': tahunLulus,
+    };
+  }
+
+  factory Profil.fromjson(Map<String, dynamic> json) {
+    return Profil(
+      idPendaftaran: json['idPendaftaran'],
+      user: User.fromJson(json['user']),
+      agama: Agama.fromJson(json['agama']),
+      kampus: Kampus.fromJson(json['kampus']),
+      programStudi: ProgramStudi.fromJson(json['programStudi']),
+      sekolah: Sekolah.fromJson(json['sekolah']),
+      status: Status.fromJson(json['status']),
+      waktuKuliah: WaktuKuliah.fromJson(json['waktuKuliah']),
+      email: json['email'],
+      namaMahasiswa: json['namaMahasiswa'],
+      tempatLahir: json['tempatLahir'],
+      tanggalLahir: json['tanggalLahir'],
+      alamatMahasiswa: json['alamatMahasiswa'],
+      jenisKelamin: json['jenisKelamin'],
+      alamatOrangtua: json['alamatOrangtua'],
+      anakKe: json['anakKe'],
+      golonganDarah: json['golonganDarah'],
+      hobi: json['hobi'],
+      jumlahSaudara: json['jumlahSaudara'],
+      jurusanSekolah: json['jurusanSekolah'],
+      kewarganegaraan: json['kewarganegaraan'],
+      keterangan: json['keterangan'],
+      namaAyah: json['namaAyah'],
+      namaIbu: json['namaIbu'],
+      noIjazah: json['noIjazah'],
+      noTeleponMahasiswa: json['noTeleponMahasiswa'],
+      noTeleponOrangtua: json['noTeleponOrangtua'],
+      tahunAngkatan: json['tahunAngkatan'],
+      pekerjaanOrangtua: json['pekerjaanOrangtua'],
+      pendidikanOrangtua: json['pendidikanOrangtua'],
+      tanggalIjazah: json['tanggalIjazah'],
+      tahunLulus: json['tahunLulus'],
+      tanggalPendaftaran: json['tanggalPendaftaran'],
+    );
+  }
 }

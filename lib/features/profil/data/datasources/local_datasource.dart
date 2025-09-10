@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:newsistime/features/profil/data/models/profil_model.dart';
+import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import '../../../../core/helper/secure_storage.dart';
-import '../models/profil_model.dart';
-
 
 abstract class ProfilLocalDataSource {
   Future<ProfilModel?> getSavedProfilData();
-  Future<void> savedProfilData(ProfilModel profil);
+  Future<void> savedProfilData(Profil profil);
 }
 
 class ProfilLocalDataSourceImplementation extends ProfilLocalDataSource {
@@ -15,7 +15,7 @@ class ProfilLocalDataSourceImplementation extends ProfilLocalDataSource {
   static const String _profilKey = 'profil_data';
   ProfilLocalDataSourceImplementation(this._secureStorage);
   @override
-  Future<void> savedProfilData(ProfilModel profil) async {
+  Future<void> savedProfilData(Profil profil) async {
     try {
       final profilJson = profil.toJson();
       final jsonString = jsonEncode(profilJson);
@@ -36,7 +36,7 @@ class ProfilLocalDataSourceImplementation extends ProfilLocalDataSource {
       }
       final profilJson = jsonDecode(jsonString) as Map<String, dynamic>;
       return ProfilModel.fromjson(profilJson);
-        } catch (e) {
+    } catch (e) {
       debugPrint('SecureStorage: Failed to read profil data: $e');
       return null;
     }
