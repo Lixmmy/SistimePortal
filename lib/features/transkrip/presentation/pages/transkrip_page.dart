@@ -57,8 +57,9 @@ class _TranskripPageState extends State<TranskripPage> {
                     nilai.quiz ?? 0,
                   ];
                   if (scores.isNotEmpty) {
-                    final double averageScore =
-                        scores.reduce((a, b) => a + b) / scores.length;
+                    final double averageScore = scores.reduce((a, b) => a + b) /
+                        (nilai.project == 0 ? scores.length : 4);
+
                     print(averageScore);
                     letterGrade = konversiNilaiKeHuruf(averageScore);
                   }
