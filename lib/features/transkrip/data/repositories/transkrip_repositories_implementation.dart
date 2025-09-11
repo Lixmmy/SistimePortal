@@ -18,7 +18,6 @@ class TranskripRepositoriesImplementation extends TranskripRepositories {
     try {
       final List<Transkrip> transkrip =
           await remoteTranskripDataSource.getTranskrip(nim: nim);
-          print(transkrip);
       return Right(transkrip);
     } on MessageExc catch (e) {
       return Left(e);

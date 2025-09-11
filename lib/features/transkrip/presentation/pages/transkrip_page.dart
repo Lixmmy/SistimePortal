@@ -7,8 +7,6 @@ import 'package:newsistime/features/transkrip/presentation/widgets/list_transkri
 import 'package:newsistime/injection.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 
-import 'package:newsistime/features/transkrip/domain/function/grade_converter.dart';
-
 class TranskripPage extends StatefulWidget {
   const TranskripPage({super.key});
 
@@ -17,19 +15,11 @@ class TranskripPage extends StatefulWidget {
 }
 
 class _TranskripPageState extends State<TranskripPage> {
-  double _getBobot(String letterGrade) {
-    switch (letterGrade) {
-      case 'A':
-        return 4.0;
-      case 'B':
-        return 3.0;
-      case 'C':
-        return 2.0;
-      case 'D':
-        return 1.0;
-      default:
-        return 0.0;
-    }
+  @override
+  void initState() {
+    super.initState();
+    // Fire the event here, once, when the widget is first created.
+    myInjection<TranskripBloc>().add(const GetListTranskrip('2244068'));
   }
 
   @override
@@ -40,8 +30,8 @@ class _TranskripPageState extends State<TranskripPage> {
         slivers: [
           SliverToBoxAdapter(
             child: BlocConsumer(
-              bloc: myInjection<TranskripBloc>()
-                ..add(const GetListTranskrip('2244068')),
+              // Provide the bloc instance without adding events in the build method.
+              bloc: myInjection<TranskripBloc>(),
               listener: (context, state) {
                 if (state is TranskripError) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -58,45 +48,20 @@ class _TranskripPageState extends State<TranskripPage> {
                     LoadingManager().dismiss();
                   }
                 }
+                if (state is TranskripPdfDownloaded) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("berhasil download pdf"),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                  // This re-fetch is now safe and won't cause a race condition.
+                  myInjection<TranskripBloc>()
+                      .add(const GetListTranskrip('2244068'));
+                }
               },
               builder: (context, state) {
                 if (state is TranskripLoaded) {
-                  int passedCourses = 0;
-                  int failedCourses = 0;
-                  int totalSks = 0;
-                  double totalBobot = 0;
-
-                  for (var transkrip in state.listTranskrip) {
-                    final nilai = transkrip.nilai;
-                    totalSks += transkrip.sks;
-                    if (nilai != null) {
-                      final List<double> scores = [
-                        nilai.tugas,
-                        nilai.uts,
-                        nilai.uas,
-                        nilai.absensi,
-                        nilai.project ?? 0,
-                        nilai.quiz ?? 0,
-                      ];
-                      if (scores.isNotEmpty) {
-                        final double averageScore =
-                            scores.reduce((a, b) => a + b) /
-                            (nilai.project == 0 ? scores.length : 4);
-                        final letterGrade = konversiNilaiKeHuruf(averageScore);
-                        if (letterGrade == 'A' ||
-                            letterGrade == 'B' ||
-                            letterGrade == 'C') {
-                          passedCourses++;
-                        } else {
-                          failedCourses++;
-                        }
-                        totalBobot += _getBobot(letterGrade) * transkrip.sks;
-                      }
-                    }
-                  }
-
-                  final double gpa = totalSks > 0 ? totalBobot / totalSks : 0;
-
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -174,7 +139,7 @@ class _TranskripPageState extends State<TranskripPage> {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.numberOfCoursesPassed,
-                                value: passedCourses.toString(),
+                                value: state.passedCourses.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
                                 labelColor: Colors.black,
@@ -183,7 +148,7 @@ class _TranskripPageState extends State<TranskripPage> {
                               BuildInfoRow(
                                 label:
                                     appLocalizations.numberOfCoursesNotPassed,
-                                value: failedCourses.toString(),
+                                value: state.failedCourses.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
                                 labelColor: Colors.black,
@@ -191,7 +156,7 @@ class _TranskripPageState extends State<TranskripPage> {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.numberofCredits,
-                                value: totalSks.toString(),
+                                value: state.totalSks.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
                                 labelColor: Colors.black,
@@ -199,7 +164,7 @@ class _TranskripPageState extends State<TranskripPage> {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.temporaryGPA,
-                                value: gpa.toStringAsFixed(2),
+                                value: state.gpa.toStringAsFixed(2),
                                 valueFlex: 3,
                                 labelFlex: 6,
                                 labelColor: Colors.black,
@@ -212,8 +177,8 @@ class _TranskripPageState extends State<TranskripPage> {
                         Center(
                           child: ElevatedButton(
                             onPressed: () {
-                              context.read<TranskripBloc>().add(
-                                const DownloadTranskripPdf(),
+                              myInjection<TranskripBloc>().add(
+                                DownloadTranskripPdf(appLocalizations),
                               );
                             },
                             child: Text("Download PDF"),

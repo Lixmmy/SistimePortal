@@ -1,5 +1,6 @@
 part of 'transkrip_bloc.dart';
 
+
 abstract class TranskripEvent extends Equatable {
   const TranskripEvent();
 
@@ -15,7 +16,8 @@ class GetListTranskrip extends TranskripEvent {
 }
 
 class DownloadTranskripPdf extends TranskripEvent {
-  const DownloadTranskripPdf();
+  final AppLocalizations appLocalizations;
+  const DownloadTranskripPdf(this.appLocalizations);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [appLocalizations];
 }

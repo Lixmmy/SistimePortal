@@ -72,7 +72,7 @@ Future<void> init() async {
   );
 
   //Transkrip bloc
-  myInjection.registerFactory(() => TranskripBloc(getTranskrip: myInjection()));
+  myInjection.registerLazySingleton(() => TranskripBloc(getTranskrip: myInjection()));
   //Use cases
   myInjection.registerLazySingleton(() => GetTranskrip(transkripRepositories: myInjection()));
   //Repository
