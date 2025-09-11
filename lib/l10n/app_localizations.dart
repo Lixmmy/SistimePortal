@@ -259,6 +259,66 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tanggal Lahir'**
   String get dateOfBirth;
+
+  /// No description provided for @transcripts.
+  ///
+  /// In id, this message translates to:
+  /// **'Transkrip Nilai'**
+  String get transcripts;
+
+  /// No description provided for @nim.
+  ///
+  /// In id, this message translates to:
+  /// **'Nim'**
+  String get nim;
+
+  /// No description provided for @roomClass.
+  ///
+  /// In id, this message translates to:
+  /// **'Kelas'**
+  String get roomClass;
+
+  /// No description provided for @summary.
+  ///
+  /// In id, this message translates to:
+  /// **'Ringkasan'**
+  String get summary;
+
+  /// No description provided for @numberOfCoursesPassed.
+  ///
+  /// In id, this message translates to:
+  /// **'Jumlah Mata Kuliah Lulus'**
+  String get numberOfCoursesPassed;
+
+  /// No description provided for @numberOfCoursesNotPassed.
+  ///
+  /// In id, this message translates to:
+  /// **'Jumlah Mata Kuliah Tidak Lulus'**
+  String get numberOfCoursesNotPassed;
+
+  /// No description provided for @numberofCredits.
+  ///
+  /// In id, this message translates to:
+  /// **'Jumlah SKS'**
+  String get numberofCredits;
+
+  /// No description provided for @temporaryGPA.
+  ///
+  /// In id, this message translates to:
+  /// **'IPK Sementara'**
+  String get temporaryGPA;
+
+  /// No description provided for @gpa.
+  ///
+  /// In id, this message translates to:
+  /// **'IPK'**
+  String get gpa;
+
+  /// No description provided for @finalGPA.
+  ///
+  /// In id, this message translates to:
+  /// **'IPK Akhir'**
+  String get finalGPA;
 }
 
 class _AppLocalizationsDelegate

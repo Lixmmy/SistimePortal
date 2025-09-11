@@ -92,4 +92,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dateOfBirth => 'Date of Birth';
+
+  @override
+  String get transcripts => 'Transcripts';
+
+  @override
+  String get nim => 'Nim';
+
+  @override
+  String get roomClass => 'Class';
+
+  @override
+  String get summary => 'Summary';
+
+  @override
+  String get numberOfCoursesPassed => 'Number of Courses Passed';
+
+  @override
+  String get numberOfCoursesNotPassed => 'Number of Courses Not Passed';
+
+  @override
+  String get numberofCredits => 'Number of Credits';
+
+  @override
+  String get temporaryGPA => 'Temporary GPA';
+
+  @override
+  String get gpa => 'GPA';
+
+  @override
+  String get finalGPA => 'Final GPA';
 }

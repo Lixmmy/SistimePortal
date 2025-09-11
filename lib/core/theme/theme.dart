@@ -115,7 +115,7 @@ class AppTheme {
       labelLarge: GoogleFonts.inter(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: Colors.black,
       ), // Untuk tombol
       labelMedium: GoogleFonts.inter(
         fontSize: 16,
@@ -137,7 +137,7 @@ class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: primayColorA30, // Background button
+        backgroundColor: Colors.green, // Background button
         foregroundColor: Colors.white, // Text color button
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
@@ -190,7 +190,9 @@ class AppTheme {
         borderSide: const BorderSide(color: errorColor, width: 2.0),
       ),
       labelStyle: const TextStyle(color: textLightColor),
-      hintStyle: GoogleFonts.inter(color: textLightColor.withValues(alpha: 0.4)),
+      hintStyle: GoogleFonts.inter(
+        color: textLightColor.withValues(alpha: 0.4),
+      ),
     ),
 
     cardTheme: CardThemeData(

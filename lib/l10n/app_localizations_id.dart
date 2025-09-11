@@ -92,4 +92,34 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get dateOfBirth => 'Tanggal Lahir';
+
+  @override
+  String get transcripts => 'Transkrip Nilai';
+
+  @override
+  String get nim => 'Nim';
+
+  @override
+  String get roomClass => 'Kelas';
+
+  @override
+  String get summary => 'Ringkasan';
+
+  @override
+  String get numberOfCoursesPassed => 'Jumlah Mata Kuliah Lulus';
+
+  @override
+  String get numberOfCoursesNotPassed => 'Jumlah Mata Kuliah Tidak Lulus';
+
+  @override
+  String get numberofCredits => 'Jumlah SKS';
+
+  @override
+  String get temporaryGPA => 'IPK Sementara';
+
+  @override
+  String get gpa => 'IPK';
+
+  @override
+  String get finalGPA => 'IPK Akhir';
 }

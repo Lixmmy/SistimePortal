@@ -27,3 +27,23 @@ final class TranskripError extends TranskripState {
   @override
   List<Object?> get props => [message];
 }
+
+final class TranskripPdfLoading extends TranskripState {}
+
+final class TranskripPdfDownloaded extends TranskripState {
+  final String filePath;
+
+  const TranskripPdfDownloaded({required this.filePath});
+
+  @override
+  List<Object?> get props => [filePath];
+}
+
+final class TranskripPdfError extends TranskripState {
+  final String message;
+
+  const TranskripPdfError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

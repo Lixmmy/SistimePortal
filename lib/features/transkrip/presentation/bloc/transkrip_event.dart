@@ -13,3 +13,9 @@ class GetListTranskrip extends TranskripEvent {
   @override
   List<Object> get props => [nim];
 }
+
+class DownloadTranskripPdf extends TranskripEvent {
+  const DownloadTranskripPdf();
+  @override
+  List<Object> get props => [];
+}
