@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
 import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
+import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
@@ -76,7 +77,9 @@ GoRouter myRouter() {
       GoRoute(
         path: 'krs_page',
         name: 'krsPage',
-        builder: (context, state) => KrsPage(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()),
+          child: KrsPage()),
       ),
       GoRoute(
         path: 'nilai_page',

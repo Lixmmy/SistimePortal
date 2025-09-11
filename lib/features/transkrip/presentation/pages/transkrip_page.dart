@@ -30,7 +30,6 @@ class _TranskripPageState extends State<TranskripPage> {
         slivers: [
           SliverToBoxAdapter(
             child: BlocConsumer(
-              // Provide the bloc instance without adding events in the build method.
               bloc: myInjection<TranskripBloc>(),
               listener: (context, state) {
                 if (state is TranskripError) {
