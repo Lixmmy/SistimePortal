@@ -6,7 +6,6 @@ class KrsModel {
   final String kodeMatakuliahModel;
   final String namaMatakuliahModel;
   final String namaDosenModel;
-  final int sksModel;
 
   KrsModel({
     required this.idKrsModel,
@@ -14,7 +13,6 @@ class KrsModel {
     required this.kodeMatakuliahModel,
     required this.namaMatakuliahModel,
     required this.namaDosenModel,
-    required this.sksModel,
   });
 
   factory KrsModel.fromJson(Map<String, dynamic> json) {
@@ -24,7 +22,6 @@ class KrsModel {
       kodeMatakuliahModel: json['kodeMataKuliah'],
       namaMatakuliahModel: json['namaMataKuliah'],
       namaDosenModel: json['namaDosen'],
-      sksModel: json['sks'],
     );
   }
 
@@ -35,18 +32,112 @@ class KrsModel {
       'kodeMataKuliah': kodeMatakuliahModel,
       'namaMataKuliah': namaMatakuliahModel,
       'namaDosen': namaDosenModel,
-      'sks': sksModel,
     };
   }
 
-  Krs toEntitiy() {
+  Krs toEntity() {
     return Krs(
       idKrs: idKrsModel,
       idSkemaKrs: idSkemaKrsModel,
       kodeMatakuliah: kodeMatakuliahModel,
       namaMatakuliah: namaMatakuliahModel,
       namaDosen: namaDosenModel,
+    );
+  }
+}
+
+class ListKrsModel {
+  final List<KrsModel> listKrsModel;
+
+  const ListKrsModel({required this.listKrsModel});
+
+  factory ListKrsModel.fromJson(List<dynamic> json) {
+    return ListKrsModel(
+      listKrsModel: json.map((e) => KrsModel.fromJson(e)).toList(),
+    );
+  }
+
+  ListKrs toEntity() {
+    return ListKrs(
+      krs: listKrsModel.map((e) {
+        return e.toEntity();
+      }).toList(),
+    );
+  }
+}
+
+class MatkulModel {
+  final int idMatkulModel;
+  final int idTipeMataKuliahModel;
+  final String kodeMataKuliahModel;
+  final String namaMataKuliahModel;
+  final String? keteranganModel;
+  final int sksModel;
+  final int semesterModel;
+
+  const MatkulModel({
+    required this.idMatkulModel,
+    required this.idTipeMataKuliahModel,
+    required this.kodeMataKuliahModel,
+    required this.namaMataKuliahModel,
+    this.keteranganModel,
+    required this.sksModel,
+    required this.semesterModel,
+  });
+
+  factory MatkulModel.fromJson(Map<String, dynamic> json) {
+    return MatkulModel(
+      idMatkulModel: json['id'],
+      idTipeMataKuliahModel: json['idTipematakuliah'],
+      kodeMataKuliahModel: json['kodeMatakuliah'],
+      namaMataKuliahModel: json['namaMatakuliah'],
+      keteranganModel: json['keterangan'],
+      sksModel: json['sks'],
+      semesterModel: json['semester'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': idMatkulModel,
+      'idTipematakuliah': idTipeMataKuliahModel,
+      'kodeMatakuliah': kodeMataKuliahModel,
+      'namaMatakuliah': namaMataKuliahModel,
+      'keterangan': keteranganModel,
+      'sks': sksModel,
+      'semester': semesterModel,
+    };
+  }
+
+  Matkul toEntity() {
+    return Matkul(
+      id: idMatkulModel,
+      idTipeMataKuliah: idTipeMataKuliahModel,
+      kodeMataKuliah: kodeMataKuliahModel,
+      namaMataKuliah: namaMataKuliahModel,
+      keterangan: keteranganModel,
       sks: sksModel,
+      semester: semesterModel,
+    );
+  }
+}
+
+class ListMatkulModel {
+  final List<MatkulModel> listMatkulModel;
+
+  const ListMatkulModel({required this.listMatkulModel});
+
+  factory ListMatkulModel.fromJson(List<dynamic> json) {
+    return ListMatkulModel(
+      listMatkulModel: json.map((e) => MatkulModel.fromJson(e)).toList(),
+    );
+  }
+
+  ListMatkul toEntity() {
+    return ListMatkul(
+      matkul: listMatkulModel.map((e) {
+        return e.toEntity();
+      }).toList(),
     );
   }
 }

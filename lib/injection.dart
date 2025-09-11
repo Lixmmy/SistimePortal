@@ -2,6 +2,12 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/core/helper/read_device.dart';
+import 'package:newsistime/features/krs/data/datasources/remote_krs_data_source.dart';
+import 'package:newsistime/features/krs/data/repositories/krs_repositories_implementation.dart';
+import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
+import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
+import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
+import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/language/data/datasources/language_local_data_source.dart';
 import 'package:newsistime/features/language/data/repositories/app_language_repository_implementation.dart';
 import 'package:newsistime/features/language/domain/repositories/app_language_repository.dart';
@@ -79,5 +85,15 @@ Future<void> init() async {
   myInjection.registerLazySingleton<TranskripRepositories>(() => TranskripRepositoriesImplementation(remoteTranskripDataSource: myInjection()));
   //Datasource
   myInjection.registerLazySingleton<RemoteTranskripDataSource>(() => RemoteTranskripDataSourceImplementation(connectApi: myInjection()));
+  
+  //krs bloc
+  myInjection.registerFactory(() => KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()));
+  //Use cases
+  myInjection.registerLazySingleton(() => GetKrs(krsRepositories:  myInjection()));
+  myInjection.registerLazySingleton(() => GetMataKuliah(krsRepositories: myInjection()));
+  //Repositories
+  myInjection.registerLazySingleton<KrsRepositories>(() => KrsRepositoriesImplementation(remoteKrsDataSource: myInjection()));
+  //Datasource
+  myInjection.registerLazySingleton<RemoteKrsDataSource>(() => RemoteKrsDataSourceImplementation(connectApi: myInjection()));
   
 }

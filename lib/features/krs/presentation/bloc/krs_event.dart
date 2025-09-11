@@ -6,3 +6,12 @@ abstract class KrsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FetchKrsData extends KrsEvent {
+  final String nim;
+
+  const FetchKrsData({required this.nim});
+
+  @override
+  List<Object> get props => [nim];
+}

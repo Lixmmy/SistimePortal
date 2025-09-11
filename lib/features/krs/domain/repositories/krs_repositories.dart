@@ -3,5 +3,6 @@ import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 
 abstract class KrsRepositories {
-  Future <Either<MessageExc,List<Krs>>> getKrs();
+  Future<Either<MessageExc, List<Krs>>> getKrs({required String nim});
+  Future<Either<MessageExc, List<Matkul>>> getMataKuliah();
 }

@@ -3,12 +3,12 @@ import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
 
-class GetKrs {
+class GetMataKuliah {
   final KrsRepositories krsRepositories;
 
-  GetKrs({required this.krsRepositories});
+  GetMataKuliah({required this.krsRepositories});
 
-  Future<Either<MessageExc, List<Krs>>> execute(String nim) async {
-    return await krsRepositories.getKrs(nim: nim);
+  Future<Either<MessageExc, List<Matkul>>> execute() async {
+    return await krsRepositories.getMataKuliah();
   }
 }

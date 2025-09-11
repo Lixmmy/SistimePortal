@@ -209,7 +209,8 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
           );
 
           final output = await getTemporaryDirectory();
-          final file = File("${output.path}/transkrip.pdf");
+          final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+          final file = File("${output.path}/transkrip_$timestamp.pdf");
           await file.writeAsBytes(await pdf.save());
           OpenFile.open(file.path);
 

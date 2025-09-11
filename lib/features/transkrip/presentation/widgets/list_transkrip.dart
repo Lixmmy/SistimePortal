@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newsistime/core/theme/theme.dart';
-import 'package:newsistime/features/transkrip/domain/function/grade_converter.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 
 class ListTranskrip extends StatelessWidget {
@@ -15,27 +14,8 @@ class ListTranskrip extends StatelessWidget {
       itemCount: state.listTranskrip.length,
       itemBuilder: (context, index) {
         final transkrip = state.listTranskrip[index];
-        final nilai = transkrip.nilai;
-        String letterGrade = 'N/A';
-        Color gradeColor = Colors.red;
-
-        if (nilai != null) {
-          final List<double> scores = [
-            nilai.tugas,
-            nilai.uts,
-            nilai.uas,
-            nilai.absensi,
-            nilai.project ?? 0,
-            nilai.quiz ?? 0,
-          ];
-          if (scores.isNotEmpty) {
-            final double averageScore = scores.reduce((a, b) => a + b) /
-                (nilai.project == 0 ? scores.length : 4);
-
-            letterGrade = konversiNilaiKeHuruf(averageScore);
-            gradeColor = _getGradeColor(letterGrade);
-          }
-        }
+        final String letterGrade = transkrip.letterGrade ?? 'N/A';
+        final Color gradeColor = _getGradeColor(letterGrade);
 
         return Padding(
           padding: const EdgeInsets.all(4.0),
