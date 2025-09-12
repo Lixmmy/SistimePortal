@@ -37,8 +37,8 @@ class ConnectApi {
   }
 
   Future<dynamic> _requestGet(String endpoint, bool authorization) async {
-    await internetConnection();
     try {
+      await internetConnection();
       Uri uri = Uri(scheme: scheme, host: host, path: endpoint);
       final headers = await header(authorization: authorization);
       final response = await http

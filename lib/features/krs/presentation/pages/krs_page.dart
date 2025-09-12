@@ -21,66 +21,75 @@ class _KrsPageState extends State<KrsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: BlocConsumer<KrsBloc, KrsState>(
+      body: BlocListener<KrsBloc, KrsState>(
+        bloc: myInjection<KrsBloc>(),
+        listener: (context, state) {
+          if (state is KrsLoading) {
+            LoadingManager().show(context);
+          } else {
+            if (LoadingManager().isShowing) {
+              LoadingManager().dismiss();
+            }
+          }
+        },
+        child: CustomScrollView(
+          slivers: [
+            BlocBuilder<KrsBloc, KrsState>(
               bloc: myInjection<KrsBloc>(),
-              listener: (context, state) {
-                if (state is KrsLoading) {
-                  LoadingManager().show(context);
-                } else {
-                  if (LoadingManager().isShowing) {
-                    LoadingManager().dismiss();
-                  }
-                }
-              },
               builder: (context, state) {
                 if (state is KrsError) {
-                  return Center(
-                    child: Text('Gagal memuat data: ${state.message}'),
+                  return SliverToBoxAdapter(
+                    child: Center(
+                      child: Text('Gagal memuat data: ${state.message}'),
+                    ),
                   );
                 } else if (state is KrsLoaded) {
                   if (state.groupedKrs.isEmpty) {
-                    return const Center(
-                      child: Text('Tidak ada data KRS ditemukan.'),
+                    return const SliverToBoxAdapter(
+                      child: Center(
+                        child: Text('Tidak ada data KRS ditemukan.'),
+                      ),
                     );
                   }
                   // Get the sorted list of semesters
                   final semesters = state.groupedKrs.keys.toList();
 
-                  return ListView.builder(
-                    itemCount: semesters.length,
-                    itemBuilder: (context, index) {
-                      final semester = semesters[index];
-                      final krsList = state.groupedKrs[semester]!;
-                      return Card(
-                        margin: const EdgeInsets.all(8.0),
-                        child: ExpansionTile(
-                          title: Text(
-                            'Semester $semester',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final semester = semesters[index];
+                        final krsList = state.groupedKrs[semester]!;
+                        return Card(
+                          margin: const EdgeInsets.all(8.0),
+                          child: ExpansionTile(
+                            title: Text(
+                              'Semester $semester',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
+                            children: krsList.map((krs) {
+                              return ListTile(
+                                title: Text(krs.namaMatakuliah),
+                                subtitle: Text(krs.kodeMatakuliah),
+                                trailing: Text(krs.namaDosen),
+                              );
+                            }).toList(),
                           ),
-                          children: krsList.map((krs) {
-                            return ListTile(
-                              title: Text(krs.namaMatakuliah),
-                              subtitle: Text(krs.kodeMatakuliah),
-                              trailing: Text(krs.namaDosen),
-                            );
-                          }).toList(),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                      childCount: semesters.length,
+                    ),
                   );
                 }
-                return const Center(child: Text('Silakan muat data KRS.'));
+                return const SliverToBoxAdapter(
+                  child: Center(child: Text('Silakan muat data KRS.')),
+                );
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -19,8 +19,8 @@ class KrsModel {
     return KrsModel(
       idKrsModel: json['idKrs'],
       idSkemaKrsModel: json['idSkemaKrs'],
-      kodeMatakuliahModel: json['kodeMataKuliah'],
-      namaMatakuliahModel: json['namaMataKuliah'],
+      kodeMatakuliahModel: json['kodeMatakuliah'],
+      namaMatakuliahModel: json['namaMatakuliah'],
       namaDosenModel: json['namaDosen'],
     );
   }

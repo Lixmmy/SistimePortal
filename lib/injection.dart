@@ -87,7 +87,7 @@ Future<void> init() async {
   myInjection.registerLazySingleton<RemoteTranskripDataSource>(() => RemoteTranskripDataSourceImplementation(connectApi: myInjection()));
   
   //krs bloc
-  myInjection.registerFactory(() => KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()));
+  myInjection.registerLazySingleton(() => KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()));
   //Use cases
   myInjection.registerLazySingleton(() => GetKrs(krsRepositories:  myInjection()));
   myInjection.registerLazySingleton(() => GetMataKuliah(krsRepositories: myInjection()));
