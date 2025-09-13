@@ -27,7 +27,6 @@
   "editPhoto": "Edit Foto",
   "placeOfBirth": "Tempat Lahir",
   "dateOfBirth": "Tanggal Lahir",
-  "transcripts": "Transkrip Nilai",
   "nim": "Nim",
   "roomClass": "Kelas",
   "summary": "Ringkasan",
@@ -35,6 +34,10 @@
   "numberOfCoursesNotPassed": "Jumlah Mata Kuliah Tidak Lulus",
   "numberofCredits": "Jumlah SKS",
   "temporaryGPA": "IPK Sementara",
-  "gpa" : "IPK",
-  "finalGPA" : "IPK Akhir"
+  "gpa": "IPK",
+  "finalGPA": "IPK Akhir",
+  "semester": "Semester",
+  "studyPlanCard": "Kartu Pelaksanaan Studi",
+  "studyResultsCard": "Kartu Hasil Studi",
+  "valueTranscript": "Nilai Transkrip"
 }

@@ -94,9 +94,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateOfBirth => 'Date of Birth';
 
   @override
-  String get transcripts => 'Transcripts';
-
-  @override
   String get nim => 'Nim';
 
   @override
@@ -122,4 +119,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finalGPA => 'Final GPA';
+
+  @override
+  String get semester => 'Semester';
+
+  @override
+  String get studyPlanCard => 'Study Plan Card';
+
+  @override
+  String get studyResultsCard => 'Study Results Card';
+
+  @override
+  String get valueTranscript => 'Value Transcripts';
 }

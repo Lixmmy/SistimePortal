@@ -6,12 +6,14 @@ class Krs extends Equatable {
   final String kodeMatakuliah;
   final String namaMatakuliah;
   final String namaDosen;
+  final int sks;
   const Krs({
     required this.idKrs,
     required this.idSkemaKrs,
     required this.kodeMatakuliah,
     required this.namaMatakuliah,
     required this.namaDosen,
+    required this.sks,
   });
 
   @override
@@ -21,6 +23,7 @@ class Krs extends Equatable {
     kodeMatakuliah,
     namaMatakuliah,
     namaDosen,
+    sks,
   ];
 }
 

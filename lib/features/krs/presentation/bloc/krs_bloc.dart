@@ -42,7 +42,16 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
             if (!groupedKrs.containsKey(semester)) {
               groupedKrs[semester] = [];
             }
-            groupedKrs[semester]!.add(krs);
+            // Create a new Krs object with the sks value from matkul
+            final krsWithSks = Krs(
+              idKrs: krs.idKrs,
+              idSkemaKrs: krs.idSkemaKrs,
+              kodeMatakuliah: krs.kodeMatakuliah,
+              namaMatakuliah: krs.namaMatakuliah,
+              namaDosen: krs.namaDosen,
+              sks: matkul.sks, // Assign the sks value here
+            );
+            groupedKrs[semester]!.add(krsWithSks);
           }
         }
         

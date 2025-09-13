@@ -27,7 +27,6 @@
   "editPhoto": "Edit Photo",
   "placeOfBirth": "Place of Birth",
   "dateOfBirth": "Date of Birth",
-  "transcripts": "Transcripts",
   "nim": "Nim",
   "roomClass": "Class",
   "summary": "Summary",
@@ -36,5 +35,9 @@
   "numberofCredits": "Number of Credits",
   "temporaryGPA": "Temporary GPA",
   "gpa": "GPA",
-  "finalGPA": "Final GPA"
+  "finalGPA": "Final GPA",
+  "semester" : "Semester",
+  "studyPlanCard" : "Study Plan Card",
+  "studyResultsCard" : "Study Results Card",
+  "valueTranscript" : "Value Transcripts"
 }

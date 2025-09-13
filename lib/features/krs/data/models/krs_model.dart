@@ -42,6 +42,7 @@ class KrsModel {
       kodeMatakuliah: kodeMatakuliahModel,
       namaMatakuliah: namaMatakuliahModel,
       namaDosen: namaDosenModel,
+      sks: 0, // Default value, will be updated in BLoC
     );
   }
 }

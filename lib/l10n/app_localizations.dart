@@ -260,12 +260,6 @@ abstract class AppLocalizations {
   /// **'Tanggal Lahir'**
   String get dateOfBirth;
 
-  /// No description provided for @transcripts.
-  ///
-  /// In id, this message translates to:
-  /// **'Transkrip Nilai'**
-  String get transcripts;
-
   /// No description provided for @nim.
   ///
   /// In id, this message translates to:
@@ -319,6 +313,30 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'IPK Akhir'**
   String get finalGPA;
+
+  /// No description provided for @semester.
+  ///
+  /// In id, this message translates to:
+  /// **'Semester'**
+  String get semester;
+
+  /// No description provided for @studyPlanCard.
+  ///
+  /// In id, this message translates to:
+  /// **'Kartu Pelaksanaan Studi'**
+  String get studyPlanCard;
+
+  /// No description provided for @studyResultsCard.
+  ///
+  /// In id, this message translates to:
+  /// **'Kartu Hasil Studi'**
+  String get studyResultsCard;
+
+  /// No description provided for @valueTranscript.
+  ///
+  /// In id, this message translates to:
+  /// **'Nilai Transkrip'**
+  String get valueTranscript;
 }
 
 class _AppLocalizationsDelegate

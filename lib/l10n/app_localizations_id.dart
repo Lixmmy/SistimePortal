@@ -94,9 +94,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get dateOfBirth => 'Tanggal Lahir';
 
   @override
-  String get transcripts => 'Transkrip Nilai';
-
-  @override
   String get nim => 'Nim';
 
   @override
@@ -122,4 +119,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get finalGPA => 'IPK Akhir';
+
+  @override
+  String get semester => 'Semester';
+
+  @override
+  String get studyPlanCard => 'Kartu Pelaksanaan Studi';
+
+  @override
+  String get studyResultsCard => 'Kartu Hasil Studi';
+
+  @override
+  String get valueTranscript => 'Nilai Transkrip';
 }

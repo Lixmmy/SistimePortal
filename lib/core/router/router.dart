@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
 import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
+import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:newsistime/features/krs/presentation/pages/detail_krs.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
@@ -74,12 +76,31 @@ GoRouter myRouter() {
           return const SelectedPage();
         },
       ),
-      GoRoute(
-        path: 'krs_page',
-        name: 'krsPage',
-        builder: (context, state) => BlocProvider(
-          create: (context) => KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()),
-          child: KrsPage()),
+      ShellRoute(
+        builder: (context, state, child) {
+          return BlocProvider(
+            create: (context) =>
+                KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()),
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: '/krs_page',
+            name: 'krsPage',
+            builder: (context, state) => KrsPage(),
+          ),
+          GoRoute(
+            path: '/detail_krs_page',
+            name: 'detailKrsPage',
+            builder: (context, state) {
+              final data = state.extra as Map<String, dynamic>;
+              final List<Krs> krsList = data['krsList'];
+              final int semester = data['semester'];
+              return DetailKrs(krs: krsList, semester: semester);
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: 'nilai_page',

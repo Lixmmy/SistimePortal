@@ -67,7 +67,7 @@ class _TranskripPageState extends State<TranskripPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          appLocalizations.transcripts,
+                          appLocalizations.valueTranscript,
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                         const SizedBox(height: 10),
