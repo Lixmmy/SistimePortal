@@ -323,7 +323,7 @@ abstract class AppLocalizations {
   /// No description provided for @studyPlanCard.
   ///
   /// In id, this message translates to:
-  /// **'Kartu Pelaksanaan Studi'**
+  /// **'Kartu Rencana Studi'**
   String get studyPlanCard;
 
   /// No description provided for @studyResultsCard.

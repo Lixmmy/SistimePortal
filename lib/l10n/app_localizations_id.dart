@@ -124,7 +124,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get semester => 'Semester';
 
   @override
-  String get studyPlanCard => 'Kartu Pelaksanaan Studi';
+  String get studyPlanCard => 'Kartu Rencana Studi';
 
   @override
   String get studyResultsCard => 'Kartu Hasil Studi';

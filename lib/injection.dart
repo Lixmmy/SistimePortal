@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/core/helper/read_device.dart';
+import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/features/krs/data/datasources/remote_krs_data_source.dart';
 import 'package:newsistime/features/krs/data/repositories/krs_repositories_implementation.dart';
 import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
@@ -96,4 +97,8 @@ Future<void> init() async {
   //Datasource
   myInjection.registerLazySingleton<RemoteKrsDataSource>(() => RemoteKrsDataSourceImplementation(connectApi: myInjection()));
   
+  //khs bloc
+  myInjection.registerLazySingleton(() => KhsBloc(getTranskrip: myInjection(), getMataKuliah: myInjection()));
+  
+
 }

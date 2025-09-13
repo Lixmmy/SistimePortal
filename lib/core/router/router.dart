@@ -2,6 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
+import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
+import 'package:newsistime/features/khs/presentation/pages/detail_khs.dart';
 import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
@@ -12,6 +14,7 @@ import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
+import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
@@ -107,10 +110,33 @@ GoRouter myRouter() {
         name: 'nilaiPage',
         builder: (context, state) => const NilaiPage(),
       ),
-      GoRoute(
-        path: 'khs_page',
-        name: 'khsPage',
-        builder: (context, state) => const KhsPage(),
+      ShellRoute(
+        builder: (context, state, child) {
+          return BlocProvider(
+            create: (context) => KhsBloc(
+              getTranskrip: myInjection(),
+              getMataKuliah: myInjection(),
+            ),
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: '/khs_page',
+            name: 'khsPage',
+            builder: (context, state) => KhsPage(),
+          ),
+          GoRoute(
+            path: '/detail_khs_page',
+            name: 'detailKhsPage',
+            builder: (context, state) {
+              final data = state.extra as Map<String, dynamic>;
+              final List<Transkrip> khsList = data['khsList'];
+              final int semester = data['semester'];
+              return DetailKhs(khs: khsList, semester: semester);
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: 'pam_page',

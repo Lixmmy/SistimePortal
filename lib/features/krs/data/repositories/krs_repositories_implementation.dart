@@ -13,7 +13,6 @@ class KrsRepositoriesImplementation extends KrsRepositories {
   Future<Either<MessageExc, List<Krs>>> getKrs({required String nim}) async {
     try {
       final List<Krs> krs = await remoteKrsDataSource.getKrs(nim: nim);
-      print(krs);
       return Right(krs);
     } on MessageExc catch (e) {
       return Left(e);
@@ -26,7 +25,6 @@ class KrsRepositoriesImplementation extends KrsRepositories {
   Future<Either<MessageExc, List<Matkul>>> getMataKuliah() async {
     try {
       final List<Matkul> matkul = await remoteKrsDataSource.getMataKuliah();
-      print(matkul);
       return Right(matkul);
     } on MessageExc catch (e) {
       return Left(e);

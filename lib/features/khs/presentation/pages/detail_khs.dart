@@ -2,36 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
-import 'package:newsistime/core/theme/theme.dart';
-import 'package:newsistime/features/krs/domain/entities/krs.dart';
-import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
+import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 import 'package:newsistime/injection.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 
-class DetailKrs extends StatefulWidget {
-  const DetailKrs({super.key, required this.krs, required this.semester});
-  final List<Krs> krs;
+class DetailKhs extends StatefulWidget {
+  const DetailKhs({super.key, required this.khs, required this.semester});
+  final List<Transkrip> khs;
   final int semester;
 
   @override
-  State<DetailKrs> createState() => _DetailKrsState();
+  State<DetailKhs> createState() => _DetailKrsState();
 }
 
-class _DetailKrsState extends State<DetailKrs> {
+class _DetailKrsState extends State<DetailKhs> {
   @override
   void initState() {
     super.initState();
-    myInjection<KrsBloc>().add(const FetchKrsData(nim: '2244068'));
+    myInjection<KhsBloc>().add(const FetchKhsData(nim: '2244068'));
   }
 
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      body: BlocListener<KrsBloc, KrsState>(
-        bloc: myInjection<KrsBloc>(),
+      body: BlocListener<KhsBloc, KhsState>(
+        bloc: myInjection<KhsBloc>(),
         listener: (context, state) {
-          if (state is KrsLoading) {
+          if (state is KhsLoading) {
             LoadingManager().show(context);
           } else {
             if (LoadingManager().isShowing) {
@@ -76,18 +75,18 @@ class _DetailKrsState extends State<DetailKrs> {
                 icon: Icon(Icons.arrow_back),
               ),
             ),
-            BlocBuilder<KrsBloc, KrsState>(
-              bloc: myInjection<KrsBloc>(),
+            BlocBuilder<KhsBloc, KhsState>(
+              bloc: myInjection<KhsBloc>(),
               builder: (context, state) {
-                if (state is KrsLoaded) {
-                  final krs = widget.krs;
+                if (state is KhsLoaded) {
+                  final khs = widget.khs;
                   return SliverMainAxisGroup(
                     slivers: [
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            appLocalizations.studyPlanCard,
+                            appLocalizations.studyResultsCard,
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
@@ -95,27 +94,27 @@ class _DetailKrsState extends State<DetailKrs> {
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
-                            final krsItem = krs[index];
+                            final khsItem = khs[index];
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ListTile(
                                 title: Text(
-                                  krsItem.namaMatakuliah,
+                                  khsItem.matkul,
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
                                 subtitle: RichText(
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: 'Kode: ${krsItem.kodeMatakuliah} | SKS: ${krsItem.sks}\n',
+                                        text: 'Kode: ${khsItem.kodeMatkul} | SKS: ${khsItem.sks}',
                                         style: Theme.of(context).textTheme.bodySmall,
                                       ),
-                                      TextSpan(
-                                        text: 'Dosen: ${krsItem.namaDosen}',
-                                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                          color: AppTheme.primaryColorA0,
-                                        ),
-                                      ),
+                                      // TextSpan(
+                                      //   text: 'Dosen: ${khsItem.}',
+                                      //   style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      //     color: AppTheme.primaryColorA0,
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -128,22 +127,15 @@ class _DetailKrsState extends State<DetailKrs> {
                               ),
                             );
                           },
-                          childCount: krs.length,
+                          childCount: khs.length,
                         ),
                       ),
                       SliverToBoxAdapter(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: Text('Ajukan'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: Text('Download Pdf'),
-                            ),
-                          ],
+                        child: Center(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text('Download Pdf'),
+                          ),
                         ),
                       ),
                     ],
