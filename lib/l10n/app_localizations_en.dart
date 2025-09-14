@@ -131,4 +131,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get valueTranscript => 'Value Transcripts';
+
+  @override
+  String get code => 'Code';
+
+  @override
+  String get lecture => 'lecture';
+
+  @override
+  String get quizGrade => 'Quiz Grade';
+
+  @override
+  String get assignmentGrade => 'Assignment Grade';
+
+  @override
+  String get finalGrade => 'Final Grade';
+
+  @override
+  String get midTermGrade => 'Midterm Grade';
+
+  @override
+  String get projectScore => 'Project Score';
+
+  @override
+  String get attendanceGrade => 'Attendance Grade';
+
+  @override
+  String get sks => 'SKS';
+
+  @override
+  String get submit => 'Submit';
+
+  @override
+  String get subject => 'Subject';
+
+  @override
+  String get grade => 'Grade';
+
+  @override
+  String get courseCode => 'Course Code';
+
+  @override
+  String get course => 'Course';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get uas => 'UAS';
+
+  @override
+  String get uts => 'UTS';
+
+  @override
+  String get quiz => 'Quiz';
+
+  @override
+  String get project => 'Project';
+
+  @override
+  String get attendance => 'Attendance';
+
+  @override
+  String get assignment => 'Assignment';
 }

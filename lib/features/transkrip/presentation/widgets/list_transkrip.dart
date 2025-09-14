@@ -15,7 +15,7 @@ class ListTranskrip extends StatelessWidget {
       itemBuilder: (context, index) {
         final transkrip = state.listTranskrip[index];
         final String letterGrade = transkrip.letterGrade ?? 'N/A';
-        final Color gradeColor = _getGradeColor(letterGrade);
+        final Color gradeColor = getGradeColor(letterGrade);
 
         return Padding(
           padding: const EdgeInsets.all(4.0),
@@ -45,7 +45,7 @@ class ListTranskrip extends StatelessWidget {
     );
   }
 
-  Color _getGradeColor(String letterGrade) {
+  Color getGradeColor(String letterGrade) {
     switch (letterGrade) {
       case 'A':
         return Colors.green;

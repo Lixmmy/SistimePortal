@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/core/theme/theme.dart';
-import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/injection.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 
 class DetailKrs extends StatefulWidget {
-  const DetailKrs({super.key, required this.krs, required this.semester});
-  final List<Krs> krs;
+  const DetailKrs({super.key, required this.semester});
   final int semester;
 
   @override
@@ -18,12 +16,6 @@ class DetailKrs extends StatefulWidget {
 }
 
 class _DetailKrsState extends State<DetailKrs> {
-  @override
-  void initState() {
-    super.initState();
-    myInjection<KrsBloc>().add(const FetchKrsData(nim: '2244068'));
-  }
-
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
@@ -80,56 +72,69 @@ class _DetailKrsState extends State<DetailKrs> {
               bloc: myInjection<KrsBloc>(),
               builder: (context, state) {
                 if (state is KrsLoaded) {
-                  final krs = widget.krs;
+                  final krs = state.groupedKrs[widget.semester]!;
                   return SliverMainAxisGroup(
                     slivers: [
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            appLocalizations.studyPlanCard,
-                            style: Theme.of(context).textTheme.labelLarge,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                appLocalizations.studyPlanCard,
+                                style: Theme.of(context).textTheme.labelLarge,
+                              ),
+                              Text(
+                                '${appLocalizations.semester}: ${widget.semester}',
+                                style: Theme.of(context).textTheme.labelLarge,
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            final krsItem = krs[index];
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                title: Text(
-                                  krsItem.namaMatakuliah,
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                                subtitle: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Kode: ${krsItem.kodeMatakuliah} | SKS: ${krsItem.sks}\n',
-                                        style: Theme.of(context).textTheme.bodySmall,
-                                      ),
-                                      TextSpan(
-                                        text: 'Dosen: ${krsItem.namaDosen}',
-                                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                          color: AppTheme.primaryColorA0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                shape: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: Colors.black.withAlpha(150),
-                                  ),
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          final krsItem = krs[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              title: Text(
+                                krsItem.namaMatakuliah,
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                              subtitle: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          '${appLocalizations.code}: ${krsItem.kodeMatakuliah} | ${appLocalizations.sks}: ${krsItem.sks}\n',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${appLocalizations.lecture}: ${krsItem.namaDosen}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: AppTheme.primaryColorA0,
+                                          ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          },
-                          childCount: krs.length,
-                        ),
+                              shape: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: Colors.black.withAlpha(150),
+                                ),
+                              ),
+                            ),
+                          );
+                        }, childCount: krs.length),
                       ),
                       SliverToBoxAdapter(
                         child: Row(
@@ -137,7 +142,7 @@ class _DetailKrsState extends State<DetailKrs> {
                           children: [
                             ElevatedButton(
                               onPressed: () {},
-                              child: Text('Ajukan'),
+                              child: Text(appLocalizations.submit),
                             ),
                             ElevatedButton(
                               onPressed: () {},

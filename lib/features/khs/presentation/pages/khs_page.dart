@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
-import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/injection.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 
@@ -28,7 +27,7 @@ class _KrsPageState extends State<KhsPage> {
       body: BlocListener<KhsBloc, KhsState>(
         bloc: myInjection<KhsBloc>(),
         listener: (context, state) {
-          if (state is KrsLoading) {
+          if (state is KhsLoading) {
             LoadingManager().show(context);
           } else {
             if (LoadingManager().isShowing) {
@@ -54,7 +53,6 @@ class _KrsPageState extends State<KhsPage> {
                   return SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                       final semester = semesters[index];
-                      final krsList = state.groupedKhs[semester]!;
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
@@ -65,7 +63,7 @@ class _KrsPageState extends State<KhsPage> {
                           onTap: () {
                             context.pushNamed(
                               'detailKhsPage',
-                              extra: {'khsList': krsList, 'semester': semester},
+                              extra: {'semester': semester},
                             );
                           },
                           shape: OutlineInputBorder(

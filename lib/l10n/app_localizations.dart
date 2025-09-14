@@ -337,6 +337,132 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Nilai Transkrip'**
   String get valueTranscript;
+
+  /// No description provided for @code.
+  ///
+  /// In id, this message translates to:
+  /// **'Kode'**
+  String get code;
+
+  /// No description provided for @lecture.
+  ///
+  /// In id, this message translates to:
+  /// **'Dosen'**
+  String get lecture;
+
+  /// No description provided for @quizGrade.
+  ///
+  /// In id, this message translates to:
+  /// **'Nilai Quiz'**
+  String get quizGrade;
+
+  /// No description provided for @assignmentGrade.
+  ///
+  /// In id, this message translates to:
+  /// **'Nilai Tugas'**
+  String get assignmentGrade;
+
+  /// No description provided for @finalGrade.
+  ///
+  /// In id, this message translates to:
+  /// **'NIlai UAS'**
+  String get finalGrade;
+
+  /// No description provided for @midTermGrade.
+  ///
+  /// In id, this message translates to:
+  /// **'Nilai UTS'**
+  String get midTermGrade;
+
+  /// No description provided for @projectScore.
+  ///
+  /// In id, this message translates to:
+  /// **'NIlai Project'**
+  String get projectScore;
+
+  /// No description provided for @attendanceGrade.
+  ///
+  /// In id, this message translates to:
+  /// **'NIlai Absensi'**
+  String get attendanceGrade;
+
+  /// No description provided for @sks.
+  ///
+  /// In id, this message translates to:
+  /// **'SKS'**
+  String get sks;
+
+  /// No description provided for @submit.
+  ///
+  /// In id, this message translates to:
+  /// **'Ajukan'**
+  String get submit;
+
+  /// No description provided for @subject.
+  ///
+  /// In id, this message translates to:
+  /// **'Mata Kuliah'**
+  String get subject;
+
+  /// No description provided for @grade.
+  ///
+  /// In id, this message translates to:
+  /// **'Nilai'**
+  String get grade;
+
+  /// No description provided for @courseCode.
+  ///
+  /// In id, this message translates to:
+  /// **'Kode Mata Kuliah'**
+  String get courseCode;
+
+  /// No description provided for @course.
+  ///
+  /// In id, this message translates to:
+  /// **'Mata Kuliah'**
+  String get course;
+
+  /// No description provided for @no.
+  ///
+  /// In id, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @uas.
+  ///
+  /// In id, this message translates to:
+  /// **'UAS'**
+  String get uas;
+
+  /// No description provided for @uts.
+  ///
+  /// In id, this message translates to:
+  /// **'UTS'**
+  String get uts;
+
+  /// No description provided for @quiz.
+  ///
+  /// In id, this message translates to:
+  /// **'Quiz'**
+  String get quiz;
+
+  /// No description provided for @project.
+  ///
+  /// In id, this message translates to:
+  /// **'Project'**
+  String get project;
+
+  /// No description provided for @attendance.
+  ///
+  /// In id, this message translates to:
+  /// **'Absensi'**
+  String get attendance;
+
+  /// No description provided for @assignment.
+  ///
+  /// In id, this message translates to:
+  /// **'Tugas'**
+  String get assignment;
 }
 
 class _AppLocalizationsDelegate

@@ -60,5 +60,5 @@ class Nilai extends Equatable {
   const Nilai({required this.tugas, required this.uts, required this.uas, required this.absensi, this.project, this.quiz});
 
   @override
-  List<Object?> get props => [tugas, uts, uas, absensi];
+  List<Object?> get props => [tugas, uts, uas, absensi, project, quiz];
 }

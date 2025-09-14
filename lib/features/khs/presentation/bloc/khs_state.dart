@@ -28,3 +28,12 @@ class KhsError extends KhsState {
   @override
   List<Object> get props => [message];
 }
+
+class KhsPdfDownloaded extends KhsState {
+  final String filePath;
+
+  const KhsPdfDownloaded({required this.filePath});
+
+  @override
+  List<Object> get props => [filePath];
+}

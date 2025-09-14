@@ -122,7 +122,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pw.Text(
-                      'Transkrip Nilai',
+                      appLocalizations.valueTranscript,
                       style: pw.TextStyle(
                         fontSize: 24,
                         fontWeight: pw.FontWeight.bold,
@@ -154,11 +154,11 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                     ),
                     pw.TableHelper.fromTextArray(
                       headers: [
-                        'No',
-                        'Kode Matkul',
-                        'Mata Kuliah',
-                        'SKS',
-                        'Nilai',
+                        appLocalizations.no,
+                        appLocalizations.courseCode,
+                        appLocalizations.course,
+                        appLocalizations.sks,
+                        appLocalizations.grade,
                       ],
                       // The data is mapped directly from the state's listTranskrip
                       data: currentState.listTranskrip.map((t) {

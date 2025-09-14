@@ -5,7 +5,6 @@ import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/features/khs/presentation/pages/detail_khs.dart';
 import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
-import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/krs/presentation/pages/detail_krs.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
@@ -14,7 +13,6 @@ import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
-import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
@@ -98,9 +96,8 @@ GoRouter myRouter() {
             name: 'detailKrsPage',
             builder: (context, state) {
               final data = state.extra as Map<String, dynamic>;
-              final List<Krs> krsList = data['krsList'];
               final int semester = data['semester'];
-              return DetailKrs(krs: krsList, semester: semester);
+              return DetailKrs(semester: semester);
             },
           ),
         ],
@@ -131,9 +128,8 @@ GoRouter myRouter() {
             name: 'detailKhsPage',
             builder: (context, state) {
               final data = state.extra as Map<String, dynamic>;
-              final List<Transkrip> khsList = data['khsList'];
               final int semester = data['semester'];
-              return DetailKhs(khs: khsList, semester: semester);
+              return DetailKhs(semester: semester);
             },
           ),
         ],

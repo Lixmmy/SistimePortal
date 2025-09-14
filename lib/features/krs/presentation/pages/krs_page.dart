@@ -53,7 +53,6 @@ class _KrsPageState extends State<KrsPage> {
                   return SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                       final semester = semesters[index];
-                      final krsList = state.groupedKrs[semester]!;
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
@@ -64,7 +63,7 @@ class _KrsPageState extends State<KrsPage> {
                           onTap: () {
                             context.pushNamed(
                               'detailKrsPage',
-                              extra: {'krsList': krsList, 'semester': semester},
+                              extra: {'semester': semester},
                             );
                           },
                           shape: OutlineInputBorder(

@@ -131,4 +131,67 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get valueTranscript => 'Nilai Transkrip';
+
+  @override
+  String get code => 'Kode';
+
+  @override
+  String get lecture => 'Dosen';
+
+  @override
+  String get quizGrade => 'Nilai Quiz';
+
+  @override
+  String get assignmentGrade => 'Nilai Tugas';
+
+  @override
+  String get finalGrade => 'NIlai UAS';
+
+  @override
+  String get midTermGrade => 'Nilai UTS';
+
+  @override
+  String get projectScore => 'NIlai Project';
+
+  @override
+  String get attendanceGrade => 'NIlai Absensi';
+
+  @override
+  String get sks => 'SKS';
+
+  @override
+  String get submit => 'Ajukan';
+
+  @override
+  String get subject => 'Mata Kuliah';
+
+  @override
+  String get grade => 'Nilai';
+
+  @override
+  String get courseCode => 'Kode Mata Kuliah';
+
+  @override
+  String get course => 'Mata Kuliah';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get uas => 'UAS';
+
+  @override
+  String get uts => 'UTS';
+
+  @override
+  String get quiz => 'Quiz';
+
+  @override
+  String get project => 'Project';
+
+  @override
+  String get attendance => 'Absensi';
+
+  @override
+  String get assignment => 'Tugas';
 }

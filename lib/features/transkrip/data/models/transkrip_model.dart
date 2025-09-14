@@ -115,6 +115,8 @@ class NilaiModel {
       uts: utsModel,
       uas: uasModel,
       absensi: absensiModel,
+      project: projectModel,
+      quiz: quizModel,
     );
   }
 }
