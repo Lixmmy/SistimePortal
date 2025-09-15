@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/injection.dart';
@@ -24,13 +23,6 @@ class _DetailKrsState extends State<DetailKhs> {
       body: BlocListener<KhsBloc, KhsState>(
         bloc: myInjection<KhsBloc>(),
         listener: (context, state) {
-          if (state is KhsLoading) {
-            LoadingManager().show(context);
-          } else {
-            if (LoadingManager().isShowing) {
-              LoadingManager().dismiss();
-            }
-          }
           if (state is KhsPdfDownloaded) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -39,7 +31,6 @@ class _DetailKrsState extends State<DetailKhs> {
               ),
             );
             myInjection<KhsBloc>().add(const FetchKhsData(nim: '2244068'));
-            context.pop();
           }
         },
         child: CustomScrollView(
