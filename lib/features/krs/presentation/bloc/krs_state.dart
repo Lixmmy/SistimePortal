@@ -28,3 +28,11 @@ class KrsError extends KrsState {
   @override
   List<Object> get props => [message];
 }
+
+class KrsPdfDownloaded extends KrsState {
+  final String filePath;
+
+  const KrsPdfDownloaded({required this.filePath}); 
+  @override
+  List<Object> get props => [filePath];
+}

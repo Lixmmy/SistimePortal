@@ -52,7 +52,7 @@ class TranskripModel {
 class ListTranskripModel {
   final List<TranskripModel> listTranskripModel;
   const ListTranskripModel({required this.listTranskripModel});
-  
+
   factory ListTranskripModel.fromJson(List<dynamic> json) {
     return ListTranskripModel(
       listTranskripModel: json.map((e) => TranskripModel.fromJson(e)).toList(),
@@ -67,19 +67,18 @@ class ListTranskripModel {
 }
 
 class NilaiModel {
-  final double tugasModel;
-  final double utsModel;
-  final double uasModel;
-  final double absensiModel;
+  final double? tugasModel;
+  final double? utsModel;
+  final double? uasModel;
+  final double? absensiModel;
   final double? projectModel;
   final double? quizModel;
 
-
   const NilaiModel({
-    required this.tugasModel,
-    required this.utsModel,
-    required this.uasModel,
-    required this.absensiModel,
+    this.tugasModel,
+    this.utsModel,
+    this.uasModel,
+    this.absensiModel,
     this.projectModel,
     this.quizModel,
   });
@@ -96,10 +95,12 @@ class NilaiModel {
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['tugas'] = tugasModel;
-    data['uts'] = utsModel;
-    data['uas'] = uasModel;
-    data['absensi'] = absensiModel;
+    if (tugasModel != null) {
+      data['tugas'] = tugasModel;
+    }
+    if (utsModel != null) data['uts'] = utsModel;
+    if (uasModel != null) data['uas'] = uasModel;
+    if (absensiModel != null) data['absensi'] = absensiModel;
     if (projectModel != null) {
       data['project'] = projectModel;
     }

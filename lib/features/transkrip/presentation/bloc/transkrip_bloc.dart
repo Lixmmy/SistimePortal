@@ -32,8 +32,8 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
   final GetTranskrip _getTranskrip;
 
   TranskripBloc({required GetTranskrip getTranskrip})
-      : _getTranskrip = getTranskrip,
-        super(TranskripInitial()) {
+    : _getTranskrip = getTranskrip,
+      super(TranskripInitial()) {
     on<GetListTranskrip>((event, emit) async {
       emit(TranskripLoading());
       try {
@@ -47,7 +47,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
             int failedCourses = 0;
             int totalSks = 0;
             double totalBobot = 0;
-            
+
             // Create a new list to hold the enriched data
             final List<Transkrip> enrichedTranskripList = [];
 
@@ -58,10 +58,10 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
 
               if (nilai != null) {
                 final List<double> scores = [
-                  nilai.tugas,
-                  nilai.uts,
-                  nilai.uas,
-                  nilai.absensi,
+                  nilai.tugas ?? 0,
+                  nilai.uts ?? 0,
+                  nilai.uas ?? 0,
+                  nilai.absensi ?? 0,
                   nilai.project ?? 0,
                   nilai.quiz ?? 0,
                 ];
@@ -83,11 +83,13 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                 }
               }
               // Add the enriched transkrip object (with letterGrade) to the new list
-              enrichedTranskripList.add(transkrip.copyWith(letterGrade: currentLetterGrade));
+              enrichedTranskripList.add(
+                transkrip.copyWith(letterGrade: currentLetterGrade),
+              );
             }
 
             final double gpa = totalSks > 0 ? totalBobot / totalSks : 0;
-            
+
             emit(
               TranskripLoaded(
                 // Emit the new list with the calculated grades
@@ -163,7 +165,8 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                       // The data is mapped directly from the state's listTranskrip
                       data: currentState.listTranskrip.map((t) {
                         return [
-                          (currentState.listTranskrip.indexOf(t) + 1).toString(),
+                          (currentState.listTranskrip.indexOf(t) + 1)
+                              .toString(),
                           t.kodeMatkul,
                           t.matkul,
                           t.sks.toString(),
@@ -198,7 +201,9 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                             '${appLocalizations.numberofCredits}: ${currentState.totalSks}',
                           ),
                           // GPA is formatted to 2 decimal places
-                          pw.Text('${appLocalizations.gpa}: ${currentState.gpa.toStringAsFixed(2)}'),
+                          pw.Text(
+                            '${appLocalizations.gpa}: ${currentState.gpa.toStringAsFixed(2)}',
+                          ),
                         ],
                       ),
                     ),
@@ -209,7 +214,8 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
           );
 
           final output = await getTemporaryDirectory();
-          final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+          final String timestamp = DateTime.now().millisecondsSinceEpoch
+              .toString();
           final file = File("${output.path}/transkrip_$timestamp.pdf");
           await file.writeAsBytes(await pdf.save());
           OpenFile.open(file.path);
@@ -217,9 +223,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
           emit(TranskripPdfDownloaded(filePath: file.path));
         } catch (e) {
           emit(
-            TranskripError(
-              message: 'Failed to generate PDF: ${e.toString()}',
-            ),
+            TranskripError(message: 'Failed to generate PDF: ${e.toString()}'),
           );
         }
       } else {

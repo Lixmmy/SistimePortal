@@ -71,10 +71,10 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
 
             if (nilai != null) {
               final List<double> scores = [
-                nilai.tugas,
-                nilai.uts,
-                nilai.uas,
-                nilai.absensi,
+                nilai.tugas ?? 0,
+                nilai.uts ?? 0,
+                nilai.uas ?? 0,
+                nilai.absensi ?? 0,
                 nilai.project ?? 0,
                 nilai.quiz ?? 0,
               ];
@@ -114,9 +114,14 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
             pw.Page(
               pageFormat: PdfPageFormat.a4,
               build: (pw.Context context) {
+                // ignore: collection_methods_unrelated_type
                 final semesterData = currentState.groupedKhs[event.semester]!;
-                final bool hasQuiz = semesterData.any((e) => e.nilai?.quiz != null);
-                final bool hasProject = semesterData.any((e) => e.nilai?.project != null);
+                final bool hasQuiz = semesterData.any(
+                  (e) => e.nilai?.quiz != null,
+                );
+                final bool hasProject = semesterData.any(
+                  (e) => e.nilai?.project != null,
+                );
 
                 final List<String> headers = [
                   appLocalizations.no,
@@ -204,26 +209,31 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                       children: [
                         pw.TableRow(
                           children: headers
-                              .map((header) => pw.Container(
-                                    alignment: pw.Alignment.center,
-                                    padding: const pw.EdgeInsets.all(4),
-                                    child: pw.Text(
-                                      header,
-                                      style: pw.TextStyle(
-                                          fontWeight: pw.FontWeight.bold),
-                                      textAlign: pw.TextAlign.center,
+                              .map(
+                                (header) => pw.Container(
+                                  alignment: pw.Alignment.center,
+                                  padding: const pw.EdgeInsets.all(4),
+                                  child: pw.Text(
+                                    header,
+                                    style: pw.TextStyle(
+                                      fontWeight: pw.FontWeight.bold,
                                     ),
-                                  ))
+                                    textAlign: pw.TextAlign.center,
+                                  ),
+                                ),
+                              )
                               .toList(),
                         ),
                         ...data.map(
                           (row) => pw.TableRow(
                             children: row
-                                .map((cell) => pw.Container(
-                                      alignment: pw.Alignment.center,
-                                      padding: const pw.EdgeInsets.all(4),
-                                      child: pw.Text(cell),
-                                    ))
+                                .map(
+                                  (cell) => pw.Container(
+                                    alignment: pw.Alignment.centerLeft,
+                                    padding: const pw.EdgeInsets.all(4),
+                                    child: pw.Text(cell),
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ),
@@ -235,7 +245,8 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
             ),
           );
           final output = await getTemporaryDirectory();
-          final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+          final String timestamp = DateTime.now().millisecondsSinceEpoch
+              .toString();
           final file = File("${output.path}/Khs_$timestamp.pdf");
           await file.writeAsBytes(await pdf.save());
           OpenFile.open(file.path); // <-- Comment out or remove this line

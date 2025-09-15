@@ -18,7 +18,6 @@ static WebOptions _webOptions() => WebOptions(dbName: 'Sistime5tmik', publicKey:
       await _secureStorage.write(key: key, value: value);
     } catch (e) {
       if (kIsWeb) {
-        debugPrint('SecureStorage: Failed to save data on web: $e');
       } else {
         rethrow;
       }
@@ -30,7 +29,6 @@ static WebOptions _webOptions() => WebOptions(dbName: 'Sistime5tmik', publicKey:
       return value ?? '';
     } catch (e) {
       if (kIsWeb) {
-        debugPrint('SecureStorage: Failed to read data on web: $e');
         return '';
       } else {
         rethrow;
@@ -43,7 +41,6 @@ static WebOptions _webOptions() => WebOptions(dbName: 'Sistime5tmik', publicKey:
       await _secureStorage.delete(key: key);
     } catch (e) {
       if (kIsWeb) {
-        debugPrint('SecureStorage: Failed to delete data on web: $e');
       } else {
         rethrow;
       }
@@ -55,7 +52,6 @@ static WebOptions _webOptions() => WebOptions(dbName: 'Sistime5tmik', publicKey:
       await _secureStorage.deleteAll();
     } catch (e) {
       if (kIsWeb) {
-        debugPrint('SecureStorage: Failed to delete all data on web: $e');
       } else {
         rethrow;
       }

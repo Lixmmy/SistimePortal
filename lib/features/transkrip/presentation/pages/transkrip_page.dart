@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
@@ -26,42 +25,38 @@ class _TranskripPageState extends State<TranskripPage> {
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: BlocConsumer(
-              bloc: myInjection<TranskripBloc>(),
-              listener: (context, state) {
-                if (state is TranskripError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('error: ${state.message}'),
-                      duration: const Duration(seconds: 2),
-                    ),
-                  );
-                }
-                if (state is TranskripLoading) {
-                  LoadingManager().show(context);
-                } else {
-                  if (LoadingManager().isShowing) {
-                    LoadingManager().dismiss();
-                  }
-                }
-                if (state is TranskripPdfDownloaded) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("berhasil download pdf"),
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
-                  // This re-fetch is now safe and won't cause a race condition.
-                  myInjection<TranskripBloc>()
-                      .add(const GetListTranskrip('2244068'));
-                }
-              },
-              builder: (context, state) {
-                if (state is TranskripLoaded) {
-                  return Padding(
+      body: BlocConsumer<TranskripBloc, TranskripState>(
+        bloc: myInjection<TranskripBloc>(),
+        listener: (context, state) {
+          if (state is TranskripError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('error: ${state.message}'),
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+          if (state is TranskripPdfDownloaded) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("berhasil download pdf"),
+                duration: Duration(seconds: 1),
+              ),
+            );
+            // This re-fetch is now safe and won't cause a race condition.
+            myInjection<TranskripBloc>()
+                .add(const GetListTranskrip('2244068'));
+          }
+        },
+        builder: (context, state) {
+          if (state is TranskripLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is TranskripLoaded) {
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,13 +180,13 @@ class _TranskripPageState extends State<TranskripPage> {
                         ),
                       ],
                     ),
-                  );
-                }
-                return SizedBox.shrink();
-              },
-            ),
-          ),
-        ],
+                  ),
+                ),
+              ],
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }

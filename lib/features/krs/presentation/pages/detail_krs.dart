@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/injection.dart';
@@ -23,12 +22,14 @@ class _DetailKrsState extends State<DetailKrs> {
       body: BlocListener<KrsBloc, KrsState>(
         bloc: myInjection<KrsBloc>(),
         listener: (context, state) {
-          if (state is KrsLoading) {
-            LoadingManager().show(context);
-          } else {
-            if (LoadingManager().isShowing) {
-              LoadingManager().dismiss();
-            }
+          if (state is KrsPdfDownloaded) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("berhasil download pdf"),
+                duration: Duration(seconds: 1),
+              ),
+            );
+            myInjection<KrsBloc>().add(const FetchKrsData(nim: '2244068'));
           }
         },
         child: CustomScrollView(
@@ -145,7 +146,14 @@ class _DetailKrsState extends State<DetailKrs> {
                               child: Text(appLocalizations.submit),
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                myInjection<KrsBloc>().add(
+                                  DownloadKrsPdf(
+                                    appLocalizations: appLocalizations,
+                                    semester: widget.semester,
+                                  ),
+                                );
+                              },
                               child: Text('Download Pdf'),
                             ),
                           ],

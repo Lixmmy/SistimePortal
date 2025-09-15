@@ -36,7 +36,14 @@ class Transkrip extends Equatable {
   }
 
   @override
-  List<Object?> get props => [krsId, kodeMatkul, matkul, sks, nilai, letterGrade];
+  List<Object?> get props => [
+    krsId,
+    kodeMatkul,
+    matkul,
+    sks,
+    nilai,
+    letterGrade,
+  ];
 }
 
 class ListTranskrip extends Equatable {
@@ -49,15 +56,21 @@ class ListTranskrip extends Equatable {
 }
 
 class Nilai extends Equatable {
-  final double tugas;
-  final double uts;
-  final double uas;
-  final double absensi;
+  final double? tugas;
+  final double? uts;
+  final double? uas;
+  final double? absensi;
   final double? project;
   final double? quiz;
 
-
-  const Nilai({required this.tugas, required this.uts, required this.uas, required this.absensi, this.project, this.quiz});
+  const Nilai({
+    this.tugas,
+    this.uts,
+    this.uas,
+    this.absensi,
+    this.project,
+    this.quiz,
+  });
 
   @override
   List<Object?> get props => [tugas, uts, uas, absensi, project, quiz];

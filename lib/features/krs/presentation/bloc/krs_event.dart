@@ -15,3 +15,13 @@ class FetchKrsData extends KrsEvent {
   @override
   List<Object> get props => [nim];
 }
+
+class DownloadKrsPdf extends KrsEvent {
+  final AppLocalizations appLocalizations;
+  final int semester;
+
+  const DownloadKrsPdf({required this.appLocalizations, required this.semester});
+
+  @override
+  List<Object> get props => [appLocalizations, semester];
+}
