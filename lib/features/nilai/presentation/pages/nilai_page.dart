@@ -16,6 +16,7 @@ class NilaiPage extends StatelessWidget {
         appBar: AppBarCustom(
           isTextRich: true,
           tabBar: TabBar(
+            isScrollable: true,
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
               Tab(text: 'KRS'),
@@ -26,7 +27,14 @@ class NilaiPage extends StatelessWidget {
           ),
           
         ),
-        body: TabBarView(children: [KrsPage(), KhsPage(), TranskripPage(),PamPage()]),
+        body: TabBarView(
+          children: [
+            KrsPage(),
+            KhsPage(),
+            TranskripPage(),
+            PamPage(),
+          ],
+        ),
       ),
     );
   }

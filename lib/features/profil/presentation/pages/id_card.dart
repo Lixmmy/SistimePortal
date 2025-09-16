@@ -56,7 +56,7 @@ class IdCard extends StatelessWidget {
               ),
               margin: EdgeInsets.all(20.0), // Margin around the card
               child: Container(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
                   // This is where you'd set the gradient background seen in the image
                   gradient: LinearGradient(
@@ -71,7 +71,6 @@ class IdCard extends StatelessWidget {
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
@@ -91,7 +90,9 @@ class IdCard extends StatelessWidget {
                     SizedBox(height: 20),
                     Text(
                       appLocalizations.studentCard,
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                     Row(
                       children: [

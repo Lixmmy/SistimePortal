@@ -62,6 +62,7 @@ class AppTheme {
         fontSize: 14,
         fontWeight: FontWeight.normal,
       ),
+      tabAlignment: TabAlignment.center,
     ),
     textTheme: TextTheme(
       displayLarge: GoogleFonts.inter(
@@ -207,15 +208,14 @@ class AppTheme {
       shadowColor: textLightColor.withAlpha(150),
     ),
     navigationBarTheme: NavigationBarThemeData(
-      backgroundColor: primaryColorA0,
-      indicatorColor: Colors.white70,
+      backgroundColor: Colors.white,
       height: 65,
       labelTextStyle: WidgetStateTextStyle.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return GoogleFonts.inter(
             fontWeight: FontWeight.bold,
             fontSize: 12,
-            color: Colors.white,
+            color: Colors.black,
           );
         }
         return GoogleFonts.inter(
@@ -226,18 +226,12 @@ class AppTheme {
       }),
       iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((states) {
         if (states.contains(WidgetState.selected)) {
-          return IconThemeData(color: primaryColorA0, size: 26);
+          return IconThemeData(color: Colors.white, size: 24);
         }
         return IconThemeData(color: primayColorA50);
       }),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-      overlayColor: WidgetStateColor.resolveWith((states) {
-        if (states.contains(WidgetState.pressed) ||
-            states.contains(WidgetState.selected)) {
-          return Colors.white;
-        }
-        return Colors.amber;
-      }),
+      
     ),
     dataTableTheme: DataTableThemeData(
       dataRowColor: WidgetStateProperty.all(surfaceLightColorA10),

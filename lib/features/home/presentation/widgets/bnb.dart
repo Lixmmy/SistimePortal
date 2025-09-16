@@ -20,13 +20,21 @@ class Bnb extends StatelessWidget {
       NavigationDestination(icon: Icon(Icons.people), label: 'Profil'),
     ];
 
-    return ClipRRect(
-      borderRadius: BorderRadiusGeometry.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withAlpha(150),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          )
+        ]
+      ),
       child: NavigationBar(
         destinations: destinations,
         selectedIndex: selectedIndex,
         onDestinationSelected: onItemTapped,
-        animationDuration: Duration(milliseconds: 1000),
       ),
     );
   }
