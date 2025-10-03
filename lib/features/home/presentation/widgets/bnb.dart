@@ -23,12 +23,12 @@ class Bnb extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withAlpha(150),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          )
+          // BoxShadow(
+          //   color: Colors.grey.withAlpha(150),
+          //   spreadRadius: 3,
+          //   blurRadius: 5,
+          //   offset: Offset(0, 1),
+          // )
         ]
       ),
       child: NavigationBar(

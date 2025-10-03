@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
@@ -44,8 +45,7 @@ class _TranskripPageState extends State<TranskripPage> {
               ),
             );
             // This re-fetch is now safe and won't cause a race condition.
-            myInjection<TranskripBloc>()
-                .add(const GetListTranskrip('2244068'));
+            myInjection<TranskripBloc>().add(const GetListTranskrip('2244068'));
           }
         },
         builder: (context, state) {
@@ -70,7 +70,10 @@ class _TranskripPageState extends State<TranskripPage> {
                           padding: const EdgeInsets.all(10),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? AppTheme.surfaceDarkColorA30
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                               color: Colors.black.withAlpha(150),
@@ -83,32 +86,64 @@ class _TranskripPageState extends State<TranskripPage> {
                                 value: '2244068',
                                 valueFlex: 6,
                                 labelFlex: 3,
-                                labelColor: Colors.black,
-                                valueColor: Colors.black,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.name,
                                 value: 'Felix',
                                 valueFlex: 6,
                                 labelFlex: 3,
-                                labelColor: Colors.black,
-                                valueColor: Colors.black,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.roomClass,
                                 value: 'Ti D 22',
                                 valueFlex: 6,
                                 labelFlex: 3,
-                                labelColor: Colors.black,
-                                valueColor: Colors.black,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.studyPrograms,
                                 value: 'Teknik Informatika',
                                 valueFlex: 6,
                                 labelFlex: 3,
-                                labelColor: Colors.black,
-                                valueColor: Colors.black,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ],
                           ),
@@ -118,7 +153,10 @@ class _TranskripPageState extends State<TranskripPage> {
                           padding: const EdgeInsets.all(10),
                           margin: const EdgeInsets.only(top: 10),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? AppTheme.surfaceDarkColorA30
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                               color: Colors.black.withAlpha(150),
@@ -136,8 +174,16 @@ class _TranskripPageState extends State<TranskripPage> {
                                 value: state.passedCourses.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
-                                labelColor: Colors.black,
-                                valueColor: Colors.black,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               BuildInfoRow(
                                 label:
@@ -145,24 +191,48 @@ class _TranskripPageState extends State<TranskripPage> {
                                 value: state.failedCourses.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
-                                labelColor: Colors.black,
-                                valueColor: Colors.black,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.numberofCredits,
                                 value: state.totalSks.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
-                                labelColor: Colors.black,
-                                valueColor: Colors.black,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.temporaryGPA,
                                 value: state.gpa.toStringAsFixed(2),
                                 valueFlex: 3,
                                 labelFlex: 6,
-                                labelColor: Colors.black,
-                                valueColor: Colors.black,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ],
                           ),

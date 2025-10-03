@@ -55,7 +55,9 @@ class _KrsPageState extends State<KrsPage> {
                         shape: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
-                            color: Colors.black.withAlpha(150),
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white.withAlpha(150)
+                                : Colors.black.withAlpha(150),
                           ),
                         ),
                       ),

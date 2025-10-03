@@ -30,14 +30,17 @@ class ListTranskrip extends StatelessWidget {
             ),
             trailing: Text(
               letterGrade,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(color: gradeColor),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineMedium?.copyWith(color: gradeColor),
             ),
             shape: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.black.withAlpha(150)),
+              borderSide: BorderSide(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white.withAlpha(150)
+                    : Colors.black.withAlpha(150),
+              ),
             ),
           ),
         );
