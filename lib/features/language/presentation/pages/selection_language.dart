@@ -56,7 +56,7 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
                     appLanguage.locale.languageCode;
 
                 return ListTile(
-                  title: Text(appLanguage.name),
+                  title: Text(appLanguage.name, style: Theme.of(context).textTheme.labelSmall,),
                   trailing: isSelected
                       ? const Icon(Icons.check_circle, color: Colors.blue)
                       : null,

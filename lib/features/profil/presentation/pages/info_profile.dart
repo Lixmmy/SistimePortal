@@ -5,7 +5,6 @@ import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import '../../../../core/loading/loading_manage.dart';
 import '../widgets/list_profil.dart';
-import '../../../../custom_widgets/text_customize.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';
 import '../../../../injection.dart';
@@ -78,15 +77,15 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                                 color: Colors.grey[700],
                               ),
                             ),
-                            TextCustomize(
-                              text: profil.namaMahasiswa,
+                            Text(
+                              profil.namaMahasiswa,
                               style: Theme.of(context).textTheme.titleMedium,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               textAlign: TextAlign.center,
                             ),
-                            TextCustomize(
-                              text: profil.user.username,
+                            Text(
+                              profil.user.username!,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
@@ -123,9 +122,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                           context.pushNamed('editProfilPage');
                         },
                         style: Theme.of(context).outlinedButtonTheme.style,
-                        child: TextCustomize(
-                          text: appLocalizations.editProfile,
-                        ),
+                        child: Text(appLocalizations.editProfile),
                       ),
                     ],
                   );

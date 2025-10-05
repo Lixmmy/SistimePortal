@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
@@ -70,13 +69,11 @@ class _TranskripPageState extends State<TranskripPage> {
                           padding: const EdgeInsets.all(10),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                ? AppTheme.surfaceDarkColorA30
-                                : Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color: Colors.black.withAlpha(150),
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black.withAlpha(150),
                             ),
                           ),
                           child: Column(
@@ -153,13 +150,11 @@ class _TranskripPageState extends State<TranskripPage> {
                           padding: const EdgeInsets.all(10),
                           margin: const EdgeInsets.only(top: 10),
                           decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                ? AppTheme.surfaceDarkColorA30
-                                : Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color: Colors.black.withAlpha(150),
+                               color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black.withAlpha(150),
                             ),
                           ),
                           child: Column(

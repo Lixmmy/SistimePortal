@@ -93,10 +93,13 @@ class _DetailKrsState extends State<DetailKhs> {
                             padding: const EdgeInsets.all(10),
                             margin: const EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(
-                              color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: Colors.black.withAlpha(150),
+                                color:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white.withAlpha(150)
+                                    : Colors.black.withAlpha(150),
                               ),
                             ),
                             child: Column(
@@ -106,40 +109,80 @@ class _DetailKrsState extends State<DetailKhs> {
                                   value: '2244068',
                                   valueFlex: 6,
                                   labelFlex: 3,
-                                  labelColor: Colors.black,
-                                  valueColor: Colors.black,
+                                  labelColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  valueColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 BuildInfoRow(
                                   label: appLocalizations.name,
                                   value: 'Felix',
                                   valueFlex: 6,
                                   labelFlex: 3,
-                                  labelColor: Colors.black,
-                                  valueColor: Colors.black,
+                                  labelColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  valueColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 BuildInfoRow(
                                   label: appLocalizations.roomClass,
                                   value: 'Ti D 22',
                                   valueFlex: 6,
                                   labelFlex: 3,
-                                  labelColor: Colors.black,
-                                  valueColor: Colors.black,
+                                  labelColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  valueColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 BuildInfoRow(
                                   label: appLocalizations.studyPrograms,
                                   value: 'Teknik Informatika',
                                   valueFlex: 6,
                                   labelFlex: 3,
-                                  labelColor: Colors.black,
-                                  valueColor: Colors.black,
+                                  labelColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  valueColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 BuildInfoRow(
                                   label: appLocalizations.semester,
                                   value: widget.semester.toString(),
                                   valueFlex: 6,
                                   labelFlex: 3,
-                                  labelColor: Colors.black,
-                                  valueColor: Colors.black,
+                                  labelColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  valueColor:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ],
                             ),
@@ -154,10 +197,13 @@ class _DetailKrsState extends State<DetailKhs> {
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Colors.black.withAlpha(150),
+                                  color:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white.withAlpha(150)
+                                      : Colors.black.withAlpha(150),
                                 ),
                                 borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
                               ),
                               padding: EdgeInsets.all(10),
                               child: Column(
@@ -192,7 +238,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                                   .toString(),
                                               valueColor:
                                                   AppTheme.primaryColorA0,
-                                              labelColor: Colors.black,
+                                              labelColor:
+                                                  Theme.of(
+                                                        context,
+                                                      ).brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
                                             if (khsItem.nilai?.quiz != null)
                                               BuildInfoRow(
@@ -202,7 +254,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                                     .toString(),
                                                 valueColor:
                                                     AppTheme.primaryColorA0,
-                                                labelColor: Colors.black,
+                                                labelColor:
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
                                               ),
                                             BuildInfoRow(
                                               label: appLocalizations
@@ -211,7 +269,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                                   .toString(),
                                               valueColor:
                                                   AppTheme.primaryColorA0,
-                                              labelColor: Colors.black,
+                                              labelColor:
+                                                  Theme.of(
+                                                        context,
+                                                      ).brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
                                             if (khsItem.nilai?.project != null)
                                               BuildInfoRow(
@@ -219,7 +283,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                                     .projectScore,
                                                 value: khsItem.nilai!.project
                                                     .toString(),
-                                                labelColor: Colors.black,
+                                                labelColor:
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
                                                 valueColor:
                                                     AppTheme.primaryColorA0,
                                               ),
@@ -230,7 +300,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                                   .toString(),
                                               valueColor:
                                                   AppTheme.primaryColorA0,
-                                              labelColor: Colors.black,
+                                              labelColor:
+                                                  Theme.of(
+                                                        context,
+                                                      ).brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
                                             BuildInfoRow(
                                               label:
@@ -239,7 +315,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                                   .toString(),
                                               valueColor:
                                                   AppTheme.primaryColorA0,
-                                              labelColor: Colors.black,
+                                              labelColor:
+                                                  Theme.of(
+                                                        context,
+                                                      ).brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
                                           ],
                                         ),

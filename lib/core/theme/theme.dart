@@ -359,7 +359,7 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColorA20, // Background button
-        foregroundColor: textLightColor, // Text color button
+        foregroundColor: textDarkColor, // Text color button
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         textStyle: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold),
@@ -376,7 +376,7 @@ class AppTheme {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        foregroundColor: primaryColorA20,
+        foregroundColor: textDarkColor,
         side: const BorderSide(color: primaryColorA20, width: 2),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),

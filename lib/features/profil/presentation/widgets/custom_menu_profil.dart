@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsistime/core/theme/theme.dart';
 
 class CustomMenuProfil extends StatelessWidget {
   const CustomMenuProfil({
@@ -18,7 +19,9 @@ class CustomMenuProfil extends StatelessWidget {
       height: 110,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? AppTheme.surfaceDarkColorA0
+            : Colors.white,
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).primaryColor,

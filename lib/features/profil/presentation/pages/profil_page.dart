@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/presentation/widgets/custom_menu_profil.dart';
 import '../../../../core/loading/loading_manage.dart';
-import '../../../../custom_widgets/text_customize.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';
 import '../../../../injection.dart';
@@ -80,16 +79,16 @@ class _ProfilPageState extends State<ProfilPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextCustomize(
-                                    text: profil.namaMahasiswa,
+                                  Text(
+                                    profil.namaMahasiswa,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(
                                       context,
                                     ).textTheme.titleMedium,
                                   ),
-                                  TextCustomize(
-                                    text: profil.user.username,
+                                  Text(
+                                    profil.user.username!,
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodyMedium,
