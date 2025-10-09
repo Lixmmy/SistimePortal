@@ -117,98 +117,105 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
           final pdf = pw.Document();
 
           pdf.addPage(
-            pw.Page(
+            pw.MultiPage(
               pageFormat: PdfPageFormat.a4,
               build: (pw.Context context) {
-                return pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text(
-                      appLocalizations.valueTranscript,
-                      style: pw.TextStyle(
-                        fontSize: 24,
-                        fontWeight: pw.FontWeight.bold,
-                      ),
-                    ),
-                    pw.SizedBox(height: 20),
-                    pw.Container(
-                      width: double.infinity,
-                      padding: const pw.EdgeInsets.all(10),
-                      margin: const pw.EdgeInsets.only(bottom: 10),
-                      decoration: pw.BoxDecoration(
-                        color: PdfColors.white,
-                        borderRadius: pw.BorderRadius.circular(10),
-                        border: pw.Border.all(
-                          color: PdfColor.fromInt(0x96000000),
+                return [
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text(
+                        appLocalizations.valueTranscript,
+                        style: pw.TextStyle(
+                          fontSize: 24,
+                          fontWeight: pw.FontWeight.bold,
                         ),
                       ),
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Text('${appLocalizations.nim}: 2244068'),
-                          pw.Text('${appLocalizations.name}: Felix'),
-                          pw.Text('${appLocalizations.roomClass}: Ti D 22'),
-                          pw.Text(
-                            '${appLocalizations.studyPrograms}: Teknik Informatika',
+                      pw.SizedBox(height: 20),
+                      pw.Container(
+                        width: double.infinity,
+                        padding: const pw.EdgeInsets.all(10),
+                        margin: const pw.EdgeInsets.only(bottom: 10),
+                        decoration: pw.BoxDecoration(
+                          color: PdfColors.white,
+                          borderRadius: pw.BorderRadius.circular(10),
+                          border: pw.Border.all(
+                            color: PdfColor.fromInt(0x96000000),
                           ),
-                        ],
-                      ),
-                    ),
-                    pw.TableHelper.fromTextArray(
-                      headers: [
-                        appLocalizations.no,
-                        appLocalizations.courseCode,
-                        appLocalizations.course,
-                        appLocalizations.sks,
-                        appLocalizations.grade,
-                      ],
-                      // The data is mapped directly from the state's listTranskrip
-                      data: currentState.listTranskrip.map((t) {
-                        return [
-                          (currentState.listTranskrip.indexOf(t) + 1)
-                              .toString(),
-                          t.kodeMatkul,
-                          t.matkul,
-                          t.sks.toString(),
-                          // The pre-calculated letterGrade is used here. No more calculation!
-                          t.letterGrade ?? 'N/A',
-                        ];
-                      }).toList(),
-                    ),
-                    pw.Container(
-                      width: double.infinity,
-                      padding: const pw.EdgeInsets.all(10),
-                      margin: const pw.EdgeInsets.only(top: 10),
-                      decoration: pw.BoxDecoration(
-                        color: PdfColors.white,
-                        borderRadius: pw.BorderRadius.circular(10),
-                        border: pw.Border.all(
-                          color: PdfColor.fromInt(0x96000000),
+                        ),
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text('${appLocalizations.nim}: 2244068'),
+                            pw.Text('${appLocalizations.name}: Felix'),
+                            pw.Text('${appLocalizations.roomClass}: Ti D 22'),
+                            pw.Text(
+                              '${appLocalizations.studyPrograms}: Teknik Informatika',
+                            ),
+                          ],
                         ),
                       ),
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Text(appLocalizations.summary),
-                          // Summary data is taken directly from the state
-                          pw.Text(
-                            '${appLocalizations.numberOfCoursesPassed}: ${currentState.passedCourses}',
-                          ),
-                          pw.Text(
-                            '${appLocalizations.numberOfCoursesNotPassed}: ${currentState.failedCourses}',
-                          ),
-                          pw.Text(
-                            '${appLocalizations.numberofCredits}: ${currentState.totalSks}',
-                          ),
-                          // GPA is formatted to 2 decimal places
-                          pw.Text(
-                            '${appLocalizations.gpa}: ${currentState.gpa.toStringAsFixed(2)}',
-                          ),
+                      pw.TableHelper.fromTextArray(
+                        headers: [
+                          appLocalizations.no,
+                          appLocalizations.courseCode,
+                          appLocalizations.course,
+                          appLocalizations.sks,
+                          appLocalizations.grade,
                         ],
+                        headerStyle: pw.TextStyle(
+                          fontWeight: pw.FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                        cellStyle: pw.TextStyle(fontSize: 12),
+                        // The data is mapped directly from the state's listTranskrip
+                        data: currentState.listTranskrip.map((t) {
+                          return [
+                            (currentState.listTranskrip.indexOf(t) + 1)
+                                .toString(),
+                            t.kodeMatkul,
+                            t.matkul,
+                            t.sks.toString(),
+                            // The pre-calculated letterGrade is used here. No more calculation!
+                            t.letterGrade ?? 'N/A',
+                          ];
+                        }).toList(),
                       ),
-                    ),
-                  ],
-                );
+                      pw.Container(
+                        width: double.infinity,
+                        padding: const pw.EdgeInsets.all(10),
+                        margin: const pw.EdgeInsets.only(top: 10),
+                        decoration: pw.BoxDecoration(
+                          color: PdfColors.white,
+                          borderRadius: pw.BorderRadius.circular(10),
+                          border: pw.Border.all(
+                            color: PdfColor.fromInt(0x96000000),
+                          ),
+                        ),
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text(appLocalizations.summary),
+                            // Summary data is taken directly from the state
+                            pw.Text(
+                              '${appLocalizations.numberOfCoursesPassed}: ${currentState.passedCourses}',
+                            ),
+                            pw.Text(
+                              '${appLocalizations.numberOfCoursesNotPassed}: ${currentState.failedCourses}',
+                            ),
+                            pw.Text(
+                              '${appLocalizations.numberofCredits}: ${currentState.totalSks}',
+                            ),
+                            // GPA is formatted to 2 decimal places
+                            pw.Text(
+                              '${appLocalizations.gpa}: ${currentState.gpa.toStringAsFixed(2)}',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ];
               },
             ),
           );

@@ -217,6 +217,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                                     header,
                                     style: pw.TextStyle(
                                       fontWeight: pw.FontWeight.bold,
+                                      fontSize: 12,
                                     ),
                                     textAlign: pw.TextAlign.center,
                                   ),
@@ -231,7 +232,10 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                                   (cell) => pw.Container(
                                     alignment: pw.Alignment.centerLeft,
                                     padding: const pw.EdgeInsets.all(4),
-                                    child: pw.Text(cell),
+                                    child: pw.Text(
+                                      cell,
+                                      style: pw.TextStyle(fontSize: 12),
+                                    ),
                                   ),
                                 )
                                 .toList(),

@@ -194,4 +194,82 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get assignment => 'Assignment';
+
+  @override
+  String get campus => 'Campus';
+
+  @override
+  String get information => 'Information';
+
+  @override
+  String get campusCode => 'Campus Code';
+
+  @override
+  String get programStudyCode => 'Program Study Code';
+
+  @override
+  String get schoolAddress => 'School Adress';
+
+  @override
+  String get school => 'School';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get collegeTime => 'College Time';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get hobby => 'Hobby';
+
+  @override
+  String get bloodType => 'Blood Type';
+
+  @override
+  String get schoolDepartment => 'School Department';
+
+  @override
+  String get nasionality => 'Nasionality';
+
+  @override
+  String get motherName => 'Mother Name';
+
+  @override
+  String get fatherName => 'Father Name';
+
+  @override
+  String get parentalEducation => 'Parental Education';
+
+  @override
+  String get diplomaDate => 'Diploma Date';
+
+  @override
+  String get registrationDate => 'Registration Date';
+
+  @override
+  String get graduationYear => 'Graduation Year';
+
+  @override
+  String get parentPhoneNumber => 'Parent Phone Number';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get numberOfSiblings => 'Number of Siblings';
+
+  @override
+  String get birthOrder => 'Birth Order';
+
+  @override
+  String get parrentingJob => 'Parrenting Job';
+
+  @override
+  String get parrentAddress => 'Parrent Address';
+
+  @override
+  String get diplomaNumber => 'Diploma Number';
 }

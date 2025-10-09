@@ -463,6 +463,162 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tugas'**
   String get assignment;
+
+  /// No description provided for @campus.
+  ///
+  /// In id, this message translates to:
+  /// **'Kampus'**
+  String get campus;
+
+  /// No description provided for @information.
+  ///
+  /// In id, this message translates to:
+  /// **'Keterangan'**
+  String get information;
+
+  /// No description provided for @campusCode.
+  ///
+  /// In id, this message translates to:
+  /// **'Kode Kampus'**
+  String get campusCode;
+
+  /// No description provided for @programStudyCode.
+  ///
+  /// In id, this message translates to:
+  /// **'Kode Program Studi'**
+  String get programStudyCode;
+
+  /// No description provided for @schoolAddress.
+  ///
+  /// In id, this message translates to:
+  /// **'Alamat Sekolah'**
+  String get schoolAddress;
+
+  /// No description provided for @school.
+  ///
+  /// In id, this message translates to:
+  /// **'Sekolah'**
+  String get school;
+
+  /// No description provided for @status.
+  ///
+  /// In id, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @collegeTime.
+  ///
+  /// In id, this message translates to:
+  /// **'Waktu Sekolah'**
+  String get collegeTime;
+
+  /// No description provided for @gender.
+  ///
+  /// In id, this message translates to:
+  /// **'Jenis Kelamin'**
+  String get gender;
+
+  /// No description provided for @hobby.
+  ///
+  /// In id, this message translates to:
+  /// **'Hobi'**
+  String get hobby;
+
+  /// No description provided for @bloodType.
+  ///
+  /// In id, this message translates to:
+  /// **'Golongan Darah'**
+  String get bloodType;
+
+  /// No description provided for @schoolDepartment.
+  ///
+  /// In id, this message translates to:
+  /// **'Jurusan Sekolah'**
+  String get schoolDepartment;
+
+  /// No description provided for @nasionality.
+  ///
+  /// In id, this message translates to:
+  /// **'Kewarganegaraan'**
+  String get nasionality;
+
+  /// No description provided for @motherName.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama Ibu'**
+  String get motherName;
+
+  /// No description provided for @fatherName.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama Ayah'**
+  String get fatherName;
+
+  /// No description provided for @parentalEducation.
+  ///
+  /// In id, this message translates to:
+  /// **'Pendidikan Orang Tua'**
+  String get parentalEducation;
+
+  /// No description provided for @diplomaDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal Diploma'**
+  String get diplomaDate;
+
+  /// No description provided for @registrationDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal Pendaftaran'**
+  String get registrationDate;
+
+  /// No description provided for @graduationYear.
+  ///
+  /// In id, this message translates to:
+  /// **'Tahun Lulus'**
+  String get graduationYear;
+
+  /// No description provided for @parentPhoneNumber.
+  ///
+  /// In id, this message translates to:
+  /// **'No.Hp Orang Tua'**
+  String get parentPhoneNumber;
+
+  /// No description provided for @address.
+  ///
+  /// In id, this message translates to:
+  /// **'Alamat'**
+  String get address;
+
+  /// No description provided for @numberOfSiblings.
+  ///
+  /// In id, this message translates to:
+  /// **'Jumlah Saudara'**
+  String get numberOfSiblings;
+
+  /// No description provided for @birthOrder.
+  ///
+  /// In id, this message translates to:
+  /// **'Anak ke-'**
+  String get birthOrder;
+
+  /// No description provided for @parrentingJob.
+  ///
+  /// In id, this message translates to:
+  /// **'Pekerjaan Orang Tua'**
+  String get parrentingJob;
+
+  /// No description provided for @parrentAddress.
+  ///
+  /// In id, this message translates to:
+  /// **'Alamat Orang Tua'**
+  String get parrentAddress;
+
+  /// No description provided for @diplomaNumber.
+  ///
+  /// In id, this message translates to:
+  /// **'Nomor Ijazah'**
+  String get diplomaNumber;
 }
 
 class _AppLocalizationsDelegate

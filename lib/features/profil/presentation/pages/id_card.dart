@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:newsistime/core/helper/date_formatter.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/custom_widgets/appbarcustom.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
@@ -42,13 +42,8 @@ class IdCard extends StatelessWidget {
         builder: (context, state) {
           if (state is ProfilLoaded) {
             Profil profil = state.detailUser;
-            final DateTime? tanggalLahir = profil.tanggalLahir != null
-                ? DateTime.fromMillisecondsSinceEpoch(profil.tanggalLahir!)
-                : null;
-            final String formattedTanggalLahir = DateFormat(
-              'dd MMMM yyyy',
-              'id_ID',
-            ).format(tanggalLahir!);
+             final String formattedTanggalLahir =
+                      formatDate(profil.tanggalLahir);
             return Card(
               elevation: 4.0, // Gives a shadow effect
               shape: RoundedRectangleBorder(

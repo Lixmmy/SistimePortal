@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:newsistime/core/helper/date_formatter.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
@@ -62,20 +62,14 @@ class _EditProfileState extends State<EditProfile> {
                       TextEditingController(text: profil.tempatLahir);
                   final TextEditingController religionController =
                       TextEditingController(text: profil.agama.agama!);
-                  final String formattedTanggalLahir = profil.tanggalLahir != null
-                      ? DateFormat(
-                          'dd MMMM yyyy',
-                          'id_ID',
-                        ).format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                            profil.tanggalLahir!,
-                          ),
-                        )
-                      : '';
+                  final String formattedTanggalLahir = formatDate(
+                    profil.tanggalLahir,
+                  );
+                  // final String formattedTanggalIjazah = formatDate(
+                  //   profil.tanggalIjazah,
+                  // );
                   final TextEditingController dateController =
-                      TextEditingController(
-                        text: formattedTanggalLahir,
-                      );
+                      TextEditingController(text: formattedTanggalLahir);
                   return Column(
                     children: [
                       ClipOval(

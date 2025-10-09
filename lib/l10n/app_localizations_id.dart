@@ -194,4 +194,82 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get assignment => 'Tugas';
+
+  @override
+  String get campus => 'Kampus';
+
+  @override
+  String get information => 'Keterangan';
+
+  @override
+  String get campusCode => 'Kode Kampus';
+
+  @override
+  String get programStudyCode => 'Kode Program Studi';
+
+  @override
+  String get schoolAddress => 'Alamat Sekolah';
+
+  @override
+  String get school => 'Sekolah';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get collegeTime => 'Waktu Sekolah';
+
+  @override
+  String get gender => 'Jenis Kelamin';
+
+  @override
+  String get hobby => 'Hobi';
+
+  @override
+  String get bloodType => 'Golongan Darah';
+
+  @override
+  String get schoolDepartment => 'Jurusan Sekolah';
+
+  @override
+  String get nasionality => 'Kewarganegaraan';
+
+  @override
+  String get motherName => 'Nama Ibu';
+
+  @override
+  String get fatherName => 'Nama Ayah';
+
+  @override
+  String get parentalEducation => 'Pendidikan Orang Tua';
+
+  @override
+  String get diplomaDate => 'Tanggal Diploma';
+
+  @override
+  String get registrationDate => 'Tanggal Pendaftaran';
+
+  @override
+  String get graduationYear => 'Tahun Lulus';
+
+  @override
+  String get parentPhoneNumber => 'No.Hp Orang Tua';
+
+  @override
+  String get address => 'Alamat';
+
+  @override
+  String get numberOfSiblings => 'Jumlah Saudara';
+
+  @override
+  String get birthOrder => 'Anak ke-';
+
+  @override
+  String get parrentingJob => 'Pekerjaan Orang Tua';
+
+  @override
+  String get parrentAddress => 'Alamat Orang Tua';
+
+  @override
+  String get diplomaNumber => 'Nomor Ijazah';
 }

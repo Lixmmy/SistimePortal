@@ -10,14 +10,19 @@ part 'profil_state.dart';
 class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
   final GetMahasiswa getMahasiswa;
   ProfilBloc({required this.getMahasiswa}) : super(ProfilInitial()) {
-    on<ProfilGetMahasiswa>((event, emit) async{
+    on<ProfilGetMahasiswa>((event, emit) async {
       emit(ProfilLoading());
-      Either<MessageExc, Profil> hasilGetMahasiswa = await getMahasiswa.execute(event.nim);
-      hasilGetMahasiswa.fold((leftHasilGetMahasiswa){
-       emit( ProfilError(message: leftHasilGetMahasiswa.toString()));
-      }, (rightHasilGetMahasiswa){
-        emit(ProfilLoaded(rightHasilGetMahasiswa));
-      });
-    },);
+      Either<MessageExc, Profil> hasilGetMahasiswa = await getMahasiswa.execute(
+        event.nim,
+      );
+      hasilGetMahasiswa.fold(
+        (leftHasilGetMahasiswa) {
+          emit(ProfilError(message: leftHasilGetMahasiswa.toString()));
+        },
+        (rightHasilGetMahasiswa) {
+          emit(ProfilLoaded(rightHasilGetMahasiswa));
+        },
+      );
+    });
   }
 }

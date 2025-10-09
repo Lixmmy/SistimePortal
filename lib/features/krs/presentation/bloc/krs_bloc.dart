@@ -59,7 +59,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
               kodeMatakuliah: krs.kodeMatakuliah,
               namaMatakuliah: krs.namaMatakuliah,
               namaDosen: krs.namaDosen,
-              sks: matkul.sks, 
+              sks: matkul.sks,
             );
             groupedKrs[semester]!.add(krsWithSks);
           }
@@ -114,39 +114,36 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pw.Text(
-                      appLocalizations.studyResultsCard,
+                      appLocalizations.studyPlanCard,
                       style: pw.TextStyle(
                         fontSize: 24,
                         fontWeight: pw.FontWeight.bold,
                       ),
                     ),
+                    pw.SizedBox(height: 10),
+                    pw.Row(
+                      children: [
+                        pw.RichText(
+                          text: pw.TextSpan(
+                            children: [
+                              pw.TextSpan(
+                                text: '${appLocalizations.semester}: ',
+                                style: pw.TextStyle(
+                                  fontWeight: pw.FontWeight.bold,
+                                ),
+                              ),
+                              pw.TextSpan(
+                                text: event.semester.toString(),
+                                style: pw.TextStyle(
+                                  fontWeight: pw.FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                     pw.SizedBox(height: 20),
-                    // pw.Container(
-                    //   width: double.infinity,
-                    //   padding: const pw.EdgeInsets.all(10),
-                    //   margin: const pw.EdgeInsets.only(bottom: 10),
-                    //   decoration: pw.BoxDecoration(
-                    //     color: PdfColors.white,
-                    //     borderRadius: pw.BorderRadius.circular(10),
-                    //     border: pw.Border.all(
-                    //       color: PdfColor.fromInt(0x96000000),
-                    //     ),
-                    //   ),
-                    //   child: pw.Column(
-                    //     crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    //     children: [
-                    //       pw.Text('${appLocalizations.nim}: 2244068'),
-                    //       pw.Text('${appLocalizations.name}: Felix'),
-                    //       pw.Text('${appLocalizations.roomClass}: Ti D 22'),
-                    //       pw.Text(
-                    //         '${appLocalizations.studyPrograms}: Teknik Informatika',
-                    //       ),
-                    //       pw.Text(
-                    //         '${appLocalizations.semester}: ${event.semester}',
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     pw.Table(
                       border: pw.TableBorder.all(),
                       columnWidths: {
@@ -167,6 +164,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
                                     header,
                                     style: pw.TextStyle(
                                       fontWeight: pw.FontWeight.bold,
+                                      fontSize: 12,
                                     ),
                                     textAlign: pw.TextAlign.center,
                                   ),
@@ -181,7 +179,10 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
                                   (cell) => pw.Container(
                                     alignment: pw.Alignment.centerLeft,
                                     padding: const pw.EdgeInsets.all(4),
-                                    child: pw.Text(cell),
+                                    child: pw.Text(
+                                      cell,
+                                      style: pw.TextStyle(fontSize: 12),
+                                    ),
                                   ),
                                 )
                                 .toList(),

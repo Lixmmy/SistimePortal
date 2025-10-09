@@ -396,11 +396,11 @@ class AppTheme {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
-        borderSide: const BorderSide(color: surfaceDarkColorA40, width: 2.0),
+        borderSide: const BorderSide(color: primaryColorA20, width: 2.0),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
-        borderSide: const BorderSide(color: Colors.transparent),
+        borderSide: const BorderSide(color: surfaceDarkColorA40),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),

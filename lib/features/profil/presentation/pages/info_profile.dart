@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsistime/core/helper/date_formatter.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import '../../../../core/loading/loading_manage.dart';
@@ -57,6 +58,13 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
               builder: (context, state) {
                 if (state is ProfilLoaded) {
                   Profil profil = state.detailUser;
+                  final String formattedTanggalLahir = formatDate(
+                    profil.tanggalLahir,
+                  );
+                  final String formattedTanggalIjazah = formatDate(
+                    profil.tanggalIjazah,
+                  );
+
                   return Column(
                     children: [
                       Container(
@@ -97,10 +105,6 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       SizedBox(height: 25),
                       ListProfil(
-                        title: appLocalizations.email,
-                        subtitle: profil.email,
-                      ),
-                      ListProfil(
                         title: appLocalizations.major,
                         subtitle: profil.programStudi.namaProgramStudi!,
                       ),
@@ -109,13 +113,106 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                         subtitle: profil.tahunAngkatan.toString(),
                       ),
                       ListProfil(
+                        title: appLocalizations.email,
+                        subtitle: profil.email,
+                      ),
+                      ListProfil(
+                        title: appLocalizations.campus,
+                        subtitle: profil.kampus.kodeKampus ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.placeOfBirth,
+                        subtitle: profil.tempatLahir ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.dateOfBirth,
+                        subtitle: formattedTanggalLahir,
+                      ),
+                      ListProfil(
+                        title: appLocalizations.gender,
+                        subtitle: profil.jenisKelamin!.isEmpty
+                            ? ""
+                            : profil.jenisKelamin == "P"
+                            ? "Pria"
+                            : "Wanita",
+                      ),
+                      ListProfil(
                         title: appLocalizations.religion,
-                        subtitle: profil.agama.agama!,
+                        subtitle: profil.agama.agama ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.status,
+                        subtitle: profil.status.status ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.bloodType,
+                        subtitle: profil.golonganDarah ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.nasionality,
+                        subtitle: profil.kewarganegaraan ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.address,
+                        subtitle: profil.alamatMahasiswa ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.noHp,
                         subtitle: profil.noTeleponMahasiswa.toString(),
                       ),
+                      ListProfil(
+                        title: appLocalizations.numberOfSiblings,
+                        subtitle: profil.jumlahSaudara.toString(),
+                      ),
+                      ListProfil(
+                        title: appLocalizations.birthOrder,
+                        subtitle: profil.anakKe.toString(),
+                      ),
+                      ListProfil(
+                        title: appLocalizations.hobby,
+                        subtitle: profil.hobi!,
+                      ),
+                      ListProfil(
+                        title: appLocalizations.fatherName,
+                        subtitle: profil.namaAyah ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.motherName,
+                        subtitle: profil.namaIbu ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.parrentingJob,
+                        subtitle: profil.pekerjaanOrangtua ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.parrentAddress,
+                        subtitle: profil.alamatOrangtua ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.parentPhoneNumber,
+                        subtitle: profil.noTeleponOrangtua ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.school,
+                        subtitle: profil.sekolah.namaSekolah ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.schoolDepartment,
+                        subtitle: profil.jurusanSekolah ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.diplomaNumber,
+                        subtitle: profil.noIjazah ?? "",
+                      ),
+                      ListProfil(
+                        title: appLocalizations.diplomaDate,
+                        subtitle: formattedTanggalIjazah,
+                      ),
+                      ListProfil(
+                        title: appLocalizations.information,
+                        subtitle: profil.keterangan ?? "",
+                      ),
+
                       SizedBox(height: 20),
                       OutlinedButton(
                         onPressed: () {
