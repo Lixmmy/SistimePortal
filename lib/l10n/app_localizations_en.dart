@@ -272,4 +272,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get diplomaNumber => 'Diploma Number';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get cancel => 'Cancel';
 }

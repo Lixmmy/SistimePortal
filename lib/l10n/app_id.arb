@@ -86,5 +86,7 @@
   "birthOrder" : "Anak ke-",
   "parrentingJob" : "Pekerjaan Orang Tua",
   "parrentAddress" : "Alamat Orang Tua",
-  "diplomaNumber" : "Nomor Ijazah"
+  "diplomaNumber" : "Nomor Ijazah",
+  "save" : "Simpan",
+  "cancel" : "Batal"
 }

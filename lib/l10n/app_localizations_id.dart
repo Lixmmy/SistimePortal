@@ -272,4 +272,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get diplomaNumber => 'Nomor Ijazah';
+
+  @override
+  String get save => 'Simpan';
+
+  @override
+  String get cancel => 'Batal';
 }

@@ -619,6 +619,18 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Nomor Ijazah'**
   String get diplomaNumber;
+
+  /// No description provided for @save.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get save;
+
+  /// No description provided for @cancel.
+  ///
+  /// In id, this message translates to:
+  /// **'Batal'**
+  String get cancel;
 }
 
 class _AppLocalizationsDelegate
