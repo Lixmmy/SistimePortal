@@ -1,30 +1,44 @@
 import 'package:newsistime/features/krs/domain/entities/matkul.dart';
+import 'package:newsistime/features/profil/data/models/biodata_kampus_model.dart';
 
 class MatkulModel {
-  final int idMatkulModel;
-  final IdTipeMatakuliahModel idTipeMatakuliahModel;
+  final int id;
   final String kodeMataKuliahModel;
   final String namaMataKuliahModel;
+  final IdTipeMatakuliahModel idTipeMatakuliahModel;
+  final dynamic kodeProdiModel;
   final String? keteranganModel;
   final int sksModel;
   final int semesterModel;
 
   const MatkulModel({
-    required this.idMatkulModel,
+    required this.id,
     required this.idTipeMatakuliahModel,
     required this.kodeMataKuliahModel,
     required this.namaMataKuliahModel,
+    required this.kodeProdiModel,
     this.keteranganModel,
     required this.sksModel,
     required this.semesterModel,
   });
 
   factory MatkulModel.fromJson(Map<String, dynamic> json) {
+    dynamic parsedKodeProdi;
+    if (json['kodeProdi'] is Map<String, dynamic>) {
+      parsedKodeProdi = ProgramStudiModel.fromJson(json['kodeProdi']);
+    } else if (json['kodeProdi'] is String) {
+      parsedKodeProdi = json['kodeProdi'] as String;
+    } else {
+      parsedKodeProdi = null;
+    }
     return MatkulModel(
-      idMatkulModel: json['id'],
-      idTipeMatakuliahModel: json['idTipematakuliah'],
+      id: json['id'],
+      idTipeMatakuliahModel: IdTipeMatakuliahModel.fromJson(
+        json['idTipematakuliah'],
+      ),
       kodeMataKuliahModel: json['kodeMatakuliah'],
       namaMataKuliahModel: json['namaMatakuliah'],
+      kodeProdiModel: parsedKodeProdi,
       keteranganModel: json['keterangan'],
       sksModel: json['sks'],
       semesterModel: json['semester'],
@@ -33,19 +47,29 @@ class MatkulModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': idMatkulModel,
+      'id': id,
       'idTipematakuliah': idTipeMatakuliahModel,
       'kodeMatakuliah': kodeMataKuliahModel,
       'namaMatakuliah': namaMataKuliahModel,
       'keterangan': keteranganModel,
+      'kodeProdi': kodeProdiModel,
       'sks': sksModel,
       'semester': semesterModel,
     };
   }
 
   Matkul toEntity() {
+    dynamic prodi;
+    if (kodeProdiModel is ProgramStudiModel) {
+      prodi = kodeProdiModel.toEntity();
+    } else if (kodeProdiModel is String) {
+      prodi = kodeProdiModel;
+    } else {
+      prodi = null;
+    }
     return Matkul(
-      id: idMatkulModel,
+      id: id,
+      kodeProdi: prodi,
       idTipeMataKuliah: idTipeMatakuliahModel.toEntity(),
       kodeMataKuliah: kodeMataKuliahModel,
       namaMataKuliah: namaMataKuliahModel,
@@ -59,7 +83,7 @@ class MatkulModel {
 class IdTipeMatakuliahModel {
   final int id;
   final String tipeMatakuliah;
-  final String keterangan;
+  final String? keterangan;
 
   const IdTipeMatakuliahModel({
     required this.id,
@@ -82,7 +106,7 @@ class IdTipeMatakuliahModel {
       keterangan: json['keterangan'],
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

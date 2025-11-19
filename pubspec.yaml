@@ -69,15 +69,7 @@ flutter:
   generate: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/full_logo.png
-    - images/logo_stmik.png
-    - images/text_stmik.png
-    - images/club.png
-    - images/elearning.jpg
-    - images/enterpreneur.png
-    - images/kampus_merdeka.png
-    - images/liburan.png
-    - images/pendaftaran.png
+    - images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see

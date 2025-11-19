@@ -2,18 +2,20 @@ import 'package:equatable/equatable.dart';
 
 class Matkul extends Equatable {
   final int id;
-  final IdTipeMatakuliah idTipeMataKuliah;
   final String kodeMataKuliah;
   final String namaMataKuliah;
-  final String? keterangan;
   final int sks;
   final int semester;
+  final dynamic kodeProdi;
+  final IdTipeMatakuliah idTipeMataKuliah;
+  final String? keterangan;
 
   const Matkul({
     required this.id,
     required this.idTipeMataKuliah,
     required this.kodeMataKuliah,
     required this.namaMataKuliah,
+    required this.kodeProdi,
     this.keterangan,
     required this.sks,
     required this.semester,
@@ -34,19 +36,19 @@ class Matkul extends Equatable {
 class IdTipeMatakuliah extends Equatable {
   final int id;
   final String tipeMatakuliah;
-  final String keterangan;
+  final String? keterangan;
 
   const IdTipeMatakuliah({
     required this.id,
     required this.tipeMatakuliah,
-    required this.keterangan,
+    this.keterangan,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'tipeMatakuliah': tipeMatakuliah,
-      'keterangan': keterangan,
+      'keterangan': keterangan ?? '',
     };
   }
 

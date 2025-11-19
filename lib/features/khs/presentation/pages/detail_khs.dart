@@ -234,94 +234,88 @@ class _DetailKrsState extends State<DetailKhs> {
                                             BuildInfoRow(
                                               label: appLocalizations
                                                   .attendanceGrade,
-                                              value: khsItem.nilai!.absensi
-                                                  .toString(),
+                                              value: khsItem.nilai?.absensi
+                                                      ?.toString() ??
+                                                  '',
                                               valueColor:
                                                   AppTheme.primaryColorA0,
                                               labelColor:
-                                                  Theme.of(
-                                                        context,
-                                                      ).brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                                  Theme.of(context).brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                             ),
                                             if (khsItem.nilai?.quiz != null)
                                               BuildInfoRow(
                                                 label:
                                                     appLocalizations.quizGrade,
-                                                value: khsItem.nilai!.quiz
-                                                    .toString(),
+                                                value: khsItem.nilai?.quiz
+                                                        ?.toString() ??
+                                                    '',
                                                 valueColor:
                                                     AppTheme.primaryColorA0,
                                                 labelColor:
-                                                    Theme.of(
-                                                          context,
-                                                        ).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                                    Theme.of(context).brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
                                               ),
                                             BuildInfoRow(
                                               label: appLocalizations
                                                   .assignmentGrade,
-                                              value: khsItem.nilai!.tugas
-                                                  .toString(),
+                                              value: khsItem.nilai?.tugas
+                                                      ?.toString() ??
+                                                  '',
                                               valueColor:
                                                   AppTheme.primaryColorA0,
                                               labelColor:
-                                                  Theme.of(
-                                                        context,
-                                                      ).brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                                  Theme.of(context).brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                             ),
                                             if (khsItem.nilai?.project != null)
                                               BuildInfoRow(
                                                 label: appLocalizations
                                                     .projectScore,
-                                                value: khsItem.nilai!.project
-                                                    .toString(),
+                                                value: khsItem.nilai?.project
+                                                        ?.toString() ??
+                                                    '',
                                                 labelColor:
-                                                    Theme.of(
-                                                          context,
-                                                        ).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                                    Theme.of(context).brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
                                                 valueColor:
                                                     AppTheme.primaryColorA0,
                                               ),
                                             BuildInfoRow(
                                               label:
                                                   appLocalizations.midTermGrade,
-                                              value: khsItem.nilai!.uts
-                                                  .toString(),
+                                              value: khsItem.nilai?.uts
+                                                      ?.toString() ??
+                                                  '',
                                               valueColor:
                                                   AppTheme.primaryColorA0,
                                               labelColor:
-                                                  Theme.of(
-                                                        context,
-                                                      ).brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                                  Theme.of(context).brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                             ),
                                             BuildInfoRow(
                                               label:
                                                   appLocalizations.finalGrade,
-                                              value: khsItem.nilai!.uas
-                                                  .toString(),
+                                              value: khsItem.nilai?.uas
+                                                      ?.toString() ??
+                                                  '',
                                               valueColor:
                                                   AppTheme.primaryColorA0,
                                               labelColor:
-                                                  Theme.of(
-                                                        context,
-                                                      ).brightness ==
-                                                      Brightness.dark
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                                  Theme.of(context).brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                             ),
                                           ],
                                         ),

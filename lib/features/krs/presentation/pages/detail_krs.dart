@@ -33,6 +33,7 @@ class _DetailKrsState extends State<DetailKrs> {
           }
         },
         child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           slivers: [
             SliverAppBar(
               title: RichText(
@@ -99,41 +100,52 @@ class _DetailKrsState extends State<DetailKrs> {
                           final krsItem = krs[index];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              title: Text(
-                                krsItem.namaMatakuliah,
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              subtitle: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '${appLocalizations.code}: ${krsItem.kodeMatakuliah} | ${appLocalizations.sks}: ${krsItem.sks}\n',
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodySmall,
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          '${appLocalizations.lecture}: ${krsItem.namaDosen}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(
-                                            color: AppTheme.primaryColorA0,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              shape: OutlineInputBorder(
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              margin: const EdgeInsets.only(bottom: 5),
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color:Theme.of(context).brightness == Brightness.dark
+                                border: Border.all(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
                                       ? Colors.white.withAlpha(150)
-                                      :Colors.black.withAlpha(150),
+                                      : Colors.black.withAlpha(150),
                                 ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    krsItem.namaMatakuliah,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.labelSmall,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              '${appLocalizations.code}: ${krsItem.kodeMatakuliah} | ${appLocalizations.sks}: ${krsItem.sks}\n',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall,
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              '${appLocalizations.lecture}: ${krsItem.namaDosen}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                color: AppTheme.primaryColorA0,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
