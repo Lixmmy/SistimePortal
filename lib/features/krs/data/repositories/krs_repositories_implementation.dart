@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/krs/data/datasources/remote_krs_data_source.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
+import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
 
 class KrsRepositoriesImplementation extends KrsRepositories {
