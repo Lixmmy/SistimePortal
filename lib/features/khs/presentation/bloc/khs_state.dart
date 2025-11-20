@@ -12,7 +12,7 @@ class KhsInitial extends KhsState {}
 class KhsLoading extends KhsState {}
 
 class KhsLoaded extends KhsState {
-  final Map<int, List<Transkrip>> groupedKhs;
+  final Map<int, List<Khs>> groupedKhs;
 
   const KhsLoaded({required this.groupedKhs});
 

@@ -16,7 +16,7 @@ class _KrsPageState extends State<KhsPage> {
   @override
   void initState() {
     super.initState();
-    myInjection<KhsBloc>().add(const FetchKhsData(nim: '2244068'));
+    myInjection<KhsBloc>().add(const FetchKhsData(nim: '512'));
   }
 
   @override
@@ -47,7 +47,7 @@ class _KrsPageState extends State<KhsPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         title: Text(
-                          '${appLocalizations.semester} $semester',
+                          '${appLocalizations.semester} $semester'  ,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         onTap: () {

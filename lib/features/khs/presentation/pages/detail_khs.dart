@@ -210,13 +210,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    khsItem.matkul,
+                                    khsItem.namaMatakuliah,
                                     style: Theme.of(
                                       context,
                                     ).textTheme.labelSmall,
                                   ),
                                   Text(
-                                    '${appLocalizations.code}: ${khsItem.kodeMatkul} | ${appLocalizations.sks}: ${khsItem.sks}',
+                                    '${appLocalizations.code}: ${khsItem.kodeMatakuliah} | ${appLocalizations.sks}: ${khsItem.sks}',
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodySmall,
@@ -231,110 +231,152 @@ class _DetailKrsState extends State<DetailKhs> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            BuildInfoRow(
-                                              label: appLocalizations
-                                                  .attendanceGrade,
-                                              value: khsItem.nilai?.absensi
-                                                      ?.toString() ??
-                                                  '',
-                                              valueColor:
-                                                  AppTheme.primaryColorA0,
-                                              labelColor:
-                                                  Theme.of(context).brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                            ),
-                                            if (khsItem.nilai?.quiz != null)
+                                            if (khsItem.nilais?.absensi != null)
+                                              BuildInfoRow(
+                                                label: appLocalizations
+                                                    .attendanceGrade,
+                                                value:
+                                                    khsItem.nilais?.absensi
+                                                        ?.toString() ??
+                                                    '',
+                                                valueColor:
+                                                    AppTheme.primaryColorA0,
+                                                labelColor:
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            if (khsItem.nilais?.quiz != null)
                                               BuildInfoRow(
                                                 label:
                                                     appLocalizations.quizGrade,
-                                                value: khsItem.nilai?.quiz
+                                                value:
+                                                    khsItem.nilais?.quiz
                                                         ?.toString() ??
                                                     '',
                                                 valueColor:
                                                     AppTheme.primaryColorA0,
                                                 labelColor:
-                                                    Theme.of(context).brightness ==
-                                                            Brightness.dark
-                                                        ? Colors.white
-                                                        : Colors.black,
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
                                               ),
-                                            BuildInfoRow(
-                                              label: appLocalizations
-                                                  .assignmentGrade,
-                                              value: khsItem.nilai?.tugas
-                                                      ?.toString() ??
-                                                  '',
-                                              valueColor:
-                                                  AppTheme.primaryColorA0,
-                                              labelColor:
-                                                  Theme.of(context).brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                            ),
-                                            if (khsItem.nilai?.project != null)
+                                            if (khsItem.nilais?.tugas != null)
+                                              BuildInfoRow(
+                                                label: appLocalizations
+                                                    .assignmentGrade,
+                                                value:
+                                                    khsItem.nilais?.tugas
+                                                        ?.toString() ??
+                                                    '',
+                                                valueColor:
+                                                    AppTheme.primaryColorA0,
+                                                labelColor:
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            if (khsItem.nilais?.project != null)
                                               BuildInfoRow(
                                                 label: appLocalizations
                                                     .projectScore,
-                                                value: khsItem.nilai?.project
+                                                value:
+                                                    khsItem.nilais?.project
                                                         ?.toString() ??
                                                     '',
                                                 labelColor:
-                                                    Theme.of(context).brightness ==
-                                                            Brightness.dark
-                                                        ? Colors.white
-                                                        : Colors.black,
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
                                                 valueColor:
                                                     AppTheme.primaryColorA0,
                                               ),
-                                            BuildInfoRow(
-                                              label:
-                                                  appLocalizations.midTermGrade,
-                                              value: khsItem.nilai?.uts
-                                                      ?.toString() ??
-                                                  '',
-                                              valueColor:
-                                                  AppTheme.primaryColorA0,
-                                              labelColor:
-                                                  Theme.of(context).brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                            ),
-                                            BuildInfoRow(
-                                              label:
-                                                  appLocalizations.finalGrade,
-                                              value: khsItem.nilai?.uas
-                                                      ?.toString() ??
-                                                  '',
-                                              valueColor:
-                                                  AppTheme.primaryColorA0,
-                                              labelColor:
-                                                  Theme.of(context).brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                            ),
+                                            if (khsItem.nilais?.uts != null)
+                                              BuildInfoRow(
+                                                label: appLocalizations
+                                                    .midTermGrade,
+                                                value:
+                                                    khsItem.nilais?.uts
+                                                        ?.toString() ??
+                                                    '',
+                                                valueColor:
+                                                    AppTheme.primaryColorA0,
+                                                labelColor:
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            if (khsItem.nilais?.uas != null)
+                                              BuildInfoRow(
+                                                label:
+                                                    appLocalizations.finalGrade,
+                                                value:
+                                                    khsItem.nilais?.uas
+                                                        ?.toString() ??
+                                                    '',
+                                                valueColor:
+                                                    AppTheme.primaryColorA0,
+                                                labelColor:
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            if (khsItem.nilais?.perbaikan !=
+                                                null)
+                                              BuildInfoRow(
+                                                label: appLocalizations
+                                                    .improvement,
+                                                value:
+                                                    khsItem.nilais?.perbaikan
+                                                        ?.toString() ??
+                                                    '',
+                                                valueColor:
+                                                    AppTheme.primaryColorA0,
+                                                labelColor:
+                                                    Theme.of(
+                                                          context,
+                                                        ).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
                                           ],
                                         ),
                                       ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          khsItem.letterGrade ?? 'N/A',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                color: getGradeColor(
-                                                  khsItem.letterGrade ?? 'N/A',
+                                      if (khsItem.letterGrade != '')
+                                        Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            khsItem.letterGrade ?? '',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium
+                                                ?.copyWith(
+                                                  color: getGradeColor(
+                                                    khsItem.letterGrade ?? '',
+                                                  ),
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
                                         ),
-                                      ),
                                     ],
                                   ),
                                 ],

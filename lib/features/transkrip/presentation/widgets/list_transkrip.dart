@@ -14,7 +14,7 @@ class ListTranskrip extends StatelessWidget {
       itemCount: state.listTranskrip.length,
       itemBuilder: (context, index) {
         final transkrip = state.listTranskrip[index];
-        final String letterGrade = transkrip.letterGrade ?? 'N/A';
+        final String letterGrade = transkrip.letterGrade ?? '';
         final Color gradeColor = getGradeColor(letterGrade);
 
         return Padding(

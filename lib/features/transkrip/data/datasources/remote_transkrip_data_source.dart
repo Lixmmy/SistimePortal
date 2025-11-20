@@ -22,12 +22,12 @@ class RemoteTranskripDataSourceImplementation
         ).listTranskripModel;
         return transkripModel.map((e) => e.toEntity()).toList();
       } else {
-        throw MessageExc.api('No data found');
+        throw MessageExc.api('Failed to fetch transkrip data.');
       }
     } on MessageExc {
       rethrow;
     } catch (e) {
-      throw MessageExc.unknown('An unexpected error occurred: ${e.toString()}');
+      throw MessageExc.unknown('An unexpected error in getTranskrip occurred: ${e.toString()}');
     }
   }
 }

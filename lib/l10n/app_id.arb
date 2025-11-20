@@ -88,5 +88,7 @@
   "parrentAddress" : "Alamat Orang Tua",
   "diplomaNumber" : "Nomor Ijazah",
   "save" : "Simpan",
-  "cancel" : "Batal"
+  "cancel" : "Batal",
+  "improvement": "Perbaikan"
+
 }

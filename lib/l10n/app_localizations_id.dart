@@ -278,4 +278,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get cancel => 'Batal';
+
+  @override
+  String get improvement => 'Perbaikan';
 }

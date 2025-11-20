@@ -59,7 +59,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
               kodeMatakuliah: krs.kodeMatakuliah,
               namaMatakuliah: krs.namaMatakuliah,
               namaDosen: krs.namaDosen,
-              sks: matkul.sks,
+              sks: matkul.sks,  
             );
             groupedKrs[semester]!.add(krsWithSks);
           }

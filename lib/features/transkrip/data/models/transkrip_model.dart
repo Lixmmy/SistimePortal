@@ -1,3 +1,4 @@
+import 'package:newsistime/features/transkrip/data/models/nilai_model.dart';
 import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 
 class TranskripModel {
@@ -66,58 +67,3 @@ class ListTranskripModel {
   }
 }
 
-class NilaiModel {
-  final double? tugasModel;
-  final double? utsModel;
-  final double? uasModel;
-  final double? absensiModel;
-  final double? projectModel;
-  final double? quizModel;
-
-  const NilaiModel({
-    this.tugasModel,
-    this.utsModel,
-    this.uasModel,
-    this.absensiModel,
-    this.projectModel,
-    this.quizModel,
-  });
-
-  factory NilaiModel.fromJson(Map<String, dynamic> json) {
-    return NilaiModel(
-      tugasModel: json['tugas'],
-      utsModel: json['uts'],
-      uasModel: json['uas'],
-      absensiModel: json['absensi'],
-      projectModel: json['project'],
-      quizModel: json['quiz'],
-    );
-  }
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (tugasModel != null) {
-      data['tugas'] = tugasModel;
-    }
-    if (utsModel != null) data['uts'] = utsModel;
-    if (uasModel != null) data['uas'] = uasModel;
-    if (absensiModel != null) data['absensi'] = absensiModel;
-    if (projectModel != null) {
-      data['project'] = projectModel;
-    }
-    if (quizModel != null) {
-      data['quiz'] = quizModel;
-    }
-    return data;
-  }
-
-  Nilai toEntity() {
-    return Nilai(
-      tugas: tugasModel,
-      uts: utsModel,
-      uas: uasModel,
-      absensi: absensiModel,
-      project: projectModel,
-      quiz: quizModel,
-    );
-  }
-}

@@ -24,7 +24,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         if (localData != null) {
           return Right(localData.toEntity());
         } else {
-          return Left(MessageExc.api('No local data found'));
+          return Left(MessageExc.api('Not have cached data'));
         }
       } else {
         final Profil hasil = await profilRemoteDataSourceImplementation
@@ -33,7 +33,11 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         return Right(hasil);
       }
     } catch (e) {
-      return Left(MessageExc.unknown(e.toString()));
+      return Left(
+        MessageExc.unknown(
+          'An unexpected error in getMahasiswa occurred: ${e.toString()}',
+        ),
+      );
     }
   }
 }

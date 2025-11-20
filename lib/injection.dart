@@ -2,6 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/core/helper/read_device.dart';
+import 'package:newsistime/features/khs/data/datasources/remote_khs_data_source.dart';
+import 'package:newsistime/features/khs/data/repositories/khs_repositories_implementation.dart';
+import 'package:newsistime/features/khs/domain/repositories/khs_repositories.dart';
+import 'package:newsistime/features/khs/domain/usecases/get_khs.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/features/krs/data/datasources/remote_krs_data_source.dart';
 import 'package:newsistime/features/krs/data/repositories/krs_repositories_implementation.dart';
@@ -34,7 +38,9 @@ Future<void> init() async {
   //core-helper
   myInjection.registerLazySingleton(() => SecureStorage());
   myInjection.registerLazySingleton(() => InternetConnection());
-  myInjection.registerLazySingleton(() => ConnectApi(secureStorage: myInjection()));
+  myInjection.registerLazySingleton(
+    () => ConnectApi(secureStorage: myInjection()),
+  );
   myInjection.registerLazySingleton(() => ReadDevice());
 
   //Profil bloc
@@ -79,26 +85,54 @@ Future<void> init() async {
   );
 
   //Transkrip bloc
-  myInjection.registerLazySingleton(() => TranskripBloc(getTranskrip: myInjection()));
+  myInjection.registerLazySingleton(
+    () => TranskripBloc(getTranskrip: myInjection()),
+  );
   //Use cases
-  myInjection.registerLazySingleton(() => GetTranskrip(transkripRepositories: myInjection()));
+  myInjection.registerLazySingleton(
+    () => GetTranskrip(transkripRepositories: myInjection()),
+  );
   //Repository
-  myInjection.registerLazySingleton<TranskripRepositories>(() => TranskripRepositoriesImplementation(remoteTranskripDataSource: myInjection()));
+  myInjection.registerLazySingleton<TranskripRepositories>(
+    () => TranskripRepositoriesImplementation(
+      remoteTranskripDataSource: myInjection(),
+    ),
+  );
   //Datasource
-  myInjection.registerLazySingleton<RemoteTranskripDataSource>(() => RemoteTranskripDataSourceImplementation(connectApi: myInjection()));
-  
-  //krs bloc
-  myInjection.registerLazySingleton(() => KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()));
-  //Use cases
-  myInjection.registerLazySingleton(() => GetKrs(krsRepositories:  myInjection()));
-  myInjection.registerLazySingleton(() => GetMataKuliah(krsRepositories: myInjection()));
-  //Repositories
-  myInjection.registerLazySingleton<KrsRepositories>(() => KrsRepositoriesImplementation(remoteKrsDataSource: myInjection()));
-  //Datasource
-  myInjection.registerLazySingleton<RemoteKrsDataSource>(() => RemoteKrsDataSourceImplementation(connectApi: myInjection()));
-  
-  //khs bloc
-  myInjection.registerLazySingleton(() => KhsBloc(getTranskrip: myInjection(), getMataKuliah: myInjection()));
-  
+  myInjection.registerLazySingleton<RemoteTranskripDataSource>(
+    () => RemoteTranskripDataSourceImplementation(connectApi: myInjection()),
+  );
 
+  //krs bloc
+  myInjection.registerLazySingleton(
+    () => KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()),
+  );
+  //Use cases
+  myInjection.registerLazySingleton(
+    () => GetKrs(krsRepositories: myInjection()),
+  );
+  myInjection.registerLazySingleton(
+    () => GetMataKuliah(krsRepositories: myInjection()),
+  );
+  //Repositories
+  myInjection.registerLazySingleton<KrsRepositories>(
+    () => KrsRepositoriesImplementation(remoteKrsDataSource: myInjection()),
+  );
+  //Datasource
+  myInjection.registerLazySingleton<RemoteKrsDataSource>(
+    () => RemoteKrsDataSourceImplementation(connectApi: myInjection()),
+  );
+
+  //khs bloc
+  myInjection.registerLazySingleton(() => KhsBloc(getKhs: myInjection()));
+  //Use cases
+  myInjection.registerLazySingleton(() => GetKhs(myInjection()));
+  //Repositories
+  myInjection.registerLazySingleton<KhsRepositories>(
+    () => KhsRepositoriesImplementation(remoteKhsDataSource: myInjection()),
+  );
+  //Datasource
+  myInjection.registerLazySingleton<RemoteKhsDataSource>(
+    () => RemoteKhsDataSourceImplementation(connectApi: myInjection()),
+  );
 }

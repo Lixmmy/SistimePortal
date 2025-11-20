@@ -27,7 +27,7 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
     } on MessageExc {
       rethrow;
     } catch (e) {
-      throw MessageExc.unknown('An unexpected error occurred: ${e.toString()}');
+      throw MessageExc.unknown('An unexpected error in getKrs occurred: ${e.toString()}');
     }
   }
 
@@ -46,7 +46,7 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
     } on MessageExc {
       rethrow;
     } catch (e) {
-      throw MessageExc.unknown('An unexpected error occurred: ${e.toString()}');
+      throw MessageExc.unknown('An unexpected error in  occurred: ${e.toString()}');
     }
   }
 }

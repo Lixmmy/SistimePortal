@@ -88,5 +88,6 @@
   "parrentAddress" : "Parrent Address",
   "diplomaNumber" : "Diploma Number",
   "save" : "Save",
-  "cancel" : "Cancel"
+  "cancel" : "Cancel",
+  "improvement": "Improvement"
 }

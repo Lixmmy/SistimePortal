@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
-import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
-import 'package:newsistime/features/transkrip/domain/usecases/get_transkrip.dart';
+import 'package:newsistime/features/khs/domain/entities/khs.dart';
+import 'package:newsistime/features/khs/domain/usecases/get_khs.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -28,75 +27,68 @@ String konversiNilaiKeHuruf(double nilaiAkhir) {
 }
 
 class KhsBloc extends Bloc<KhsEvent, KhsState> {
-  final GetTranskrip getTranskrip;
-  final GetMataKuliah getMataKuliah;
+  final GetKhs getKhs;
 
-  KhsBloc({required this.getTranskrip, required this.getMataKuliah})
-    : super(KhsInitial()) {
+  KhsBloc({required this.getKhs}) : super(KhsInitial()) {
     on<FetchKhsData>((event, emit) async {
       emit(KhsLoading());
       try {
-        final khsResult = await getTranskrip.execute(event.nim);
-        final matkulResult = await getMataKuliah.execute();
-
-        final khsEither = khsResult;
-        final matkulEither = matkulResult;
-
-        if (khsEither.isLeft() || matkulEither.isLeft()) {
-          final errorMessage =
-              khsEither.fold((l) => l.message, (r) => '') +
-              matkulEither.fold((l) => l.message, (r) => '');
-          emit(KhsError(message: errorMessage));
-          return;
-        }
-
-        final khsList = khsEither.getOrElse(() => []);
-        final matkulList = matkulEither.getOrElse(() => []);
-
-        final matkulMap = {
-          for (var matkul in matkulList) matkul.kodeMataKuliah: matkul,
-        };
-        final groupedKrs = <int, List<Transkrip>>{};
-
-        for (var khs in khsList) {
-          final matkul = matkulMap[khs.kodeMatkul];
-          if (matkul != null) {
-            final semester = matkul.semester;
-            if (!groupedKrs.containsKey(semester)) {
-              groupedKrs[semester] = [];
-            }
-
-            final nilai = khs.nilai;
-            String currentLetterGrade = 'N/A';
-
-            if (nilai != null) {
-              final List<double> scores = [
-                nilai.tugas ?? 0,
-                nilai.uts ?? 0,
-                nilai.uas ?? 0,
-                nilai.absensi ?? 0,
-                nilai.project ?? 0,
-                nilai.quiz ?? 0,
-              ];
-              if (scores.isNotEmpty) {
-                final double averageScore =
-                    scores.reduce((a, b) => a + b) /
-                    (nilai.project == 0 ? scores.length : 4);
-                currentLetterGrade = konversiNilaiKeHuruf(averageScore);
+        final khsResult = await getKhs.call(nim: event.nim);
+        khsResult.fold(
+          (failure) {
+            emit(KhsError(message: failure.message));
+          },
+          (data) {
+            final groupedKhs = <int, List<Khs>>{};
+            for (var khs in data) {
+              final semester = khs.semester;
+              if (!groupedKhs.containsKey(semester)) {
+                groupedKhs[semester] = [];
               }
+              final nilai = khs.nilais;
+              final minRequiredScores = [
+                nilai?.quiz,
+                nilai?.uts,
+                nilai?.uas,
+                nilai?.absensi,
+              ];
+              String? currentLetterGrade;
+              if (nilai != null) {
+                final List<double?> scores = [
+                  nilai.tugas,
+                  nilai.uts,
+                  nilai.uas,
+                  nilai.absensi,
+                  nilai.project,
+                  nilai.quiz,
+                  nilai.perbaikan,
+                ];
+                final List<double> validScores = scores
+                    .whereType<double>()
+                    .toList();
+                if (validScores.isNotEmpty) {
+                  final double totalScore = validScores.reduce((a, b) => a + b);
+                  final int count = validScores.length;
+                  if (count >= minRequiredScores.length) {
+                    final double averageScore = totalScore / count;
+                    currentLetterGrade = konversiNilaiKeHuruf(averageScore);
+                  } else {
+                    currentLetterGrade = 'E';
+                  }
+                }
+              }
+              final khsWithGrade = khs.copyWith(
+                letterGrade: currentLetterGrade,
+              );
+              groupedKhs[semester]!.add(khsWithGrade);
             }
-
-            final khsWithGrade = khs.copyWith(letterGrade: currentLetterGrade);
-            groupedKrs[semester]!.add(khsWithGrade);
-          }
-        }
-
-        final sortedGroupedKrs = Map.fromEntries(
-          groupedKrs.entries.toList()
-            ..sort((e1, e2) => e1.key.compareTo(e2.key)),
+            final sortedGroupKhs = Map.fromEntries(
+              groupedKhs.entries.toList()
+                ..sort((a, b) => a.key.compareTo(b.key)),
+            );
+            emit(KhsLoaded(groupedKhs: sortedGroupKhs));
+          },
         );
-
-        emit(KhsLoaded(groupedKhs: sortedGroupedKrs));
       } catch (e) {
         emit(KhsError(message: e.toString()));
       }
@@ -117,10 +109,10 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                 // ignore: collection_methods_unrelated_type
                 final semesterData = currentState.groupedKhs[event.semester]!;
                 final bool hasQuiz = semesterData.any(
-                  (e) => e.nilai?.quiz != null,
+                  (e) => e.nilais?.quiz != null,
                 );
                 final bool hasProject = semesterData.any(
-                  (e) => e.nilai?.project != null,
+                  (e) => e.nilais?.project != null,
                 );
 
                 final List<String> headers = [
@@ -134,21 +126,23 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                   appLocalizations.assignment,
                   appLocalizations.uts,
                   appLocalizations.uas,
+                  appLocalizations.improvement,
                   appLocalizations.grade,
                 ];
 
                 final List<List<String>> data = semesterData.map((khs) {
                   final List<String> row = [
                     (semesterData.indexOf(khs) + 1).toString(),
-                    khs.kodeMatkul,
-                    khs.matkul,
+                    khs.kodeMatakuliah,
+                    khs.namaMatakuliah,
                     khs.sks.toString(),
-                    if (hasQuiz) khs.nilai!.quiz.toString(),
-                    if (hasProject) khs.nilai!.project.toString(),
-                    khs.nilai!.absensi.toString(),
-                    khs.nilai!.tugas.toString(),
-                    khs.nilai!.uts.toString(),
-                    khs.nilai!.uas.toString(),
+                    if (hasQuiz) khs.nilais!.quiz.toString(),
+                    if (hasProject) khs.nilais!.project.toString(),
+                    khs.nilais!.absensi.toString(),
+                    khs.nilais!.tugas.toString(),
+                    khs.nilais!.uts.toString(),
+                    khs.nilais!.uas.toString(),
+                    khs.nilais!.perbaikan.toString(),
                     khs.letterGrade ?? 'N/A',
                   ];
                   return row;

@@ -110,10 +110,7 @@ GoRouter myRouter() {
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
-            create: (context) => KhsBloc(
-              getTranskrip: myInjection(),
-              getMataKuliah: myInjection(),
-            ),
+            create: (context) => KhsBloc(getKhs: myInjection()),
             child: child,
           );
         },

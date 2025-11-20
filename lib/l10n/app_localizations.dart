@@ -631,6 +631,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Batal'**
   String get cancel;
+
+  /// No description provided for @improvement.
+  ///
+  /// In id, this message translates to:
+  /// **'Perbaikan'**
+  String get improvement;
 }
 
 class _AppLocalizationsDelegate

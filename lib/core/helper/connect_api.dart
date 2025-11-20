@@ -67,6 +67,9 @@ class ConnectApi {
   Future<dynamic> getKrs({required String nim}) {
     return _requestGet('$krsRoute/$nim', false);
   }
+  Future<dynamic> getKhs({required String nim}) {
+    return _requestGet('$khsRoute/$nim', false);
+  }
 
   Future<dynamic> getTranskrip({required String nim}) {
     return _requestGet('$transkripRoute/$nim', false);

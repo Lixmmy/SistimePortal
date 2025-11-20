@@ -53,36 +53,50 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
 
             for (var transkrip in data) {
               final nilai = transkrip.nilai;
-              String currentLetterGrade = 'N/A';
+              String? currentLetterGrade;
+              final minRequiredScores = [
+                nilai?.quiz,
+                nilai?.uts,
+                nilai?.uas,
+                nilai?.absensi,
+              ];
               totalSks += transkrip.sks;
 
               if (nilai != null) {
-                final List<double> scores = [
-                  nilai.tugas ?? 0,
-                  nilai.uts ?? 0,
-                  nilai.uas ?? 0,
-                  nilai.absensi ?? 0,
-                  nilai.project ?? 0,
-                  nilai.quiz ?? 0,
+                final List<double?> scores = [
+                  nilai.tugas,
+                  nilai.uts,
+                  nilai.uas,
+                  nilai.absensi,
+                  nilai.project,
+                  nilai.quiz,
+                  nilai.perbaikan,
                 ];
-                if (scores.isNotEmpty) {
-                  // This is the calculation logic from the UI, now the single source of truth.
-                  final double averageScore =
-                      scores.reduce((a, b) => a + b) /
-                      (nilai.project == 0 ? scores.length : 4);
-                  currentLetterGrade = konversiNilaiKeHuruf(averageScore);
-
-                  if (currentLetterGrade == 'A' ||
-                      currentLetterGrade == 'B' ||
-                      currentLetterGrade == 'C') {
-                    passedCourses++;
+                final List<double> validScores = scores
+                    .whereType<double>()
+                    .toList();
+                if (validScores.isNotEmpty) {
+                  final double totalScore = validScores.reduce((a, b) => a + b);
+                  final int count = validScores.length;
+                  if (count >= minRequiredScores.length) {
+                    final double averageScore = totalScore / count;
+                    currentLetterGrade = konversiNilaiKeHuruf(averageScore);
                   } else {
-                    failedCourses++;
+                    currentLetterGrade = 'E';
                   }
+
                   totalBobot += _getBobot(currentLetterGrade) * transkrip.sks;
                 }
               }
-              // Add the enriched transkrip object (with letterGrade) to the new list
+
+              if (currentLetterGrade == 'A' ||
+                  currentLetterGrade == 'B' ||
+                  currentLetterGrade == 'C') {
+                passedCourses++;
+              } else {
+                failedCourses++;
+              }
+              
               enrichedTranskripList.add(
                 transkrip.copyWith(letterGrade: currentLetterGrade),
               );
@@ -92,7 +106,6 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
 
             emit(
               TranskripLoaded(
-                // Emit the new list with the calculated grades
                 listTranskrip: enrichedTranskripList,
                 passedCourses: passedCourses,
                 failedCourses: failedCourses,
@@ -214,7 +227,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ];
               },
             ),
