@@ -8,14 +8,14 @@ import 'package:newsistime/features/profil/domain/entities/biodata_kampus.dart';
 class Profil extends Equatable {
   final int idPendaftaran;
   final User user;
-  final Agama agama;
-  final Kampus kampus;
-  final ProgramStudi programStudi;
-  final Sekolah sekolah;
-  final Status status;
-  final WaktuKuliah waktuKuliah;
-  final String email;
-  final String namaMahasiswa;
+  final Agama? agama;
+  final Kampus? kampus;
+  final ProgramStudi? programStudi;
+  final Sekolah? sekolah;
+  final Status? status;
+  final WaktuKuliah? waktuKuliah;
+  final String? email;
+  final String? namaMahasiswa;
   final String? tempatLahir;
   final int? tanggalLahir;
   final String? alamatMahasiswa;
@@ -40,16 +40,16 @@ class Profil extends Equatable {
   final int? tanggalPendaftaran;
   final int? tahunLulus;
   const Profil({
-    required this.user,
-    required this.agama,
     required this.idPendaftaran,
-    required this.kampus,
-    required this.programStudi,
-    required this.sekolah,
-    required this.status,
-    required this.waktuKuliah,
-    required this.email,
-    required this.namaMahasiswa,
+    required this.user,
+    this.agama,
+    this.kampus,
+    this.programStudi,
+    this.sekolah,
+    this.status,
+    this.waktuKuliah,
+    this.email,
+    this.namaMahasiswa,
     this.tempatLahir,
     this.tanggalLahir,
     this.tanggalPendaftaran,
@@ -113,12 +113,12 @@ class Profil extends Equatable {
     return {
       'idPendaftaran': idPendaftaran,
       'user': user.toJson(),
-      'agama': agama.toJson(),
-      'kampus': kampus.toJson(),
-      'programStudi': programStudi.toJson(),
-      'sekolah': sekolah.toJson(),
-      'status': status.toJson(),
-      'waktuKuliah': waktuKuliah.toJson(),
+      'agama': agama?.toJson(),
+      'kampus': kampus?.toJson(),
+      'programStudi': programStudi?.toJson(),
+      'sekolah': sekolah?.toJson(),
+      'status': status?.toJson(),
+      'waktuKuliah': waktuKuliah?.toJson(),
       'email': email,
       'namaMahasiswa': namaMahasiswa,
       'tempatLahir': tempatLahir,
@@ -150,12 +150,17 @@ class Profil extends Equatable {
     return Profil(
       idPendaftaran: json['idPendaftaran'],
       user: User.fromJson(json['user']),
-      agama: Agama.fromJson(json['agama']),
-      kampus: Kampus.fromJson(json['kampus']),
-      programStudi: ProgramStudi.fromJson(json['programStudi']),
-      sekolah: Sekolah.fromJson(json['sekolah']),
-      status: Status.fromJson(json['status']),
-      waktuKuliah: WaktuKuliah.fromJson(json['waktuKuliah']),
+      agama: json['agama'] != null ? Agama.fromJson(json['agama']) : null,
+      kampus: json['kampus'] != null ? Kampus.fromJson(json['kampus']) : null,
+      programStudi: json['programStudi'] != null
+          ? ProgramStudi.fromJson(json['programStudi'])
+          : null,
+      sekolah:
+          json['sekolah'] != null ? Sekolah.fromJson(json['sekolah']) : null,
+      status: json['status'] != null ? Status.fromJson(json['status']) : null,
+      waktuKuliah: json['waktuKuliah'] != null
+          ? WaktuKuliah.fromJson(json['waktuKuliah'])
+          : null,
       email: json['email'],
       namaMahasiswa: json['namaMahasiswa'],
       tempatLahir: json['tempatLahir'],

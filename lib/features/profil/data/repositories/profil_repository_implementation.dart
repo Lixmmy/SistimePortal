@@ -4,7 +4,6 @@ import '../datasources/local_datasource.dart';
 import '../datasources/remote_datasource.dart';
 import '../../domain/entities/profil.dart';
 import '../../domain/repositories/profil_repository.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ProfilRepositoryImplementation extends ProfilRepository {
   final ProfilRemoteDatasource profilRemoteDataSourceImplementation;
@@ -14,30 +13,29 @@ class ProfilRepositoryImplementation extends ProfilRepository {
     required this.profilLocalDataSource,
     required this.profilRemoteDataSourceImplementation,
   });
-  @override
   Future<Either<MessageExc, Profil>> getMahasiswa(String nim) async {
     try {
-      final List<ConnectivityResult> connectivityPlus = await (Connectivity()
-          .checkConnectivity());
-      if (connectivityPlus.contains(ConnectivityResult.none)) {
+      final Profil hasil =
+          await profilRemoteDataSourceImplementation.getMahasiswa(nim);
+      profilLocalDataSource.savedProfilData(hasil);
+      return Right(hasil);
+    } catch (e) {
+      try {
         final localData = await profilLocalDataSource.getSavedProfilData();
         if (localData != null) {
           return Right(localData.toEntity());
+        } else if (e is MessageExc) {
+          return Left(e);
         } else {
-          return Left(MessageExc.api('Not have cached data'));
+          return Left(MessageExc.unknown(e.toString()));
         }
-      } else {
-        final Profil hasil = await profilRemoteDataSourceImplementation
-            .getMahasiswa(nim);
-        profilLocalDataSource.savedProfilData(hasil);
-        return Right(hasil);
+      } catch (_) {
+        if (e is MessageExc) {
+          return Left(e);
+        } else {
+          return Left(MessageExc.unknown(e.toString()));
+        }
       }
-    } catch (e) {
-      return Left(
-        MessageExc.unknown(
-          'An unexpected error in getMahasiswa occurred: ${e.toString()}',
-        ),
-      );
     }
   }
 }

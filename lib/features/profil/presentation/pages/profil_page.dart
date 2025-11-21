@@ -40,7 +40,7 @@ class _ProfilPageState extends State<ProfilPage> {
           SliverToBoxAdapter(
             child: BlocConsumer<ProfilBloc, ProfilState>(
               bloc: myInjection<ProfilBloc>()
-                ..add(ProfilGetMahasiswa('2244068')),
+                ..add(ProfilGetMahasiswa('2244065')),
               listener: (context, state) {
                 if (state is ProfilError) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -80,7 +80,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    profil.namaMahasiswa,
+                                    profil.namaMahasiswa!,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(

@@ -37,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
           SliverToBoxAdapter(
             child: BlocConsumer<ProfilBloc, ProfilState>(
               bloc: myInjection<ProfilBloc>()
-                ..add(ProfilGetMahasiswa('2244068')),
+                ..add(ProfilGetMahasiswa('2244065')),
               listener: (context, state) {
                 if (state is ProfilLoading) {
                   LoadingManager().show(context);
@@ -63,13 +63,13 @@ class _EditProfileState extends State<EditProfile> {
                   final TextEditingController placeController =
                       TextEditingController(text: profil.tempatLahir);
                   final TextEditingController religionController =
-                      TextEditingController(text: profil.agama.agama!);
+                      TextEditingController(text: profil.agama?.agama);
                   final TextEditingController statusController =
-                      TextEditingController(text: profil.status.status!);
+                      TextEditingController(text: profil.status?.status);
                   final TextEditingController bloodTypeController =
-                      TextEditingController(text: profil.golonganDarah!);
+                      TextEditingController(text: profil.golonganDarah ?? "");
                   final TextEditingController nationalityController =
-                      TextEditingController(text: profil.kewarganegaraan!);
+                      TextEditingController(text: profil.kewarganegaraan ?? "");
                   final TextEditingController addressController =
                       TextEditingController(text: profil.alamatMahasiswa);
                   final String formattedTanggalLahir = formatDate(
@@ -79,12 +79,14 @@ class _EditProfileState extends State<EditProfile> {
                       TextEditingController(text: profil.noTeleponMahasiswa);
                   final TextEditingController numberOfSiblingsController =
                       TextEditingController(
-                        text: profil.jumlahSaudara.toString(),
+                        text: profil.jumlahSaudara?.toString() ?? '',
                       );
                   final TextEditingController birthOrderController =
-                      TextEditingController(text: profil.anakKe.toString());
+                      TextEditingController(
+                        text: profil.anakKe?.toString() ?? '',
+                      );
                   final TextEditingController hobbyController =
-                      TextEditingController(text: profil.hobi!);
+                      TextEditingController(text: profil.hobi ?? "");
                   final TextEditingController fatherNameController =
                       TextEditingController(text: profil.namaAyah);
                   final TextEditingController motherNameController =
@@ -96,7 +98,7 @@ class _EditProfileState extends State<EditProfile> {
                   final TextEditingController parrentingPhoneController =
                       TextEditingController(text: profil.noTeleponOrangtua);
                   final TextEditingController schoolOriginController =
-                      TextEditingController(text: profil.sekolah.namaSekolah);
+                      TextEditingController(text: profil.sekolah?.namaSekolah);
                   final TextEditingController schoolDepartmentController =
                       TextEditingController(text: profil.jurusanSekolah);
                   final TextEditingController diplomaNumberController =
@@ -253,7 +255,9 @@ class _EditProfileState extends State<EditProfile> {
                           Center(
                             child: OutlinedButton(
                               onPressed: () {},
-                              style: Theme.of(context).outlinedButtonTheme.style,
+                              style: Theme.of(
+                                context,
+                              ).outlinedButtonTheme.style,
                               child: Text(appLocalizations.save),
                             ),
                           ),

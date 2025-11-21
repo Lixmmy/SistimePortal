@@ -4,14 +4,14 @@ import 'package:newsistime/features/profil/domain/entities/profil.dart';
 class ProfilModel {
   final int idPendaftaran;
   final UserModel user;
-  final AgamaModel agama;
-  final KampusModel kampus;
-  final ProgramStudiModel programStudi;
-  final SekolahModel sekolah;
-  final StatusModel status;
-  final WaktuKuliahModel waktuKuliah;
-  final String email;
-  final String namaMahasiswa;
+  final AgamaModel? agama;
+  final KampusModel? kampus;
+  final ProgramStudiModel? programStudi;
+  final SekolahModel? sekolah;
+  final StatusModel? status;
+  final WaktuKuliahModel? waktuKuliah;
+  final String? email;
+  final String? namaMahasiswa;
   final String? tempatLahir;
   final int? tanggalLahir;
   final String? alamatMahasiswa;
@@ -38,9 +38,9 @@ class ProfilModel {
   const ProfilModel({
     required this.idPendaftaran,
     required this.user,
-    required this.agama,
-    required this.kampus,
-    required this.programStudi,
+    this.agama,
+    this.kampus,
+    this.programStudi,
     required this.sekolah,
     required this.status,
     required this.waktuKuliah,
@@ -74,19 +74,31 @@ class ProfilModel {
   factory ProfilModel.fromjson(Map<String, dynamic> datajson) {
     return ProfilModel(
       user: UserModel.fromJson(datajson['user']),
-      agama: AgamaModel.fromJson(datajson['agama']),
+      agama: datajson['agama'] == null
+          ? null
+          : AgamaModel.fromJson(datajson['agama']),
       idPendaftaran: datajson['idPendaftaran'],
-      kampus: KampusModel.fromJson(datajson['kampus']),
-      programStudi: ProgramStudiModel.fromJson(datajson['programStudi']),
-      sekolah: SekolahModel.fromJson(datajson['sekolah']),
-      status: StatusModel.fromJson(datajson['status']),
-      waktuKuliah: WaktuKuliahModel.fromJson(datajson['waktuKuliah']),
+      kampus: datajson['kampus'] == null
+          ? null
+          : KampusModel.fromJson(datajson['kampus']),
+      programStudi: datajson['programStudi'] == null
+          ? null
+          : ProgramStudiModel.fromJson(datajson['programStudi']),
+      sekolah: datajson['sekolah'] == null
+          ? null
+          : SekolahModel.fromJson(datajson['sekolah']),
+      status: datajson['status'] == null
+          ? null
+          : StatusModel.fromJson(datajson['status']),
+      waktuKuliah: datajson['waktuKuliah'] == null
+          ? null
+          : WaktuKuliahModel.fromJson(datajson['waktuKuliah']),
       email: datajson['email'],
       namaMahasiswa: datajson['namaMahasiswa'],
       tempatLahir: datajson['tempatLahir'],
       tanggalLahir: datajson['tanggalLahir'],
       alamatMahasiswa: datajson['alamatMahasiswa'],
-      jenisKelamin: datajson['jenisKelamin'],
+      jenisKelamin: datajson['jenisKelamin'] ?? '',
       alamatOrangtua: datajson['alamatOrangtua'],
       anakKe: datajson['anakKe'],
       golonganDarah: datajson['golonganDarah'],
@@ -112,13 +124,13 @@ class ProfilModel {
   Map<String, dynamic> toJson() {
     return {
       'user': user.toJson(),
-      'agama': agama.toJson(),
+      'agama': agama!.toJson(),
       'idPendaftaran': idPendaftaran,
-      'kampus': kampus.toJson(),
-      'programStudi': programStudi.toJson(),
-      'sekolah': sekolah.toJson(),
-      'status': status.toJson(),
-      'waktuKuliah': waktuKuliah.toJson(),
+      'kampus': kampus!.toJson(),
+      'programStudi': programStudi!.toJson(),
+      'sekolah': sekolah!.toJson(),
+      'status': status!.toJson(),
+      'waktuKuliah': waktuKuliah!.toJson(),
       'email': email,
       'namaMahasiswa': namaMahasiswa,
       'tempatLahir': tempatLahir,
@@ -151,12 +163,12 @@ class ProfilModel {
     return Profil(
       idPendaftaran: idPendaftaran,
       user: user.toEntity(),
-      agama: agama.toEntity(),
-      kampus: kampus.toEntity(),
-      programStudi: programStudi.toEntity(),
-      sekolah: sekolah.toEntity(),
-      status: status.toEntity(),
-      waktuKuliah: waktuKuliah.toEntity(),
+      agama: agama?.toEntity(),
+      kampus: kampus?.toEntity(),
+      programStudi: programStudi?.toEntity(),
+      sekolah: sekolah?.toEntity(),
+      status: status?.toEntity(),
+      waktuKuliah: waktuKuliah?.toEntity(),
       email: email,
       namaMahasiswa: namaMahasiswa,
       tempatLahir: tempatLahir,

@@ -45,7 +45,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
           SliverToBoxAdapter(
             child: BlocConsumer<ProfilBloc, ProfilState>(
               bloc: myInjection<ProfilBloc>()
-                ..add(ProfilGetMahasiswa('2244068')),
+                ..add(ProfilGetMahasiswa('2244065')),
               listener: (context, state) {
                 if (state is ProfilLoading) {
                   LoadingManager().show(context);
@@ -86,14 +86,14 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                               ),
                             ),
                             Text(
-                              profil.namaMahasiswa,
+                              profil.namaMahasiswa ?? '',
                               style: Theme.of(context).textTheme.titleMedium,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              profil.user.username!,
+                              profil.user.username ?? '',
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
@@ -106,7 +106,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       SizedBox(height: 25),
                       ListProfil(
                         title: appLocalizations.major,
-                        subtitle: profil.programStudi.namaProgramStudi!,
+                        subtitle: profil.programStudi?.namaProgramStudi ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.yearOfEntry,
@@ -114,11 +114,11 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       ListProfil(
                         title: appLocalizations.email,
-                        subtitle: profil.email,
+                        subtitle: profil.email ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.campus,
-                        subtitle: profil.kampus.kodeKampus ?? "",
+                        subtitle: profil.kampus?.kodeKampus ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.placeOfBirth,
@@ -130,7 +130,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       ListProfil(
                         title: appLocalizations.gender,
-                        subtitle: profil.jenisKelamin!.isEmpty
+                        subtitle: (profil.jenisKelamin ?? "").isEmpty
                             ? ""
                             : profil.jenisKelamin == "P"
                             ? "Pria"
@@ -138,11 +138,11 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       ListProfil(
                         title: appLocalizations.religion,
-                        subtitle: profil.agama.agama ?? "",
+                        subtitle: profil.agama?.agama ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.status,
-                        subtitle: profil.status.status ?? "",
+                        subtitle: profil.status?.status ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.bloodType,
@@ -158,19 +158,19 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       ListProfil(
                         title: appLocalizations.noHp,
-                        subtitle: profil.noTeleponMahasiswa.toString(),
+                        subtitle: profil.noTeleponMahasiswa ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.numberOfSiblings,
-                        subtitle: profil.jumlahSaudara.toString(),
+                        subtitle: profil.jumlahSaudara?.toString() ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.birthOrder,
-                        subtitle: profil.anakKe.toString(),
+                        subtitle: profil.anakKe?.toString() ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.hobby,
-                        subtitle: profil.hobi!,
+                        subtitle: profil.hobi ?? '',
                       ),
                       ListProfil(
                         title: appLocalizations.fatherName,
@@ -194,7 +194,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       ListProfil(
                         title: appLocalizations.school,
-                        subtitle: profil.sekolah.namaSekolah ?? "",
+                        subtitle: profil.sekolah?.namaSekolah ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.schoolDepartment,
