@@ -114,6 +114,9 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                 final bool hasProject = semesterData.any(
                   (e) => e.nilais?.project != null,
                 );
+                final bool hasImprovement = semesterData.any(
+                  (e) => e.nilais?.perbaikan != null,
+                );
 
                 final List<String> headers = [
                   appLocalizations.no,
@@ -126,7 +129,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                   appLocalizations.assignment,
                   appLocalizations.uts,
                   appLocalizations.uas,
-                  appLocalizations.improvement,
+                  if (hasImprovement) appLocalizations.improvement,
                   appLocalizations.grade,
                 ];
 
@@ -136,14 +139,14 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                     khs.kodeMatakuliah,
                     khs.namaMatakuliah,
                     khs.sks.toString(),
-                    if (hasQuiz) khs.nilais!.quiz.toString(),
-                    if (hasProject) khs.nilais!.project.toString(),
-                    khs.nilais!.absensi.toString(),
-                    khs.nilais!.tugas.toString(),
-                    khs.nilais!.uts.toString(),
-                    khs.nilais!.uas.toString(),
-                    khs.nilais!.perbaikan.toString(),
-                    khs.letterGrade ?? 'N/A',
+                    if (hasQuiz) khs.nilais?.quiz?.toString() ?? '',
+                    if (hasProject) khs.nilais?.project?.toString() ?? '',
+                    khs.nilais?.absensi?.toString() ?? '',
+                    khs.nilais?.tugas?.toString() ?? '',
+                    khs.nilais?.uts?.toString() ?? "",
+                    khs.nilais?.uas?.toString() ?? "",
+                    if (hasImprovement) khs.nilais?.perbaikan?.toString() ?? '',
+                    khs.letterGrade ?? '',
                   ];
                   return row;
                 }).toList();
@@ -198,8 +201,12 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                         7: const pw.FlexColumnWidth(1.2),
                         8: const pw.FlexColumnWidth(1.2),
                         9: const pw.FlexColumnWidth(1.2),
-                        10: const pw.FlexColumnWidth(1),
+                        10: const pw.FlexColumnWidth(1.2),
+                        11: const pw.FlexColumnWidth(1),
                       },
+                      tableWidth: pw.TableWidth.max,
+                      defaultVerticalAlignment:
+                          pw.TableCellVerticalAlignment.middle,
                       children: [
                         pw.TableRow(
                           children: headers

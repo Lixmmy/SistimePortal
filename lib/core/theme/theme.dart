@@ -236,23 +236,6 @@ class AppTheme {
       }),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
     ),
-
-    dialogTheme: DialogThemeData(
-      backgroundColor: surfaceLightColorA0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      titleTextStyle: GoogleFonts.inter(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: textLightColor,
-      ),
-      contentTextStyle: GoogleFonts.inter(fontSize: 16, color: textLightColor),
-      actionsPadding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
-      elevation: 3,
-      shadowColor: textLightColor.withAlpha(150),
-    ),
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -452,23 +435,57 @@ class AppTheme {
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
     ),
 
-    dialogTheme: DialogThemeData(
-      backgroundColor: surfaceLightColorA0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      titleTextStyle: GoogleFonts.inter(
-        fontSize: 20,
+    datePickerTheme: DatePickerThemeData(
+      headerBackgroundColor: primaryColorA0,
+      headerForegroundColor: textDarkColor,
+      subHeaderForegroundColor: textDarkColor,
+      yearBackgroundColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColorA30;
+        }
+        return Colors.transparent;
+      }),
+      yearForegroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return Colors.white;
+        }
+        if (states.contains(WidgetState.disabled)) {
+          return surfaceDarkColorA40;
+        }
+        return textDarkColor;
+      }),
+      yearOverlayColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColorA30;
+        }
+        if (states.contains(WidgetState.pressed)) {
+          return primaryColorA20;
+        }
+        return Colors.transparent;
+      }),
+      weekdayStyle: GoogleFonts.inter(
+        fontSize: 14,
         fontWeight: FontWeight.bold,
-        color: textLightColor,
+        color: textDarkColor,
       ),
-      contentTextStyle: GoogleFonts.inter(fontSize: 16, color: textLightColor),
-      actionsPadding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
-      elevation: 3,
-      shadowColor: textLightColor.withAlpha(150),
+      todayForegroundColor: WidgetStateProperty.all(primaryColorA30),
+      dayForegroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return Colors.white;
+        }
+        if (states.contains(WidgetState.disabled)) {
+          return surfaceDarkColorA40;
+        }
+        return textDarkColor;
+      }),
+      dayBackgroundColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColorA30;
+        }
+        return Colors.transparent;
+      }),
     ),
-     tabBarTheme: TabBarThemeData(
+    tabBarTheme: TabBarThemeData(
       labelColor: Colors.white,
       unselectedLabelColor: Colors.white,
       indicator: UnderlineTabIndicator(

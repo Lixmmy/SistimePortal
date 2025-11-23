@@ -37,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
           SliverToBoxAdapter(
             child: BlocConsumer<ProfilBloc, ProfilState>(
               bloc: myInjection<ProfilBloc>()
-                ..add(ProfilGetMahasiswa('2244065')),
+                ..add(ProfilGetMahasiswa('2244068')),
               listener: (context, state) {
                 if (state is ProfilLoading) {
                   LoadingManager().show(context);

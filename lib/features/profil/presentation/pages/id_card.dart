@@ -29,7 +29,7 @@ class IdCard extends StatelessWidget {
         ),
       ),
       body: BlocConsumer<ProfilBloc, ProfilState>(
-        bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244065')),
+        bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
         listener: (context, state) {
           if (state is ProfilLoading) {
             LoadingManager().show(context);
@@ -42,99 +42,77 @@ class IdCard extends StatelessWidget {
         builder: (context, state) {
           if (state is ProfilLoaded) {
             Profil profil = state.detailUser;
-             final String formattedTanggalLahir =
-                      formatDate(profil.tanggalLahir);
-            return Card(
-              elevation: 4.0, // Gives a shadow effect
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0), // Rounded corners
+            final String formattedTanggalLahir = formatDate(
+              profil.tanggalLahir,
+            );
+            return Container(
+              margin: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.blue.shade900, Colors.blue.shade600],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
               ),
-              margin: EdgeInsets.all(20.0), // Margin around the card
-              child: Container(
-                padding: EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
-                  // This is where you'd set the gradient background seen in the image
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.blue.shade900,
-                      Colors.blue.shade600,
-                    ], // Example colors
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Image.asset('images/logo_stmik.png', height: 60),
-                        Expanded(
-                          child: Text(
-                            'STMIK\nTIME',
-                            textAlign: TextAlign.right,
-                            style: Theme.of(context).textTheme.headlineLarge
-                                ?.copyWith(color: Colors.white, height: 1),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      appLocalizations.studentCard,
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Colors.white,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Image.asset('images/logo_stmik.png', height: 40),
+                      Text(
+                        'STMIK TIME',
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.titleLarge
+                            ?.copyWith(color: Colors.white),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 8,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              BuildInfoRow(
-                                label: appLocalizations.studentIdCard,
-                                value: profil.user.username!,
-                              ),
-                              BuildInfoRow(
-                                label: appLocalizations.name,
-                                value: profil.namaMahasiswa!,
-                              ),
-                              BuildInfoRow(
-                                label: appLocalizations.placeAndDateOfBirth,
-                                value:
-                                    '${profil.tempatLahir}/ $formattedTanggalLahir',
-                              ),
-                              BuildInfoRow(
-                                label: appLocalizations.studyPrograms,
-                                value: profil.programStudi!.namaProgramStudi!,
-                              ),
-                              BuildInfoRow(
-                                label: appLocalizations.validUntil,
-                                value: "${profil.tahunAngkatan! + 4}",
-                              ),
-                            ],
-                          ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    appLocalizations.studentCard,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 10,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BuildInfoRow(
+                              label: appLocalizations.studentIdCard,
+                              value: profil.user.username ?? '',
+                            ),
+                            BuildInfoRow(
+                              label: appLocalizations.name,
+                              value: profil.namaMahasiswa ?? '',
+                            ),
+                            BuildInfoRow(
+                              label: appLocalizations.placeAndDateOfBirth,
+                              value:
+                                  '${profil.tempatLahir ?? '-'} / $formattedTanggalLahir',
+                            ),
+                            BuildInfoRow(
+                              label: appLocalizations.studyPrograms,
+                              value: profil.programStudi?.namaProgramStudi ?? '',
+                            ),
+                            BuildInfoRow(
+                              label: appLocalizations.validUntil,
+                              value: "${profil.tahunAngkatan! + 4}",
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 5),
-                        Expanded(
-                          flex: 2,
-                          child: CircleAvatar(
-                            radius: 40,
-                            // backgroundImage: AssetImage(
-                            //   'assets/felix_profile.jpg',
-                            // ), // Add Felix's picture
-                            backgroundColor: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             );
           } else {

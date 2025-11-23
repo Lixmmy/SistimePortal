@@ -4,6 +4,7 @@ class Krs extends Equatable {
   final int idKrs;
   final int idSkemaKrs;
   final String kodeMatakuliah;
+  final int semester;
   final String namaMatakuliah;
   final String namaDosen;
   final int sks;
@@ -11,6 +12,7 @@ class Krs extends Equatable {
     required this.idKrs,
     required this.idSkemaKrs,
     required this.kodeMatakuliah,
+    required this.semester,
     required this.namaMatakuliah,
     required this.namaDosen,
     required this.sks,
@@ -20,6 +22,7 @@ class Krs extends Equatable {
   List<Object?> get props => [
     idKrs,
     idSkemaKrs,
+    semester,
     kodeMatakuliah,
     namaMatakuliah,
     namaDosen,

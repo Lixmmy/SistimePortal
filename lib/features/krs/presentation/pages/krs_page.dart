@@ -16,7 +16,7 @@ class _KrsPageState extends State<KrsPage> {
   @override
   void initState() {
     super.initState();
-    myInjection<KrsBloc>().add(const FetchKrsData(nim: '512'));
+    myInjection<KrsBloc>().add(FetchKrsData(nim: '530'));
   }
 
   @override

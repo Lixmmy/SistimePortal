@@ -45,7 +45,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
           SliverToBoxAdapter(
             child: BlocConsumer<ProfilBloc, ProfilState>(
               bloc: myInjection<ProfilBloc>()
-                ..add(ProfilGetMahasiswa('2244065')),
+                ..add(ProfilGetMahasiswa('2244068')),
               listener: (context, state) {
                 if (state is ProfilLoading) {
                   LoadingManager().show(context);
@@ -98,6 +98,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(height: 15),
                           ],

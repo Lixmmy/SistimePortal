@@ -81,7 +81,7 @@ GoRouter myRouter() {
         builder: (context, state, child) {
           return BlocProvider(
             create: (context) =>
-                KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()),
+                KrsBloc(getKrs: myInjection()),
             child: child,
           );
         },

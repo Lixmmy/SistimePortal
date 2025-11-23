@@ -30,7 +30,7 @@ class _DetailKrsState extends State<DetailKhs> {
                 duration: Duration(seconds: 1),
               ),
             );
-            myInjection<KhsBloc>().add(const FetchKhsData(nim: '2244068'));
+            myInjection<KhsBloc>().add(const FetchKhsData(nim: '530'));
           }
         },
         child: CustomScrollView(
@@ -74,7 +74,7 @@ class _DetailKrsState extends State<DetailKhs> {
               bloc: myInjection<KhsBloc>(),
               builder: (context, state) {
                 if (state is KhsLoaded) {
-                  final khs = state.groupedKhs[widget.semester]!;
+                  final khs = state.groupedKhs[widget.semester];
                   return SliverMainAxisGroup(
                     slivers: [
                       SliverToBoxAdapter(
@@ -191,7 +191,7 @@ class _DetailKrsState extends State<DetailKhs> {
                       ),
                       SliverList(
                         delegate: SliverChildBuilderDelegate((context, index) {
-                          final khsItem = khs[index];
+                          final khsItem = khs?[index];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -210,13 +210,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    khsItem.namaMatakuliah,
+                                    khsItem?.namaMatakuliah ?? '',
                                     style: Theme.of(
                                       context,
                                     ).textTheme.labelSmall,
                                   ),
                                   Text(
-                                    '${appLocalizations.code}: ${khsItem.kodeMatakuliah} | ${appLocalizations.sks}: ${khsItem.sks}',
+                                    '${appLocalizations.code}: ${khsItem?.kodeMatakuliah ?? ''} | ${appLocalizations.sks}: ${khsItem?.sks ?? ''}',
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodySmall,
@@ -231,12 +231,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            if (khsItem.nilais?.absensi != null)
+                                            if (khsItem?.nilais?.absensi !=
+                                                null)
                                               BuildInfoRow(
                                                 label: appLocalizations
                                                     .attendanceGrade,
                                                 value:
-                                                    khsItem.nilais?.absensi
+                                                    khsItem?.nilais?.absensi
                                                         ?.toString() ??
                                                     '',
                                                 valueColor:
@@ -249,12 +250,12 @@ class _DetailKrsState extends State<DetailKhs> {
                                                     ? Colors.white
                                                     : Colors.black,
                                               ),
-                                            if (khsItem.nilais?.quiz != null)
+                                            if (khsItem?.nilais?.quiz != null)
                                               BuildInfoRow(
                                                 label:
                                                     appLocalizations.quizGrade,
                                                 value:
-                                                    khsItem.nilais?.quiz
+                                                    khsItem?.nilais?.quiz
                                                         ?.toString() ??
                                                     '',
                                                 valueColor:
@@ -267,12 +268,12 @@ class _DetailKrsState extends State<DetailKhs> {
                                                     ? Colors.white
                                                     : Colors.black,
                                               ),
-                                            if (khsItem.nilais?.tugas != null)
+                                            if (khsItem?.nilais?.tugas != null)
                                               BuildInfoRow(
                                                 label: appLocalizations
                                                     .assignmentGrade,
                                                 value:
-                                                    khsItem.nilais?.tugas
+                                                    khsItem?.nilais?.tugas
                                                         ?.toString() ??
                                                     '',
                                                 valueColor:
@@ -285,12 +286,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                                     ? Colors.white
                                                     : Colors.black,
                                               ),
-                                            if (khsItem.nilais?.project != null)
+                                            if (khsItem?.nilais?.project !=
+                                                null)
                                               BuildInfoRow(
                                                 label: appLocalizations
                                                     .projectScore,
                                                 value:
-                                                    khsItem.nilais?.project
+                                                    khsItem?.nilais?.project
                                                         ?.toString() ??
                                                     '',
                                                 labelColor:
@@ -303,12 +305,12 @@ class _DetailKrsState extends State<DetailKhs> {
                                                 valueColor:
                                                     AppTheme.primaryColorA0,
                                               ),
-                                            if (khsItem.nilais?.uts != null)
+                                            if (khsItem?.nilais?.uts != null)
                                               BuildInfoRow(
                                                 label: appLocalizations
                                                     .midTermGrade,
                                                 value:
-                                                    khsItem.nilais?.uts
+                                                    khsItem?.nilais?.uts
                                                         ?.toString() ??
                                                     '',
                                                 valueColor:
@@ -321,12 +323,12 @@ class _DetailKrsState extends State<DetailKhs> {
                                                     ? Colors.white
                                                     : Colors.black,
                                               ),
-                                            if (khsItem.nilais?.uas != null)
+                                            if (khsItem?.nilais?.uas != null)
                                               BuildInfoRow(
                                                 label:
                                                     appLocalizations.finalGrade,
                                                 value:
-                                                    khsItem.nilais?.uas
+                                                    khsItem?.nilais?.uas
                                                         ?.toString() ??
                                                     '',
                                                 valueColor:
@@ -339,13 +341,13 @@ class _DetailKrsState extends State<DetailKhs> {
                                                     ? Colors.white
                                                     : Colors.black,
                                               ),
-                                            if (khsItem.nilais?.perbaikan !=
+                                            if (khsItem?.nilais?.perbaikan !=
                                                 null)
                                               BuildInfoRow(
                                                 label: appLocalizations
                                                     .improvement,
                                                 value:
-                                                    khsItem.nilais?.perbaikan
+                                                    khsItem?.nilais?.perbaikan
                                                         ?.toString() ??
                                                     '',
                                                 valueColor:
@@ -361,17 +363,17 @@ class _DetailKrsState extends State<DetailKhs> {
                                           ],
                                         ),
                                       ),
-                                      if (khsItem.letterGrade != '')
+                                      if (khsItem?.letterGrade != '')
                                         Expanded(
                                           flex: 1,
                                           child: Text(
-                                            khsItem.letterGrade ?? '',
+                                            khsItem?.letterGrade ?? '',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .displayMedium
                                                 ?.copyWith(
                                                   color: getGradeColor(
-                                                    khsItem.letterGrade ?? '',
+                                                    khsItem?.letterGrade ?? '',
                                                   ),
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -383,7 +385,7 @@ class _DetailKrsState extends State<DetailKhs> {
                               ),
                             ),
                           );
-                        }, childCount: khs.length),
+                        }, childCount: khs?.length),
                       ),
                       SliverToBoxAdapter(
                         child: Center(

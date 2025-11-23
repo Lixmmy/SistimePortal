@@ -11,7 +11,6 @@ import 'package:newsistime/features/krs/data/datasources/remote_krs_data_source.
 import 'package:newsistime/features/krs/data/repositories/krs_repositories_implementation.dart';
 import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
-import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/language/data/datasources/language_local_data_source.dart';
 import 'package:newsistime/features/language/data/repositories/app_language_repository_implementation.dart';
@@ -105,14 +104,11 @@ Future<void> init() async {
 
   //krs bloc
   myInjection.registerLazySingleton(
-    () => KrsBloc(getKrs: myInjection(), getMataKuliah: myInjection()),
+    () => KrsBloc(getKrs: myInjection()),
   );
   //Use cases
   myInjection.registerLazySingleton(
     () => GetKrs(krsRepositories: myInjection()),
-  );
-  myInjection.registerLazySingleton(
-    () => GetMataKuliah(krsRepositories: myInjection()),
   );
   //Repositories
   myInjection.registerLazySingleton<KrsRepositories>(
