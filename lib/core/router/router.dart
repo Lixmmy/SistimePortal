@@ -9,6 +9,7 @@ import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/krs/presentation/pages/detail_krs.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
+import 'package:newsistime/features/login/presentation/pages/login_page.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
@@ -18,12 +19,23 @@ import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
 import '../../features/profil/presentation/pages/info_profile.dart';
 import '../../features/profil/presentation/pages/profil_page.dart';
+import '../../features/login/presentation/pages/launcher_page.dart';
 import '../../injection.dart';
 
 GoRouter myRouter() {
   return GoRouter(
-    initialLocation: '/selected_page',
+    initialLocation: '/launcher_page',
     routes: [
+      GoRoute(
+        path: '/launcher_page',
+        name: 'launcherPage',
+        builder: (context, state) => const LauncherPage(),
+      ),
+      GoRoute(
+        path: '/login_page',
+        name: 'loginPage',
+        builder: (context, state) => const LoginPage(),
+      ),
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
@@ -80,8 +92,7 @@ GoRouter myRouter() {
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
-            create: (context) =>
-                KrsBloc(getKrs: myInjection()),
+            create: (context) => KrsBloc(getKrs: myInjection()),
             child: child,
           );
         },
