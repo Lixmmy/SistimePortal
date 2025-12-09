@@ -110,7 +110,7 @@ class _LauncherPageState extends State<LauncherPage> {
                     ),
                   ),
                   SizedBox(
-                    width: double.infinity,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: ElevatedButton(
                       onPressed: () {
                         context.pushNamed('loginPage');

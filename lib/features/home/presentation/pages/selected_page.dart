@@ -15,7 +15,7 @@ class _SelectedPageState extends State<SelectedPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomePage(), 
+    const HomePage(),
     const NilaiPage(),
     const ProfilPage(),
   ];
@@ -24,15 +24,15 @@ class _SelectedPageState extends State<SelectedPage> {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
+      body: IndexedStack(index: _selectedIndex, children: _pages),
+      bottomNavigationBar: Bnb(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
-      bottomNavigationBar: Bnb(selectedIndex: _selectedIndex, onItemTapped: _onItemTapped),
     );
   }
 }

@@ -23,7 +23,12 @@ class _LoginPageState extends State<LoginPage> {
             automaticallyImplyLeading: true,
             centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+              ),
               onPressed: () {
                 context.pop();
               },
@@ -76,40 +81,75 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height * 0.6,
-                  decoration: BoxDecoration(color: Colors.white.withAlpha(128)),
+                  decoration: BoxDecoration(
+                    color: Theme.brightnessOf(context) == Brightness.dark
+                        ? AppTheme.surfaceDarkColorA0.withAlpha(128)
+                        : Colors.white.withAlpha(128),
+                  ),
                 ),
-                Column(
-                  children: [
-                    Text(
-                      'Login',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        hintText: 'NIM',
+                Padding(
+                  padding: const EdgeInsetsGeometry.only(
+                    top: 50,
+                    left: 20,
+                    right: 20,
+                    bottom: 20,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Login',
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        hintText: 'Password',
+                      const SizedBox(height: 16),
+                      Text(
+                        "Enter your username and password to log in",
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.pushNamed('homePage');
-                      },
-                      child: const Text('Login'),
-                    ),
-                  ],
+                      const SizedBox(height: 16),
+                      Text(
+                        "Username",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          hintText: 'Username',
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        "Password",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          hintText: 'Password',
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text('Forgot Password?'),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.goNamed('selectedPage');
+                          },
+                          child: const Text('Login'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

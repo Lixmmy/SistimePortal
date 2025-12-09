@@ -13,10 +13,12 @@ class ProfilRepositoryImplementation extends ProfilRepository {
     required this.profilLocalDataSource,
     required this.profilRemoteDataSourceImplementation,
   });
+
+  @override
   Future<Either<MessageExc, Profil>> getMahasiswa(String nim) async {
     try {
-      final Profil hasil =
-          await profilRemoteDataSourceImplementation.getMahasiswa(nim);
+      final Profil hasil = await profilRemoteDataSourceImplementation
+          .getMahasiswa(nim);
       profilLocalDataSource.savedProfilData(hasil);
       return Right(hasil);
     } catch (e) {
