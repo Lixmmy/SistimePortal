@@ -15,21 +15,19 @@ part 'krs_event.dart';
 part 'krs_state.dart';
 
 class KrsBloc extends Bloc<KrsEvent, KrsState> {
-  final GetKrs _getKrs;
-  final ProfilBloc _profilBloc;
+  final GetKrs getKrs;
+  final ProfilBloc profilBloc;
   // final GetMataKuliah getMataKuliah;
 
-  KrsBloc({required GetKrs getKrs, required ProfilBloc profilBloc})
-    : _getKrs = getKrs,
-      _profilBloc = profilBloc,
-      super(KrsInitial()) {
+  KrsBloc({required this.getKrs, required this.profilBloc})
+    : super(KrsInitial()) {
     on<FetchKrsData>((event, emit) async {
-      final profilState = _profilBloc.state;
+      final profilState = profilBloc.state;
       if (profilState is ProfilLoaded) {
         emit(KrsLoading());
         try {
           final id = profilState.profil.user.id;
-          final krsResult = await _getKrs.execute(id: id);
+          final krsResult = await getKrs.execute(id);
           krsResult.fold(
             (failure) {
               emit(KrsError(message: failure.message));

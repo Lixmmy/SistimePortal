@@ -30,7 +30,7 @@ class _DetailKrsState extends State<DetailKhs> {
                 duration: Duration(seconds: 1),
               ),
             );
-            myInjection<KhsBloc>().add(FetchKhsData());
+            myInjection<KhsBloc>().add(const FetchKhsData(nim: '530'));
           }
         },
         child: CustomScrollView(

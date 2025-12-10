@@ -6,7 +6,7 @@ import 'package:newsistime/features/krs/domain/entities/krs.dart';
 // import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 
 abstract class RemoteKrsDataSource {
-  Future<List<Krs>> getKrs({required String id});
+  Future<List<Krs>> getKrs({required String nim});
   // Future<List<Matkul>> getMataKuliah();
 }
 
@@ -15,9 +15,9 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
   RemoteKrsDataSourceImplementation({required this.connectApi});
 
   @override
-  Future<List<Krs>> getKrs({required String id}) async {
+  Future<List<Krs>> getKrs({required String nim}) async {
     try {
-      final response = await connectApi.getKrs(id: id);
+      final response = await connectApi.getKrs(nim: nim);
       if (response != null) {
         final List<KrsModel> krsModel = ListKrsModel.fromJson(
           response,

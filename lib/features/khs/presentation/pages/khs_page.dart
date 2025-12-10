@@ -16,7 +16,7 @@ class _KrsPageState extends State<KhsPage> {
   @override
   void initState() {
     super.initState();
-    myInjection<KhsBloc>().add(FetchKhsData());
+    myInjection<KhsBloc>().add(const FetchKhsData(nim: '530'));
   }
 
   @override

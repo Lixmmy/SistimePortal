@@ -104,12 +104,12 @@ class ConnectApi {
     return _requestGet('$mahasiswaRoute/$nim', true);
   }
 
-  Future<dynamic> getKrs({required String id}) {
-    return _requestGet('$krsRoute/$id', true);
+  Future<dynamic> getKrs({required String nim}) {
+    return _requestGet('$krsRoute/$nim', true);
   }
 
-  Future<dynamic> getKhs({required String id}) {
-    return _requestGet('$khsRoute/$id', true);
+  Future<dynamic> getKhs({required String nim}) {
+    return _requestGet('$khsRoute/$nim', true);
   }
 
   Future<dynamic> getTranskrip({required String nim}) {

@@ -10,9 +10,9 @@ class KhsRepositoriesImplementation extends KhsRepositories {
   KhsRepositoriesImplementation({required this.remoteKhsDataSource});
 
   @override
-  Future<Either<MessageExc, List<Khs>>> getKhs({required String id}) async {
+  Future<Either<MessageExc, List<Khs>>> getKhs({required String nim}) async {
     try {
-      final List<Khs> khs = await remoteKhsDataSource.getKhs(id: id);
+      final List<Khs> khs = await remoteKhsDataSource.getKhs(nim: nim);
       return Right(khs);
     } on MessageExc catch (e) {
       return Left(e);

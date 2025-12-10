@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/features/khs/domain/entities/khs.dart';
 import 'package:newsistime/features/khs/domain/usecases/get_khs.dart';
-import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -29,77 +28,69 @@ String konversiNilaiKeHuruf(double nilaiAkhir) {
 
 class KhsBloc extends Bloc<KhsEvent, KhsState> {
   final GetKhs getKhs;
-  final ProfilBloc profilBloc;
 
-  KhsBloc({required this.getKhs, required this.profilBloc})
-    : super(KhsInitial()) {
+  KhsBloc({required this.getKhs}) : super(KhsInitial()) {
     on<FetchKhsData>((event, emit) async {
-      final profilState = profilBloc.state;
-      if (profilState is ProfilLoaded) {
-        emit(KhsLoading());
-        try {
-          final id = profilState.profil.id;
-          final khsResult = await getKhs.call(id: id);
-          khsResult.fold(
-            (failure) {
-              emit(KhsError(message: failure.message));
-            },
-            (data) {
-              final groupedKhs = <int, List<Khs>>{};
-              for (var khs in data) {
-                final semester = khs.semester;
-                if (!groupedKhs.containsKey(semester)) {
-                  groupedKhs[semester] = [];
-                }
-                final nilai = khs.nilais;
-                final minRequiredScores = [
-                  nilai?.quiz,
-                  nilai?.uts,
-                  nilai?.uas,
-                  nilai?.absensi,
+      emit(KhsLoading());
+      try {
+        final khsResult = await getKhs.call(nim: event.nim);
+        khsResult.fold(
+          (failure) {
+            emit(KhsError(message: failure.message));
+          },
+          (data) {
+            final groupedKhs = <int, List<Khs>>{};
+            for (var khs in data) {
+              final semester = khs.semester;
+              if (!groupedKhs.containsKey(semester)) {
+                groupedKhs[semester] = [];
+              }
+              final nilai = khs.nilais;
+              final minRequiredScores = [
+                nilai?.quiz,
+                nilai?.uts,
+                nilai?.uas,
+                nilai?.absensi,
+              ];
+              String? currentLetterGrade;
+              if (nilai != null) {
+                final List<double?> scores = [
+                  nilai.tugas,
+                  nilai.uts,
+                  nilai.uas,
+                  nilai.absensi,
+                  nilai.project,
+                  nilai.quiz,
+                  nilai.perbaikan,
                 ];
-                String? currentLetterGrade;
-                if (nilai != null) {
-                  final List<double?> scores = [
-                    nilai.tugas,
-                    nilai.uts,
-                    nilai.uas,
-                    nilai.absensi,
-                    nilai.project,
-                    nilai.quiz,
-                    nilai.perbaikan,
-                  ];
-                  final List<double> validScores = scores
-                      .whereType<double>()
-                      .toList();
-                  if (validScores.isNotEmpty) {
-                    final double totalScore = validScores.reduce(
-                      (a, b) => a + b,
-                    );
-                    final int count = validScores.length;
-                    if (count >= minRequiredScores.length) {
-                      final double averageScore = totalScore / count;
-                      currentLetterGrade = konversiNilaiKeHuruf(averageScore);
-                    } else {
-                      currentLetterGrade = 'E';
-                    }
+                final List<double> validScores = scores
+                    .whereType<double>()
+                    .toList();
+                if (validScores.isNotEmpty) {
+                  final double totalScore = validScores.reduce((a, b) => a + b);
+                  final int count = validScores.length;
+                  if (count >= minRequiredScores.length) {
+                    final double averageScore = totalScore / count;
+                    currentLetterGrade = konversiNilaiKeHuruf(averageScore);
+                  } else {
+                    currentLetterGrade = 'E';
                   }
                 }
-                final khsWithGrade = khs.copyWith(
-                  letterGrade: currentLetterGrade,
-                );
-                groupedKhs[semester]!.add(khsWithGrade);
               }
-              final sortedGroupKhs = Map.fromEntries(
-                groupedKhs.entries.toList()
-                  ..sort((a, b) => a.key.compareTo(b.key)),
+              final khsWithGrade = khs.copyWith(
+                letterGrade: currentLetterGrade,
               );
-              emit(KhsLoaded(groupedKhs: sortedGroupKhs));
-            },
-          );
-        } catch (e) {
-          emit(KhsError(message: e.toString()));
-        }
+              groupedKhs[semester]!.add(khsWithGrade);
+            }
+            final sortedGroupKhs = Map.fromEntries(
+              groupedKhs.entries.toList()
+                ..sort((a, b) => a.key.compareTo(b.key)),
+            );
+            emit(KhsLoaded(groupedKhs: sortedGroupKhs));
+          },
+        );
+      } catch (e) {
+        emit(KhsError(message: e.toString()));
       }
     });
 

@@ -8,7 +8,7 @@ class GetKhs {
 
   GetKhs(this.repository);
 
-  Future<Either<MessageExc, List<Khs>>> call({required String id}) {
-    return repository.getKhs(id: id);
+  Future<Either<MessageExc, List<Khs>>> call({required String nim}) {
+    return repository.getKhs(nim: nim);
   }
 }

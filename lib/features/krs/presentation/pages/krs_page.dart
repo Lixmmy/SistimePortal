@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:newsistime/injection.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 
 class KrsPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _KrsPageState extends State<KrsPage> {
   @override
   void initState() {
     super.initState();
-    context.read<KrsBloc>().add(FetchKrsData());
+    myInjection<KrsBloc>().add(FetchKrsData(nim: '530'));
   }
 
   @override
@@ -23,6 +24,7 @@ class _KrsPageState extends State<KrsPage> {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: BlocBuilder<KrsBloc, KrsState>(
+        bloc: myInjection<KrsBloc>(),
         builder: (context, state) {
           if (state is KrsLoading) {
             return Center(child: CircularProgressIndicator());

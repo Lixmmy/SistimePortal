@@ -4,7 +4,7 @@ import 'package:newsistime/features/khs/data/models/khs_model.dart';
 import 'package:newsistime/features/khs/domain/entities/khs.dart';
 
 abstract class RemoteKhsDataSource {
-  Future<List<Khs>> getKhs({required String id});
+  Future<List<Khs>> getKhs({required String nim});
 }
 
 class RemoteKhsDataSourceImplementation extends RemoteKhsDataSource {
@@ -13,9 +13,9 @@ class RemoteKhsDataSourceImplementation extends RemoteKhsDataSource {
   RemoteKhsDataSourceImplementation({required this.connectApi});
 
   @override
-  Future<List<Khs>> getKhs({required String id}) async {
+  Future<List<Khs>> getKhs({required String nim}) async {
     try {
-      final response = await connectApi.getKhs(id: id);
+      final response = await connectApi.getKhs(nim: nim);
       if (response != null) {
         final khsModel = ListKhsModel.fromJson(response).listKhsModel;
         return khsModel.map((e) => e.toEntity()).toList();
