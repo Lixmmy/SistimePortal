@@ -25,7 +25,7 @@ class LanguageLocalDataSourceImpl implements LanguageLocalDataSource {
   @override
   Future<void> saveLanguage(String langCode) async {
     try {
-      await secureStorage.savaData(_cachedLanguageKey, langCode);
+      await secureStorage.saveData(_cachedLanguageKey, langCode);
     } catch (e) {
       rethrow;
     }

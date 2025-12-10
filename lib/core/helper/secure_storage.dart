@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class SecureStorage{
-
-static WebOptions _webOptions() => WebOptions(dbName: 'Sistime5tmik', publicKey: 'SqlSt1m1k7im3');
-  static AndroidOptions _androidOptions() => AndroidOptions(encryptedSharedPreferences: true);
+class SecureStorage {
+  static WebOptions _webOptions() =>
+      WebOptions(dbName: 'Sistime5tmik', publicKey: 'SqlSt1m1k7im3');
+  static AndroidOptions _androidOptions() =>
+      AndroidOptions(encryptedSharedPreferences: true);
   static IOSOptions _iosOptions() => IOSOptions(synchronizable: true);
 
   static final FlutterSecureStorage _secureStorage = FlutterSecureStorage(
@@ -13,7 +14,7 @@ static WebOptions _webOptions() => WebOptions(dbName: 'Sistime5tmik', publicKey:
     webOptions: _webOptions(),
   );
 
-  Future<void> savaData(String key, dynamic value) async{
+  Future<void> saveData(String key, dynamic value) async {
     try {
       await _secureStorage.write(key: key, value: value);
     } catch (e) {
@@ -23,6 +24,7 @@ static WebOptions _webOptions() => WebOptions(dbName: 'Sistime5tmik', publicKey:
       }
     }
   }
+
   Future<String> getData(String key) async {
     try {
       final value = await _secureStorage.read(key: key);

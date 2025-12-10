@@ -46,6 +46,46 @@ class ConnectApi {
           .timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
+      } else if (response.statusCode == 401) {
+        throw MessageExc.tokenExpired();
+      } else if (response.statusCode == 404) {
+        throw MessageExc.api("Page Not Found: ${response.statusCode}");
+      } else if (response.statusCode == 500) {
+        throw MessageExc.api("Internal Server Error: ${response.statusCode}");
+      } else {
+        throw MessageExc.network(
+          'Gagal memuat data. Kode Status: ${response.statusCode}',
+        );
+      }
+    } on TimeoutException {
+      throw MessageExc.network('Koneksi timeout, silakan coba lagi.');
+    } on MessageExc {
+      rethrow;
+    } catch (e) {
+      throw MessageExc.unknown(e.toString());
+    }
+  }
+
+  Future<dynamic> _requestPost(
+    String endpoint,
+    bool authorization,
+    Map<String, dynamic> body,
+  ) async {
+    try {
+      await internetConnection();
+      Uri uri = Uri(scheme: scheme, host: host, path: endpoint);
+      final headers = await header(authorization: authorization);
+      final response = await http
+          .post(uri, headers: headers, body: json.encode(body))
+          .timeout(const Duration(seconds: 30));
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else if (response.statusCode == 401) {
+        throw MessageExc.tokenExpired();
+      } else if (response.statusCode == 404) {
+        throw MessageExc.api("Page Not Found: ${response.statusCode}");
+      } else if (response.statusCode == 500) {
+        throw MessageExc.api("Internal Server Error: ${response.statusCode}");
       } else {
         throw MessageExc.network(
           'Gagal memuat data. Kode Status: ${response.statusCode}',
@@ -61,21 +101,32 @@ class ConnectApi {
   }
 
   Future<dynamic> getMahasiswa({required String nim}) {
-    return _requestGet('$mahasiswaRoute/$nim', false);
+    return _requestGet('$mahasiswaRoute/$nim', true);
   }
 
   Future<dynamic> getKrs({required String nim}) {
-    return _requestGet('$krsRoute/$nim', false);
+    return _requestGet('$krsRoute/$nim', true);
   }
+
   Future<dynamic> getKhs({required String nim}) {
-    return _requestGet('$khsRoute/$nim', false);
+    return _requestGet('$khsRoute/$nim', true);
   }
 
   Future<dynamic> getTranskrip({required String nim}) {
-    return _requestGet('$transkripRoute/$nim', false);
+    return _requestGet('$transkripRoute/$nim', true);
   }
 
   Future<dynamic> getMataKuliah() {
-    return _requestGet(mataKuliahRoute, false);
+    return _requestGet(mataKuliahRoute, true);
+  }
+
+  Future<dynamic> postLogin({
+    required String username,
+    required String password,
+  }) {
+    return _requestPost(loginRoute, false, {
+      'username': username,
+      'password': password,
+    });
   }
 }

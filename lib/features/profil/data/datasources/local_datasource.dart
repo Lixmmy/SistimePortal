@@ -18,7 +18,7 @@ class ProfilLocalDataSourceImplementation extends ProfilLocalDataSource {
     try {
       final profilJson = profil.toJson();
       final jsonString = jsonEncode(profilJson);
-      await _secureStorage.savaData(_profilKey, jsonString);
+      await _secureStorage.saveData(_profilKey, jsonString);
     } catch (e) {
       rethrow;
     }
