@@ -16,7 +16,7 @@ class _KrsPageState extends State<KhsPage> {
   @override
   void initState() {
     super.initState();
-    myInjection<KhsBloc>().add(const FetchKhsData(nim: '530'));
+    myInjection<KhsBloc>().add(FetchKhsData());
   }
 
   @override
@@ -27,15 +27,11 @@ class _KrsPageState extends State<KhsPage> {
         bloc: myInjection<KhsBloc>(),
         builder: (context, state) {
           if (state is KhsLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
           if (state is KhsLoaded) {
             if (state.groupedKhs.isEmpty) {
-              return const Center(
-                child: Text('Tidak ada data KHS ditemukan.'),
-              );
+              return const Center(child: Text('Tidak ada data KHS ditemukan.'));
             }
             final semesters = state.groupedKhs.keys.toList();
             return CustomScrollView(
@@ -47,7 +43,7 @@ class _KrsPageState extends State<KhsPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         title: Text(
-                          '${appLocalizations.semester} $semester'  ,
+                          '${appLocalizations.semester} $semester',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         onTap: () {
@@ -59,7 +55,8 @@ class _KrsPageState extends State<KhsPage> {
                         shape: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
-                            color: Theme.of(context).brightness == Brightness.dark
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
                                 ? Colors.white.withAlpha(150)
                                 : Colors.black.withAlpha(150),
                           ),
@@ -71,9 +68,7 @@ class _KrsPageState extends State<KhsPage> {
               ],
             );
           }
-          return const Center(
-            child: SizedBox.shrink(),
-          );
+          return const Center(child: SizedBox.shrink());
         },
       ),
     );

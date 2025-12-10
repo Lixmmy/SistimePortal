@@ -29,7 +29,7 @@ class IdCard extends StatelessWidget {
         ),
       ),
       body: BlocConsumer<ProfilBloc, ProfilState>(
-        bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa('2244068')),
+        bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa()),
         listener: (context, state) {
           if (state is ProfilLoading) {
             LoadingManager().show(context);
@@ -67,8 +67,9 @@ class IdCard extends StatelessWidget {
                       Text(
                         'STMIK TIME',
                         textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.titleLarge
-                            ?.copyWith(color: Colors.white),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleLarge?.copyWith(color: Colors.white),
                       ),
                     ],
                   ),
@@ -101,7 +102,8 @@ class IdCard extends StatelessWidget {
                             ),
                             BuildInfoRow(
                               label: appLocalizations.studyPrograms,
-                              value: profil.programStudi?.namaProgramStudi ?? '',
+                              value:
+                                  profil.programStudi?.namaProgramStudi ?? '',
                             ),
                             BuildInfoRow(
                               label: appLocalizations.validUntil,

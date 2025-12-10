@@ -12,9 +12,8 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
   ProfilBloc({required this.getMahasiswa}) : super(ProfilInitial()) {
     on<ProfilGetMahasiswa>((event, emit) async {
       emit(ProfilLoading());
-      Either<MessageExc, Profil> hasilGetMahasiswa = await getMahasiswa.execute(
-        event.nim,
-      );
+      Either<MessageExc, Profil> hasilGetMahasiswa =
+          await getMahasiswa.execute();
       hasilGetMahasiswa.fold(
         (leftHasilGetMahasiswa) {
           emit(ProfilError(message: leftHasilGetMahasiswa.toString()));

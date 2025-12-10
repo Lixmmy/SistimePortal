@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 import 'package:newsistime/features/transkrip/domain/function/grade_converter.dart';
 import 'package:newsistime/features/transkrip/domain/usecases/get_transkrip.dart';
@@ -30,100 +31,117 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
   }
 
   final GetTranskrip _getTranskrip;
+  final ProfilBloc _profilBloc;
 
-  TranskripBloc({required GetTranskrip getTranskrip})
-    : _getTranskrip = getTranskrip,
-      super(TranskripInitial()) {
+  TranskripBloc({
+    required GetTranskrip getTranskrip,
+    required ProfilBloc profilBloc,
+  }) : _getTranskrip = getTranskrip,
+       _profilBloc = profilBloc,
+       super(TranskripInitial()) {
     on<GetListTranskrip>((event, emit) async {
-      emit(TranskripLoading());
-      try {
-        final result = await _getTranskrip.execute(event.nim);
-        result.fold(
-          (failure) {
-            emit(TranskripError(message: failure.message));
-          },
-          (data) {
-            int passedCourses = 0;
-            int failedCourses = 0;
-            int totalSks = 0;
-            double totalBobot = 0;
+      final profilState = _profilBloc.state;
+      if (profilState is ProfilLoaded) {
+        emit(TranskripLoading());
+        try {
+          final username = profilState.profil.user.username;
+          final result = await _getTranskrip.execute(username);
+          result.fold(
+            (failure) {
+              emit(TranskripError(message: failure.message));
+            },
+            (data) {
+              int passedCourses = 0;
+              int failedCourses = 0;
+              int totalSks = 0;
+              double totalBobot = 0;
 
-            // Create a new list to hold the enriched data
-            final List<Transkrip> enrichedTranskripList = [];
+              // Create a new list to hold the enriched data
+              final List<Transkrip> enrichedTranskripList = [];
 
-            for (var transkrip in data) {
-              final nilai = transkrip.nilai;
-              String? currentLetterGrade;
-              final minRequiredScores = [
-                nilai?.quiz,
-                nilai?.uts,
-                nilai?.uas,
-                nilai?.absensi,
-              ];
-              totalSks += transkrip.sks;
-
-              if (nilai != null) {
-                final List<double?> scores = [
-                  nilai.tugas,
-                  nilai.uts,
-                  nilai.uas,
-                  nilai.absensi,
-                  nilai.project,
-                  nilai.quiz,
-                  nilai.perbaikan,
+              for (var transkrip in data) {
+                final nilai = transkrip.nilai;
+                String? currentLetterGrade;
+                final minRequiredScores = [
+                  nilai?.quiz,
+                  nilai?.uts,
+                  nilai?.uas,
+                  nilai?.absensi,
                 ];
-                final List<double> validScores = scores
-                    .whereType<double>()
-                    .toList();
-                if (validScores.isNotEmpty) {
-                  final double totalScore = validScores.reduce((a, b) => a + b);
-                  final int count = validScores.length;
-                  if (count >= minRequiredScores.length) {
-                    final double averageScore = totalScore / count;
-                    currentLetterGrade = konversiNilaiKeHuruf(averageScore);
-                  } else {
-                    currentLetterGrade = 'E';
+                totalSks += transkrip.sks;
+
+                if (nilai != null) {
+                  final List<double?> scores = [
+                    nilai.tugas,
+                    nilai.uts,
+                    nilai.uas,
+                    nilai.absensi,
+                    nilai.project,
+                    nilai.quiz,
+                    nilai.perbaikan,
+                  ];
+                  final List<double> validScores = scores
+                      .whereType<double>()
+                      .toList();
+                  if (validScores.isNotEmpty) {
+                    final double totalScore = validScores.reduce(
+                      (a, b) => a + b,
+                    );
+                    final int count = validScores.length;
+                    if (count >= minRequiredScores.length) {
+                      final double averageScore = totalScore / count;
+                      currentLetterGrade = konversiNilaiKeHuruf(averageScore);
+                    } else {
+                      currentLetterGrade = 'E';
+                    }
+
+                    totalBobot += _getBobot(currentLetterGrade) * transkrip.sks;
                   }
-
-                  totalBobot += _getBobot(currentLetterGrade) * transkrip.sks;
                 }
+
+                if (currentLetterGrade == 'A' ||
+                    currentLetterGrade == 'B' ||
+                    currentLetterGrade == 'C') {
+                  passedCourses++;
+                } else {
+                  failedCourses++;
+                }
+
+                enrichedTranskripList.add(
+                  transkrip.copyWith(letterGrade: currentLetterGrade),
+                );
               }
 
-              if (currentLetterGrade == 'A' ||
-                  currentLetterGrade == 'B' ||
-                  currentLetterGrade == 'C') {
-                passedCourses++;
-              } else {
-                failedCourses++;
-              }
-              
-              enrichedTranskripList.add(
-                transkrip.copyWith(letterGrade: currentLetterGrade),
+              final double gpa = totalSks > 0 ? totalBobot / totalSks : 0;
+
+              emit(
+                TranskripLoaded(
+                  listTranskrip: enrichedTranskripList,
+                  passedCourses: passedCourses,
+                  failedCourses: failedCourses,
+                  totalSks: totalSks,
+                  gpa: gpa,
+                ),
               );
-            }
-
-            final double gpa = totalSks > 0 ? totalBobot / totalSks : 0;
-
-            emit(
-              TranskripLoaded(
-                listTranskrip: enrichedTranskripList,
-                passedCourses: passedCourses,
-                failedCourses: failedCourses,
-                totalSks: totalSks,
-                gpa: gpa,
-              ),
-            );
-          },
+            },
+          );
+        } catch (e) {
+          emit(TranskripError(message: e.toString()));
+        }
+      } else {
+        emit(
+          TranskripError(
+            message:
+                'Data profil tidak ditemukan. Muat data profil terlebih dahulu.',
+          ),
         );
-      } catch (e) {
-        emit(TranskripError(message: e.toString()));
       }
     });
 
     on<DownloadTranskripPdf>((event, emit) async {
       final currentState = state;
-      if (currentState is TranskripLoaded) {
-        // All data is now taken directly from the state. No recalculations!
+      final profilState = _profilBloc.state;
+      if (currentState is TranskripLoaded && profilState is ProfilLoaded) {
         emit(TranskripLoading());
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
@@ -159,11 +177,17 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                         child: pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            pw.Text('${appLocalizations.nim}: 2244068'),
-                            pw.Text('${appLocalizations.name}: Felix'),
-                            pw.Text('${appLocalizations.roomClass}: Ti D 22'),
                             pw.Text(
-                              '${appLocalizations.studyPrograms}: Teknik Informatika',
+                              '${appLocalizations.nim}: ${profilState.profil.data.nim}',
+                            ),
+                            pw.Text(
+                              '${appLocalizations.name}: ${profilState.profil.data.nama}',
+                            ),
+                            pw.Text(
+                              '${appLocalizations.roomClass}: ${profilState.profil.data.kelas}',
+                            ),
+                            pw.Text(
+                              '${appLocalizations.studyPrograms}: ${profilState.profil.data.prodi}',
                             ),
                           ],
                         ),
@@ -181,7 +205,6 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                           fontSize: 12,
                         ),
                         cellStyle: pw.TextStyle(fontSize: 12),
-                        // The data is mapped directly from the state's listTranskrip
                         data: currentState.listTranskrip.map((t) {
                           return [
                             (currentState.listTranskrip.indexOf(t) + 1)
@@ -189,7 +212,6 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                             t.kodeMatkul,
                             t.matkul,
                             t.sks.toString(),
-                            // The pre-calculated letterGrade is used here. No more calculation!
                             t.letterGrade ?? 'N/A',
                           ];
                         }).toList(),
@@ -209,7 +231,6 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Text(appLocalizations.summary),
-                            // Summary data is taken directly from the state
                             pw.Text(
                               '${appLocalizations.numberOfCoursesPassed}: ${currentState.passedCourses}',
                             ),
@@ -219,7 +240,6 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                             pw.Text(
                               '${appLocalizations.numberofCredits}: ${currentState.totalSks}',
                             ),
-                            // GPA is formatted to 2 decimal places
                             pw.Text(
                               '${appLocalizations.gpa}: ${currentState.gpa.toStringAsFixed(2)}',
                             ),

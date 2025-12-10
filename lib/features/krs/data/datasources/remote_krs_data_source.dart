@@ -6,7 +6,7 @@ import 'package:newsistime/features/krs/domain/entities/krs.dart';
 // import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 
 abstract class RemoteKrsDataSource {
-  Future<List<Krs>> getKrs({required String nim});
+  Future<List<Krs>> getKrs({required String id});
   // Future<List<Matkul>> getMataKuliah();
 }
 
@@ -15,11 +15,13 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
   RemoteKrsDataSourceImplementation({required this.connectApi});
 
   @override
-  Future<List<Krs>> getKrs({required String nim}) async {
+  Future<List<Krs>> getKrs({required String id}) async {
     try {
-      final response = await connectApi.getKrs(nim: nim);
+      final response = await connectApi.getKrs(id: id);
       if (response != null) {
-        final List<KrsModel> krsModel = ListKrsModel.fromJson(response).listKrsModel;
+        final List<KrsModel> krsModel = ListKrsModel.fromJson(
+          response,
+        ).listKrsModel;
         return krsModel.map((e) => e.toEntity()).toList();
       } else {
         throw MessageExc.api('No data found');
@@ -27,7 +29,9 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
     } on MessageExc {
       rethrow;
     } catch (e) {
-      throw MessageExc.unknown('An unexpected error in getKrs occurred: ${e.toString()}');
+      throw MessageExc.unknown(
+        'An unexpected error in getKrs occurred: ${e.toString()}',
+      );
     }
   }
 
@@ -36,7 +40,7 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
   //   try {
   //     final response = await connectApi.getMataKuliah();
   //     if (response != null) {
-  //       final List<MatkulModel> matkulModel = 
+  //       final List<MatkulModel> matkulModel =
   //        ListMatkulModel.fromJson(response)
   //           .listMatkulModel;
   //       return matkulModel.map((e) => e.toEntity()).toList();

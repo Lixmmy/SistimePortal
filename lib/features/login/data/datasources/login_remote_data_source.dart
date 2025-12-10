@@ -24,7 +24,11 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
         password: password,
       );
       final token = TokenModel.fromJson(result);
-      await SecureStorage().saveData('token', result['token']);
+      Future.wait([
+        SecureStorage().saveData('token', result['token']),
+        SecureStorage().saveData('username', username),
+        SecureStorage().saveData('pass', password),
+      ]);
       return token.toEntity();
     } catch (e) {
       throw MessageExc.api(e.toString());

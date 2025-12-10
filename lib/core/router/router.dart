@@ -9,6 +9,7 @@ import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/krs/presentation/pages/detail_krs.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
+import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 import 'package:newsistime/features/login/presentation/pages/login_page.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
@@ -34,7 +35,10 @@ GoRouter myRouter() {
       GoRoute(
         path: '/login_page',
         name: 'loginPage',
-        builder: (context, state) => const LoginPage(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => LoginBloc(postLoginUseCases: myInjection()),
+          child: const LoginPage(),
+        ),
       ),
       ShellRoute(
         builder: (context, state, child) {
@@ -92,7 +96,8 @@ GoRouter myRouter() {
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
-            create: (context) => KrsBloc(getKrs: myInjection()),
+            create: (context) =>
+                KrsBloc(getKrs: myInjection(), profilBloc: myInjection()),
             child: child,
           );
         },
@@ -121,7 +126,8 @@ GoRouter myRouter() {
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
-            create: (context) => KhsBloc(getKhs: myInjection()),
+            create: (context) =>
+                KhsBloc(getKhs: myInjection(), profilBloc: myInjection()),
             child: child,
           );
         },
@@ -152,7 +158,10 @@ GoRouter myRouter() {
         name: 'transkripPage',
         builder: (context, state) {
           return BlocProvider(
-            create: (context) => TranskripBloc(getTranskrip: myInjection()),
+            create: (context) => TranskripBloc(
+              getTranskrip: myInjection(),
+              profilBloc: myInjection(),
+            ),
             child: TranskripPage(),
           );
         },

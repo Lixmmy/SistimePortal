@@ -11,9 +11,9 @@ class KrsRepositoriesImplementation extends KrsRepositories {
   KrsRepositoriesImplementation({required this.remoteKrsDataSource});
 
   @override
-  Future<Either<MessageExc, List<Krs>>> getKrs({required String nim}) async {
+  Future<Either<MessageExc, List<Krs>>> getKrs({required String id}) async {
     try {
-      final List<Krs> krs = await remoteKrsDataSource.getKrs(nim: nim);
+      final List<Krs> krs = await remoteKrsDataSource.getKrs(id: id);
       return Right(krs);
     } on MessageExc catch (e) {
       return Left(e);

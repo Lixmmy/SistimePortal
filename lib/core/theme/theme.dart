@@ -395,6 +395,7 @@ class AppTheme {
       ),
       labelStyle: const TextStyle(color: textDarkColor),
       hintStyle: GoogleFonts.inter(color: surfaceDarkColorA40),
+      suffixIconColor: Colors.white,
     ),
 
     cardTheme: CardThemeData(

@@ -29,7 +29,7 @@ class _DetailKrsState extends State<DetailKrs> {
                 duration: Duration(seconds: 1),
               ),
             );
-            myInjection<KrsBloc>().add(const FetchKrsData(nim: '530'));
+            myInjection<KrsBloc>().add(FetchKrsData());
           }
         },
         child: CustomScrollView(

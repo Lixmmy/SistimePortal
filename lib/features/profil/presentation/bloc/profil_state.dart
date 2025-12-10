@@ -18,6 +18,8 @@ final class ProfilLoaded extends ProfilState {
 
   @override
   List<Object?> get props => [detailUser];
+
+  get profil => detailUser;
 }
 
 final class ProfilError extends ProfilState {

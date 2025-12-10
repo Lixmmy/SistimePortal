@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
+import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,35 +15,43 @@ part 'krs_event.dart';
 part 'krs_state.dart';
 
 class KrsBloc extends Bloc<KrsEvent, KrsState> {
-  final GetKrs getKrs;
+  final GetKrs _getKrs;
+  final ProfilBloc _profilBloc;
   // final GetMataKuliah getMataKuliah;
 
-  KrsBloc({required this.getKrs}) : super(KrsInitial()) {
+  KrsBloc({required GetKrs getKrs, required ProfilBloc profilBloc})
+    : _getKrs = getKrs,
+      _profilBloc = profilBloc,
+      super(KrsInitial()) {
     on<FetchKrsData>((event, emit) async {
-      emit(KrsLoading());
-      try {
-        final krsResult = await getKrs.execute(event.nim);
-        krsResult.fold(
-          (failure) {
-            emit(KrsError(message: failure.message));
-          },
-          (krsList) {
-            final Map<int, List<Krs>> groupedKrs = {};
-            for (var krs in krsList) {
-              if (!groupedKrs.containsKey(krs.semester)) {
-                groupedKrs[krs.semester] = [];
+      final profilState = _profilBloc.state;
+      if (profilState is ProfilLoaded) {
+        emit(KrsLoading());
+        try {
+          final id = profilState.profil.user.id;
+          final krsResult = await _getKrs.execute(id: id);
+          krsResult.fold(
+            (failure) {
+              emit(KrsError(message: failure.message));
+            },
+            (krsList) {
+              final Map<int, List<Krs>> groupedKrs = {};
+              for (var krs in krsList) {
+                if (!groupedKrs.containsKey(krs.semester)) {
+                  groupedKrs[krs.semester] = [];
+                }
+                groupedKrs[krs.semester]!.add(krs);
               }
-              groupedKrs[krs.semester]!.add(krs);
-            }
-            final sortedGroupKrs = Map.fromEntries(
-              groupedKrs.entries.toList()
-                ..sort((a, b) => a.key.compareTo(b.key)),
-            );
-            emit(KrsLoaded(groupedKrs: sortedGroupKrs));
-          },
-        );
-      } catch (e) {
-        emit(KrsError(message: e.toString()));
+              final sortedGroupKrs = Map.fromEntries(
+                groupedKrs.entries.toList()
+                  ..sort((a, b) => a.key.compareTo(b.key)),
+              );
+              emit(KrsLoaded(groupedKrs: sortedGroupKrs));
+            },
+          );
+        } catch (e) {
+          emit(KrsError(message: e.toString()));
+        }
       }
     });
 

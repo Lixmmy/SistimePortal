@@ -18,7 +18,7 @@ class _TranskripPageState extends State<TranskripPage> {
   void initState() {
     super.initState();
     // Fire the event here, once, when the widget is first created.
-    myInjection<TranskripBloc>().add(const GetListTranskrip('2244068'));
+    myInjection<TranskripBloc>().add(GetListTranskrip());
   }
 
   @override
@@ -44,7 +44,7 @@ class _TranskripPageState extends State<TranskripPage> {
               ),
             );
             // This re-fetch is now safe and won't cause a race condition.
-            myInjection<TranskripBloc>().add(const GetListTranskrip('2244068'));
+            myInjection<TranskripBloc>().add(GetListTranskrip());
           }
         },
         builder: (context, state) {
@@ -71,7 +71,9 @@ class _TranskripPageState extends State<TranskripPage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color: Theme.of(context).brightness == Brightness.dark
+                              color:
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
                                   ? Colors.white
                                   : Colors.black.withAlpha(150),
                             ),
@@ -152,7 +154,9 @@ class _TranskripPageState extends State<TranskripPage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                               color: Theme.of(context).brightness == Brightness.dark
+                              color:
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
                                   ? Colors.white
                                   : Colors.black.withAlpha(150),
                             ),

@@ -18,6 +18,11 @@ import 'package:newsistime/features/language/domain/repositories/app_language_re
 import 'package:newsistime/features/language/domain/usecases/get_current_local.dart';
 import 'package:newsistime/features/language/domain/usecases/save_locale.dart';
 import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
+import 'package:newsistime/features/login/data/datasources/login_remote_data_source.dart';
+import 'package:newsistime/features/login/data/repositories/login_repositories_implementation.dart';
+import 'package:newsistime/features/login/domain/repositories/login_repositories.dart';
+import 'package:newsistime/features/login/domain/usecases/post_login_usecases.dart';
+import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 import 'package:newsistime/features/transkrip/data/datasources/remote_transkrip_data_source.dart';
 import 'package:newsistime/features/transkrip/data/repositories/transkrip_repositories_implementation.dart';
 import 'package:newsistime/features/transkrip/domain/repositories/transkrip_repositories.dart';
@@ -42,10 +47,31 @@ Future<void> init() async {
   );
   myInjection.registerLazySingleton(() => ReadDevice());
 
+  //Login Bloc
+  myInjection.registerFactory(
+    () => LoginBloc(postLoginUseCases: myInjection()),
+  );
+  //UseCases
+  myInjection.registerLazySingleton(
+    () => PostLoginUseCases(loginRepositories: myInjection()),
+  );
+  //Repositories
+  myInjection.registerLazySingleton<LoginRepositories>(
+    () => LoginRepositoriesImplementation(loginRemoteDataSource: myInjection()),
+  );
+  //DataSources
+  myInjection.registerLazySingleton<LoginRemoteDataSource>(
+    () => LoginRemoteDataSourceImpl(connectApi: myInjection()),
+  );
+
   //Profil bloc
-  myInjection.registerFactory(() => ProfilBloc(getMahasiswa: myInjection()));
+  myInjection.registerLazySingleton(
+    () => ProfilBloc(getMahasiswa: myInjection()),
+  );
   //usecases
-  myInjection.registerLazySingleton(() => GetMahasiswa(myInjection()));
+  myInjection.registerLazySingleton(
+    () => GetMahasiswa(profilRepo: myInjection(), secureStorage: myInjection()),
+  );
   //repository
   myInjection.registerLazySingleton<ProfilRepository>(
     () => ProfilRepositoryImplementation(
@@ -85,7 +111,7 @@ Future<void> init() async {
 
   //Transkrip bloc
   myInjection.registerLazySingleton(
-    () => TranskripBloc(getTranskrip: myInjection()),
+    () => TranskripBloc(getTranskrip: myInjection(), profilBloc: myInjection()),
   );
   //Use cases
   myInjection.registerLazySingleton(
@@ -104,7 +130,7 @@ Future<void> init() async {
 
   //krs bloc
   myInjection.registerLazySingleton(
-    () => KrsBloc(getKrs: myInjection()),
+    () => KrsBloc(getKrs: myInjection(), profilBloc: myInjection()),
   );
   //Use cases
   myInjection.registerLazySingleton(
@@ -120,7 +146,9 @@ Future<void> init() async {
   );
 
   //khs bloc
-  myInjection.registerLazySingleton(() => KhsBloc(getKhs: myInjection()));
+  myInjection.registerLazySingleton(
+    () => KhsBloc(getKhs: myInjection(), profilBloc: myInjection()),
+  );
   //Use cases
   myInjection.registerLazySingleton(() => GetKhs(myInjection()));
   //Repositories

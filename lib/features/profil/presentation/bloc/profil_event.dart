@@ -1,12 +1,10 @@
 part of 'profil_bloc.dart';
 
 abstract class ProfilEvent extends Equatable {
-}
-
-class ProfilGetMahasiswa extends ProfilEvent {
-  final String nim;
-  ProfilGetMahasiswa(this.nim);
+  const ProfilEvent();
 
   @override
   List<Object?> get props => [];
 }
+
+class ProfilGetMahasiswa extends ProfilEvent {}
