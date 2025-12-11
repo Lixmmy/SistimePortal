@@ -7,13 +7,7 @@ abstract class KhsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchKhsData extends KhsEvent {
-  final String nim;
-  const FetchKhsData({required this.nim});
-
-  @override
-  List<Object> get props => [nim];
-}
+class FetchKhsData extends KhsEvent {}
 
 class DownloadKhsPdf extends KhsEvent {
   final AppLocalizations appLocalizations;

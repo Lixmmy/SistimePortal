@@ -95,18 +95,9 @@ GoRouter myRouter() {
       ),
       ShellRoute(
         builder: (context, state, child) {
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => ProfilBloc(getMahasiswa: myInjection()),
-              ),
-              BlocProvider(
-                create: (context) => KrsBloc(
-                  getKrs: myInjection(),
-                  profilBloc: BlocProvider.of<ProfilBloc>(context),
-                ),
-              ),
-            ],
+          return BlocProvider(
+            create: (context) =>
+                KrsBloc(getKrs: myInjection(), profilBloc: myInjection()),
             child: child,
           );
         },
@@ -135,7 +126,8 @@ GoRouter myRouter() {
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
-            create: (context) => KhsBloc(getKhs: myInjection()),
+            create: (context) =>
+                KhsBloc(getKhs: myInjection(), profilBloc: myInjection()),
             child: child,
           );
         },

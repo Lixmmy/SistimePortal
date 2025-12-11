@@ -8,7 +8,7 @@ class GetKrs {
 
   GetKrs({required this.krsRepositories});
 
-  Future<Either<MessageExc, List<Krs>>> execute(String nim) async {
-    return await krsRepositories.getKrs(nim: nim);
+  Future<Either<MessageExc, List<Krs>>> execute(String id) async {
+    return await krsRepositories.getKrs(id: id);
   }
 }

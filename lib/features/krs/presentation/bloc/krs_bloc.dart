@@ -26,7 +26,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
       if (profilState is ProfilLoaded) {
         emit(KrsLoading());
         try {
-          final id = profilState.profil.user.id;
+          final id = profilState.profil.user.id.toString();
           final krsResult = await getKrs.execute(id);
           krsResult.fold(
             (failure) {

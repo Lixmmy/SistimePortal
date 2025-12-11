@@ -146,7 +146,9 @@ Future<void> init() async {
   );
 
   //khs bloc
-  myInjection.registerLazySingleton(() => KhsBloc(getKhs: myInjection()));
+  myInjection.registerLazySingleton(
+    () => KhsBloc(getKhs: myInjection(), profilBloc: myInjection()),
+  );
   //Use cases
   myInjection.registerLazySingleton(() => GetKhs(myInjection()));
   //Repositories
