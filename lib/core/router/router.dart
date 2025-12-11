@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/features/forgot_password/presentation/pages/forgot_password_page.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
+import 'package:newsistime/features/register/presentation/pages/register_page.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
@@ -26,6 +28,9 @@ import '../../injection.dart';
 GoRouter myRouter() {
   return GoRouter(
     initialLocation: '/launcher_page',
+    // redirect: (context, state) {
+
+    // },
     routes: [
       GoRoute(
         path: '/launcher_page',
@@ -39,6 +44,16 @@ GoRouter myRouter() {
           create: (context) => LoginBloc(postLoginUseCases: myInjection()),
           child: const LoginPage(),
         ),
+      ),
+      GoRoute(
+        path: '/forgot_password_page',
+        name: 'forgotPasswordPage',
+        builder: (context, state) => const ForgotPasswordPage(),
+      ),
+      GoRoute(
+        path: '/register_page',
+        name: 'registerPage',
+        builder: (context, state) => const RegisterPage(),
       ),
       ShellRoute(
         builder: (context, state, child) {

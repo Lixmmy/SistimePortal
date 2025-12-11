@@ -130,7 +130,7 @@ class _LauncherPageState extends State<LauncherPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      print("belum");
+                      context.pushNamed('registerPage');
                     },
                     style: ButtonStyle(
                       overlayColor: WidgetStatePropertyAll(Colors.transparent),

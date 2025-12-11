@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
@@ -52,6 +53,7 @@ class _TranskripPageState extends State<TranskripPage> {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is TranskripLoaded) {
+            final profilState = myInjection<ProfilBloc>().state as ProfilLoaded;
             return CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -82,7 +84,7 @@ class _TranskripPageState extends State<TranskripPage> {
                             children: [
                               BuildInfoRow(
                                 label: appLocalizations.nim,
-                                value: '2244068',
+                                value: profilState.profil.user.username,
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:
@@ -98,7 +100,7 @@ class _TranskripPageState extends State<TranskripPage> {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.name,
-                                value: 'Felix',
+                                value: profilState.profil.namaMahasiswa ?? "",
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:
@@ -112,25 +114,30 @@ class _TranskripPageState extends State<TranskripPage> {
                                     ? Colors.white
                                     : Colors.black,
                               ),
-                              BuildInfoRow(
-                                label: appLocalizations.roomClass,
-                                value: 'Ti D 22',
-                                valueFlex: 6,
-                                labelFlex: 3,
-                                labelColor:
-                                    Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                valueColor:
-                                    Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
+                              // BuildInfoRow(
+                              //   label: appLocalizations.roomClass,
+                              //   value: 'Ti D 22',
+                              //   valueFlex: 6,
+                              //   labelFlex: 3,
+                              //   labelColor:
+                              //       Theme.of(context).brightness ==
+                              //           Brightness.dark
+                              //       ? Colors.white
+                              //       : Colors.black,
+                              //   valueColor:
+                              //       Theme.of(context).brightness ==
+                              //           Brightness.dark
+                              //       ? Colors.white
+                              //       : Colors.black,
+                              // ),
                               BuildInfoRow(
                                 label: appLocalizations.studyPrograms,
-                                value: 'Teknik Informatika',
+                                value:
+                                    profilState
+                                        .profil
+                                        .programStudi
+                                        ?.namaProgramStudi ??
+                                    "",
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:

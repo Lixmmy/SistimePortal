@@ -195,9 +195,14 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             },
                           ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text('Forgot Password?'),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {
+                                context.pushNamed('forgotPasswordPage');
+                              },
+                              child: Text('Forgot Password?'),
+                            ),
                           ),
                           const SizedBox(height: 16),
                           SizedBox(

@@ -106,9 +106,10 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
 
     on<DownloadKhsPdf>((event, emit) async {
       final currentState = state;
-      if (currentState is KhsLoaded) {
+      final profilState = profilBloc.state;
+
+      if (currentState is KhsLoaded && profilState is ProfilLoaded) {
         try {
-          // emit(KhsLoading()); // <-- Comment out or remove this line
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
 
@@ -186,11 +187,14 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                       child: pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
-                          pw.Text('${appLocalizations.nim}: 2244068'),
-                          pw.Text('${appLocalizations.name}: Felix'),
-                          pw.Text('${appLocalizations.roomClass}: Ti D 22'),
                           pw.Text(
-                            '${appLocalizations.studyPrograms}: Teknik Informatika',
+                            '${appLocalizations.nim}: ${profilState.profil.user.username}',
+                          ),
+                          pw.Text(
+                            '${appLocalizations.name}: ${profilState.profil.namaMahasiswa ?? ""}',
+                          ),
+                          pw.Text(
+                            '${appLocalizations.studyPrograms}: ${profilState.profil.programStudi?.namaProgramStudi ?? ""}',
                           ),
                           pw.Text(
                             '${appLocalizations.semester}: ${event.semester}',
