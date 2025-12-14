@@ -38,6 +38,8 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.5
   flutter_dotenv: ^5.2.1
+  flutter_native_splash: ^2.4.7
+  flutter_launcher_icons: ^0.14.4
   flutter_lints: ^5.0.0
   flutter_localizations:
     sdk: flutter
@@ -58,6 +60,18 @@ dependencies:
   pdf: ^3.11.3
   toggle_switch: ^2.3.0
 
+flutter_native_splash:
+  color: "#5FBDFC"
+  image: images/logo_stmik.png
+  color_dark : "#5FBDFC"
+  image_dark : images/logo_stmik.png
+
+  android_12:
+    image: images/logo_stmik.png
+    icon_background_color: "#5FBDFC"
+    image_dark: images/logo_stmik.png
+    icon_background_color_dark: "#5FBDFC"
+  web: false
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
