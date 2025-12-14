@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/core/theme/theme.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 
 class LoginPage extends StatefulWidget {
@@ -94,10 +95,12 @@ class _LoginPageState extends State<LoginPage> {
               }
 
               if (state is LoginFailure) {
-                LoadingManager().dismiss();
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.message)));
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.error,
+                  title: 'Error',
+                  text: state.message,
+                );
               }
               if (state is LoginSuccess) {
                 context.goNamed('selectedPage');

@@ -43,12 +43,12 @@ class ConnectApi {
       } else if (response.statusCode == 500) {
         throw MessageExc.api("Internal Server Error: ${response.statusCode}");
       } else {
-        throw MessageExc.network(
+        throw MessageExc.unknown(
           'Gagal memuat data. Kode Status: ${response.statusCode}',
         );
       }
     } on TimeoutException {
-      throw MessageExc.network('Koneksi timeout, silakan coba lagi.');
+      throw MessageExc.unknown('Koneksi timeout, silakan coba lagi.');
     } on MessageExc {
       rethrow;
     } catch (e) {
@@ -81,7 +81,12 @@ class ConnectApi {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
-        throw MessageExc.tokenExpired();
+        String message = jsonDecode(response.body)['message'];
+        if (message == 'Token expired') {
+          throw MessageExc.tokenExpired();
+        } else {
+          throw MessageExc.api(message);
+        }
       } else if (response.statusCode == 404) {
         throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else if (response.statusCode == 500) {

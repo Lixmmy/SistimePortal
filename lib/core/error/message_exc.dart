@@ -1,9 +1,4 @@
-enum MessageExcType {
-  networkError,
-  apiError,
-  tokenExpired,
-  unknown,
-}
+enum MessageExcType { networkError, apiError, tokenExpired, unknown }
 
 class MessageExc implements Exception {
   final MessageExcType type;
@@ -28,8 +23,8 @@ class MessageExc implements Exception {
     return MessageExc(MessageExcType.apiError, message);
   }
 
-  factory MessageExc.tokenExpired({String? message}) {
-    return MessageExc(MessageExcType.tokenExpired, message!, statusCode: 401);
+  factory MessageExc.tokenExpired({String? message = ''}) {
+    return MessageExc(MessageExcType.tokenExpired, message ?? '', statusCode: 401);
   }
 
   factory MessageExc.unknown(String message) {
@@ -38,7 +33,6 @@ class MessageExc implements Exception {
 
   @override
   String toString() {
-    String statusInfo = statusCode != null ? ' (Status: $statusCode)' : '';
-    return 'Message[${type.name}]$statusInfo: $message';
+    return message;
   }
 }

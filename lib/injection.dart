@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
-import 'package:newsistime/core/helper/read_device.dart';
 import 'package:newsistime/features/khs/data/datasources/remote_khs_data_source.dart';
 import 'package:newsistime/features/khs/data/repositories/khs_repositories_implementation.dart';
 import 'package:newsistime/features/khs/domain/repositories/khs_repositories.dart';
@@ -45,7 +44,6 @@ Future<void> init() async {
   myInjection.registerLazySingleton(
     () => ConnectApi(secureStorage: myInjection()),
   );
-  myInjection.registerLazySingleton(() => ReadDevice());
 
   //Login Bloc
   myInjection.registerFactory(
