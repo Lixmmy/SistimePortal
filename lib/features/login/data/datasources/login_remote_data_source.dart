@@ -1,6 +1,5 @@
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
-import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/login/data/models/token_model.dart';
 import 'package:newsistime/features/login/domain/entities/token.dart';
 
@@ -24,11 +23,6 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
         password: password,
       );
       final token = TokenModel.fromJson(result);
-      Future.wait([
-        SecureStorage().saveData('token', result['token']),
-        SecureStorage().saveData('username', username),
-        SecureStorage().saveData('pass', password),
-      ]);
       return token.toEntity();
     } catch (e) {
       throw MessageExc.api(e.toString());

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/widgets/bnb.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
+import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/profil/presentation/pages/profil_page.dart';
+import 'package:newsistime/injection.dart';
 
 class SelectedPage extends StatefulWidget {
   const SelectedPage({super.key});
@@ -13,6 +15,12 @@ class SelectedPage extends StatefulWidget {
 
 class _SelectedPageState extends State<SelectedPage> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    myInjection<ProfilBloc>().add(ProfilGetMahasiswa());
+  }
 
   final List<Widget> _pages = [
     const HomePage(),
@@ -28,7 +36,7 @@ class _SelectedPageState extends State<SelectedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: _pages),
+      body: _pages[_selectedIndex],
       bottomNavigationBar: Bnb(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,

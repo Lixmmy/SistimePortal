@@ -17,6 +17,7 @@ import 'package:newsistime/features/language/domain/repositories/app_language_re
 import 'package:newsistime/features/language/domain/usecases/get_current_local.dart';
 import 'package:newsistime/features/language/domain/usecases/save_locale.dart';
 import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
+import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
 import 'package:newsistime/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:newsistime/features/login/data/repositories/login_repositories_implementation.dart';
 import 'package:newsistime/features/login/domain/repositories/login_repositories.dart';
@@ -47,7 +48,11 @@ Future<void> init() async {
 
   //Login Bloc
   myInjection.registerFactory(
-    () => LoginBloc(postLoginUseCases: myInjection()),
+    () => LoginBloc(
+      postLoginUseCases: myInjection(),
+      getMahasiswa: myInjection(),
+      loginLocalDataSource: myInjection(),
+    ),
   );
   //UseCases
   myInjection.registerLazySingleton(
@@ -55,11 +60,17 @@ Future<void> init() async {
   );
   //Repositories
   myInjection.registerLazySingleton<LoginRepositories>(
-    () => LoginRepositoriesImplementation(loginRemoteDataSource: myInjection()),
+    () => LoginRepositoriesImplementation(
+      loginRemoteDataSource: myInjection(),
+      loginLocalDataSource: myInjection(),
+    ),
   );
   //DataSources
   myInjection.registerLazySingleton<LoginRemoteDataSource>(
     () => LoginRemoteDataSourceImpl(connectApi: myInjection()),
+  );
+  myInjection.registerLazySingleton<LoginLocalDataSource>(
+    () => LoginLocalDataSourceImpl(secureStorage: myInjection()),
   );
 
   //Profil bloc
@@ -68,7 +79,7 @@ Future<void> init() async {
   );
   //usecases
   myInjection.registerLazySingleton(
-    () => GetMahasiswa(profilRepo: myInjection(), secureStorage: myInjection()),
+    () => GetMahasiswa(profilRepo: myInjection()),
   );
   //repository
   myInjection.registerLazySingleton<ProfilRepository>(
@@ -108,8 +119,11 @@ Future<void> init() async {
   );
 
   //Transkrip bloc
-  myInjection.registerLazySingleton(
-    () => TranskripBloc(getTranskrip: myInjection(), profilBloc: myInjection()),
+  myInjection.registerFactory(
+    () => TranskripBloc(
+      getTranskrip: myInjection(),
+      profilLocalDataSource: myInjection(),
+    ),
   );
   //Use cases
   myInjection.registerLazySingleton(
@@ -127,8 +141,8 @@ Future<void> init() async {
   );
 
   //krs bloc
-  myInjection.registerLazySingleton(
-    () => KrsBloc(getKrs: myInjection(), profilBloc: myInjection()),
+  myInjection.registerFactory(
+    () => KrsBloc(getKrs: myInjection(), profilLocalDataSource: myInjection()),
   );
   //Use cases
   myInjection.registerLazySingleton(
@@ -144,8 +158,8 @@ Future<void> init() async {
   );
 
   //khs bloc
-  myInjection.registerLazySingleton(
-    () => KhsBloc(getKhs: myInjection(), profilBloc: myInjection()),
+  myInjection.registerFactory(
+    () => KhsBloc(getKhs: myInjection(), profilLocalDataSource: myInjection()),
   );
   //Use cases
   myInjection.registerLazySingleton(() => GetKhs(myInjection()));

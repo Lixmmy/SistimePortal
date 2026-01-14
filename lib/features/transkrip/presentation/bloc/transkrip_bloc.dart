@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
+import 'package:newsistime/core/helper/grade_converter.dart';
+import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
 import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
-import 'package:newsistime/features/transkrip/domain/function/grade_converter.dart';
 import 'package:newsistime/features/transkrip/domain/usecases/get_transkrip.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
@@ -15,133 +15,108 @@ part 'transkrip_event.dart';
 part 'transkrip_state.dart';
 
 class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
-  double _getBobot(String letterGrade) {
-    switch (letterGrade) {
-      case 'A':
-        return 4.0;
-      case 'B':
-        return 3.0;
-      case 'C':
-        return 2.0;
-      case 'D':
-        return 1.0;
-      default:
-        return 0.0;
-    }
-  }
-
   final GetTranskrip _getTranskrip;
-  final ProfilBloc _profilBloc;
+  final ProfilLocalDataSource _profilLocalDataSource;
 
   TranskripBloc({
     required GetTranskrip getTranskrip,
-    required ProfilBloc profilBloc,
+    required ProfilLocalDataSource profilLocalDataSource,
   }) : _getTranskrip = getTranskrip,
-       _profilBloc = profilBloc,
+       _profilLocalDataSource = profilLocalDataSource,
        super(TranskripInitial()) {
     on<GetListTranskrip>((event, emit) async {
-      final profilState = _profilBloc.state;
-      if (profilState is ProfilLoaded) {
-        emit(TranskripLoading());
-        try {
-          final username = profilState.profil.user.username;
-          final result = await _getTranskrip.execute(username);
-          result.fold(
-            (failure) {
-              emit(TranskripError(message: failure.message));
-            },
-            (data) {
-              int passedCourses = 0;
-              int failedCourses = 0;
-              int totalSks = 0;
-              double totalBobot = 0;
+      final profil = await _profilLocalDataSource.getSavedProfilData();
 
-              // Create a new list to hold the enriched data
-              final List<Transkrip> enrichedTranskripList = [];
+      emit(TranskripLoading());
+      try {
+        final username = profil!.user.usernameModel;
+        final result = await _getTranskrip.execute(username!);
+        result.fold(
+          (failure) {
+            emit(TranskripError(message: failure.message));
+          },
+          (data) {
+            int passedCourses = 0;
+            int failedCourses = 0;
+            int totalSks = 0;
+            double totalBobot = 0;
 
-              for (var transkrip in data) {
-                final nilai = transkrip.nilai;
-                String? currentLetterGrade;
-                final minRequiredScores = [
-                  nilai?.quiz,
-                  nilai?.uts,
-                  nilai?.uas,
-                  nilai?.absensi,
+            // Create a new list to hold the enriched data
+            final List<Transkrip> enrichedTranskripList = [];
+
+            for (var transkrip in data) {
+              final nilai = transkrip.nilai;
+              String? currentLetterGrade;
+              final minRequiredScores = [
+                nilai?.quiz,
+                nilai?.uts,
+                nilai?.uas,
+                nilai?.absensi,
+              ];
+              totalSks += transkrip.sks;
+
+              if (nilai != null) {
+                final List<double?> scores = [
+                  nilai.tugas,
+                  nilai.uts,
+                  nilai.uas,
+                  nilai.absensi,
+                  nilai.project,
+                  nilai.quiz,
+                  nilai.perbaikan,
                 ];
-                totalSks += transkrip.sks;
-
-                if (nilai != null) {
-                  final List<double?> scores = [
-                    nilai.tugas,
-                    nilai.uts,
-                    nilai.uas,
-                    nilai.absensi,
-                    nilai.project,
-                    nilai.quiz,
-                    nilai.perbaikan,
-                  ];
-                  final List<double> validScores = scores
-                      .whereType<double>()
-                      .toList();
-                  if (validScores.isNotEmpty) {
-                    final double totalScore = validScores.reduce(
-                      (a, b) => a + b,
-                    );
-                    final int count = validScores.length;
-                    if (count >= minRequiredScores.length) {
-                      final double averageScore = totalScore / count;
-                      currentLetterGrade = konversiNilaiKeHuruf(averageScore);
-                    } else {
-                      currentLetterGrade = 'E';
-                    }
-
-                    totalBobot += _getBobot(currentLetterGrade) * transkrip.sks;
+                final List<double> validScores = scores
+                    .whereType<double>()
+                    .toList();
+                if (validScores.isNotEmpty) {
+                  final double totalScore = validScores.reduce((a, b) => a + b);
+                  final int count = validScores.length;
+                  if (count >= minRequiredScores.length) {
+                    final double averageScore = totalScore / count;
+                    currentLetterGrade = konversiNilaiKeHuruf(averageScore);
+                  } else {
+                    currentLetterGrade = 'E';
                   }
-                }
 
-                if (currentLetterGrade == 'A' ||
-                    currentLetterGrade == 'B' ||
-                    currentLetterGrade == 'C') {
-                  passedCourses++;
-                } else {
-                  failedCourses++;
+                  totalBobot += getBobot(currentLetterGrade) * transkrip.sks;
                 }
-
-                enrichedTranskripList.add(
-                  transkrip.copyWith(letterGrade: currentLetterGrade),
-                );
               }
 
-              final double gpa = totalSks > 0 ? totalBobot / totalSks : 0;
+              if (currentLetterGrade == 'A' ||
+                  currentLetterGrade == 'B' ||
+                  currentLetterGrade == 'C') {
+                passedCourses++;
+              } else {
+                failedCourses++;
+              }
 
-              emit(
-                TranskripLoaded(
-                  listTranskrip: enrichedTranskripList,
-                  passedCourses: passedCourses,
-                  failedCourses: failedCourses,
-                  totalSks: totalSks,
-                  gpa: gpa,
-                ),
+              enrichedTranskripList.add(
+                transkrip.copyWith(letterGrade: currentLetterGrade),
               );
-            },
-          );
-        } catch (e) {
-          emit(TranskripError(message: e.toString()));
-        }
-      } else {
-        emit(
-          TranskripError(
-            message:
-                'Data profil tidak ditemukan. Muat data profil terlebih dahulu.',
-          ),
+            }
+
+            final double gpa = totalSks > 0 ? totalBobot / totalSks : 0;
+
+            emit(
+              TranskripLoaded(
+                listTranskrip: enrichedTranskripList,
+                passedCourses: passedCourses,
+                failedCourses: failedCourses,
+                totalSks: totalSks,
+                gpa: gpa,
+              ),
+            );
+          },
         );
+      } catch (e) {
+        emit(TranskripError(message: e.toString()));
       }
     });
 
     on<DownloadTranskripPdf>((event, emit) async {
       final currentState = state;
-      final profilState = _profilBloc.state;
-      if (currentState is TranskripLoaded && profilState is ProfilLoaded) {
+      final profil = await _profilLocalDataSource.getSavedProfilData();
+      if (currentState is TranskripLoaded && profil != null) {
         emit(TranskripLoading());
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
@@ -178,16 +153,14 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Text(
-                              '${appLocalizations.nim}: ${profilState.profil.data.nim}',
+                              '${appLocalizations.nim}: ${profil.user.usernameModel}',
                             ),
                             pw.Text(
-                              '${appLocalizations.name}: ${profilState.profil.data.nama}',
+                              '${appLocalizations.name}: ${profil.namaMahasiswa}',
                             ),
+
                             pw.Text(
-                              '${appLocalizations.roomClass}: ${profilState.profil.data.kelas}',
-                            ),
-                            pw.Text(
-                              '${appLocalizations.studyPrograms}: ${profilState.profil.data.prodi}',
+                              '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudiModel}',
                             ),
                           ],
                         ),

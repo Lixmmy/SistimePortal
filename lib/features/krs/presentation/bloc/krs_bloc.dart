@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
-import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
+import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,40 +16,38 @@ part 'krs_state.dart';
 
 class KrsBloc extends Bloc<KrsEvent, KrsState> {
   final GetKrs getKrs;
-  final ProfilBloc profilBloc;
-  // final GetMataKuliah getMataKuliah;
+  final ProfilLocalDataSource profilLocalDataSource;
 
-  KrsBloc({required this.getKrs, required this.profilBloc})
+  KrsBloc({required this.getKrs, required this.profilLocalDataSource})
     : super(KrsInitial()) {
     on<FetchKrsData>((event, emit) async {
-      final profilState = profilBloc.state;
-      if (profilState is ProfilLoaded) {
-        emit(KrsLoading());
-        try {
-          final id = profilState.profil.user.id.toString();
-          final krsResult = await getKrs.execute(id);
-          krsResult.fold(
-            (failure) {
-              emit(KrsError(message: failure.message));
-            },
-            (krsList) {
-              final Map<int, List<Krs>> groupedKrs = {};
-              for (var krs in krsList) {
-                if (!groupedKrs.containsKey(krs.semester)) {
-                  groupedKrs[krs.semester] = [];
-                }
-                groupedKrs[krs.semester]!.add(krs);
+      final profil = await profilLocalDataSource.getSavedProfilData();
+
+      emit(KrsLoading());
+      try {
+        final id = profil!.user.idModel.toString();
+        final krsResult = await getKrs.execute(id);
+        krsResult.fold(
+          (failure) {
+            emit(KrsError(message: failure.message));
+          },
+          (krsList) {
+            final Map<int, List<Krs>> groupedKrs = {};
+            for (var krs in krsList) {
+              if (!groupedKrs.containsKey(krs.semester)) {
+                groupedKrs[krs.semester] = [];
               }
-              final sortedGroupKrs = Map.fromEntries(
-                groupedKrs.entries.toList()
-                  ..sort((a, b) => a.key.compareTo(b.key)),
-              );
-              emit(KrsLoaded(groupedKrs: sortedGroupKrs));
-            },
-          );
-        } catch (e) {
-          emit(KrsError(message: e.toString()));
-        }
+              groupedKrs[krs.semester]!.add(krs);
+            }
+            final sortedGroupKrs = Map.fromEntries(
+              groupedKrs.entries.toList()
+                ..sort((a, b) => a.key.compareTo(b.key)),
+            );
+            emit(KrsLoaded(groupedKrs: sortedGroupKrs));
+          },
+        );
+      } catch (e) {
+        emit(KrsError(message: e.toString()));
       }
     });
 

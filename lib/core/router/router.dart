@@ -41,7 +41,11 @@ GoRouter myRouter() {
         path: '/login_page',
         name: 'loginPage',
         builder: (context, state) => BlocProvider(
-          create: (context) => LoginBloc(postLoginUseCases: myInjection()),
+          create: (context) => LoginBloc(
+            postLoginUseCases: myInjection(),
+            getMahasiswa: myInjection(),
+            loginLocalDataSource: myInjection(),
+          ),
           child: const LoginPage(),
         ),
       ),
@@ -111,8 +115,10 @@ GoRouter myRouter() {
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
-            create: (context) =>
-                KrsBloc(getKrs: myInjection(), profilBloc: myInjection()),
+            create: (context) => KrsBloc(
+              getKrs: myInjection(),
+              profilLocalDataSource: myInjection(),
+            ),
             child: child,
           );
         },
@@ -141,8 +147,10 @@ GoRouter myRouter() {
       ShellRoute(
         builder: (context, state, child) {
           return BlocProvider(
-            create: (context) =>
-                KhsBloc(getKhs: myInjection(), profilBloc: myInjection()),
+            create: (context) => KhsBloc(
+              getKhs: myInjection(),
+              profilLocalDataSource: myInjection(),
+            ),
             child: child,
           );
         },
@@ -175,7 +183,7 @@ GoRouter myRouter() {
           return BlocProvider(
             create: (context) => TranskripBloc(
               getTranskrip: myInjection(),
-              profilBloc: myInjection(),
+              profilLocalDataSource: myInjection(),
             ),
             child: TranskripPage(),
           );

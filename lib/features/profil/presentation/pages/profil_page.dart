@@ -39,7 +39,7 @@ class _ProfilPageState extends State<ProfilPage> {
           ),
           SliverToBoxAdapter(
             child: BlocConsumer<ProfilBloc, ProfilState>(
-              bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa()),
+              bloc: myInjection<ProfilBloc>(),
               listener: (context, state) {
                 if (state is ProfilError) {
                   ScaffoldMessenger.of(context).showSnackBar(
