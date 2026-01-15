@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/core/theme/theme.dart';
-import 'package:newsistime/injection.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 
@@ -24,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
-    myInjection<LoginBloc>().close();
   }
 
   @override
@@ -128,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsGeometry.only(
+                      padding: const EdgeInsets.only(
                         top: 50,
                         left: 20,
                         right: 20,

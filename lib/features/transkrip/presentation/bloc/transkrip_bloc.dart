@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/core/helper/grade_converter.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
+import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 import 'package:newsistime/features/transkrip/domain/usecases/get_transkrip.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
@@ -99,6 +100,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
 
             emit(
               TranskripLoaded(
+                profil: profil.toEntity(),
                 listTranskrip: enrichedTranskripList,
                 passedCourses: passedCourses,
                 failedCourses: failedCourses,
@@ -185,7 +187,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                             t.kodeMatkul,
                             t.matkul,
                             t.sks.toString(),
-                            t.letterGrade ?? 'N/A',
+                            t.letterGrade ?? '',
                           ];
                         }).toList(),
                       ),

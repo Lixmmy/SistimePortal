@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/forgot_password/presentation/pages/forgot_password_page.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
@@ -28,9 +29,31 @@ import '../../injection.dart';
 GoRouter myRouter() {
   return GoRouter(
     initialLocation: '/launcher_page',
-    // redirect: (context, state) {
+    redirect: (context, state) async {
+      final secureStorage = myInjection<SecureStorage>();
+      final token = await secureStorage.getData('token');
+      final bool isAuthenticated = token.isNotEmpty;
+      final String currentPath = state.uri.path;
 
-    // },
+      final bool isGuestRoute =
+          currentPath == '/launcher_page' ||
+          currentPath == '/login_page' ||
+          currentPath == '/register_page' ||
+          currentPath == '/forgot_password_page';
+
+      if (!isAuthenticated) {
+        if (isGuestRoute) {
+          return null;
+        }
+        return '/launcher_page';
+      }
+
+      if (isGuestRoute) {
+        return '/selected_page';
+      }
+
+      return null;
+    },
     routes: [
       GoRoute(
         path: '/launcher_page',

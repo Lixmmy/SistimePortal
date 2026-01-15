@@ -88,14 +88,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         : Colors.white.withAlpha(128),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsetsGeometry.only(
-                    top: 50,
-                    left: 20,
-                    right: 20,
-                    bottom: 20,
-                  ),
-                  child: Column(
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 50,
+                                        left: 20,
+                                        right: 20,
+                                        bottom: 20,
+                                      ),                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(

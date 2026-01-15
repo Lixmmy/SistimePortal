@@ -16,11 +16,6 @@ class _KrsPageState extends State<KhsPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        myInjection<KhsBloc>().add(FetchKhsData());
-      }
-    });
   }
 
   @override
@@ -28,7 +23,7 @@ class _KrsPageState extends State<KhsPage> {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: BlocBuilder<KhsBloc, KhsState>(
-        bloc: myInjection<KhsBloc>(),
+        bloc: myInjection<KhsBloc>()..add(FetchKhsData()),
         builder: (context, state) {
           if (state is KhsLoading) {
             return const Center(child: CircularProgressIndicator());

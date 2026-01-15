@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BuildInfoRow extends StatelessWidget {
   final String label;
-  final String value;
+  final String? value;
   final Color labelColor;
   final Color valueColor;
   final int labelFlex;
@@ -11,7 +11,7 @@ class BuildInfoRow extends StatelessWidget {
   const BuildInfoRow({
     super.key,
     required this.label,
-    required this.value,
+    this.value,
     this.labelFlex = 4,
     this.valueFlex = 6,
     this.labelColor = Colors.white,
@@ -44,7 +44,7 @@ class BuildInfoRow extends StatelessWidget {
           Expanded(
             flex: valueFlex,
             child: Text(
-              value,
+              value ?? "",
               style: Theme.of(
                 context,
               ).textTheme.labelSmall?.copyWith(color: valueColor),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
@@ -18,7 +17,6 @@ class _TranskripPageState extends State<TranskripPage> {
   @override
   void initState() {
     super.initState();
-    // Fire the event here, once, when the widget is first created.
     myInjection<TranskripBloc>().add(GetListTranskrip());
   }
 
@@ -44,7 +42,6 @@ class _TranskripPageState extends State<TranskripPage> {
                 duration: Duration(seconds: 1),
               ),
             );
-            // This re-fetch is now safe and won't cause a race condition.
             myInjection<TranskripBloc>().add(GetListTranskrip());
           }
         },
@@ -53,7 +50,7 @@ class _TranskripPageState extends State<TranskripPage> {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is TranskripLoaded) {
-            final profilState = myInjection<ProfilBloc>().state as ProfilLoaded;
+            final profil = state.profil;
             return CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -84,7 +81,7 @@ class _TranskripPageState extends State<TranskripPage> {
                             children: [
                               BuildInfoRow(
                                 label: appLocalizations.nim,
-                                value: profilState.profil.user.username,
+                                value: profil.user.username,
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:
@@ -100,7 +97,7 @@ class _TranskripPageState extends State<TranskripPage> {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.name,
-                                value: profilState.profil.namaMahasiswa ?? "",
+                                value: profil.namaMahasiswa,
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:
@@ -132,12 +129,7 @@ class _TranskripPageState extends State<TranskripPage> {
                               // ),
                               BuildInfoRow(
                                 label: appLocalizations.studyPrograms,
-                                value:
-                                    profilState
-                                        .profil
-                                        .programStudi
-                                        ?.namaProgramStudi ??
-                                    "",
+                                value: profil.programStudi!.namaProgramStudi,
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:

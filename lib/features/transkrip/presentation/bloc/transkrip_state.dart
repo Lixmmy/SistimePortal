@@ -12,6 +12,7 @@ class TranskripInitial extends TranskripState {}
 final class TranskripLoading extends TranskripState {}
 
 final class TranskripLoaded extends TranskripState {
+  final Profil profil;
   final List<Transkrip> listTranskrip;
   final int passedCourses;
   final int failedCourses;
@@ -19,6 +20,7 @@ final class TranskripLoaded extends TranskripState {
   final double gpa;
 
   const TranskripLoaded({
+    required this.profil,
     required this.listTranskrip,
     this.passedCourses = 0,
     this.failedCourses = 0,
@@ -27,7 +29,7 @@ final class TranskripLoaded extends TranskripState {
   });
 
   @override
-  List<Object?> get props => [listTranskrip];
+  List<Object?> get props => [profil, listTranskrip];
 }
 
 final class TranskripError extends TranskripState {

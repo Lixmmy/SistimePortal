@@ -67,9 +67,9 @@ class ProgramStudi extends Equatable {
   List<Object?> get props => [kodeProgramStudi, keterangan, namaProgramStudi];
   Map<String, dynamic> toJson() {
     return {
-      'kodeProgramStudi': kodeProgramStudi,
+      'kodeProgramstudi': kodeProgramStudi,
       'keterangan': keterangan,
-      'namaProgramStudi': namaProgramStudi,
+      'namaProgramstudi': namaProgramStudi,
     };
   }
 

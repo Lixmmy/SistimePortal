@@ -16,13 +16,6 @@ class _KrsPageState extends State<KrsPage> {
   @override
   void initState() {
     super.initState();
-    myInjection<KrsBloc>().add(FetchKrsData());
-  }
-
-  @override
-  void dispose() {
-    myInjection<KrsBloc>().close();
-    super.dispose();
   }
 
   @override
@@ -30,13 +23,14 @@ class _KrsPageState extends State<KrsPage> {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: BlocBuilder<KrsBloc, KrsState>(
+        bloc: myInjection<KrsBloc>()..add(FetchKrsData()),
         builder: (context, state) {
           if (state is KrsLoading) {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is KrsLoaded) {
             if (state.groupedKrs.isEmpty) {
-              return const Center(child: Text('Tidak ada data KRS ditemukan.'));
+              return Center(child: Text('Tidak ada data KRS ditemukan.'));
             }
             final semesters = state.groupedKrs.keys.toList();
             return CustomScrollView(

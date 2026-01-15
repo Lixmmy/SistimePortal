@@ -88,7 +88,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsGeometry.only(
+                  padding: const EdgeInsets.only(
                     top: 50,
                     left: 20,
                     right: 20,

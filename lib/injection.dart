@@ -119,7 +119,7 @@ Future<void> init() async {
   );
 
   //Transkrip bloc
-  myInjection.registerFactory(
+  myInjection.registerLazySingleton(
     () => TranskripBloc(
       getTranskrip: myInjection(),
       profilLocalDataSource: myInjection(),
@@ -141,7 +141,7 @@ Future<void> init() async {
   );
 
   //krs bloc
-  myInjection.registerFactory(
+  myInjection.registerLazySingleton(
     () => KrsBloc(getKrs: myInjection(), profilLocalDataSource: myInjection()),
   );
   //Use cases
@@ -158,7 +158,7 @@ Future<void> init() async {
   );
 
   //khs bloc
-  myInjection.registerFactory(
+  myInjection.registerLazySingleton(
     () => KhsBloc(getKhs: myInjection(), profilLocalDataSource: myInjection()),
   );
   //Use cases
