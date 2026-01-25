@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/khs/data/datasources/remote_khs_data_source.dart';
+import 'package:newsistime/features/khs/data/models/khs_model.dart';
 import 'package:newsistime/features/khs/domain/entities/khs.dart';
 import 'package:newsistime/features/khs/domain/repositories/khs_repositories.dart';
 
@@ -12,8 +13,8 @@ class KhsRepositoriesImplementation extends KhsRepositories {
   @override
   Future<Either<MessageExc, List<Khs>>> getKhs({required String id}) async {
     try {
-      final List<Khs> khs = await remoteKhsDataSource.getKhs(id: id);
-      return Right(khs);
+      final List<KhsModel> khs = await remoteKhsDataSource.getKhs(id: id);
+      return Right(khs.map((e) => e.toEntity()).toList());
     } on MessageExc catch (e) {
       return Left(e);
     } catch (e) {

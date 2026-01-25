@@ -2,11 +2,10 @@ import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/features/krs/data/models/krs_model.dart';
 // import 'package:newsistime/features/krs/data/models/matkul_model.dart';
-import 'package:newsistime/features/krs/domain/entities/krs.dart';
 // import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 
 abstract class RemoteKrsDataSource {
-  Future<List<Krs>> getKrs({required String id});
+  Future<List<KrsModel>> getKrs({required String id});
   // Future<List<Matkul>> getMataKuliah();
 }
 
@@ -15,14 +14,14 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
   RemoteKrsDataSourceImplementation({required this.connectApi});
 
   @override
-  Future<List<Krs>> getKrs({required String id}) async {
+  Future<List<KrsModel>> getKrs({required String id}) async {
     try {
       final response = await connectApi.getKrs(id: id);
       if (response != null) {
         final List<KrsModel> krsModel = ListKrsModel.fromJson(
           response,
         ).listKrsModel;
-        return krsModel.map((e) => e.toEntity()).toList();
+        return krsModel;
       } else {
         throw MessageExc.api('No data found');
       }

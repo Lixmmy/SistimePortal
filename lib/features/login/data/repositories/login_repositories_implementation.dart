@@ -28,7 +28,7 @@ class LoginRepositoriesImplementation extends LoginRepositories {
         loginLocalDataSource.savePassword(password),
         loginLocalDataSource.saveUsername(username),
       });
-      return Right(result);
+      return Right(result.toEntity());
     } catch (e) {
       return Left(MessageExc.api(e.toString()));
     }

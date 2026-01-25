@@ -1,10 +1,9 @@
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/features/khs/data/models/khs_model.dart';
-import 'package:newsistime/features/khs/domain/entities/khs.dart';
 
 abstract class RemoteKhsDataSource {
-  Future<List<Khs>> getKhs({required String id});
+  Future<List<KhsModel>> getKhs({required String id});
 }
 
 class RemoteKhsDataSourceImplementation extends RemoteKhsDataSource {
@@ -13,12 +12,12 @@ class RemoteKhsDataSourceImplementation extends RemoteKhsDataSource {
   RemoteKhsDataSourceImplementation({required this.connectApi});
 
   @override
-  Future<List<Khs>> getKhs({required String id}) async {
+  Future<List<KhsModel>> getKhs({required String id}) async {
     try {
       final response = await connectApi.getKhs(id: id);
       if (response != null) {
         final khsModel = ListKhsModel.fromJson(response).listKhsModel;
-        return khsModel.map((e) => e.toEntity()).toList();
+        return khsModel;
       } else {
         throw MessageExc.api('No data found');
       }

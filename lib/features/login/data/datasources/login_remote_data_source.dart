@@ -1,10 +1,12 @@
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/features/login/data/models/token_model.dart';
-import 'package:newsistime/features/login/domain/entities/token.dart';
 
 abstract class LoginRemoteDataSource {
-  Future<Token> postLogin({required String username, required String password});
+  Future<TokenModel> postLogin({
+    required String username,
+    required String password,
+  });
 }
 
 class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
@@ -13,7 +15,7 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
   LoginRemoteDataSourceImpl({required this.connectApi});
 
   @override
-  Future<Token> postLogin({
+  Future<TokenModel> postLogin({
     required String username,
     required String password,
   }) async {
@@ -23,7 +25,7 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
         password: password,
       );
       final token = TokenModel.fromJson(result);
-      return token.toEntity();
+      return token;
     } catch (e) {
       throw MessageExc.api(e.toString());
     }

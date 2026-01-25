@@ -18,10 +18,10 @@ class ProfilRepositoryImplementation extends ProfilRepository {
   @override
   Future<Either<MessageExc, Profil>> getMahasiswa(String nim) async {
     try {
-      final Profil hasil = await profilRemoteDataSourceImplementation
+      final ProfilModel hasil = await profilRemoteDataSourceImplementation
           .getMahasiswa(nim);
-      profilLocalDataSource.savedProfilData(hasil as ProfilModel);
-      return Right(hasil);
+      profilLocalDataSource.savedProfilData(hasil);
+      return Right(hasil.toEntity());
     } catch (e) {
       try {
         final localData = await profilLocalDataSource.getSavedProfilData();

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:newsistime/core/error/message_exc.dart';
@@ -10,18 +12,35 @@ import 'package:newsistime/core/route_config/route_endpoint.dart';
 
 class ConnectApi {
   final SecureStorage secureStorage;
-  const ConnectApi({required this.secureStorage});
+  final InternetConnection internetConnection;
+  const ConnectApi({
+    required this.secureStorage,
+    required this.internetConnection,
+  });
 
-  Future<void> internetConnection() async {
-    bool hasInternet = await InternetConnection().hasInternetAccess;
-    if (!hasInternet) {
-      throw MessageExc.network('Tidak ada koneksi internet');
+  Future<bool> _ensureInternetConnection() async {
+    if (kIsWeb) {
+      return true;
+    }
+    var connectivityResult = await (Connectivity().checkConnectivity());
+
+    // ignore: unrelated_type_equality_checks
+    if (connectivityResult == ConnectivityResult.none) {
+      return false;
+    } else {
+      bool hasInternet = await InternetConnection().hasInternetAccess;
+      if (!hasInternet) {
+        throw MessageExc.network(
+          'Tidak ada WIFI atau internet yang tersambung',
+        );
+      }
+      return true;
     }
   }
 
   Future<dynamic> _requestGet(String endpoint, bool authorization) async {
     try {
-      await internetConnection();
+      await _ensureInternetConnection();
       Uri uri = Uri(scheme: scheme, host: host, path: endpoint);
       final Map<String, String> headers = {'Accept': 'application/json'};
       if (authorization == true) {
@@ -62,7 +81,7 @@ class ConnectApi {
     Map<String, dynamic> body,
   ) async {
     try {
-      await internetConnection();
+      await _ensureInternetConnection();
       Uri uri = Uri(scheme: scheme, host: host, path: endpoint);
       final Map<String, String> headers = {
         'Content-Type': 'application/json',

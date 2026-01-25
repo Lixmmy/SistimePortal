@@ -43,7 +43,10 @@ Future<void> init() async {
   myInjection.registerLazySingleton(() => SecureStorage());
   myInjection.registerLazySingleton(() => InternetConnection());
   myInjection.registerLazySingleton(
-    () => ConnectApi(secureStorage: myInjection()),
+    () => ConnectApi(
+      secureStorage: myInjection(),
+      internetConnection: myInjection(),
+    ),
   );
 
   //Login Bloc

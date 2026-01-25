@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/krs/data/datasources/remote_krs_data_source.dart';
+import 'package:newsistime/features/krs/data/models/krs_model.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 // import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
@@ -13,8 +14,8 @@ class KrsRepositoriesImplementation extends KrsRepositories {
   @override
   Future<Either<MessageExc, List<Krs>>> getKrs({required String id}) async {
     try {
-      final List<Krs> krs = await remoteKrsDataSource.getKrs(id: id);
-      return Right(krs);
+      final List<KrsModel> krsModel = await remoteKrsDataSource.getKrs(id: id);
+      return Right(krsModel.map((e) => e.toEntity()).toList());
     } on MessageExc catch (e) {
       return Left(e);
     } catch (e) {

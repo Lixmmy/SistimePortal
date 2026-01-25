@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/transkrip/data/datasources/remote_transkrip_data_source.dart';
+import 'package:newsistime/features/transkrip/data/models/transkrip_model.dart';
 import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 import 'package:newsistime/features/transkrip/domain/repositories/transkrip_repositories.dart';
 
@@ -16,9 +17,9 @@ class TranskripRepositoriesImplementation extends TranskripRepositories {
     required String nim,
   }) async {
     try {
-      final List<Transkrip> transkrip =
-          await remoteTranskripDataSource.getTranskrip(nim: nim);
-      return Right(transkrip);
+      final List<TranskripModel> transkrip = await remoteTranskripDataSource
+          .getTranskrip(nim: nim);
+      return Right(transkrip.map((e) => e.toEntity()).toList());
     } on MessageExc catch (e) {
       return Left(e);
     } catch (e) {
