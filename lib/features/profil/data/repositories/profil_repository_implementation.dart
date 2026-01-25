@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:newsistime/core/error/message_exc.dart';
+import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import '../datasources/local_datasource.dart';
 import '../datasources/remote_datasource.dart';
 import '../../domain/entities/profil.dart';
@@ -19,7 +20,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
     try {
       final Profil hasil = await profilRemoteDataSourceImplementation
           .getMahasiswa(nim);
-      profilLocalDataSource.savedProfilData(hasil);
+      profilLocalDataSource.savedProfilData(hasil as ProfilModel);
       return Right(hasil);
     } catch (e) {
       try {
