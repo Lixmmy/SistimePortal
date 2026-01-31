@@ -1,13 +1,19 @@
+import 'package:newsistime/features/agama/data/models/agama_model.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
+import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
+import 'package:newsistime/features/status/data/models/status_model.dart';
 
 class ProfilModel {
   final int idPendaftaran;
   final int idUser;
   final String? idAgama;
+  final AgamaModel? agama;
   final String? kodeKampus;
   final String? kodeProgramStudi;
+  final ProgramStudiModel? programStudi;
   final String? namaSekolah;
   final int? idStatus;
+  final StatusModel? status;
   final int? idWaktuKuliah;
   final String? email;
   final String? namaMahasiswa;
@@ -38,10 +44,13 @@ class ProfilModel {
     required this.idPendaftaran,
     required this.idUser,
     this.idAgama,
+    this.agama,
     this.kodeKampus,
     this.kodeProgramStudi,
+    this.programStudi,
     this.namaSekolah,
     this.idStatus,
+    this.status,
     this.idWaktuKuliah,
     this.email,
     this.namaMahasiswa,
@@ -151,8 +160,10 @@ class ProfilModel {
       idPendaftaran: idPendaftaran,
       idUser: idUser,
       idAgama: idAgama,
+      agama: agama?.toEntity(),
       kodeKampus: kodeKampus,
       kodeProgramStudi: kodeProgramStudi,
+      programStudi: programStudi?.toEntity(),
       namaSekolah: namaSekolah,
       idStatus: idStatus,
       idWaktuKuliah: idWaktuKuliah,

@@ -1,6 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
+import 'package:newsistime/features/agama/data/datasources/agama_local_data_source.dart';
+import 'package:newsistime/features/agama/data/datasources/agama_remote_data_source.dart';
+import 'package:newsistime/features/agama/data/repositories/agama_repositories_implementation.dart';
+import 'package:newsistime/features/agama/domain/repositories/agama_repositories.dart';
+import 'package:newsistime/features/agama/domain/usecases/get_agama.dart';
 import 'package:newsistime/features/khs/data/datasources/remote_khs_data_source.dart';
 import 'package:newsistime/features/khs/data/repositories/khs_repositories_implementation.dart';
 import 'package:newsistime/features/khs/domain/repositories/khs_repositories.dart';
@@ -23,6 +28,11 @@ import 'package:newsistime/features/login/data/repositories/login_repositories_i
 import 'package:newsistime/features/login/domain/repositories/login_repositories.dart';
 import 'package:newsistime/features/login/domain/usecases/post_login_usecases.dart';
 import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
+import 'package:newsistime/features/program_studi/data/datasource/local_program_studi_data_source.dart';
+import 'package:newsistime/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
+import 'package:newsistime/features/program_studi/data/repositories/program_studi_repositories_implementation.dart';
+import 'package:newsistime/features/program_studi/domain/repositories/program_studi_repositories.dart';
+import 'package:newsistime/features/program_studi/domain/usescase/get_program_studi.dart';
 import 'package:newsistime/features/transkrip/data/datasources/remote_transkrip_data_source.dart';
 import 'package:newsistime/features/transkrip/data/repositories/transkrip_repositories_implementation.dart';
 import 'package:newsistime/features/transkrip/domain/repositories/transkrip_repositories.dart';
@@ -89,6 +99,8 @@ Future<void> init() async {
     () => ProfilRepositoryImplementation(
       profilLocalDataSource: myInjection(),
       profilRemoteDataSourceImplementation: myInjection(),
+      agamaRemoteDataSource: myInjection(),
+      programStudiRemoteDataSource: myInjection(),
     ),
   );
   //datasource
@@ -97,6 +109,48 @@ Future<void> init() async {
   );
   myInjection.registerLazySingleton<ProfilLocalDataSource>(
     () => ProfilLocalDataSourceImplementation(myInjection()),
+  );
+
+  //ProgramStudi bloc
+  // myInjection.registerLazySingleton(
+  //   () => ProgramStudiBloc(getProgramStudi: myInjection()),
+  // );
+  //UseCases
+  myInjection.registerLazySingleton(
+    () => GetProgramStudi(programStudiRepositories: myInjection()),
+  );
+  //Repositories
+  myInjection.registerLazySingleton<ProgramStudiRepositories>(
+    () => ProgramStudiRepositoriesImplementation(
+      programStudiRemoteDataSource: myInjection(),
+      localProgramStudiDataSource: myInjection(),
+    ),
+  );
+  //DataSources
+  myInjection.registerLazySingleton<ProgramStudiRemoteDataSource>(
+    () => ProgramStudiRemoteDataSourceImplementation(connectApi: myInjection()),
+  );
+  myInjection.registerLazySingleton<LocalProgramStudiDataSource>(
+    () => LocalProgramStudiDataSourceImplementation(myInjection()),
+  );
+
+  //UseCases
+  myInjection.registerLazySingleton(
+    () => GetAgama(agamaRepositories: myInjection()),
+  );
+  //Repositories
+  myInjection.registerLazySingleton<AgamaRepositories>(
+    () => AgamaRepositoriesImplementation(
+      agamaRemoteDataSource: myInjection(),
+      agamaLocalDataSource: myInjection(),
+    ),
+  );
+  //DataSources
+  myInjection.registerLazySingleton<AgamaRemoteDataSource>(
+    () => AgamaRemoteDataSourceImplementation(connectApi: myInjection()),
+  );
+  myInjection.registerLazySingleton<AgamaLocalDataSource>(
+    () => AgamaLocalDataSourceImplementation(myInjection()),
   );
 
   //Language bloc

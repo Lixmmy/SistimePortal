@@ -8,16 +8,13 @@ class AgamaModel {
 
   factory AgamaModel.fromJson(Map<String, dynamic> json) {
     return AgamaModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
+      id: json['idAgama'] as String,
+      name: json['agama'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-    };
+    return {'idAgama': id, 'agama': name};
   }
 
   Agama toEntity() {

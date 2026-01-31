@@ -1,13 +1,19 @@
 import 'package:equatable/equatable.dart';
+import 'package:newsistime/features/agama/domain/entities/agama.dart';
+import 'package:newsistime/features/program_studi/domain/entities/program_studi.dart';
+import 'package:newsistime/features/status/domain/entities/status.dart';
 
 class Profil extends Equatable {
   final int idPendaftaran;
   final int idUser;
   final String? idAgama;
+  final Agama? agama;
   final String? kodeKampus;
   final String? kodeProgramStudi;
+  final ProgramStudi? programStudi;
   final String? namaSekolah;
   final int? idStatus;
+  final Status? status;
   final int? idWaktuKuliah;
   final String? email;
   final String? namaMahasiswa;
@@ -38,10 +44,13 @@ class Profil extends Equatable {
     required this.idPendaftaran,
     required this.idUser,
     this.idAgama,
+    this.agama,
     this.kodeKampus,
     this.kodeProgramStudi,
+    this.programStudi,
     this.namaSekolah,
     this.idStatus,
+    this.status,
     this.idWaktuKuliah,
     this.email,
     this.namaMahasiswa,
@@ -75,10 +84,13 @@ class Profil extends Equatable {
     idPendaftaran,
     idUser,
     idAgama,
+    agama,
     kodeKampus,
     kodeProgramStudi,
+    programStudi,
     namaSekolah,
     idStatus,
+    status,
     idWaktuKuliah,
     email,
     namaMahasiswa,

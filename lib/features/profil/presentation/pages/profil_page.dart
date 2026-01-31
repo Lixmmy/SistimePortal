@@ -87,7 +87,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                     ).textTheme.titleMedium,
                                   ),
                                   Text(
-                                    profil.user.username!,
+                                    state.username,
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodyMedium,

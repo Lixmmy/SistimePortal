@@ -26,9 +26,10 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
           emit(ProfilError(message: leftHasilGetMahasiswa.toString()));
         },
         (rightHasilGetMahasiswa) {
-          emit(ProfilLoaded(rightHasilGetMahasiswa));
+          emit(ProfilLoaded(rightHasilGetMahasiswa, username));
         },
       );
     });
   }
+  
 }

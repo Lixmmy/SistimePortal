@@ -13,8 +13,9 @@ final class ProfilLoading extends ProfilState {}
 
 final class ProfilLoaded extends ProfilState {
   final Profil detailUser;
+  final String username;
 
-  const ProfilLoaded(this.detailUser);
+  const ProfilLoaded(this.detailUser, this.username);
 
   @override
   List<Object?> get props => [detailUser];

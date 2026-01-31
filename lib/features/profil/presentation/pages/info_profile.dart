@@ -92,7 +92,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              profil.user.username ?? '',
+                              state.username,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
@@ -104,10 +104,10 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                         ),
                       ),
                       SizedBox(height: 25),
-                      ListProfil(
-                        title: appLocalizations.major,
-                        subtitle: profil.programStudi?.namaProgramStudi ?? "",
-                      ),
+                      // ListProfil(
+                      //   title: appLocalizations.major,
+                      //   subtitle: profil.programStudi?.namaProgramStudi ?? "",
+                      // ),
                       ListProfil(
                         title: appLocalizations.yearOfEntry,
                         subtitle: profil.tahunAngkatan.toString(),
@@ -116,10 +116,10 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                         title: appLocalizations.email,
                         subtitle: profil.email ?? "",
                       ),
-                      ListProfil(
-                        title: appLocalizations.campus,
-                        subtitle: profil.kampus?.kodeKampus ?? "",
-                      ),
+                      // ListProfil(
+                      //   title: appLocalizations.campus,
+                      //   subtitle: profil.kampus?.kodeKampus ?? "",
+                      // ),
                       ListProfil(
                         title: appLocalizations.placeOfBirth,
                         subtitle: profil.tempatLahir ?? "",
@@ -136,14 +136,16 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                             ? "Pria"
                             : "Wanita",
                       ),
+
                       ListProfil(
                         title: appLocalizations.religion,
-                        subtitle: profil.agama?.agama ?? "",
+                        subtitle: profil.agama?.name ?? "",
                       ),
-                      ListProfil(
-                        title: appLocalizations.status,
-                        subtitle: profil.status?.status ?? "",
-                      ),
+
+                      // ListProfil(
+                      //   title: appLocalizations.status,
+                      //   subtitle: profil.status?.status ?? "",
+                      // ),
                       ListProfil(
                         title: appLocalizations.bloodType,
                         subtitle: profil.golonganDarah ?? "",
@@ -192,10 +194,10 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                         title: appLocalizations.parentPhoneNumber,
                         subtitle: profil.noTeleponOrangtua ?? "",
                       ),
-                      ListProfil(
-                        title: appLocalizations.school,
-                        subtitle: profil.sekolah?.namaSekolah ?? "",
-                      ),
+                      // ListProfil(
+                      //   title: appLocalizations.school,
+                      //   subtitle: profil.sekolah?.namaSekolah ?? "",
+                      // ),
                       ListProfil(
                         title: appLocalizations.schoolDepartment,
                         subtitle: profil.jurusanSekolah ?? "",
