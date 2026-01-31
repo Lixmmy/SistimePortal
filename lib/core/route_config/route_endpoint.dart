@@ -4,3 +4,7 @@ const krsRoute = 'rest/api/krs';
 const mahasiswaRoute = 'rest/api/mahasiswa';
 const mataKuliahRoute = 'rest/api/matakuliah';
 const loginRoute = 'rest/api/login';
+const agamaRoute = 'rest/api/agama';
+const waktuKuliahRoute = 'rest/api/waktukuliah';
+const statusRoute = 'rest/api/status';
+const programStudiRoute = 'rest/api/programstudi';

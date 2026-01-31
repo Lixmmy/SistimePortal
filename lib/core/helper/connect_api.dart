@@ -140,8 +140,20 @@ class ConnectApi {
     return _requestGet('$transkripRoute/$nim', true);
   }
 
-  Future<dynamic> getMataKuliah() {
-    return _requestGet(mataKuliahRoute, true);
+  Future<dynamic> getAgama() {
+    return _requestGet(agamaRoute, true);
+  }
+
+  Future<dynamic> getWaktuKuliah() {
+    return _requestGet(waktuKuliahRoute, true);
+  }
+
+  Future<dynamic> getStatus() {
+    return _requestGet(statusRoute, true);
+  }
+
+  Future<dynamic> getProgramStudi() {
+    return _requestGet(programStudiRoute, true);
   }
 
   Future<dynamic> postLogin({
