@@ -18,7 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isObsecure = true;
   bool _canAuthenticate = false;
-  bool _isBiometricSupported = false;
 
   @override
   void initState() {
@@ -124,7 +123,6 @@ class _LoginPageState extends State<LoginPage> {
               if (state is LoginBiometricSupportChecked) {
                 setState(() {
                   _canAuthenticate = state.canAuthenticate;
-                  _isBiometricSupported = state.isSupported;
                 });
               }
             },
