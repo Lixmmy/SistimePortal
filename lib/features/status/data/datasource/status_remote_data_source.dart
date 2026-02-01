@@ -14,8 +14,8 @@ class StatusRemoteDataSourceImpl implements StatusRemoteDataSource {
   @override
   Future<List<StatusModel>> getStatus() async {
     try {
-      final response = await connectApi.getStatus();
-      return response.data.map((e) => StatusModel.fromJson(e)).toList();
+      return await connectApi.getStatus();
+
     } catch (e) {
       throw MessageExc.api('An error in getStatus occurred: ${e.toString()}');
     }

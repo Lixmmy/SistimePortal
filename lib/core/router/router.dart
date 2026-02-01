@@ -66,7 +66,6 @@ GoRouter myRouter() {
         builder: (context, state) => BlocProvider(
           create: (context) => LoginBloc(
             postLoginUseCases: myInjection(),
-            getMahasiswa: myInjection(),
             loginLocalDataSource: myInjection(),
           ),
           child: const LoginPage(),

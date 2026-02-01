@@ -104,10 +104,10 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                         ),
                       ),
                       SizedBox(height: 25),
-                      // ListProfil(
-                      //   title: appLocalizations.major,
-                      //   subtitle: profil.programStudi?.namaProgramStudi ?? "",
-                      // ),
+                      ListProfil(
+                        title: appLocalizations.major,
+                        subtitle: profil.programStudi?.namaProgramstudi ?? "",
+                      ),
                       ListProfil(
                         title: appLocalizations.yearOfEntry,
                         subtitle: profil.tahunAngkatan.toString(),
@@ -116,10 +116,10 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                         title: appLocalizations.email,
                         subtitle: profil.email ?? "",
                       ),
-                      // ListProfil(
-                      //   title: appLocalizations.campus,
-                      //   subtitle: profil.kampus?.kodeKampus ?? "",
-                      // ),
+                      ListProfil(
+                        title: appLocalizations.campus,
+                        subtitle: profil.kodeKampus ?? "",
+                      ),
                       ListProfil(
                         title: appLocalizations.placeOfBirth,
                         subtitle: profil.tempatLahir ?? "",
@@ -142,10 +142,10 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                         subtitle: profil.agama?.name ?? "",
                       ),
 
-                      // ListProfil(
-                      //   title: appLocalizations.status,
-                      //   subtitle: profil.status?.status ?? "",
-                      // ),
+                      ListProfil(
+                        title: appLocalizations.status,
+                        subtitle: profil.status?.status ?? "",
+                      ),
                       ListProfil(
                         title: appLocalizations.bloodType,
                         subtitle: profil.golonganDarah ?? "",

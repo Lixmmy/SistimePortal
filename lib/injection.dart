@@ -6,6 +6,7 @@ import 'package:newsistime/features/agama/data/datasources/agama_remote_data_sou
 import 'package:newsistime/features/agama/data/repositories/agama_repositories_implementation.dart';
 import 'package:newsistime/features/agama/domain/repositories/agama_repositories.dart';
 import 'package:newsistime/features/agama/domain/usecases/get_agama.dart';
+import 'package:newsistime/features/agama/presentation/bloc/agama_bloc.dart';
 import 'package:newsistime/features/khs/data/datasources/remote_khs_data_source.dart';
 import 'package:newsistime/features/khs/data/repositories/khs_repositories_implementation.dart';
 import 'package:newsistime/features/khs/domain/repositories/khs_repositories.dart';
@@ -33,11 +34,23 @@ import 'package:newsistime/features/program_studi/data/datasource/program_studi_
 import 'package:newsistime/features/program_studi/data/repositories/program_studi_repositories_implementation.dart';
 import 'package:newsistime/features/program_studi/domain/repositories/program_studi_repositories.dart';
 import 'package:newsistime/features/program_studi/domain/usescase/get_program_studi.dart';
+import 'package:newsistime/features/status/data/datasource/status_local_data_source.dart';
+import 'package:newsistime/features/status/data/datasource/status_remote_data_source.dart';
+import 'package:newsistime/features/status/data/repositories/status_repositories_implementation.dart';
+import 'package:newsistime/features/status/domain/repositories/status_repositories.dart';
+import 'package:newsistime/features/status/domain/usescase/get_status.dart';
+import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
 import 'package:newsistime/features/transkrip/data/datasources/remote_transkrip_data_source.dart';
 import 'package:newsistime/features/transkrip/data/repositories/transkrip_repositories_implementation.dart';
 import 'package:newsistime/features/transkrip/domain/repositories/transkrip_repositories.dart';
 import 'package:newsistime/features/transkrip/domain/usecases/get_transkrip.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
+import 'package:newsistime/features/waktu_kuliah/data/datasources/waktu_kuliah_local_data_source.dart';
+import 'package:newsistime/features/waktu_kuliah/data/datasources/waktu_kuliah_remote_data_source.dart';
+import 'package:newsistime/features/waktu_kuliah/data/repositories/waktu_kuliah_repositories_implementation.dart';
+import 'package:newsistime/features/waktu_kuliah/domain/repositories/waktu_kuliah_repositories.dart';
+import 'package:newsistime/features/waktu_kuliah/domain/usecases/get_waktu_kuliah.dart';
+import 'package:newsistime/features/waktu_kuliah/presentation/bloc/waktu_kuliah_bloc.dart';
 import 'core/helper/secure_storage.dart';
 import 'features/profil/data/datasources/local_datasource.dart';
 import 'features/profil/data/datasources/remote_datasource.dart';
@@ -63,7 +76,6 @@ Future<void> init() async {
   myInjection.registerFactory(
     () => LoginBloc(
       postLoginUseCases: myInjection(),
-      getMahasiswa: myInjection(),
       loginLocalDataSource: myInjection(),
     ),
   );
@@ -101,6 +113,8 @@ Future<void> init() async {
       profilRemoteDataSourceImplementation: myInjection(),
       agamaRemoteDataSource: myInjection(),
       programStudiRemoteDataSource: myInjection(),
+      statusRemoteDataSource: myInjection(),
+      waktuKuliahRemoteDataSource: myInjection(),
     ),
   );
   //datasource
@@ -111,10 +125,7 @@ Future<void> init() async {
     () => ProfilLocalDataSourceImplementation(myInjection()),
   );
 
-  //ProgramStudi bloc
-  // myInjection.registerLazySingleton(
-  //   () => ProgramStudiBloc(getProgramStudi: myInjection()),
-  // );
+  //Program Studi
   //UseCases
   myInjection.registerLazySingleton(
     () => GetProgramStudi(programStudiRepositories: myInjection()),
@@ -134,6 +145,10 @@ Future<void> init() async {
     () => LocalProgramStudiDataSourceImplementation(myInjection()),
   );
 
+  //Agama
+  myInjection.registerFactory(
+    () => AgamaBloc(getAgama: myInjection()),
+  ); 
   //UseCases
   myInjection.registerLazySingleton(
     () => GetAgama(agamaRepositories: myInjection()),
@@ -151,6 +166,52 @@ Future<void> init() async {
   );
   myInjection.registerLazySingleton<AgamaLocalDataSource>(
     () => AgamaLocalDataSourceImplementation(myInjection()),
+  );
+
+  //Status
+  myInjection.registerFactory(
+    () => StatusBloc(getStatus: myInjection()),
+  );
+  //UseCases
+  myInjection.registerLazySingleton(
+    () => GetStatus(statusRepositories: myInjection()),
+  );
+  //Repositories
+  myInjection.registerLazySingleton<StatusRepositories>(
+    () => StatusRepositoriesImplementation(
+      statusLocalDataSource: myInjection(),
+      statusRemoteDataSource: myInjection(),
+    ),
+  );
+  //DataSources
+  myInjection.registerLazySingleton<StatusRemoteDataSource>(
+    () => StatusRemoteDataSourceImpl(connectApi: myInjection()),
+  );
+  myInjection.registerLazySingleton<StatusLocalDataSource>(
+    () => StatusLocalDataSourceImpl(secureStorage: myInjection()),
+  );
+
+  //Waktu Kuliah
+  myInjection.registerFactory(
+    () => WaktuKuliahBloc(getWaktuKuliah: myInjection()),
+  );
+  //UseCases
+  myInjection.registerLazySingleton(
+    () => GetWaktuKuliah(myInjection()),
+  );
+  //Repositories
+  myInjection.registerLazySingleton<WaktuKuliahRepositories>(
+    () => WaktuKuliahRepositoriesImplementation(
+      localDataSource: myInjection(),
+      remoteDataSource: myInjection()
+    ),
+  );
+  //DataSources
+  myInjection.registerLazySingleton<WaktuKuliahRemoteDataSource>(
+    () => WaktuKuliahRemoteDataSourceImplementation(connectApi: myInjection()),
+  );
+  myInjection.registerLazySingleton<WaktuKuliahLocalDataSource>(
+    () => WaktuKuliahLocalDataSourceImplementation(secureStorage:myInjection()),
   );
 
   //Language bloc

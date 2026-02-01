@@ -81,7 +81,7 @@ class _TranskripPageState extends State<TranskripPage> {
                             children: [
                               BuildInfoRow(
                                 label: appLocalizations.nim,
-                                value: profil.user.username,
+                                value: state.username,
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:
@@ -129,7 +129,7 @@ class _TranskripPageState extends State<TranskripPage> {
                               // ),
                               BuildInfoRow(
                                 label: appLocalizations.studyPrograms,
-                                value: profil.programStudi!.namaProgramStudi,
+                                value: profil.programStudi?.namaProgramstudi ?? '',
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:

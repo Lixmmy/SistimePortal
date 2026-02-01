@@ -13,11 +13,13 @@ class KhsLoading extends KhsState {}
 
 class KhsLoaded extends KhsState {
   final Map<int, List<Khs>> groupedKhs;
+  final String username;
+  final Profil profil;
 
-  const KhsLoaded({required this.groupedKhs});
+  const KhsLoaded({required this.groupedKhs, required this.username,   required this.profil});
 
   @override
-  List<Object> get props => [groupedKhs];
+  List<Object> get props => [groupedKhs, username, profil];
 }
 
 class KhsError extends KhsState {

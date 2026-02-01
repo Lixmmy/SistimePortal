@@ -1,13 +1,18 @@
+import 'package:collection/collection.dart';
 import 'package:dartz/dartz.dart';
+
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/agama/data/datasources/agama_remote_data_source.dart';
 import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import 'package:newsistime/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
 import 'package:newsistime/features/status/data/datasource/status_remote_data_source.dart';
-import '../datasources/local_datasource.dart';
-import '../datasources/remote_datasource.dart';
+import 'package:newsistime/features/waktu_kuliah/data/datasources/waktu_kuliah_remote_data_source.dart';
+
 import '../../domain/entities/profil.dart';
 import '../../domain/repositories/profil_repository.dart';
+import '../datasources/local_datasource.dart';
+import '../datasources/remote_datasource.dart';
+
 
 class ProfilRepositoryImplementation extends ProfilRepository {
   final ProfilRemoteDatasource profilRemoteDataSourceImplementation;
@@ -15,6 +20,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
   final ProgramStudiRemoteDataSource programStudiRemoteDataSource;
   final ProfilLocalDataSource profilLocalDataSource;
   final StatusRemoteDataSource statusRemoteDataSource;
+  final WaktuKuliahRemoteDataSource waktuKuliahRemoteDataSource;
 
   ProfilRepositoryImplementation({
     required this.profilLocalDataSource,
@@ -22,6 +28,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
     required this.agamaRemoteDataSource,
     required this.programStudiRemoteDataSource,
     required this.statusRemoteDataSource,
+    required this.waktuKuliahRemoteDataSource,
   });
 
   @override
@@ -30,14 +37,18 @@ class ProfilRepositoryImplementation extends ProfilRepository {
       final ProfilModel hasil = await profilRemoteDataSourceImplementation
           .getMahasiswa(nim);
       final agamas = await agamaRemoteDataSource.getAgama();
-      final agama = agamas.firstWhere((e) => e.id == hasil.idAgama);
-      final programStudis = await programStudiRemoteDataSource
-          .getProgramStudi();
-      final programStudi = programStudis.firstWhere(
-        (e) => e.kodeProgramstudi == hasil.kodeProgramStudi,
-      );
+      final agama = agamas.firstWhereOrNull((e) => e.id == hasil.idAgama);
+      final programStudis =
+          await programStudiRemoteDataSource.getProgramStudi();
+      final programStudi = programStudis
+          .firstWhereOrNull((e) => e.kodeProgramstudi == hasil.kodeProgramStudi);
       final statusList = await statusRemoteDataSource.getStatus();
-      final status = statusList.firstWhere((e) => e.idStatus == hasil.idStatus);
+      final status =
+          statusList.firstWhereOrNull((e) => e.idStatus == hasil.idStatus);
+      final waktuKuliahList =
+          await waktuKuliahRemoteDataSource.getWaktuKuliahList();
+      final waktuKuliah = waktuKuliahList
+          .firstWhereOrNull((e) => e.idWaktuKuliah == hasil.idWaktuKuliah);
       final correctProfil = ProfilModel(
         idPendaftaran: hasil.idPendaftaran,
         idUser: hasil.idUser,
@@ -50,6 +61,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         idStatus: hasil.idStatus,
         status: status,
         idWaktuKuliah: hasil.idWaktuKuliah,
+        waktuKuliah: waktuKuliah,
         email: hasil.email,
         namaMahasiswa: hasil.namaMahasiswa,
         tempatLahir: hasil.tempatLahir,

@@ -2,6 +2,7 @@ import 'package:newsistime/features/agama/data/models/agama_model.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
 import 'package:newsistime/features/status/data/models/status_model.dart';
+import 'package:newsistime/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
 
 class ProfilModel {
   final int idPendaftaran;
@@ -15,6 +16,7 @@ class ProfilModel {
   final int? idStatus;
   final StatusModel? status;
   final int? idWaktuKuliah;
+  final WaktuKuliahModel? waktuKuliah;
   final String? email;
   final String? namaMahasiswa;
   final String? tempatLahir;
@@ -52,6 +54,7 @@ class ProfilModel {
     this.idStatus,
     this.status,
     this.idWaktuKuliah,
+    this.waktuKuliah,
     this.email,
     this.namaMahasiswa,
     this.tempatLahir,
@@ -114,6 +117,7 @@ class ProfilModel {
       pekerjaanOrangtua: datajson['pekerjaanOrangtua'],
       pendidikanOrangtua: datajson['pendidikanOrangtua'],
       tahunLulus: datajson['tahunLulus'],
+
     );
   }
 
@@ -155,6 +159,90 @@ class ProfilModel {
     };
   }
 
+  Map<String, dynamic> toLocalJson() {
+    return {
+      'idUser': idUser,
+      'idAgama': idAgama,
+      'agama': agama?.toJson(),
+      'idPendaftaran': idPendaftaran,
+      'kodeKampus': kodeKampus,
+      'kodeProgramStudi': kodeProgramStudi,
+      'programStudi': programStudi?.toJson(),
+      'namaSekolah': namaSekolah,
+      'idStatus': idStatus,
+      'status': status?.toJson(),
+      'idWaktuKuliah': idWaktuKuliah,
+      'waktuKuliah': waktuKuliah?.toJson(),
+      'email': email,
+      'namaMahasiswa': namaMahasiswa,
+      'tempatLahir': tempatLahir,
+      'tanggalLahir': tanggalLahir,
+      'tanggalPendaftaran': tanggalPendaftaran,
+      'tanggalIjazah': tanggalIjazah,
+      'alamatMahasiswa': alamatMahasiswa,
+      'jenisKelamin': jenisKelamin,
+      'alamatOrangtua': alamatOrangtua,
+      'anakKe': anakKe,
+      'golonganDarah': golonganDarah,
+      'hobi': hobi,
+      'jumlahSaudara': jumlahSaudara,
+      'jurusanSekolah': jurusanSekolah,
+      'kewarganegaraan': kewarganegaraan,
+      'keterangan': keterangan,
+      'namaAyah': namaAyah,
+      'namaIbu': namaIbu,
+      'noIjazah': noIjazah,
+      'noTeleponMahasiswa': noTeleponMahasiswa,
+      'noTeleponOrangtua': noTeleponOrangtua,
+      'tahunAngkatan': tahunAngkatan,
+      'pekerjaanOrangtua': pekerjaanOrangtua,
+      'pendidikanOrangtua': pendidikanOrangtua,
+      'tahunLulus': tahunLulus,
+    };
+  }
+
+  factory ProfilModel.fromLocalJson(Map<String, dynamic> datajson) {
+    return ProfilModel(
+      idUser: datajson['idUser'],
+      idAgama: datajson['idAgama'],
+      agama: datajson['agama'] != null ? AgamaModel.fromJson(datajson['agama']) : null,
+      idPendaftaran: datajson['idPendaftaran'],
+      kodeKampus: datajson['kodeKampus'],
+      kodeProgramStudi: datajson['kodeProgramStudi'],
+      programStudi: datajson['programStudi'] != null ? ProgramStudiModel.fromJson(datajson['programStudi']) : null,
+      namaSekolah: datajson['namaSekolah'],
+      idStatus: datajson['idStatus'],
+      status: datajson['status'] != null ? StatusModel.fromJson(datajson['status']) : null,
+      idWaktuKuliah: datajson['idWaktuKuliah'],
+      waktuKuliah: datajson['waktuKuliah'] != null ? WaktuKuliahModel.fromJson(datajson['waktuKuliah']) : null,
+      email: datajson['email'],
+      namaMahasiswa: datajson['namaMahasiswa'],
+      tempatLahir: datajson['tempatLahir'],
+      tanggalLahir: datajson['tanggalLahir'],
+      tanggalPendaftaran: datajson['tanggalPendaftaran'],
+      tanggalIjazah: datajson['tanggalIjazah'],
+      alamatMahasiswa: datajson['alamatMahasiswa'],
+      jenisKelamin: datajson['jenisKelamin'],
+      alamatOrangtua: datajson['alamatOrangtua'],
+      anakKe: datajson['anakKe'],
+      golonganDarah: datajson['golonganDarah'],
+      hobi: datajson['hobi'],
+      jumlahSaudara: datajson['jumlahSaudara'],
+      jurusanSekolah: datajson['jurusanSekolah'],
+      kewarganegaraan: datajson['kewarganegaraan'],
+      keterangan: datajson['keterangan'],
+      namaAyah: datajson['namaAyah'],
+      namaIbu: datajson['namaIbu'],
+      noIjazah: datajson['noIjazah'],
+      noTeleponMahasiswa: datajson['noTeleponMahasiswa'],
+      noTeleponOrangtua: datajson['noTeleponOrangtua'],
+      tahunAngkatan: datajson['tahunAngkatan'],
+      pekerjaanOrangtua: datajson['pekerjaanOrangtua'],
+      pendidikanOrangtua: datajson['pendidikanOrangtua'],
+      tahunLulus: datajson['tahunLulus'],
+    );
+  }
+
   Profil toEntity() {
     return Profil(
       idPendaftaran: idPendaftaran,
@@ -166,7 +254,9 @@ class ProfilModel {
       programStudi: programStudi?.toEntity(),
       namaSekolah: namaSekolah,
       idStatus: idStatus,
+      status: status?.toEntity(),
       idWaktuKuliah: idWaktuKuliah,
+      waktuKuliah: waktuKuliah?.toEntity(),
       email: email,
       namaMahasiswa: namaMahasiswa,
       tempatLahir: tempatLahir,

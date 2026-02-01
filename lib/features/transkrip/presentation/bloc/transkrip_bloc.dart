@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/core/helper/grade_converter.dart';
+import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
-import 'package:newsistime/features/profil/domain/entities/profil.dart';
+import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 import 'package:newsistime/features/transkrip/domain/usecases/get_transkrip.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
@@ -26,17 +27,16 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
        _profilLocalDataSource = profilLocalDataSource,
        super(TranskripInitial()) {
     on<GetListTranskrip>((event, emit) async {
-      final profil = await _profilLocalDataSource.getSavedProfilData();
-
       emit(TranskripLoading());
       try {
-        final username = profil!.user.usernameModel;
-        final result = await _getTranskrip.execute(username!);
-        result.fold(
-          (failure) {
+        final profil = await _profilLocalDataSource.getSavedProfilData();
+        final username = await SecureStorage().getData('username');
+        final result = await _getTranskrip.execute(username);
+        await result.fold(
+          (failure) async {
             emit(TranskripError(message: failure.message));
           },
-          (data) {
+          (data) async {
             int passedCourses = 0;
             int failedCourses = 0;
             int totalSks = 0;
@@ -66,9 +66,8 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                   nilai.quiz,
                   nilai.perbaikan,
                 ];
-                final List<double> validScores = scores
-                    .whereType<double>()
-                    .toList();
+                final List<double> validScores =
+                    scores.whereType<double>().toList();
                 if (validScores.isNotEmpty) {
                   final double totalScore = validScores.reduce((a, b) => a + b);
                   final int count = validScores.length;
@@ -97,10 +96,10 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
             }
 
             final double gpa = totalSks > 0 ? totalBobot / totalSks : 0;
-
             emit(
               TranskripLoaded(
-                profil: profil.toEntity(),
+                profil: profil!,
+                username: username,
                 listTranskrip: enrichedTranskripList,
                 passedCourses: passedCourses,
                 failedCourses: failedCourses,
@@ -118,6 +117,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
     on<DownloadTranskripPdf>((event, emit) async {
       final currentState = state;
       final profil = await _profilLocalDataSource.getSavedProfilData();
+      final username = await SecureStorage().getData('username');
       if (currentState is TranskripLoaded && profil != null) {
         emit(TranskripLoading());
         try {
@@ -155,14 +155,14 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Text(
-                              '${appLocalizations.nim}: ${profil.user.usernameModel}',
+                              '${appLocalizations.nim}: $username',
                             ),
                             pw.Text(
                               '${appLocalizations.name}: ${profil.namaMahasiswa}',
                             ),
 
                             pw.Text(
-                              '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudiModel}',
+                              '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi}',
                             ),
                           ],
                         ),

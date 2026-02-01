@@ -16,7 +16,7 @@ class ProfilLocalDataSourceImplementation extends ProfilLocalDataSource {
   @override
   Future<void> savedProfilData(ProfilModel profil) async {
     try {
-      final profilJson = profil.toJson();
+      final profilJson = profil.toLocalJson();
       final jsonString = jsonEncode(profilJson);
       await _secureStorage.saveData(_profilKey, jsonString);
     } catch (e) {
@@ -32,7 +32,7 @@ class ProfilLocalDataSourceImplementation extends ProfilLocalDataSource {
         return null;
       }
       final profilJson = jsonDecode(jsonString) as Map<String, dynamic>;
-      return ProfilModel.fromjson(profilJson);
+      return ProfilModel.fromLocalJson(profilJson);
     } catch (e) {
       return null;
     }

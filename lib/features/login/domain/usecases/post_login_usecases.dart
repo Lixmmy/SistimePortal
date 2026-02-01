@@ -12,6 +12,11 @@ class PostLoginUseCases {
     required String username,
     required String password,
   }) {
+    if(username.isEmpty) {
+      throw MessageExc.unknown('Username Tidak Boleh Kosong');
+    }
+
     return loginRepositories.postLogin(username: username, password: password);
   }
+
 }

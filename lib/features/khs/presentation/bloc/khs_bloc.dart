@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/core/helper/grade_converter.dart';
+import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/khs/domain/entities/khs.dart';
 import 'package:newsistime/features/khs/domain/usecases/get_khs.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
+import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,11 +24,11 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
     : super(KhsInitial()) {
     on<FetchKhsData>((event, emit) async {
       final profil = await profilLocalDataSource.getSavedProfilData();
-
+      final username = await SecureStorage().getData('username');
       emit(KhsLoading());
       try {
         final khsResult = await getKhs.call(
-          id: profil!.user.idModel.toString(),
+          id: profil!.idUser.toString(),
         );
         khsResult.fold(
           (failure) {
@@ -80,7 +82,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
               groupedKhs.entries.toList()
                 ..sort((a, b) => a.key.compareTo(b.key)),
             );
-            emit(KhsLoaded(groupedKhs: sortedGroupKhs));
+            emit(KhsLoaded(groupedKhs: sortedGroupKhs, profil: profil.toEntity(), username: username));
           },
         );
       } catch (e) {
@@ -91,7 +93,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
     on<DownloadKhsPdf>((event, emit) async {
       final currentState = state;
       final profil = await profilLocalDataSource.getSavedProfilData();
-
+      final username = await SecureStorage().getData('username');
       if (currentState is KhsLoaded && profil != null) {
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
@@ -172,13 +174,13 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Text(
-                            '${appLocalizations.nim}: ${profil.user.usernameModel}',
+                            '${appLocalizations.nim}: $username',
                           ),
                           pw.Text(
                             '${appLocalizations.name}: ${profil.namaMahasiswa ?? ""}',
                           ),
                           pw.Text(
-                            '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudiModel ?? ""}',
+                            '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi ?? ""}',
                           ),
                           pw.Text(
                             '${appLocalizations.semester}: ${event.semester}',

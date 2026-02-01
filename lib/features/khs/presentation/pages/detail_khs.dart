@@ -112,7 +112,7 @@ class _DetailKrsState extends State<DetailKhs> {
                             children: [
                               BuildInfoRow(
                                 label: appLocalizations.nim,
-                                value: '2244068',
+                                value: state.username,
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:
@@ -128,23 +128,7 @@ class _DetailKrsState extends State<DetailKhs> {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.name,
-                                value: 'Felix',
-                                valueFlex: 6,
-                                labelFlex: 3,
-                                labelColor:
-                                    Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                                valueColor:
-                                    Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                              BuildInfoRow(
-                                label: appLocalizations.roomClass,
-                                value: 'Ti D 22',
+                                value: state.profil.namaMahasiswa,
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:
@@ -160,7 +144,7 @@ class _DetailKrsState extends State<DetailKhs> {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.studyPrograms,
-                                value: 'Teknik Informatika',
+                                value: state.profil.programStudi?.namaProgramstudi ?? '',
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:

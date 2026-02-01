@@ -9,6 +9,10 @@ import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/core/route_config/config.dart';
 import 'package:newsistime/core/route_config/route_endpoint.dart';
+import 'package:newsistime/features/agama/data/models/agama_model.dart';
+import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
+import 'package:newsistime/features/status/data/models/status_model.dart';
+import 'package:newsistime/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
 
 class ConnectApi {
   final SecureStorage secureStorage;
@@ -140,20 +144,25 @@ class ConnectApi {
     return _requestGet('$transkripRoute/$nim', true);
   }
 
-  Future<dynamic> getAgama() {
-    return _requestGet(agamaRoute, true);
+  Future<List<AgamaModel>> getAgama() async{
+    final response = await _requestGet(agamaRoute, true);
+    return (response as List).map((item) => AgamaModel.fromJson(item)).toList();
   }
 
-  Future<dynamic> getWaktuKuliah() {
-    return _requestGet(waktuKuliahRoute, true);
+  Future<List<WaktuKuliahModel>> getWaktuKuliah() async {
+    final response = await _requestGet(waktuKuliahRoute, true);
+    return (response as List).map((item) => WaktuKuliahModel.fromJson(item)).toList();
   }
 
-  Future<dynamic> getStatus() {
-    return _requestGet(statusRoute, true);
+  Future<List<StatusModel>> getStatus()async {
+
+    final response = await _requestGet(statusRoute, true);
+    return (response as List).map((item) => StatusModel.fromJson(item)).toList();
   }
 
-  Future<dynamic> getProgramStudi() {
-    return _requestGet(programStudiRoute, true);
+  Future<List<ProgramStudiModel>> getProgramStudi() async {
+    final response = await _requestGet(programStudiRoute, true);
+    return (response as List).map((item) => ProgramStudiModel.fromJson(item)).toList();
   }
 
   Future<dynamic> postLogin({

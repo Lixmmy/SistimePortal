@@ -12,8 +12,7 @@ class AgamaRemoteDataSourceImplementation extends AgamaRemoteDataSource {
   @override
   Future<List<AgamaModel>> getAgama() async {
     try {
-      final response = await connectApi.getAgama();
-      return response.map((e) => AgamaModel.fromJson(e)).toList();
+      return await connectApi.getAgama();
     } catch (e) {
       throw MessageExc.api('An error in getAgama occurred: ${e.toString()}');
     }

@@ -13,8 +13,7 @@ class ProgramStudiRemoteDataSourceImplementation
   @override
   Future<List<ProgramStudiModel>> getProgramStudi() async {
     try {
-      final response = await connectApi.getProgramStudi();
-      return response.map((e) => ProgramStudiModel.fromJson(e)).toList();
+      return await connectApi.getProgramStudi();
     } catch (e) {
       throw MessageExc.api(
         'An error in getProgramStudi occurred: ${e.toString()}',

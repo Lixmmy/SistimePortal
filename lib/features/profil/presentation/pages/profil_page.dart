@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/presentation/widgets/custom_menu_profil.dart';
-import '../../../../core/loading/loading_manage.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';
 import '../../../../injection.dart';
@@ -37,31 +36,33 @@ class _ProfilPageState extends State<ProfilPage> {
             centerTitle: true,
             floating: true,
           ),
-          SliverToBoxAdapter(
-            child: BlocConsumer<ProfilBloc, ProfilState>(
-              bloc: myInjection<ProfilBloc>(),
-              listener: (context, state) {
-                if (state is ProfilError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('error: ${state.message}'),
-                      duration: const Duration(seconds: 2),
+          BlocConsumer<ProfilBloc, ProfilState>(
+            bloc: myInjection<ProfilBloc>(),
+            listener: (context, state) {
+              if (state is ProfilError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('error: ${state.message}'),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is ProfilLoading) {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                  );
-                }
-                if (state is ProfilLoading) {
-                  LoadingManager().show(context);
-                } else {
-                  if (LoadingManager().isShowing) {
-                    LoadingManager().dismiss();
-                  }
-                }
-              },
-              builder: (context, state) {
-                if (state is ProfilLoaded) {
-                  Profil profil = state.detailUser;
-                  return SingleChildScrollView(
-                    padding: const EdgeInsets.all(16.0),
+                  ),
+                );
+              }
+              if (state is ProfilLoaded) {
+                Profil profil = state.detailUser;
+                return SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -124,7 +125,6 @@ class _ProfilPageState extends State<ProfilPage> {
                                 context.pushNamed('idCard');
                               },
                             ),
-
                             CustomMenuProfil(
                               label: appLocalizations.changePassword,
                               icon: Icons.lock,
@@ -137,11 +137,11 @@ class _ProfilPageState extends State<ProfilPage> {
                         ),
                       ],
                     ),
-                  );
-                }
-                return SizedBox.shrink();
-              },
-            ),
+                  ),
+                );
+              }
+              return SliverToBoxAdapter(child: SizedBox.shrink());
+            },
           ),
         ],
       ),
