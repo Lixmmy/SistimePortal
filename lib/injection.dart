@@ -1,3 +1,4 @@
+import 'package:local_auth/local_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
@@ -65,6 +66,7 @@ Future<void> init() async {
   //core-helper
   myInjection.registerLazySingleton(() => SecureStorage());
   myInjection.registerLazySingleton(() => InternetConnection());
+  myInjection.registerLazySingleton(() => LocalAuthentication()); // New
   myInjection.registerLazySingleton(
     () => ConnectApi(
       secureStorage: myInjection(),
@@ -77,6 +79,7 @@ Future<void> init() async {
     () => LoginBloc(
       postLoginUseCases: myInjection(),
       loginLocalDataSource: myInjection(),
+      localAuthentication: myInjection(), // New
     ),
   );
   //UseCases

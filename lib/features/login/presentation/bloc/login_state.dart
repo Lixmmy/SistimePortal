@@ -20,3 +20,25 @@ class LoginFailure extends LoginState {
   @override
   List<Object> get props => [message];
 }
+
+class LoginBiometricSupportChecked extends LoginState {
+  final bool isSupported;
+  final bool canAuthenticate;
+
+  const LoginBiometricSupportChecked({required this.isSupported, required this.canAuthenticate});
+
+  @override
+  List<Object> get props => [isSupported, canAuthenticate];
+}
+
+class LoginBiometricAuthenticating extends LoginState {}
+
+class LoginBiometricSuccess extends LoginState {}
+
+class LoginBiometricFailure extends LoginState {
+  final String message;
+
+  const LoginBiometricFailure({required this.message});
+  @override
+  List<Object> get props => [message];
+}

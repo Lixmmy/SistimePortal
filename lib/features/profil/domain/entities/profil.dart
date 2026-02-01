@@ -28,7 +28,7 @@ class Profil extends Equatable {
   final String? golonganDarah;
   final String? hobi;
   final int? jumlahSaudara;
-  final String? jurusanSekolah;
+  final String? jurusan;
   final String? kewarganegaraan;
   final String? keterangan;
   final String? namaAyah;
@@ -67,7 +67,7 @@ class Profil extends Equatable {
     this.golonganDarah,
     this.hobi,
     this.jumlahSaudara,
-    this.jurusanSekolah,
+    this.jurusan,
     this.kewarganegaraan,
     this.keterangan,
     this.namaAyah,
@@ -107,7 +107,7 @@ class Profil extends Equatable {
     golonganDarah,
     hobi,
     jumlahSaudara,
-    jurusanSekolah,
+    jurusan,
     kewarganegaraan,
     keterangan,
     namaAyah,

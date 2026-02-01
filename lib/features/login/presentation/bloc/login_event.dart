@@ -16,3 +16,8 @@ class LoginEventPostLogin extends LoginEvent {
   @override
   List<Object> get props => [username, password];
 }
+
+class CheckBiometricSupport extends LoginEvent {}
+
+class AuthenticateWithBiometrics extends LoginEvent {}
+

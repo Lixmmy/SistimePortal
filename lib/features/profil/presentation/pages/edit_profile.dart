@@ -62,10 +62,14 @@ class _EditProfileState extends State<EditProfile> {
                     Profil profil = state.detailUser;
                     final TextEditingController nameController =
                         TextEditingController(text: profil.namaMahasiswa);
+                        final TextEditingController programStudiController =
+                            TextEditingController(text: profil.programStudi?.namaProgramstudi);
                     final TextEditingController yearController =
                         TextEditingController(
                           text: profil.tahunAngkatan.toString(),
                         );
+                    final TextEditingController kampusController =
+                        TextEditingController(text: profil.kodeKampus);
                     final TextEditingController emailController =
                         TextEditingController(text: profil.email);
                     final TextEditingController placeController =
@@ -106,7 +110,7 @@ class _EditProfileState extends State<EditProfile> {
                     final TextEditingController parrentingPhoneController =
                         TextEditingController(text: profil.noTeleponOrangtua);
                     final TextEditingController schoolDepartmentController =
-                        TextEditingController(text: profil.jurusanSekolah);
+                        TextEditingController(text: profil.jurusan);
                     final TextEditingController diplomaNumberController =
                         TextEditingController(text: profil.noIjazah);
                     final String formattedTanggalIjazah = formatDate(
@@ -146,8 +150,18 @@ class _EditProfileState extends State<EditProfile> {
                               isReadOnly: true,
                             ),
                             EntryForm(
+                              title: appLocalizations.major,
+                              controller: programStudiController,
+                              isReadOnly: true,
+                            ),
+                            EntryForm(
                               title: appLocalizations.email,
                               controller: emailController,
+                              isReadOnly: true,
+                            ),
+                            EntryForm(
+                              title: appLocalizations.campus,
+                              controller: kampusController,
                               isReadOnly: true,
                             ),
                             EntryForm(

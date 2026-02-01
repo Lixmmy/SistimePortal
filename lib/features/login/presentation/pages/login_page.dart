@@ -17,6 +17,14 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isObsecure = true;
+  bool _canAuthenticate = false;
+  bool _isBiometricSupported = false;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<LoginBloc>().add(CheckBiometricSupport());
+  }
 
   @override
   void dispose() {
@@ -86,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           BlocConsumer<LoginBloc, LoginState>(
             listener: (context, state) {
-              if (state is LoginLoading) {
+              if (state is LoginLoading || state is LoginBiometricAuthenticating) {
                 LoadingManager().show(context);
               } else {
                 if (LoadingManager().isShowing) {
@@ -102,8 +110,22 @@ class _LoginPageState extends State<LoginPage> {
                   text: state.message,
                 );
               }
-              if (state is LoginSuccess) {
+              if (state is LoginBiometricFailure) {
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.error,
+                  title: 'Biometric Error',
+                  text: state.message,
+                );
+              }
+              if (state is LoginSuccess || state is LoginBiometricSuccess) {
                 context.goNamed('selectedPage');
+              }
+              if (state is LoginBiometricSupportChecked) {
+                setState(() {
+                  _canAuthenticate = state.canAuthenticate;
+                  _isBiometricSupported = state.isSupported;
+                });
               }
             },
             builder: (context, state) {
@@ -200,11 +222,23 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Align(
                             alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {
-                                context.pushNamed('forgotPasswordPage');
-                              },
-                              child: Text('Forgot Password?'),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                if (_canAuthenticate)
+                                  IconButton(
+                                    icon: const Icon(Icons.fingerprint),
+                                    onPressed: () {
+                                      context.read<LoginBloc>().add(AuthenticateWithBiometrics());
+                                    },
+                                  ),
+                                TextButton(
+                                  onPressed: () {
+                                    context.pushNamed('forgotPasswordPage');
+                                  },
+                                  child: Text('Forgot Password?'),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 16),

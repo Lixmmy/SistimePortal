@@ -67,6 +67,7 @@ GoRouter myRouter() {
           create: (context) => LoginBloc(
             postLoginUseCases: myInjection(),
             loginLocalDataSource: myInjection(),
+            localAuthentication: myInjection(),
           ),
           child: const LoginPage(),
         ),

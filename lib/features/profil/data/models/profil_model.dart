@@ -28,7 +28,7 @@ class ProfilModel {
   final String? golonganDarah;
   final String? hobi;
   final int? jumlahSaudara;
-  final String? jurusanSekolah;
+  final String? jurusan;
   final String? kewarganegaraan;
   final String? keterangan;
   final String? namaAyah;
@@ -68,7 +68,7 @@ class ProfilModel {
     this.golonganDarah,
     this.hobi,
     this.jumlahSaudara,
-    this.jurusanSekolah,
+    this.jurusan,
     this.kewarganegaraan,
     this.keterangan,
     this.namaAyah,
@@ -105,7 +105,7 @@ class ProfilModel {
       golonganDarah: datajson['golonganDarah'],
       hobi: datajson['hobi'],
       jumlahSaudara: datajson['jumlahSaudara'],
-      jurusanSekolah: datajson['jurusanSekolah'],
+      jurusan: datajson['jurusan'],
       kewarganegaraan: datajson['kewarganegaraan'],
       keterangan: datajson['keterangan'],
       namaAyah: datajson['namaAyah'],
@@ -144,7 +144,7 @@ class ProfilModel {
       'golonganDarah': golonganDarah,
       'hobi': hobi,
       'jumlahSaudara': jumlahSaudara,
-      'jurusanSekolah': jurusanSekolah,
+      'jurusan': jurusan,
       'kewarganegaraan': kewarganegaraan,
       'keterangan': keterangan,
       'namaAyah': namaAyah,
@@ -186,7 +186,7 @@ class ProfilModel {
       'golonganDarah': golonganDarah,
       'hobi': hobi,
       'jumlahSaudara': jumlahSaudara,
-      'jurusanSekolah': jurusanSekolah,
+      'jurusan': jurusan,
       'kewarganegaraan': kewarganegaraan,
       'keterangan': keterangan,
       'namaAyah': namaAyah,
@@ -228,7 +228,7 @@ class ProfilModel {
       golonganDarah: datajson['golonganDarah'],
       hobi: datajson['hobi'],
       jumlahSaudara: datajson['jumlahSaudara'],
-      jurusanSekolah: datajson['jurusanSekolah'],
+      jurusan: datajson['jurusan'],
       kewarganegaraan: datajson['kewarganegaraan'],
       keterangan: datajson['keterangan'],
       namaAyah: datajson['namaAyah'],
@@ -268,7 +268,7 @@ class ProfilModel {
       golonganDarah: golonganDarah,
       hobi: hobi,
       jumlahSaudara: jumlahSaudara,
-      jurusanSekolah: jurusanSekolah,
+      jurusan: jurusan,
       kewarganegaraan: kewarganegaraan,
       keterangan: keterangan,
       namaAyah: namaAyah,

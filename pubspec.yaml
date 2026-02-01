@@ -61,6 +61,7 @@ dependencies:
   pdf: ^3.11.3
   toggle_switch: ^2.3.0
   collection: ^1.19.1
+  local_auth: ^3.0.0
 
 flutter_native_splash:
   color: "#5FBDFC"

@@ -200,7 +200,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       // ),
                       ListProfil(
                         title: appLocalizations.schoolDepartment,
-                        subtitle: profil.jurusanSekolah ?? "",
+                        subtitle: profil.jurusan ?? "",
                       ),
                       ListProfil(
                         title: appLocalizations.diplomaNumber,

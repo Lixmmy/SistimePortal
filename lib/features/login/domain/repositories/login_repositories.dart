@@ -7,4 +7,5 @@ abstract class LoginRepositories {
     required String username,
     required String password,
   });
+
 }

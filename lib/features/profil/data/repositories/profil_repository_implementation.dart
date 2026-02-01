@@ -73,7 +73,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         golonganDarah: hasil.golonganDarah,
         hobi: hasil.hobi,
         jumlahSaudara: hasil.jumlahSaudara,
-        jurusanSekolah: hasil.jurusanSekolah,
+        jurusan: hasil.jurusan,
         kewarganegaraan: hasil.kewarganegaraan,
         keterangan: hasil.keterangan,
         namaAyah: hasil.namaAyah,
