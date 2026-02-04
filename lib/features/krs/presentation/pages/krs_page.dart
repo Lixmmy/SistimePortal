@@ -16,6 +16,7 @@ class _KrsPageState extends State<KrsPage> {
   @override
   void initState() {
     super.initState();
+    myInjection<KrsBloc>().add(FetchKrsData());
   }
 
   @override
@@ -23,7 +24,7 @@ class _KrsPageState extends State<KrsPage> {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: BlocBuilder<KrsBloc, KrsState>(
-        bloc: myInjection<KrsBloc>()..add(FetchKrsData()),
+        bloc: myInjection<KrsBloc>(),
         builder: (context, state) {
           if (state is KrsLoading) {
             return const Center(child: CircularProgressIndicator());

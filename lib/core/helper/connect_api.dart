@@ -128,6 +128,55 @@ class ConnectApi {
     }
   }
 
+  Future<dynamic> _requestPatch(
+    String endpoint,
+    bool authorization,
+    Map<String, dynamic> body,
+  ) async {
+    try {
+      await _ensureInternetConnection();
+      Uri uri = Uri(scheme: scheme, host: host, path: endpoint);
+      final Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
+      if (authorization == true) {
+        String token = await secureStorage.getData('token');
+        if (token.isEmpty) {
+          throw MessageExc.tokenExpired();
+        }
+        headers['Authorization'] = 'Bearer $token';
+      }
+      final response = await http
+          .patch(uri, headers: headers, body: json.encode(body))
+          .timeout(const Duration(seconds: 30));
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else if (response.statusCode == 401) {
+        String message = jsonDecode(response.body)['message'];
+        if (message == 'Token expired') {
+          throw MessageExc.tokenExpired();
+        } else {
+          throw MessageExc.api(message);
+        }
+      } else if (response.statusCode == 404) {
+        throw MessageExc.api("Page Not Found: ${response.statusCode}");
+      } else if (response.statusCode == 500) {
+        throw MessageExc.api("Internal Server Error: ${response.statusCode}");
+      } else {
+        throw MessageExc.network(
+          'Gagal memuat data. Kode Status: ${response.statusCode}',
+        );
+      }
+    } on TimeoutException {
+      throw MessageExc.network('Koneksi timeout, silakan coba lagi.');
+    } on MessageExc {
+      rethrow;
+    } catch (e) {
+      throw MessageExc.unknown(e.toString());
+    }
+  }
+
   Future<dynamic> getMahasiswa({required String nim}) {
     return _requestGet('$mahasiswaRoute/$nim', true);
   }
@@ -144,25 +193,30 @@ class ConnectApi {
     return _requestGet('$transkripRoute/$nim', true);
   }
 
-  Future<List<AgamaModel>> getAgama() async{
+  Future<List<AgamaModel>> getAgama() async {
     final response = await _requestGet(agamaRoute, true);
     return (response as List).map((item) => AgamaModel.fromJson(item)).toList();
   }
 
   Future<List<WaktuKuliahModel>> getWaktuKuliah() async {
     final response = await _requestGet(waktuKuliahRoute, true);
-    return (response as List).map((item) => WaktuKuliahModel.fromJson(item)).toList();
+    return (response as List)
+        .map((item) => WaktuKuliahModel.fromJson(item))
+        .toList();
   }
 
-  Future<List<StatusModel>> getStatus()async {
-
+  Future<List<StatusModel>> getStatus() async {
     final response = await _requestGet(statusRoute, true);
-    return (response as List).map((item) => StatusModel.fromJson(item)).toList();
+    return (response as List)
+        .map((item) => StatusModel.fromJson(item))
+        .toList();
   }
 
   Future<List<ProgramStudiModel>> getProgramStudi() async {
     final response = await _requestGet(programStudiRoute, true);
-    return (response as List).map((item) => ProgramStudiModel.fromJson(item)).toList();
+    return (response as List)
+        .map((item) => ProgramStudiModel.fromJson(item))
+        .toList();
   }
 
   Future<dynamic> postLogin({
@@ -173,5 +227,12 @@ class ConnectApi {
       'username': username,
       'password': password,
     });
+  }
+
+  Future<dynamic> patchMahasiswa({
+    required String idUser,
+    required Map<String, dynamic> body,
+  }) {
+    return _requestPatch('$patchMahasiswaRoute/$idUser', true, body);
   }
 }

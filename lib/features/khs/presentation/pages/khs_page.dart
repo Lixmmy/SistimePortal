@@ -9,13 +9,14 @@ class KhsPage extends StatefulWidget {
   const KhsPage({super.key});
 
   @override
-  State<KhsPage> createState() => _KrsPageState();
+  State<KhsPage> createState() => _KhsPageState();
 }
 
-class _KrsPageState extends State<KhsPage> {
+class _KhsPageState extends State<KhsPage> {
   @override
   void initState() {
     super.initState();
+    myInjection<KhsBloc>().add(FetchKhsData());
   }
 
   @override
@@ -23,7 +24,7 @@ class _KrsPageState extends State<KhsPage> {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: BlocBuilder<KhsBloc, KhsState>(
-        bloc: myInjection<KhsBloc>()..add(FetchKhsData()),
+        bloc: myInjection<KhsBloc>(),
         builder: (context, state) {
           if (state is KhsLoading) {
             return const Center(child: CircularProgressIndicator());

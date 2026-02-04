@@ -117,20 +117,19 @@ class ProfilModel {
       pekerjaanOrangtua: datajson['pekerjaanOrangtua'],
       pendidikanOrangtua: datajson['pendidikanOrangtua'],
       tahunLulus: datajson['tahunLulus'],
-
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'idUser': idUser,
-      'idAgama': idAgama,
+      'idAgama': idAgama ?? agama?.id,
       'idPendaftaran': idPendaftaran,
       'kodeKampus': kodeKampus,
-      'kodeProgramStudi': kodeProgramStudi,
+      'kodeProgramStudi': kodeProgramStudi ?? programStudi?.kodeProgramstudi,
       'namaSekolah': namaSekolah,
-      'idStatus': idStatus,
-      'idWaktuKuliah': idWaktuKuliah,
+      'idStatus': idStatus ?? status?.idStatus,
+      'idWaktuKuliah': idWaktuKuliah ?? waktuKuliah?.idWaktuKuliah,
       'email': email,
       'namaMahasiswa': namaMahasiswa,
       'tempatLahir': tempatLahir,
@@ -205,16 +204,24 @@ class ProfilModel {
     return ProfilModel(
       idUser: datajson['idUser'],
       idAgama: datajson['idAgama'],
-      agama: datajson['agama'] != null ? AgamaModel.fromJson(datajson['agama']) : null,
+      agama: datajson['agama'] != null
+          ? AgamaModel.fromJson(datajson['agama'])
+          : null,
       idPendaftaran: datajson['idPendaftaran'],
       kodeKampus: datajson['kodeKampus'],
       kodeProgramStudi: datajson['kodeProgramStudi'],
-      programStudi: datajson['programStudi'] != null ? ProgramStudiModel.fromJson(datajson['programStudi']) : null,
+      programStudi: datajson['programStudi'] != null
+          ? ProgramStudiModel.fromJson(datajson['programStudi'])
+          : null,
       namaSekolah: datajson['namaSekolah'],
       idStatus: datajson['idStatus'],
-      status: datajson['status'] != null ? StatusModel.fromJson(datajson['status']) : null,
+      status: datajson['status'] != null
+          ? StatusModel.fromJson(datajson['status'])
+          : null,
       idWaktuKuliah: datajson['idWaktuKuliah'],
-      waktuKuliah: datajson['waktuKuliah'] != null ? WaktuKuliahModel.fromJson(datajson['waktuKuliah']) : null,
+      waktuKuliah: datajson['waktuKuliah'] != null
+          ? WaktuKuliahModel.fromJson(datajson['waktuKuliah'])
+          : null,
       email: datajson['email'],
       namaMahasiswa: datajson['namaMahasiswa'],
       tempatLahir: datajson['tempatLahir'],
