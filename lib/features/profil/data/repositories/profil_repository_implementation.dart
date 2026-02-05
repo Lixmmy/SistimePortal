@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/agama/data/datasources/agama_remote_data_source.dart';
 import 'package:newsistime/features/profil/data/models/profil_model.dart';
+import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 import 'package:newsistime/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
 import 'package:newsistime/features/status/data/datasource/status_remote_data_source.dart';
 import 'package:newsistime/features/waktu_kuliah/data/datasources/waktu_kuliah_remote_data_source.dart';
@@ -12,7 +13,6 @@ import '../../domain/entities/profil.dart';
 import '../../domain/repositories/profil_repository.dart';
 import '../datasources/local_datasource.dart';
 import '../datasources/remote_datasource.dart';
-
 
 class ProfilRepositoryImplementation extends ProfilRepository {
   final ProfilRemoteDatasource profilRemoteDataSourceImplementation;
@@ -38,17 +38,20 @@ class ProfilRepositoryImplementation extends ProfilRepository {
           .getMahasiswa(nim);
       final agamas = await agamaRemoteDataSource.getAgama();
       final agama = agamas.firstWhereOrNull((e) => e.id == hasil.idAgama);
-      final programStudis =
-          await programStudiRemoteDataSource.getProgramStudi();
-      final programStudi = programStudis
-          .firstWhereOrNull((e) => e.kodeProgramstudi == hasil.kodeProgramStudi);
+      final programStudis = await programStudiRemoteDataSource
+          .getProgramStudi();
+      final programStudi = programStudis.firstWhereOrNull(
+        (e) => e.kodeProgramstudi == hasil.kodeProgramStudi,
+      );
       final statusList = await statusRemoteDataSource.getStatus();
-      final status =
-          statusList.firstWhereOrNull((e) => e.idStatus == hasil.idStatus);
-      final waktuKuliahList =
-          await waktuKuliahRemoteDataSource.getWaktuKuliahList();
-      final waktuKuliah = waktuKuliahList
-          .firstWhereOrNull((e) => e.idWaktuKuliah == hasil.idWaktuKuliah);
+      final status = statusList.firstWhereOrNull(
+        (e) => e.idStatus == hasil.idStatus,
+      );
+      final waktuKuliahList = await waktuKuliahRemoteDataSource
+          .getWaktuKuliahList();
+      final waktuKuliah = waktuKuliahList.firstWhereOrNull(
+        (e) => e.idWaktuKuliah == hasil.idWaktuKuliah,
+      );
       final correctProfil = ProfilModel(
         idPendaftaran: hasil.idPendaftaran,
         idUser: hasil.idUser,
@@ -107,6 +110,53 @@ class ProfilRepositoryImplementation extends ProfilRepository {
           return Left(MessageExc.unknown(e.toString()));
         }
       }
+    }
+  }
+
+  @override
+  Future<Either<MessageExc, void>> patchMahasiswa(
+    String idUser,
+    Profil profil,
+  ) async {
+    try {
+      final UpdateMahasiswaModel updateMahasiswaModel = UpdateMahasiswaModel(
+        idAgama: profil.idAgama,
+        kodeProgramStudi: profil.kodeProgramStudi,
+        idStatus: profil.idStatus,
+        idWaktuKuliah: profil.idWaktuKuliah,
+        email: profil.email,
+        namaMahasiswa: profil.namaMahasiswa,
+        tempatLahir: profil.tempatLahir,
+        tanggalLahir: profil.tanggalLahir,
+        alamatMahasiswa: profil.alamatMahasiswa,
+        jenisKelamin: profil.jenisKelamin,
+        alamatOrangtua: profil.alamatOrangtua,
+        anakKe: profil.anakKe,
+        golonganDarah: profil.golonganDarah,
+        hobi: profil.hobi,
+        jumlahSaudara: profil.jumlahSaudara,
+        jurusan: profil.jurusan,
+        kewarganegaraan: profil.kewarganegaraan,
+        keterangan: profil.keterangan,
+        namaAyah: profil.namaAyah,
+        namaIbu: profil.namaIbu,
+        noIjazah: profil.noIjazah,
+        noTeleponMahasiswa: profil.noTeleponMahasiswa,
+        noTeleponOrangtua: profil.noTeleponOrangtua,
+        tahunAngkatan: profil.tahunAngkatan,
+        pekerjaanOrangtua: profil.pekerjaanOrangtua,
+        pendidikanOrangtua: profil.pendidikanOrangtua,
+        tanggalIjazah: profil.tanggalIjazah,
+        tanggalPendaftaran: profil.tanggalPendaftaran,
+        tahunLulus: profil.tahunLulus,
+      );
+      await profilRemoteDataSourceImplementation.patchMahasiswa(
+        idUser,
+        updateMahasiswaModel,
+      );
+      return Right(null);
+    } catch (e) {
+      return Left(MessageExc.unknown(e.toString()));
     }
   }
 }

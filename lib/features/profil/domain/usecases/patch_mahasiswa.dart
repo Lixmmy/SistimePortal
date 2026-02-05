@@ -8,7 +8,7 @@ class PatchMahasiswa {
 
   const PatchMahasiswa({required this.profilRepo});
 
-  Future<Either<MessageExc, Profil>> execute(Profil profil) async {
-    return await profilRepo.patchMahasiswa(profil);
+  Future<Either<MessageExc, void>> execute(String idUser, Profil profil) async {
+    return await profilRepo.patchMahasiswa(idUser, profil);
   }
 }

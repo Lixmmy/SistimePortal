@@ -10,6 +10,7 @@ import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/core/route_config/config.dart';
 import 'package:newsistime/core/route_config/route_endpoint.dart';
 import 'package:newsistime/features/agama/data/models/agama_model.dart';
+import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
 import 'package:newsistime/features/status/data/models/status_model.dart';
 import 'package:newsistime/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
@@ -104,7 +105,7 @@ class ConnectApi {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
-        String message = jsonDecode(response.body)['message'];
+        String message = response.body;
         if (message == 'Token expired') {
           throw MessageExc.tokenExpired();
         } else {
@@ -113,7 +114,7 @@ class ConnectApi {
       } else if (response.statusCode == 404) {
         throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else if (response.statusCode == 500) {
-        throw MessageExc.api("Internal Server Error: ${response.statusCode}");
+        throw MessageExc.api(response.body);
       } else {
         throw MessageExc.network(
           'Gagal memuat data. Kode Status: ${response.statusCode}',
@@ -153,7 +154,7 @@ class ConnectApi {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
-        String message = jsonDecode(response.body)['message'];
+        String message = response.body;
         if (message == 'Token expired') {
           throw MessageExc.tokenExpired();
         } else {
@@ -231,8 +232,12 @@ class ConnectApi {
 
   Future<dynamic> patchMahasiswa({
     required String idUser,
-    required Map<String, dynamic> body,
+    required UpdateMahasiswaModel updateMahasiswaModel,
   }) {
-    return _requestPatch('$patchMahasiswaRoute/$idUser', true, body);
+    return _requestPatch(
+      '$patchMahasiswaRoute/$idUser',
+      true,
+      updateMahasiswaModel.toJson(),
+    );
   }
 }
