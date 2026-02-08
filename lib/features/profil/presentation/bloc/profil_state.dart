@@ -31,3 +31,14 @@ final class ProfilError extends ProfilState {
   @override
   List<Object?> get props => [message];
 }
+
+final class ProfilSuccessUpdate extends ProfilState {
+  final String message;
+
+  const ProfilSuccessUpdate({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+final class ProfilLogout extends ProfilState {}

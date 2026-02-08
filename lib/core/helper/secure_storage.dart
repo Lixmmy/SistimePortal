@@ -42,10 +42,7 @@ class SecureStorage {
     try {
       await _secureStorage.delete(key: key);
     } catch (e) {
-      if (kIsWeb) {
-      } else {
-        rethrow;
-      }
+      rethrow;
     }
   }
 

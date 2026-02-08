@@ -8,7 +8,7 @@ class UpdateMahasiswaModel {
   final String? email;
   final String? namaMahasiswa;
   final String? tempatLahir;
-  final int? tanggalLahir;
+  final String? tanggalLahir;
   final String? alamatMahasiswa;
   final String? jenisKelamin;
   final String? alamatOrangtua;
@@ -21,7 +21,7 @@ class UpdateMahasiswaModel {
   final String? keterangan;
   final String? namaAyah;
   final String? namaIbu;
-  final int? tanggalIjazah;
+  final String? tanggalIjazah;
   final int? tanggalPendaftaran;
   final String? noIjazah;
   final String? noTeleponMahasiswa;

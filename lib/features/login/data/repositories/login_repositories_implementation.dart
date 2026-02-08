@@ -33,4 +33,18 @@ class LoginRepositoriesImplementation extends LoginRepositories {
       return Left(MessageExc.api(e.toString()));
     }
   }
+
+  @override
+  Future<Either<MessageExc, void>> logOut() async {
+    try {
+      await loginLocalDataSource.deleteToken();
+      final String remainingToken = await loginLocalDataSource.getToken();
+      if (remainingToken.isNotEmpty) {
+        return Left(MessageExc.api('Failed to delete token completely.'));
+      }
+      return Right(null);
+    } catch (e) {
+      return Left(MessageExc.api(e.toString()));
+    }
+  }
 }

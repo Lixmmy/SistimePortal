@@ -8,3 +8,18 @@ abstract class ProfilEvent extends Equatable {
 }
 
 class ProfilGetMahasiswa extends ProfilEvent {}
+
+class ProfilUpdateMahasiswa extends ProfilEvent {
+  final String idUser;
+  final Profil updateProfil;
+
+  const ProfilUpdateMahasiswa({
+    required this.idUser,
+    required this.updateProfil,
+  });
+
+  @override
+  List<Object?> get props => [idUser, updateProfil];
+}
+
+class LogOutProfil extends ProfilEvent {}

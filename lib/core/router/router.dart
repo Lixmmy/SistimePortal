@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
+import 'package:newsistime/features/agama/presentation/bloc/agama_bloc.dart';
 import 'package:newsistime/features/forgot_password/presentation/pages/forgot_password_page.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/pages/selected_page.dart';
@@ -15,9 +16,11 @@ import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 import 'package:newsistime/features/login/presentation/pages/login_page.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
+import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
 import 'package:newsistime/features/register/presentation/pages/register_page.dart';
+import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
@@ -84,8 +87,41 @@ GoRouter myRouter() {
       ),
       ShellRoute(
         builder: (context, state, child) {
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => ProfilBloc(
+                  getMahasiswa: myInjection(),
+                  patchMahasiswa: myInjection(),
+                  logOutUseCases: myInjection(),
+                ),
+              ),
+              BlocProvider(
+                create: (context) => AgamaBloc(getAgama: myInjection()),
+              ),
+              BlocProvider(
+                create: (context) => StatusBloc(getStatus: myInjection()),
+              ),
+            ],
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: '/edit_profil_page',
+            name: 'editProfilPage',
+            builder: (context, state) => EditProfile(),
+          ),
+        ],
+      ),
+      ShellRoute(
+        builder: (context, state, child) {
           return BlocProvider(
-            create: (context) => ProfilBloc(getMahasiswa: myInjection()),
+            create: (context) => ProfilBloc(
+              getMahasiswa: myInjection(),
+              patchMahasiswa: myInjection(),
+              logOutUseCases: myInjection(),
+            ),
             child: child,
           );
         },
@@ -98,12 +134,13 @@ GoRouter myRouter() {
           GoRoute(
             path: '/info_profil_page',
             name: 'infoProfilPage',
-            builder: (context, state) => InfoProfilePage(),
-          ),
-          GoRoute(
-            path: '/edit_profil_page',
-            name: 'editProfilPage',
-            builder: (context, state) => EditProfile(),
+            builder: (context, state) {
+              final extra = state.extra as Map<String, dynamic>;
+              return InfoProfilePage(
+                profil: extra['profil'] as Profil,
+                username: extra['username'] as String,
+              );
+            },
           ),
         ],
       ),
@@ -118,7 +155,11 @@ GoRouter myRouter() {
         path: '/id_card',
         name: 'idCard',
         builder: (context, state) {
-          return IdCard();
+          final extra = state.extra as Map<String, dynamic>;
+          return IdCard(
+            profil: extra['profil'] as Profil,
+            username: extra['username'] as String,
+          );
         },
       ),
       GoRoute(
@@ -132,7 +173,14 @@ GoRouter myRouter() {
         path: '/selected_page',
         name: 'selectedPage',
         builder: (context, state) {
-          return const SelectedPage();
+          return BlocProvider(
+            create: (context) => ProfilBloc(
+              getMahasiswa: myInjection(),
+              patchMahasiswa: myInjection(),
+              logOutUseCases: myInjection(),
+            ),
+            child: const SelectedPage(),
+          );
         },
       ),
       ShellRoute(

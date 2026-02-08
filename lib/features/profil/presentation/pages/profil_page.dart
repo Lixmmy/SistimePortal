@@ -4,7 +4,6 @@ import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/presentation/widgets/custom_menu_profil.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';
-import '../../../../injection.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfilPage extends StatefulWidget {
@@ -18,6 +17,9 @@ class _ProfilPageState extends State<ProfilPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProfilBloc>().add(ProfilGetMahasiswa());
+    });
   }
 
   @override
@@ -37,7 +39,6 @@ class _ProfilPageState extends State<ProfilPage> {
             floating: true,
           ),
           BlocConsumer<ProfilBloc, ProfilState>(
-            bloc: myInjection<ProfilBloc>(),
             listener: (context, state) {
               if (state is ProfilError) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -46,6 +47,8 @@ class _ProfilPageState extends State<ProfilPage> {
                     duration: const Duration(seconds: 2),
                   ),
                 );
+              } else if (state is ProfilLogout) {
+                context.goNamed('launcherPage');
               }
             },
             builder: (context, state) {
@@ -109,7 +112,13 @@ class _ProfilPageState extends State<ProfilPage> {
                               label: appLocalizations.infoProfil,
                               icon: Icons.edit,
                               onPressed: () {
-                                context.pushNamed('infoProfilPage');
+                                context.pushNamed(
+                                  'infoProfilPage',
+                                  extra: {
+                                    'profil': profil,
+                                    'username': state.username,
+                                  },
+                                );
                               },
                             ),
                             CustomMenuProfil(
@@ -122,7 +131,13 @@ class _ProfilPageState extends State<ProfilPage> {
                               label: appLocalizations.studentIdCard,
                               icon: Icons.badge,
                               onPressed: () {
-                                context.pushNamed('idCard');
+                                context.pushNamed(
+                                  'idCard',
+                                  extra: {
+                                    'profil': profil,
+                                    'username': state.username,
+                                  },
+                                );
                               },
                             ),
                             CustomMenuProfil(
@@ -132,6 +147,9 @@ class _ProfilPageState extends State<ProfilPage> {
                             CustomMenuProfil(
                               label: 'Logout',
                               icon: Icons.logout,
+                              onPressed: () {
+                                context.read<ProfilBloc>().add(LogOutProfil());
+                              },
                             ),
                           ],
                         ),

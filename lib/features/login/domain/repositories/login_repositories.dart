@@ -7,5 +7,5 @@ abstract class LoginRepositories {
     required String username,
     required String password,
   });
-
+  Future<Either<MessageExc, void>> logOut();
 }

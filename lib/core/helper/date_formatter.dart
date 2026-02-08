@@ -5,5 +5,5 @@ String formatDate(int? timestamp) {
     return "-";
   }
   final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
-  return DateFormat('dd MMMM yyyy', 'id_ID').format(date);
+  return DateFormat('yyyy-MM-dd', 'id_ID').format(date);
 }

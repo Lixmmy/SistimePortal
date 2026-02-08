@@ -28,8 +28,10 @@ import 'package:newsistime/features/login/data/datasources/login_local_data_sour
 import 'package:newsistime/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:newsistime/features/login/data/repositories/login_repositories_implementation.dart';
 import 'package:newsistime/features/login/domain/repositories/login_repositories.dart';
+import 'package:newsistime/features/login/domain/usecases/log_out_usecases.dart';
 import 'package:newsistime/features/login/domain/usecases/post_login_usecases.dart';
 import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
+import 'package:newsistime/features/profil/domain/usecases/patch_mahasiswa.dart';
 import 'package:newsistime/features/program_studi/data/datasource/local_program_studi_data_source.dart';
 import 'package:newsistime/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
 import 'package:newsistime/features/program_studi/data/repositories/program_studi_repositories_implementation.dart';
@@ -103,11 +105,21 @@ Future<void> init() async {
 
   //Profil bloc
   myInjection.registerLazySingleton(
-    () => ProfilBloc(getMahasiswa: myInjection()),
+    () => ProfilBloc(
+      getMahasiswa: myInjection(),
+      patchMahasiswa: myInjection(),
+      logOutUseCases: myInjection(),
+    ),
   );
   //usecases
   myInjection.registerLazySingleton(
     () => GetMahasiswa(profilRepo: myInjection()),
+  );
+  myInjection.registerLazySingleton(
+    () => PatchMahasiswa(profilRepo: myInjection()),
+  );
+  myInjection.registerLazySingleton(
+    () => LogOutUseCases(loginRepositories: myInjection()),
   );
   //repository
   myInjection.registerLazySingleton<ProfilRepository>(
@@ -149,9 +161,7 @@ Future<void> init() async {
   );
 
   //Agama
-  myInjection.registerFactory(
-    () => AgamaBloc(getAgama: myInjection()),
-  ); 
+  myInjection.registerFactory(() => AgamaBloc(getAgama: myInjection()));
   //UseCases
   myInjection.registerLazySingleton(
     () => GetAgama(agamaRepositories: myInjection()),
@@ -172,9 +182,7 @@ Future<void> init() async {
   );
 
   //Status
-  myInjection.registerFactory(
-    () => StatusBloc(getStatus: myInjection()),
-  );
+  myInjection.registerFactory(() => StatusBloc(getStatus: myInjection()));
   //UseCases
   myInjection.registerLazySingleton(
     () => GetStatus(statusRepositories: myInjection()),
@@ -199,14 +207,12 @@ Future<void> init() async {
     () => WaktuKuliahBloc(getWaktuKuliah: myInjection()),
   );
   //UseCases
-  myInjection.registerLazySingleton(
-    () => GetWaktuKuliah(myInjection()),
-  );
+  myInjection.registerLazySingleton(() => GetWaktuKuliah(myInjection()));
   //Repositories
   myInjection.registerLazySingleton<WaktuKuliahRepositories>(
     () => WaktuKuliahRepositoriesImplementation(
       localDataSource: myInjection(),
-      remoteDataSource: myInjection()
+      remoteDataSource: myInjection(),
     ),
   );
   //DataSources
@@ -214,7 +220,8 @@ Future<void> init() async {
     () => WaktuKuliahRemoteDataSourceImplementation(connectApi: myInjection()),
   );
   myInjection.registerLazySingleton<WaktuKuliahLocalDataSource>(
-    () => WaktuKuliahLocalDataSourceImplementation(secureStorage:myInjection()),
+    () =>
+        WaktuKuliahLocalDataSourceImplementation(secureStorage: myInjection()),
   );
 
   //Language bloc
