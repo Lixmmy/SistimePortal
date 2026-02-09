@@ -54,6 +54,7 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
         (_) {
           // Success case for void, _ indicates we don't care about the value
           emit(ProfilSuccessUpdate(message: 'Profile updated successfully.'));
+          add(ProfilGetMahasiswa());
         },
       );
     });

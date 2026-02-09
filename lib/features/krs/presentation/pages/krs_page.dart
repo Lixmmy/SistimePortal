@@ -71,7 +71,7 @@ class _KrsPageState extends State<KrsPage> {
           if (state is KrsError) {
             return Center(child: Text(state.message));
           }
-          return const Center(child: SizedBox.shrink());
+          return const Center(child: Text('Tidak ada data KRS ditemukan.'));
         },
       ),
     );

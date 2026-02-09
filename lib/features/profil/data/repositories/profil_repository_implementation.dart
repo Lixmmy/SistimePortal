@@ -113,7 +113,6 @@ class ProfilRepositoryImplementation extends ProfilRepository {
     }
   }
 
-
   // Helper function to format timestamp to yyyy-MM-dd string
   String? _formatTimestampToYyyyMmDd(int? timestamp) {
     if (timestamp == null) return null;
@@ -135,7 +134,9 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         email: profil.email,
         namaMahasiswa: profil.namaMahasiswa,
         tempatLahir: profil.tempatLahir,
-        tanggalLahir: _formatTimestampToYyyyMmDd(profil.tanggalLahir), // Converted to String
+        tanggalLahir: _formatTimestampToYyyyMmDd(
+          profil.tanggalLahir,
+        ), // Converted to String
         alamatMahasiswa: profil.alamatMahasiswa,
         jenisKelamin: profil.jenisKelamin,
         alamatOrangtua: profil.alamatOrangtua,
@@ -154,7 +155,9 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         tahunAngkatan: profil.tahunAngkatan,
         pekerjaanOrangtua: profil.pekerjaanOrangtua,
         pendidikanOrangtua: profil.pendidikanOrangtua,
-        tanggalIjazah: _formatTimestampToYyyyMmDd(profil.tanggalIjazah), // Converted to String
+        tanggalIjazah: _formatTimestampToYyyyMmDd(
+          profil.tanggalIjazah,
+        ), // Converted to String
         tanggalPendaftaran: profil.tanggalPendaftaran,
         tahunLulus: profil.tahunLulus,
       );

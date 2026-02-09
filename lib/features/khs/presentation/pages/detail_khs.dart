@@ -144,7 +144,12 @@ class _DetailKrsState extends State<DetailKhs> {
                               ),
                               BuildInfoRow(
                                 label: appLocalizations.studyPrograms,
-                                value: state.profil.programStudi?.namaProgramstudi ?? '',
+                                value:
+                                    state
+                                        .profil
+                                        .programStudi
+                                        ?.namaProgramstudi ??
+                                    '',
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:

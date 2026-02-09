@@ -152,7 +152,10 @@ class ConnectApi {
           .patch(uri, headers: headers, body: json.encode(body))
           .timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        if (response.body.isNotEmpty) {
+          return jsonDecode(response.body);
+        }
+        return null;
       } else if (response.statusCode == 401) {
         String message = response.body;
         if (message == 'Token expired') {

@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/helper/date_formatter.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/features/agama/presentation/bloc/agama_bloc.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/profil/presentation/widgets/entry_form.dart';
 import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
-import 'package:newsistime/injection.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:quickalert/quickalert.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -19,6 +18,12 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfilBloc>().add(ProfilGetMahasiswa());
+  }
+
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
@@ -36,103 +41,101 @@ class _EditProfileState extends State<EditProfile> {
               },
             ),
           ),
-          SliverToBoxAdapter(
-            child: BlocConsumer<ProfilBloc, ProfilState>(
-              bloc: myInjection<ProfilBloc>()..add(ProfilGetMahasiswa()),
-              listener: (context, state) {
-                if (state is ProfilLoading) {
-                  LoadingManager().show(context);
-                } else {
-                  if (LoadingManager().isShowing) {
-                    LoadingManager().dismiss();
-                  }
-                }
-                if (state is ProfilSuccessUpdate) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
-                      duration: const Duration(seconds: 2),
-                    ),
-                  );
-                  context.pop(); // Pop back to InfoProfilePage
-                } else if (state is ProfilError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Error: ${state.message}'),
-                      duration: const Duration(seconds: 2),
-                    ),
-                  );
-                }
-              },
-              builder: (context, state) {
-                if (state is ProfilLoaded) {
-                  Profil profil = state.detailUser;
-                  final TextEditingController nameController =
-                      TextEditingController(text: profil.namaMahasiswa);
-                  final TextEditingController programStudiController =
-                      TextEditingController(
-                        text: profil.programStudi?.namaProgramstudi,
-                      );
-                  final TextEditingController yearController =
-                      TextEditingController(
-                        text: profil.tahunAngkatan.toString(),
-                      );
-                  final TextEditingController kampusController =
-                      TextEditingController(text: profil.kodeKampus);
-                  final TextEditingController emailController =
-                      TextEditingController(text: profil.email);
-                  final TextEditingController placeController =
-                      TextEditingController(text: profil.tempatLahir);
-                  final TextEditingController religionController =
-                      TextEditingController(text: profil.agama?.name);
-                  final TextEditingController statusController =
-                      TextEditingController(text: profil.status?.status);
-                  final TextEditingController bloodTypeController =
-                      TextEditingController(text: profil.golonganDarah ?? "");
-                  final TextEditingController nationalityController =
-                      TextEditingController(text: profil.kewarganegaraan ?? "");
-                  final TextEditingController addressController =
-                      TextEditingController(text: profil.alamatMahasiswa);
-                  final String formattedTanggalLahir = formatDate(
-                    profil.tanggalLahir,
-                  );
-                  final TextEditingController phoneNumberController =
-                      TextEditingController(text: profil.noTeleponMahasiswa);
-                  final TextEditingController numberOfSiblingsController =
-                      TextEditingController(
-                        text: profil.jumlahSaudara?.toString() ?? '',
-                      );
-                  final TextEditingController birthOrderController =
-                      TextEditingController(
-                        text: profil.anakKe?.toString() ?? '',
-                      );
-                  final TextEditingController hobbyController =
-                      TextEditingController(text: profil.hobi ?? "");
-                  final TextEditingController fatherNameController =
-                      TextEditingController(text: profil.namaAyah);
-                  final TextEditingController motherNameController =
-                      TextEditingController(text: profil.namaIbu);
-                  final TextEditingController parrentingOccupationController =
-                      TextEditingController(text: profil.pekerjaanOrangtua);
-                  final TextEditingController parrentingAddressController =
-                      TextEditingController(text: profil.alamatOrangtua);
-                  final TextEditingController parrentingPhoneController =
-                      TextEditingController(text: profil.noTeleponOrangtua);
-                  final TextEditingController schoolDepartmentController =
-                      TextEditingController(text: profil.jurusan);
-                  final TextEditingController diplomaNumberController =
-                      TextEditingController(text: profil.noIjazah);
-                  final String formattedTanggalIjazah = formatDate(
-                    profil.tanggalIjazah,
-                  );
-                  final TextEditingController diplomaDateController =
-                      TextEditingController(text: formattedTanggalIjazah);
-                  final TextEditingController informationController =
-                      TextEditingController(text: profil.keterangan);
-                  final TextEditingController dateController =
-                      TextEditingController(text: formattedTanggalLahir);
-                  final List<String> bloodTypes = ['A', 'B', 'AB', 'O'];
-                  return Column(
+          BlocConsumer<ProfilBloc, ProfilState>(
+            listener: (context, state) {
+              if (state is ProfilSuccessUpdate) {
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.success,
+                  title: 'Success',
+                  text: state.message,
+                ).then((_) {
+                  context.pop();
+                });
+              } else if (state is ProfilError) {
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.error,
+                  title: 'Error',
+                  text: state.message,
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is ProfilLoading) {
+                return SliverFillRemaining(
+                  child: const Center(child: CircularProgressIndicator()),
+                );
+              }
+              if (state is ProfilLoaded) {
+                Profil profil = state.detailUser;
+                final TextEditingController nameController =
+                    TextEditingController(text: profil.namaMahasiswa);
+                final TextEditingController programStudiController =
+                    TextEditingController(
+                      text: profil.programStudi?.namaProgramstudi,
+                    );
+                final TextEditingController yearController =
+                    TextEditingController(
+                      text: profil.tahunAngkatan.toString(),
+                    );
+                final TextEditingController kampusController =
+                    TextEditingController(text: profil.kodeKampus);
+                final TextEditingController emailController =
+                    TextEditingController(text: profil.email);
+                final TextEditingController placeController =
+                    TextEditingController(text: profil.tempatLahir);
+                final TextEditingController religionController =
+                    TextEditingController(text: profil.agama?.name);
+                final TextEditingController statusController =
+                    TextEditingController(text: profil.status?.status);
+                final TextEditingController bloodTypeController =
+                    TextEditingController(text: profil.golonganDarah ?? "");
+                final TextEditingController nationalityController =
+                    TextEditingController(text: profil.kewarganegaraan ?? "");
+                final TextEditingController addressController =
+                    TextEditingController(text: profil.alamatMahasiswa);
+                final String formattedTanggalLahir = formatDate(
+                  profil.tanggalLahir,
+                );
+                final TextEditingController phoneNumberController =
+                    TextEditingController(text: profil.noTeleponMahasiswa);
+                final TextEditingController numberOfSiblingsController =
+                    TextEditingController(
+                      text: profil.jumlahSaudara?.toString() ?? '',
+                    );
+                final TextEditingController birthOrderController =
+                    TextEditingController(
+                      text: profil.anakKe?.toString() ?? '',
+                    );
+                final TextEditingController hobbyController =
+                    TextEditingController(text: profil.hobi ?? "");
+                final TextEditingController fatherNameController =
+                    TextEditingController(text: profil.namaAyah);
+                final TextEditingController motherNameController =
+                    TextEditingController(text: profil.namaIbu);
+                final TextEditingController parrentingOccupationController =
+                    TextEditingController(text: profil.pekerjaanOrangtua);
+                final TextEditingController parrentingAddressController =
+                    TextEditingController(text: profil.alamatOrangtua);
+                final TextEditingController parrentingPhoneController =
+                    TextEditingController(text: profil.noTeleponOrangtua);
+                final TextEditingController schoolDepartmentController =
+                    TextEditingController(text: profil.jurusan);
+                final TextEditingController diplomaNumberController =
+                    TextEditingController(text: profil.noIjazah);
+                final String formattedTanggalIjazah = formatDate(
+                  profil.tanggalIjazah,
+                );
+                final TextEditingController diplomaDateController =
+                    TextEditingController(text: formattedTanggalIjazah);
+                final TextEditingController informationController =
+                    TextEditingController(text: profil.keterangan);
+                final TextEditingController dateController =
+                    TextEditingController(text: formattedTanggalLahir);
+                final List<String> bloodTypes = ['A', 'B', 'AB', 'O'];
+                return SliverToBoxAdapter(
+                  child: Column(
                     children: [
                       ClipOval(
                         child: Icon(
@@ -363,11 +366,11 @@ class _EditProfileState extends State<EditProfile> {
                         ],
                       ),
                     ],
-                  );
-                }
-                return const Center(child: SizedBox.shrink());
-              },
-            ),
+                  ),
+                );
+              }
+              return const SliverToBoxAdapter(child: SizedBox.shrink());
+            },
           ),
         ],
       ),

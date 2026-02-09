@@ -89,13 +89,7 @@ GoRouter myRouter() {
         builder: (context, state, child) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => ProfilBloc(
-                  getMahasiswa: myInjection(),
-                  patchMahasiswa: myInjection(),
-                  logOutUseCases: myInjection(),
-                ),
-              ),
+              BlocProvider.value(value: myInjection<ProfilBloc>()),
               BlocProvider(
                 create: (context) => AgamaBloc(getAgama: myInjection()),
               ),
@@ -116,12 +110,8 @@ GoRouter myRouter() {
       ),
       ShellRoute(
         builder: (context, state, child) {
-          return BlocProvider(
-            create: (context) => ProfilBloc(
-              getMahasiswa: myInjection(),
-              patchMahasiswa: myInjection(),
-              logOutUseCases: myInjection(),
-            ),
+          return BlocProvider.value(
+            value: myInjection<ProfilBloc>(),
             child: child,
           );
         },
