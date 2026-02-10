@@ -11,7 +11,7 @@ class ProfilGetMahasiswa extends ProfilEvent {}
 
 class ProfilUpdateMahasiswa extends ProfilEvent {
   final String idUser;
-  final Profil updateProfil;
+  final UpdateMahasiswaModel updateProfil;
 
   const ProfilUpdateMahasiswa({
     required this.idUser,

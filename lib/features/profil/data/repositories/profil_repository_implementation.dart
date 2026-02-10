@@ -113,57 +113,15 @@ class ProfilRepositoryImplementation extends ProfilRepository {
     }
   }
 
-  // Helper function to format timestamp to yyyy-MM-dd string
-  String? _formatTimestampToYyyyMmDd(int? timestamp) {
-    if (timestamp == null) return null;
-    final date = DateTime.fromMillisecondsSinceEpoch(timestamp);
-    return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-  }
-
   @override
   Future<Either<MessageExc, void>> patchMahasiswa(
     String idUser,
-    Profil profil,
+    UpdateMahasiswaModel updateProfil,
   ) async {
     try {
-      final UpdateMahasiswaModel updateMahasiswaModel = UpdateMahasiswaModel(
-        idAgama: profil.idAgama,
-        kodeProgramStudi: profil.kodeProgramStudi,
-        idStatus: profil.idStatus,
-        idWaktuKuliah: profil.idWaktuKuliah,
-        email: profil.email,
-        namaMahasiswa: profil.namaMahasiswa,
-        tempatLahir: profil.tempatLahir,
-        tanggalLahir: _formatTimestampToYyyyMmDd(
-          profil.tanggalLahir,
-        ), // Converted to String
-        alamatMahasiswa: profil.alamatMahasiswa,
-        jenisKelamin: profil.jenisKelamin,
-        alamatOrangtua: profil.alamatOrangtua,
-        anakKe: profil.anakKe,
-        golonganDarah: profil.golonganDarah,
-        hobi: profil.hobi,
-        jumlahSaudara: profil.jumlahSaudara,
-        jurusan: profil.jurusan,
-        kewarganegaraan: profil.kewarganegaraan,
-        keterangan: profil.keterangan,
-        namaAyah: profil.namaAyah,
-        namaIbu: profil.namaIbu,
-        noIjazah: profil.noIjazah,
-        noTeleponMahasiswa: profil.noTeleponMahasiswa,
-        noTeleponOrangtua: profil.noTeleponOrangtua,
-        tahunAngkatan: profil.tahunAngkatan,
-        pekerjaanOrangtua: profil.pekerjaanOrangtua,
-        pendidikanOrangtua: profil.pendidikanOrangtua,
-        tanggalIjazah: _formatTimestampToYyyyMmDd(
-          profil.tanggalIjazah,
-        ), // Converted to String
-        tanggalPendaftaran: profil.tanggalPendaftaran,
-        tahunLulus: profil.tahunLulus,
-      );
       await profilRemoteDataSourceImplementation.patchMahasiswa(
         idUser,
-        updateMahasiswaModel,
+        updateProfil,
       );
       return Right(null);
     } catch (e) {

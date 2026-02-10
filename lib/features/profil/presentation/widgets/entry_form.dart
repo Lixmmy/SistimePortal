@@ -35,7 +35,7 @@ class _EntryFormState extends State<EntryForm> {
       DateTime initialDate;
       try {
         initialDate = DateFormat(
-          'dd MMMM yyyy',
+          'yyyy-MM-dd',
           'id_ID',
         ).parse(widget.controller.text);
       } catch (e) {
@@ -49,7 +49,7 @@ class _EntryFormState extends State<EntryForm> {
       );
       if (pickedDate != null) {
         widget.controller.text = DateFormat(
-          'dd MMMM yyyy',
+          'yyyy-MM-dd',
           'id_ID',
         ).format(pickedDate);
       }

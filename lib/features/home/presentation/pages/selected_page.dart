@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/widgets/bnb.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/profil/presentation/pages/profil_page.dart';
+import 'package:quickalert/quickalert.dart';
 
 class SelectedPage extends StatefulWidget {
   const SelectedPage({super.key});
@@ -38,7 +40,25 @@ class _SelectedPageState extends State<SelectedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: BlocListener<ProfilBloc, ProfilState>(
+        listener: (context, state) {
+          if (state is ProfilError) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              text: state.message,
+              confirmBtnText: 'OK',
+              onConfirmBtnTap: () {
+                if (state.message == 'Unauthorized') {
+                  context.read<ProfilBloc>().add(LogOutProfil());
+                  context.goNamed('laucherPage');
+                }
+              },
+            );
+          }
+        },
+        child: _pages[_selectedIndex],
+      ),
       bottomNavigationBar: Bnb(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/helper/date_formatter.dart';
 import 'package:newsistime/features/agama/presentation/bloc/agama_bloc.dart';
+import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/profil/presentation/widgets/entry_form.dart';
@@ -22,6 +23,8 @@ class _EditProfileState extends State<EditProfile> {
   void initState() {
     super.initState();
     context.read<ProfilBloc>().add(ProfilGetMahasiswa());
+    context.read<AgamaBloc>().add(FetchAgamaList());
+    context.read<StatusBloc>().add(FetchStatusList());
   }
 
   @override
@@ -298,13 +301,44 @@ class _EditProfileState extends State<EditProfile> {
                           Center(
                             child: OutlinedButton(
                               onPressed: () {
+                                final agamaState = context
+                                    .read<AgamaBloc>()
+                                    .state;
+                                String? idAgama;
+                                if (agamaState is AgamaLoaded) {
+                                  try {
+                                    idAgama = agamaState.agamaList
+                                        .firstWhere(
+                                          (element) =>
+                                              element.name ==
+                                              religionController.text,
+                                        )
+                                        .id;
+                                  } catch (e) {
+                                    idAgama = null;
+                                  }
+                                }
+                                final statusState = context
+                                    .read<StatusBloc>()
+                                    .state;
+                                int? idStatus;
+                                if (statusState is StatusLoaded) {
+                                  try {
+                                    idStatus = statusState.statusList
+                                        .firstWhere(
+                                          (element) =>
+                                              element.status ==
+                                              statusController.text,
+                                        )
+                                        .idStatus;
+                                  } catch (e) {
+                                    idStatus = null;
+                                  }
+                                }
                                 // Gather data from controllers and original profil
-                                final updatedProfil = Profil(
-                                  idPendaftaran: profil.idPendaftaran,
-                                  idUser: profil.idUser,
-                                  // Editable fields
+                                final updatedProfil = UpdateMahasiswaModel(
                                   tempatLahir: placeController.text,
-                                  // tanggalLahir: dateController.text,
+                                  tanggalLahir: dateController.text,
                                   alamatMahasiswa: addressController.text,
                                   golonganDarah: bloodTypeController.text,
                                   kewarganegaraan: nationalityController.text,
@@ -327,20 +361,15 @@ class _EditProfileState extends State<EditProfile> {
                                       parrentingPhoneController.text,
                                   jurusan: schoolDepartmentController.text,
                                   noIjazah: diplomaNumberController.text,
-                                  // tanggalIjazah: diplomaDateController.text,
+                                  tanggalIjazah: diplomaDateController.text,
                                   keterangan: informationController.text,
 
-                                  // Non-editable fields (from original profil)
-                                  idAgama: profil.idAgama,
-                                  agama: profil.agama,
+                                  idAgama: idAgama ?? profil.idAgama,
                                   kodeKampus: profil.kodeKampus,
                                   kodeProgramStudi: profil.kodeProgramStudi,
-                                  programStudi: profil.programStudi,
                                   namaSekolah: profil.namaSekolah,
-                                  idStatus: profil.idStatus,
-                                  status: profil.status,
+                                  idStatus: idStatus ?? profil.idStatus,
                                   idWaktuKuliah: profil.idWaktuKuliah,
-                                  waktuKuliah: profil.waktuKuliah,
                                   email: profil.email,
                                   namaMahasiswa: profil.namaMahasiswa,
                                   jenisKelamin: profil.jenisKelamin,

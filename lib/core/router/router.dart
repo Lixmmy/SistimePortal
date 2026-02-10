@@ -132,6 +132,17 @@ GoRouter myRouter() {
               );
             },
           ),
+          GoRoute(
+            path: '/id_card',
+            name: 'idCard',
+            builder: (context, state) {
+              final extra = state.extra as Map<String, dynamic>;
+              return IdCard(
+                profil: extra['profil'] as Profil,
+                username: extra['username'] as String,
+              );
+            },
+          ),
         ],
       ),
       GoRoute(
@@ -141,17 +152,7 @@ GoRouter myRouter() {
           return SelectionLanguagePage();
         },
       ),
-      GoRoute(
-        path: '/id_card',
-        name: 'idCard',
-        builder: (context, state) {
-          final extra = state.extra as Map<String, dynamic>;
-          return IdCard(
-            profil: extra['profil'] as Profil,
-            username: extra['username'] as String,
-          );
-        },
-      ),
+
       GoRoute(
         path: '/home_page',
         name: 'homePage',

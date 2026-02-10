@@ -1,10 +1,14 @@
 // ignore: depend_on_referenced_packages
 import 'package:dartz/dartz.dart';
 import 'package:newsistime/core/error/message_exc.dart';
+import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 
 import '../entities/profil.dart';
 
 abstract class ProfilRepository {
   Future<Either<MessageExc, Profil>> getMahasiswa(String nim);
-  Future<Either<MessageExc, void>> patchMahasiswa(String idUser, Profil profil);
+  Future<Either<MessageExc, void>> patchMahasiswa(
+    String idUser,
+    UpdateMahasiswaModel updateMahasiswaModel,
+  );
 }
