@@ -29,6 +29,12 @@ class LoginRepositoriesImplementation extends LoginRepositories {
         loginLocalDataSource.saveUsername(username),
       });
       return Right(result.toEntity());
+    } on MessageExc catch (e) {
+      if (e.type == MessageExcType.networkError) {
+        return Left(e);
+      } else {
+        return Left(MessageExc.unknown(e.toString()));
+      }
     } catch (e) {
       return Left(MessageExc.api(e.toString()));
     }

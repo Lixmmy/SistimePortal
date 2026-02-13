@@ -143,6 +143,13 @@ GoRouter myRouter() {
               );
             },
           ),
+          GoRoute(
+            path: '/selected_page',
+            name: 'selectedPage',
+            builder: (context, state) {
+              return const SelectedPage();
+            },
+          ),
         ],
       ),
       GoRoute(
@@ -160,46 +167,26 @@ GoRouter myRouter() {
           return const HomePage();
         },
       ),
+
       GoRoute(
-        path: '/selected_page',
-        name: 'selectedPage',
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => ProfilBloc(
-              getMahasiswa: myInjection(),
-              patchMahasiswa: myInjection(),
-              logOutUseCases: myInjection(),
-            ),
-            child: const SelectedPage(),
-          );
-        },
+        path: '/krs_page',
+        name: 'krsPage',
+        builder: (context, state) => BlocProvider.value(
+          value: myInjection<KrsBloc>(),
+          child: const KrsPage(),
+        ),
       ),
-      ShellRoute(
-        builder: (context, state, child) {
-          return BlocProvider(
-            create: (context) => KrsBloc(
-              getKrs: myInjection(),
-              profilLocalDataSource: myInjection(),
-            ),
-            child: child,
+      GoRoute(
+        path: '/detail_krs_page',
+        name: 'detailKrsPage',
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
+          final int semester = data['semester'];
+          return BlocProvider.value(
+            value: myInjection<KrsBloc>(),
+            child: DetailKrs(semester: semester),
           );
         },
-        routes: [
-          GoRoute(
-            path: '/krs_page',
-            name: 'krsPage',
-            builder: (context, state) => KrsPage(),
-          ),
-          GoRoute(
-            path: '/detail_krs_page',
-            name: 'detailKrsPage',
-            builder: (context, state) {
-              final data = state.extra as Map<String, dynamic>;
-              final int semester = data['semester'];
-              return DetailKrs(semester: semester);
-            },
-          ),
-        ],
       ),
       GoRoute(
         path: 'nilai_page',

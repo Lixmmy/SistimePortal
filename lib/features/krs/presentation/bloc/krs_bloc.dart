@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
+import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
@@ -17,8 +19,9 @@ part 'krs_state.dart';
 class KrsBloc extends Bloc<KrsEvent, KrsState> {
   final GetKrs getKrs;
   final ProfilLocalDataSource profilLocalDataSource;
+  final LoginLocalDataSource loginLocalDataSource;
 
-  KrsBloc({required this.getKrs, required this.profilLocalDataSource})
+  KrsBloc({required this.getKrs, required this.profilLocalDataSource, required this.loginLocalDataSource})
     : super(KrsInitial()) {
     on<FetchKrsData>((event, emit) async {
       final profil = await profilLocalDataSource.getSavedProfilData();
@@ -28,7 +31,11 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
         final id = profil!.idUser.toString();
         final krsResult = await getKrs.execute(id);
         krsResult.fold(
-          (failure) {
+          (failure) async{
+            if (failure.type == MessageExcType.tokenExpired) {
+              await loginLocalDataSource.deleteToken();
+              emit(KrsTokenExpired(message: failure.message));
+            }
             emit(KrsError(message: failure.message));
           },
           (krsList) {

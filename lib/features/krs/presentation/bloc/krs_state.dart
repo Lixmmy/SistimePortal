@@ -36,3 +36,12 @@ class KrsPdfDownloaded extends KrsState {
   @override
   List<Object> get props => [filePath];
 }
+
+class KrsTokenExpired extends KrsState {
+  final String message;
+
+  const KrsTokenExpired({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

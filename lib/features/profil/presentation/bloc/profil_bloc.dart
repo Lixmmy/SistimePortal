@@ -32,6 +32,9 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
       );
       hasilGetMahasiswa.fold(
         (leftHasilGetMahasiswa) {
+          if (leftHasilGetMahasiswa.type == MessageExcType.tokenExpired) {
+            emit(ProfilTokenExpired(message: leftHasilGetMahasiswa.message));
+          }
           emit(ProfilError(message: leftHasilGetMahasiswa.toString()));
         },
         (rightHasilGetMahasiswa) {
@@ -48,6 +51,9 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
 
       result.fold(
         (failure) {
+          if (failure.type == MessageExcType.tokenExpired) {
+            emit(ProfilTokenExpired(message: failure.message));
+          }
           emit(
             ProfilError(message: failure.message),
           ); // Assuming MessageExc has a 'message' property

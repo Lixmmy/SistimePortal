@@ -22,6 +22,8 @@ class ProfilRemoteDataSourceImplementation extends ProfilRemoteDatasource {
     try {
       final response = await connectApi.getMahasiswa(nim: nim);
       return ProfilModel.fromjson(response);
+    } on MessageExc {
+      rethrow;
     } catch (e) {
       throw MessageExc.api(
         'An error in getMahasiswa occurred: ${e.toString()}',
@@ -39,6 +41,8 @@ class ProfilRemoteDataSourceImplementation extends ProfilRemoteDatasource {
         idUser: idUser,
         updateMahasiswaModel: updateMahasiswaModel,
       );
+    } on MessageExc {
+      rethrow;
     } catch (e) {
       throw MessageExc.api(
         'An error in patchMahasiswa occurred: ${e.toString()}',

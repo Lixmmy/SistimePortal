@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
-import 'package:newsistime/injection.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:quickalert/quickalert.dart';
 
 class KrsPage extends StatefulWidget {
   const KrsPage({super.key});
@@ -13,21 +13,49 @@ class KrsPage extends StatefulWidget {
 }
 
 class _KrsPageState extends State<KrsPage> {
+  late KrsBloc _krsBloc;
+
   @override
   void initState() {
     super.initState();
-    myInjection<KrsBloc>().add(FetchKrsData());
+    _krsBloc = context.read<KrsBloc>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _krsBloc.add(FetchKrsData());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      body: BlocBuilder<KrsBloc, KrsState>(
-        bloc: myInjection<KrsBloc>(),
+      body: BlocConsumer<KrsBloc, KrsState>(
+        listener: (context, state) {
+          if(state is KrsTokenExpired){
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: "Session Expired",
+              text: state.message,
+              onConfirmBtnTap: () {
+                context.goNamed('launcherPage');
+              },
+            );
+          }
+          if (state is KrsError) {
+           QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: "error",
+              text: state.message,
+            );
+          }
+        },
         builder: (context, state) {
           if (state is KrsLoading) {
             return const Center(child: CircularProgressIndicator());
+          }
+          if (state is KrsTokenExpired) {
+            return Center(child: Text(state.message));
           }
           if (state is KrsLoaded) {
             if (state.groupedKrs.isEmpty) {

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
-import 'package:newsistime/injection.dart';
 import 'package:newsistime/l10n/app_localizations.dart';
 
 class DetailKrs extends StatefulWidget {
@@ -59,7 +58,6 @@ class _DetailKrsState extends State<DetailKrs> {
             ),
           ),
           BlocConsumer<KrsBloc, KrsState>(
-            bloc: myInjection<KrsBloc>(),
             listener: (context, state) {
               if (state is KrsLoading) {
                 LoadingManager().show(context);
@@ -75,7 +73,7 @@ class _DetailKrsState extends State<DetailKrs> {
                     duration: Duration(seconds: 1),
                   ),
                 );
-                myInjection<KrsBloc>().add(FetchKrsData());
+                context.read<KrsBloc>().add(FetchKrsData());
               }
             },
             builder: (context, state) {
@@ -165,7 +163,7 @@ class _DetailKrsState extends State<DetailKrs> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              myInjection<KrsBloc>().add(
+                              context.read<KrsBloc>().add(
                                 DownloadKrsPdf(
                                   appLocalizations: appLocalizations,
                                   semester: widget.semester,

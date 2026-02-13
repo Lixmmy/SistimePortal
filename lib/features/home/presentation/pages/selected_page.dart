@@ -42,18 +42,25 @@ class _SelectedPageState extends State<SelectedPage> {
     return Scaffold(
       body: BlocListener<ProfilBloc, ProfilState>(
         listener: (context, state) {
-          if (state is ProfilError) {
+          if (state is ProfilLogout) {
+            context.goNamed('launcherPage');
+          }
+          if (state is ProfilTokenExpired) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              text: state.message,
+              confirmBtnText: "OK",
+              onConfirmBtnTap: () {
+                context.read<ProfilBloc>().add(LogOutProfil());
+              },
+            );
+          } else if (state is ProfilError) {
             QuickAlert.show(
               context: context,
               type: QuickAlertType.error,
               text: state.message,
               confirmBtnText: 'OK',
-              onConfirmBtnTap: () {
-                if (state.message == 'Unauthorized') {
-                  context.read<ProfilBloc>().add(LogOutProfil());
-                  context.goNamed('laucherPage');
-                }
-              },
             );
           }
         },

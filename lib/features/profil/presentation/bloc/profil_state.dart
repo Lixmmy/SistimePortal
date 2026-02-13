@@ -42,3 +42,11 @@ final class ProfilSuccessUpdate extends ProfilState {
 }
 
 final class ProfilLogout extends ProfilState {}
+
+final class ProfilTokenExpired extends ProfilState {
+  final String message;
+  const ProfilTokenExpired({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

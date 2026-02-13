@@ -93,6 +93,14 @@ class ProfilRepositoryImplementation extends ProfilRepository {
       );
       profilLocalDataSource.savedProfilData(correctProfil);
       return Right(correctProfil.toEntity());
+    } on MessageExc catch (e) {
+      if (e.type == MessageExcType.tokenExpired) {
+        return Left(e);
+      } else if (e.type == MessageExcType.networkError) {
+        return Left(e);
+      } else {
+        return Left(MessageExc.unknown(e.toString()));
+      }
     } catch (e) {
       try {
         final localData = await profilLocalDataSource.getSavedProfilData();
@@ -124,6 +132,14 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         updateProfil,
       );
       return Right(null);
+    } on MessageExc catch (e) {
+      if (e.type == MessageExcType.tokenExpired) {
+        return Left(e);
+      } else if (e.type == MessageExcType.networkError) {
+        return Left(e);
+      } else {
+        return Left(MessageExc.unknown(e.toString()));
+      }
     } catch (e) {
       return Left(MessageExc.unknown(e.toString()));
     }

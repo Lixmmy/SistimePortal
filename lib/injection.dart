@@ -270,7 +270,7 @@ Future<void> init() async {
 
   //krs bloc
   myInjection.registerLazySingleton(
-    () => KrsBloc(getKrs: myInjection(), profilLocalDataSource: myInjection()),
+    () => KrsBloc(getKrs: myInjection(), profilLocalDataSource: myInjection(), loginLocalDataSource: myInjection()),
   );
   //Use cases
   myInjection.registerLazySingleton(

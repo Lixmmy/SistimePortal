@@ -23,8 +23,12 @@ class MessageExc implements Exception {
     return MessageExc(MessageExcType.apiError, message);
   }
 
-  factory MessageExc.tokenExpired({String? message = ''}) {
-    return MessageExc(MessageExcType.tokenExpired, message ?? '', statusCode: 401);
+  factory MessageExc.tokenExpired({String? message = 'Unauthorized'}) {
+    return MessageExc(
+      MessageExcType.tokenExpired,
+      message ?? 'Unauthorized',
+      statusCode: 401,
+    );
   }
 
   factory MessageExc.unknown(String message) {

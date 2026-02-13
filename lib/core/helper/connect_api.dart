@@ -154,7 +154,7 @@ class ConnectApi {
         return null;
       } else if (response.statusCode == 401) {
         String message = response.body;
-        if (message == 'Token expired') {
+        if (message == 'Unauthorized') {
           throw MessageExc.tokenExpired();
         } else {
           throw MessageExc.api(message);

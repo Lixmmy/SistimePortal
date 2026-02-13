@@ -17,7 +17,13 @@ class KrsRepositoriesImplementation extends KrsRepositories {
       final List<KrsModel> krsModel = await remoteKrsDataSource.getKrs(id: id);
       return Right(krsModel.map((e) => e.toEntity()).toList());
     } on MessageExc catch (e) {
-      return Left(e);
+      if (e.type == MessageExcType.tokenExpired) {
+        return Left(
+          e,
+        );
+      }else {
+        return Left(e);
+      }
     } catch (e) {
       return Left(MessageExc.unknown(e.toString()));
     }

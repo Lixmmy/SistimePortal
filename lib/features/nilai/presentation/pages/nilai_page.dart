@@ -4,6 +4,9 @@ import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:newsistime/injection.dart';
 
 class NilaiPage extends StatelessWidget {
   const NilaiPage({super.key});
@@ -25,11 +28,13 @@ class NilaiPage extends StatelessWidget {
               Tab(text: 'PAM'),
             ],
           ),
-          
         ),
         body: TabBarView(
           children: [
-            KrsPage(),
+            BlocProvider.value(
+              value: myInjection<KrsBloc>(),
+              child: const KrsPage(),
+            ),
             KhsPage(),
             TranskripPage(),
             PamPage(),
