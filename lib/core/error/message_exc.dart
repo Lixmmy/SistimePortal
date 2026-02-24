@@ -1,3 +1,5 @@
+import 'package:newsistime/core/localization/localization_service.dart';
+
 enum MessageExcType { networkError, apiError, tokenExpired, unknown }
 
 class MessageExc implements Exception {
@@ -15,24 +17,31 @@ class MessageExc implements Exception {
     this.data,
   });
 
-  factory MessageExc.network(String message) {
-    return MessageExc(MessageExcType.networkError, message);
+  factory MessageExc.network({String? message}) {
+    return MessageExc(
+      MessageExcType.networkError,
+      message ?? appL10n.noInternetConnection,
+    );
   }
 
   factory MessageExc.api(String message) {
     return MessageExc(MessageExcType.apiError, message);
   }
 
-  factory MessageExc.tokenExpired({String? message = 'Unauthorized'}) {
+  factory MessageExc.tokenExpired({String? message}) {
     return MessageExc(
       MessageExcType.tokenExpired,
-      message ?? 'Unauthorized',
+      message ?? appL10n.tokenExpired,
       statusCode: 401,
     );
   }
 
   factory MessageExc.unknown(String message) {
     return MessageExc(MessageExcType.unknown, message);
+  }
+
+  factory MessageExc.timeout({String? message}) {
+    return MessageExc(MessageExcType.networkError, message ?? appL10n.timeout);
   }
 
   @override

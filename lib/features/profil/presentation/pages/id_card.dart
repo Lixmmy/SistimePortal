@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/helper/date_formatter.dart';
 import 'package:newsistime/custom_widgets/appbarcustom.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 
@@ -13,12 +13,10 @@ class IdCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
-
     final String formattedTanggalLahir = formatDate(profil.tanggalLahir);
     return Scaffold(
       appBar: AppBarCustom(
-        title: appLocalizations.identityCard,
+        title: appL10n.identityCard,
         isShowBackButton: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -57,7 +55,7 @@ class IdCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              appLocalizations.studentCard,
+              appL10n.studentCard,
               style: Theme.of(
                 context,
               ).textTheme.labelLarge?.copyWith(color: Colors.white),
@@ -70,24 +68,24 @@ class IdCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BuildInfoRow(
-                        label: appLocalizations.studentIdCard,
+                        label: appL10n.studentIdCard,
                         value: username,
                       ),
                       BuildInfoRow(
-                        label: appLocalizations.name,
+                        label: appL10n.name,
                         value: profil.namaMahasiswa ?? '',
                       ),
                       BuildInfoRow(
-                        label: appLocalizations.placeAndDateOfBirth,
+                        label: appL10n.placeAndDateOfBirth,
                         value:
                             '${profil.tempatLahir ?? '-'} / $formattedTanggalLahir',
                       ),
                       BuildInfoRow(
-                        label: appLocalizations.studyPrograms,
+                        label: appL10n.studyPrograms,
                         value: profil.programStudi?.namaProgramstudi ?? '',
                       ),
                       BuildInfoRow(
-                        label: appLocalizations.validUntil,
+                        label: appL10n.validUntil,
                         value: "${profil.tahunAngkatan! + 4}",
                       ),
                     ],

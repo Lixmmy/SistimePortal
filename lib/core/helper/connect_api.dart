@@ -35,9 +35,7 @@ class ConnectApi {
     } else {
       bool hasInternet = await InternetConnection().hasInternetAccess;
       if (!hasInternet) {
-        throw MessageExc.network(
-          'Tidak ada WIFI atau internet yang tersambung',
-        );
+        throw MessageExc.network();
       }
       return true;
     }
@@ -70,7 +68,7 @@ class ConnectApi {
         throw MessageExc.unknown(response.body);
       }
     } on TimeoutException {
-      throw MessageExc.unknown('Koneksi timeout, silakan coba lagi.');
+      throw MessageExc.timeout();
     } on MessageExc {
       rethrow;
     } catch (e) {
@@ -103,12 +101,7 @@ class ConnectApi {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
-        String message = response.body;
-        if (message == 'Unauthorized') {
-          throw MessageExc.tokenExpired();
-        } else {
-          throw MessageExc.api(message);
-        }
+        throw MessageExc.tokenExpired();
       } else if (response.statusCode == 404) {
         throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else if (response.statusCode == 500) {
@@ -117,7 +110,7 @@ class ConnectApi {
         throw MessageExc.unknown(response.body);
       }
     } on TimeoutException {
-      throw MessageExc.network('Koneksi timeout, silakan coba lagi.');
+      throw MessageExc.timeout();
     } on MessageExc {
       rethrow;
     } catch (e) {
@@ -153,21 +146,16 @@ class ConnectApi {
         }
         return null;
       } else if (response.statusCode == 401) {
-        String message = response.body;
-        if (message == 'Unauthorized') {
-          throw MessageExc.tokenExpired();
-        } else {
-          throw MessageExc.api(message);
-        }
+        throw MessageExc.tokenExpired();
       } else if (response.statusCode == 404) {
         throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else if (response.statusCode == 500) {
         throw MessageExc.api(response.body);
       } else {
-        throw MessageExc.network(response.body);
+        throw MessageExc.unknown(response.body);
       }
     } on TimeoutException {
-      throw MessageExc.network('Koneksi timeout, silakan coba lagi.');
+      throw MessageExc.timeout();
     } on MessageExc {
       rethrow;
     } catch (e) {

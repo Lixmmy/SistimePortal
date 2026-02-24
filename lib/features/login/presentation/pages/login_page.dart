@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
@@ -93,7 +94,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
           BlocConsumer<LoginBloc, LoginState>(
             listener: (context, state) {
-              if (state is LoginLoading || state is LoginBiometricAuthenticating) {
+              if (state is LoginLoading ||
+                  state is LoginBiometricAuthenticating) {
                 LoadingManager().show(context);
               } else {
                 if (LoadingManager().isShowing) {
@@ -105,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                 QuickAlert.show(
                   context: context,
                   type: QuickAlertType.error,
-                  title: 'Error',
+                  title: appL10n.error,
                   text: state.message,
                 );
               }
@@ -113,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                 QuickAlert.show(
                   context: context,
                   type: QuickAlertType.error,
-                  title: 'Biometric Error',
+                  title: appL10n.biometricError,
                   text: state.message,
                 );
               }
@@ -156,24 +158,25 @@ class _LoginPageState extends State<LoginPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Login',
+                            appL10n.login,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            "Enter your username and password to log in",
+                            appL10n.enterYourUsernameAndPasswordToLogin,
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            "Username",
+                            appL10n.username,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           TextField(
                             controller: _usernameController,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.number,
+                            maxLength: 7,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -183,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            "Password",
+                            appL10n.password,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           TextField(
@@ -227,14 +230,16 @@ class _LoginPageState extends State<LoginPage> {
                                   IconButton(
                                     icon: const Icon(Icons.fingerprint),
                                     onPressed: () {
-                                      context.read<LoginBloc>().add(AuthenticateWithBiometrics());
+                                      context.read<LoginBloc>().add(
+                                        AuthenticateWithBiometrics(),
+                                      );
                                     },
                                   ),
                                 TextButton(
                                   onPressed: () {
                                     context.pushNamed('forgotPasswordPage');
                                   },
-                                  child: Text('Forgot Password?'),
+                                  child: Text(appL10n.forgotPassword),
                                 ),
                               ],
                             ),
@@ -251,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 );
                               },
-                              child: const Text('Login'),
+                              child: Text(appL10n.login),
                             ),
                           ),
                         ],

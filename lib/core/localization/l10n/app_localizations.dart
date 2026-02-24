@@ -637,6 +637,150 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Perbaikan'**
   String get improvement;
+
+  /// No description provided for @noInternetConnection.
+  ///
+  /// In id, this message translates to:
+  /// **'Tidak ada koneksi internet'**
+  String get noInternetConnection;
+
+  /// No description provided for @serverError.
+  ///
+  /// In id, this message translates to:
+  /// **'Terjadi kesalahan pada server'**
+  String get serverError;
+
+  /// No description provided for @tokenExpired.
+  ///
+  /// In id, this message translates to:
+  /// **'Token Anda telah expired'**
+  String get tokenExpired;
+
+  /// No description provided for @timeout.
+  ///
+  /// In id, this message translates to:
+  /// **'Timeout, silakan coba lagi'**
+  String get timeout;
+
+  /// No description provided for @error.
+  ///
+  /// In id, this message translates to:
+  /// **'Terjadi kesalahan'**
+  String get error;
+
+  /// No description provided for @male.
+  ///
+  /// In id, this message translates to:
+  /// **'Pria'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In id, this message translates to:
+  /// **'Wanita'**
+  String get female;
+
+  /// No description provided for @failedToDeleteToken.
+  ///
+  /// In id, this message translates to:
+  /// **'Gagal menghapus token'**
+  String get failedToDeleteToken;
+
+  /// No description provided for @usernameCannotBeEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Username tidak boleh kosong'**
+  String get usernameCannotBeEmpty;
+
+  /// No description provided for @passwordCannotBeEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Password tidak boleh kosong'**
+  String get passwordCannotBeEmpty;
+
+  /// No description provided for @passwordIsTooShort.
+  ///
+  /// In id, this message translates to:
+  /// **'Password terlalu pendek'**
+  String get passwordIsTooShort;
+
+  /// No description provided for @username.
+  ///
+  /// In id, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @password.
+  ///
+  /// In id, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @already.
+  ///
+  /// In id, this message translates to:
+  /// **'Sudah'**
+  String get already;
+
+  /// No description provided for @not.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum'**
+  String get not;
+
+  /// No description provided for @doYouAlreadyHaveAnAccount.
+  ///
+  /// In id, this message translates to:
+  /// **'Apakah Anda sudah memiliki akun?'**
+  String get doYouAlreadyHaveAnAccount;
+
+  /// No description provided for @biometricError.
+  ///
+  /// In id, this message translates to:
+  /// **'Biometric error'**
+  String get biometricError;
+
+  /// No description provided for @enterYourUsernameAndPasswordToLogin.
+  ///
+  /// In id, this message translates to:
+  /// **'Masukkan username dan password untuk login'**
+  String get enterYourUsernameAndPasswordToLogin;
+
+  /// No description provided for @enterYourUsername.
+  ///
+  /// In id, this message translates to:
+  /// **'Masukkan username'**
+  String get enterYourUsername;
+
+  /// No description provided for @enterYourPassword.
+  ///
+  /// In id, this message translates to:
+  /// **'Masukkan password'**
+  String get enterYourPassword;
+
+  /// No description provided for @login.
+  ///
+  /// In id, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In id, this message translates to:
+  /// **'Lupa Password'**
+  String get forgotPassword;
+
+  /// No description provided for @ifYouveForgottenYourPassword.
+  ///
+  /// In id, this message translates to:
+  /// **'Jika kamu lupa password'**
+  String get ifYouveForgottenYourPassword;
+
+  /// No description provided for @pleaseEnterYourEmailAddressToResetYourPassword.
+  ///
+  /// In id, this message translates to:
+  /// **'Silahkan masukkan emailmu untuk reset password'**
+  String get pleaseEnterYourEmailAddressToResetYourPassword;
 }
 
 class _AppLocalizationsDelegate

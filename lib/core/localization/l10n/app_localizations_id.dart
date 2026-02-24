@@ -281,4 +281,78 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get improvement => 'Perbaikan';
+
+  @override
+  String get noInternetConnection => 'Tidak ada koneksi internet';
+
+  @override
+  String get serverError => 'Terjadi kesalahan pada server';
+
+  @override
+  String get tokenExpired => 'Token Anda telah expired';
+
+  @override
+  String get timeout => 'Timeout, silakan coba lagi';
+
+  @override
+  String get error => 'Terjadi kesalahan';
+
+  @override
+  String get male => 'Pria';
+
+  @override
+  String get female => 'Wanita';
+
+  @override
+  String get failedToDeleteToken => 'Gagal menghapus token';
+
+  @override
+  String get usernameCannotBeEmpty => 'Username tidak boleh kosong';
+
+  @override
+  String get passwordCannotBeEmpty => 'Password tidak boleh kosong';
+
+  @override
+  String get passwordIsTooShort => 'Password terlalu pendek';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get already => 'Sudah';
+
+  @override
+  String get not => 'Belum';
+
+  @override
+  String get doYouAlreadyHaveAnAccount => 'Apakah Anda sudah memiliki akun?';
+
+  @override
+  String get biometricError => 'Biometric error';
+
+  @override
+  String get enterYourUsernameAndPasswordToLogin =>
+      'Masukkan username dan password untuk login';
+
+  @override
+  String get enterYourUsername => 'Masukkan username';
+
+  @override
+  String get enterYourPassword => 'Masukkan password';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get forgotPassword => 'Lupa Password';
+
+  @override
+  String get ifYouveForgottenYourPassword => 'Jika kamu lupa password';
+
+  @override
+  String get pleaseEnterYourEmailAddressToResetYourPassword =>
+      'Silahkan masukkan emailmu untuk reset password';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/core/theme/theme.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -98,19 +99,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Forgot Password',
+                        appL10n.forgotPassword,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        "if you've forgotten your password, please enter your email address to reset your password.",
+                        '${appL10n.ifYouveForgottenYourPassword}, ${appL10n.pleaseEnterYourEmailAddressToResetYourPassword}',
                         style: Theme.of(
                           context,
                         ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        "Email",
+                        appL10n.email,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
 
@@ -130,7 +131,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {},
-                          child: const Text('Forgot Password'),
+                          child: Text(appL10n.forgotPassword),
                         ),
                       ),
                     ],

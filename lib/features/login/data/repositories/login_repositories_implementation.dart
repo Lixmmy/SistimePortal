@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:newsistime/core/error/message_exc.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
 import 'package:newsistime/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:newsistime/features/login/domain/entities/token.dart';
@@ -46,7 +47,7 @@ class LoginRepositoriesImplementation extends LoginRepositories {
       await loginLocalDataSource.deleteToken();
       final String remainingToken = await loginLocalDataSource.getToken();
       if (remainingToken.isNotEmpty) {
-        return Left(MessageExc.api('Failed to delete token completely.'));
+        return Left(MessageExc.unknown(appL10n.failedToDeleteToken));
       }
       return Right(null);
     } catch (e) {

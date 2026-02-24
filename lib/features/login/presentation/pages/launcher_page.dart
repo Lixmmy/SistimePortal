@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/core/theme/theme.dart';
 
 class LauncherPage extends StatefulWidget {
@@ -103,7 +104,7 @@ class _LauncherPageState extends State<LauncherPage> {
                 children: [
                   SizedBox(height: 20),
                   Text(
-                    "Apakah kamu sudah memiliki akun?",
+                    appL10n.doYouAlreadyHaveAnAccount,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w500,
@@ -125,7 +126,7 @@ class _LauncherPageState extends State<LauncherPage> {
                             ? AppTheme.surfaceDarkColorA0
                             : Colors.white,
                       ),
-                      child: Text("Sudah"),
+                      child: Text(appL10n.already),
                     ),
                   ),
                   TextButton(
@@ -145,7 +146,7 @@ class _LauncherPageState extends State<LauncherPage> {
                         ),
                       ),
                     ),
-                    child: Text("Belum"),
+                    child: Text(appL10n.not),
                   ),
                 ],
               ),

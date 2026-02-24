@@ -281,4 +281,79 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get improvement => 'Improvement';
+
+  @override
+  String get noInternetConnection => 'No Internet Connection';
+
+  @override
+  String get serverError => 'Server Error';
+
+  @override
+  String get tokenExpired => 'Token Expired';
+
+  @override
+  String get timeout => 'Timeout, please try again';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get failedToDeleteToken => 'Failed to delete token';
+
+  @override
+  String get usernameCannotBeEmpty => 'Username cannot be empty';
+
+  @override
+  String get passwordCannotBeEmpty => 'Password cannot be empty';
+
+  @override
+  String get passwordIsTooShort => 'Password is too short';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get already => 'Already';
+
+  @override
+  String get not => 'Not';
+
+  @override
+  String get doYouAlreadyHaveAnAccount => 'Do you already have an account?';
+
+  @override
+  String get biometricError => 'Biometric error';
+
+  @override
+  String get enterYourUsernameAndPasswordToLogin =>
+      'Enter your username and password to login';
+
+  @override
+  String get enterYourUsername => 'Enter your username';
+
+  @override
+  String get enterYourPassword => 'Enter your password';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get forgotPassword => 'Forgot Password';
+
+  @override
+  String get ifYouveForgottenYourPassword =>
+      'If you\'ve forgotten your password';
+
+  @override
+  String get pleaseEnterYourEmailAddressToResetYourPassword =>
+      'please enter your email address to reset your password';
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/profil/presentation/widgets/custom_menu_profil.dart';
+import 'package:quickalert/quickalert.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -29,23 +30,22 @@ class _ProfilPageState extends State<ProfilPage> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text(appLocalizations.profile),
+            title: Text(appL10n.profile),
             centerTitle: true,
             floating: true,
           ),
           BlocConsumer<ProfilBloc, ProfilState>(
             listener: (context, state) {
               if (state is ProfilError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('error: ${state.message}'),
-                    duration: const Duration(seconds: 2),
-                  ),
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.error,
+                  title: appL10n.error,
+                  text: state.message,
                 );
               } else if (state is ProfilLogout) {
                 context.goNamed('launcherPage');
@@ -109,7 +109,7 @@ class _ProfilPageState extends State<ProfilPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
                             CustomMenuProfil(
-                              label: appLocalizations.infoProfil,
+                              label: appL10n.infoProfil,
                               icon: Icons.edit,
                               onPressed: () {
                                 context.pushNamed(
@@ -122,13 +122,13 @@ class _ProfilPageState extends State<ProfilPage> {
                               },
                             ),
                             CustomMenuProfil(
-                              label: appLocalizations.languageSettings,
+                              label: appL10n.languageSettings,
                               icon: Icons.language,
                               onPressed: () =>
                                   context.pushNamed('selectionLanguage'),
                             ),
                             CustomMenuProfil(
-                              label: appLocalizations.studentIdCard,
+                              label: appL10n.studentIdCard,
                               icon: Icons.badge,
                               onPressed: () {
                                 context.pushNamed(
@@ -141,7 +141,7 @@ class _ProfilPageState extends State<ProfilPage> {
                               },
                             ),
                             CustomMenuProfil(
-                              label: appLocalizations.changePassword,
+                              label: appL10n.changePassword,
                               icon: Icons.lock,
                             ),
                             CustomMenuProfil(

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/helper/date_formatter.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/agama/presentation/bloc/agama_bloc.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:newsistime/features/profil/presentation/widgets/entry_form.dart';
 import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
 import 'package:quickalert/quickalert.dart';
 
 class EditProfile extends StatefulWidget {
@@ -29,12 +29,11 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text(appLocalizations.editProfile),
+            title: Text(appL10n.editProfile),
             centerTitle: true,
             floating: true,
             leading: IconButton(
@@ -149,42 +148,42 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(appLocalizations.editPhoto),
+                        child: Text(appL10n.editPhoto),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           EntryForm(
-                            title: appLocalizations.name,
+                            title: appL10n.name,
                             controller: nameController,
                             isReadOnly: true,
                           ),
                           EntryForm(
-                            title: appLocalizations.yearOfEntry,
+                            title: appL10n.yearOfEntry,
                             controller: yearController,
                             isReadOnly: true,
                           ),
                           EntryForm(
-                            title: appLocalizations.major,
+                            title: appL10n.major,
                             controller: programStudiController,
                             isReadOnly: true,
                           ),
                           EntryForm(
-                            title: appLocalizations.email,
+                            title: appL10n.email,
                             controller: emailController,
                             isReadOnly: true,
                           ),
                           EntryForm(
-                            title: appLocalizations.campus,
+                            title: appL10n.campus,
                             controller: kampusController,
                             isReadOnly: true,
                           ),
                           EntryForm(
-                            title: appLocalizations.placeOfBirth,
+                            title: appL10n.placeOfBirth,
                             controller: placeController,
                           ),
                           EntryForm(
-                            title: appLocalizations.dateOfBirth,
+                            title: appL10n.dateOfBirth,
                             controller: dateController,
                             isDate: true,
                           ),
@@ -192,7 +191,7 @@ class _EditProfileState extends State<EditProfile> {
                             builder: (context, agamaState) {
                               if (agamaState is AgamaLoaded) {
                                 return EntryForm(
-                                  title: appLocalizations.religion,
+                                  title: appL10n.religion,
                                   controller: religionController,
                                   isDropDown: true,
                                   dropdownItems: agamaState.agamaList
@@ -201,7 +200,7 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               }
                               return EntryForm(
-                                title: appLocalizations.religion,
+                                title: appL10n.religion,
                                 controller: religionController,
                                 isDropDown: true,
                                 dropdownItems: [],
@@ -212,7 +211,7 @@ class _EditProfileState extends State<EditProfile> {
                             builder: (context, statusState) {
                               if (statusState is StatusLoaded) {
                                 return EntryForm(
-                                  title: appLocalizations.status,
+                                  title: appL10n.status,
                                   controller: statusController,
                                   isDropDown: true,
                                   dropdownItems: statusState.statusList
@@ -221,7 +220,7 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               }
                               return EntryForm(
-                                title: appLocalizations.status,
+                                title: appL10n.status,
                                 controller: statusController,
                                 isDropDown: true,
                                 dropdownItems: [],
@@ -229,72 +228,72 @@ class _EditProfileState extends State<EditProfile> {
                             },
                           ),
                           EntryForm(
-                            title: appLocalizations.bloodType,
+                            title: appL10n.bloodType,
                             controller: bloodTypeController,
                             isDropDown: true,
                             dropdownItems: bloodTypes,
                           ),
                           EntryForm(
-                            title: appLocalizations.nasionality,
+                            title: appL10n.nasionality,
                             controller: nationalityController,
                           ),
                           EntryForm(
-                            title: appLocalizations.address,
+                            title: appL10n.address,
                             controller: addressController,
                             isLong: true,
                           ),
                           EntryForm(
-                            title: appLocalizations.noHp,
+                            title: appL10n.noHp,
                             controller: phoneNumberController,
                           ),
                           EntryForm(
-                            title: appLocalizations.numberOfSiblings,
+                            title: appL10n.numberOfSiblings,
                             controller: numberOfSiblingsController,
                           ),
                           EntryForm(
-                            title: appLocalizations.birthOrder,
+                            title: appL10n.birthOrder,
                             controller: birthOrderController,
                           ),
                           EntryForm(
-                            title: appLocalizations.hobby,
+                            title: appL10n.hobby,
                             controller: hobbyController,
                           ),
                           EntryForm(
-                            title: appLocalizations.fatherName,
+                            title: appL10n.fatherName,
                             controller: fatherNameController,
                           ),
                           EntryForm(
-                            title: appLocalizations.motherName,
+                            title: appL10n.motherName,
                             controller: motherNameController,
                           ),
                           EntryForm(
-                            title: appLocalizations.parrentingJob,
+                            title: appL10n.parrentingJob,
                             controller: parrentingOccupationController,
                           ),
                           EntryForm(
-                            title: appLocalizations.parrentAddress,
+                            title: appL10n.parrentAddress,
                             controller: parrentingAddressController,
                             isLong: true,
                           ),
                           EntryForm(
-                            title: appLocalizations.parentPhoneNumber,
+                            title: appL10n.parentPhoneNumber,
                             controller: parrentingPhoneController,
                           ),
                           EntryForm(
-                            title: appLocalizations.schoolDepartment,
+                            title: appL10n.schoolDepartment,
                             controller: schoolDepartmentController,
                           ),
                           EntryForm(
-                            title: appLocalizations.diplomaNumber,
+                            title: appL10n.diplomaNumber,
                             controller: diplomaNumberController,
                           ),
                           EntryForm(
-                            title: appLocalizations.diplomaDate,
+                            title: appL10n.diplomaDate,
                             controller: diplomaDateController,
                             isDate: true,
                           ),
                           EntryForm(
-                            title: appLocalizations.information,
+                            title: appL10n.information,
                             controller: informationController,
                             isLong: true,
                           ),
@@ -335,7 +334,6 @@ class _EditProfileState extends State<EditProfile> {
                                     idStatus = null;
                                   }
                                 }
-                                // Gather data from controllers and original profil
                                 final updatedProfil = UpdateMahasiswaModel(
                                   tempatLahir: placeController.text,
                                   tanggalLahir: dateController.text,
@@ -389,7 +387,7 @@ class _EditProfileState extends State<EditProfile> {
                               style: Theme.of(
                                 context,
                               ).outlinedButtonTheme.style,
-                              child: Text(appLocalizations.save),
+                              child: Text(appL10n.save),
                             ),
                           ),
                         ],

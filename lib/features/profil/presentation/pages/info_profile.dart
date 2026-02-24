@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/helper/date_formatter.dart';
 import 'package:newsistime/core/loading/loading_manage.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/core/theme/theme.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
 import '../widgets/list_profil.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';
@@ -30,7 +30,6 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     final String formattedTanggalLahir = formatDate(widget.profil.tanggalLahir);
     final String formattedTanggalIjazah = formatDate(
       widget.profil.tanggalIjazah,
@@ -40,7 +39,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
         slivers: [
           SliverAppBar(
             backgroundColor: AppTheme.primaryColorA0,
-            title: Text(appLocalizations.infoProfil),
+            title: Text(appL10n.infoProfil),
             centerTitle: true,
             floating: true,
             leading: IconButton(
@@ -111,33 +110,33 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       SizedBox(height: 25),
                       ListProfil(
-                        title: appLocalizations.major,
+                        title: appL10n.major,
                         subtitle:
                             profilFromState.programStudi?.namaProgramstudi ??
                             "",
                       ),
                       ListProfil(
-                        title: appLocalizations.yearOfEntry,
+                        title: appL10n.yearOfEntry,
                         subtitle: profilFromState.tahunAngkatan.toString(),
                       ),
                       ListProfil(
-                        title: appLocalizations.email,
+                        title: appL10n.email,
                         subtitle: profilFromState.email ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.campus,
+                        title: appL10n.campus,
                         subtitle: profilFromState.kodeKampus ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.placeOfBirth,
+                        title: appL10n.placeOfBirth,
                         subtitle: profilFromState.tempatLahir ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.dateOfBirth,
+                        title: appL10n.dateOfBirth,
                         subtitle: formattedTanggalLahir,
                       ),
                       ListProfil(
-                        title: appLocalizations.gender,
+                        title: appL10n.gender,
                         subtitle: (profilFromState.jenisKelamin ?? "").isEmpty
                             ? ""
                             : profilFromState.jenisKelamin == "P"
@@ -146,61 +145,61 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
 
                       ListProfil(
-                        title: appLocalizations.religion,
+                        title: appL10n.religion,
                         subtitle: profilFromState.agama?.name ?? "",
                       ),
 
                       ListProfil(
-                        title: appLocalizations.status,
+                        title: appL10n.status,
                         subtitle: profilFromState.status?.status ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.bloodType,
+                        title: appL10n.bloodType,
                         subtitle: profilFromState.golonganDarah ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.nasionality,
+                        title: appL10n.nasionality,
                         subtitle: profilFromState.kewarganegaraan ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.address,
+                        title: appL10n.address,
                         subtitle: profilFromState.alamatMahasiswa ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.noHp,
+                        title: appL10n.noHp,
                         subtitle: profilFromState.noTeleponMahasiswa ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.numberOfSiblings,
+                        title: appL10n.numberOfSiblings,
                         subtitle:
                             profilFromState.jumlahSaudara?.toString() ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.birthOrder,
+                        title: appL10n.birthOrder,
                         subtitle: profilFromState.anakKe?.toString() ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.hobby,
+                        title: appL10n.hobby,
                         subtitle: profilFromState.hobi ?? '',
                       ),
                       ListProfil(
-                        title: appLocalizations.fatherName,
+                        title: appL10n.fatherName,
                         subtitle: profilFromState.namaAyah ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.motherName,
+                        title: appL10n.motherName,
                         subtitle: profilFromState.namaIbu ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.parrentingJob,
+                        title: appL10n.parrentingJob,
                         subtitle: profilFromState.pekerjaanOrangtua ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.parrentAddress,
+                        title: appL10n.parrentAddress,
                         subtitle: profilFromState.alamatOrangtua ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.parentPhoneNumber,
+                        title: appL10n.parentPhoneNumber,
                         subtitle: profilFromState.noTeleponOrangtua ?? "",
                       ),
                       // ListProfil(
@@ -208,19 +207,19 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       //   subtitle: profil.sekolah?.namaSekolah ?? "",
                       // ),
                       ListProfil(
-                        title: appLocalizations.schoolDepartment,
+                        title: appL10n.schoolDepartment,
                         subtitle: profilFromState.jurusan ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.diplomaNumber,
+                        title: appL10n.diplomaNumber,
                         subtitle: profilFromState.noIjazah ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.diplomaDate,
+                        title: appL10n.diplomaDate,
                         subtitle: formattedTanggalIjazah,
                       ),
                       ListProfil(
-                        title: appLocalizations.information,
+                        title: appL10n.information,
                         subtitle: profilFromState.keterangan ?? "",
                       ),
 
@@ -230,7 +229,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                           context.pushNamed('editProfilPage');
                         },
                         style: Theme.of(context).outlinedButtonTheme.style,
-                        child: Text(appLocalizations.editProfile),
+                        child: Text(appL10n.editProfile),
                       ),
                     ],
                   );
@@ -276,94 +275,94 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       ),
                       SizedBox(height: 25),
                       ListProfil(
-                        title: appLocalizations.major,
+                        title: appL10n.major,
                         subtitle:
                             widget.profil.programStudi?.namaProgramstudi ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.yearOfEntry,
+                        title: appL10n.yearOfEntry,
                         subtitle: widget.profil.tahunAngkatan.toString(),
                       ),
                       ListProfil(
-                        title: appLocalizations.email,
+                        title: appL10n.email,
                         subtitle: widget.profil.email ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.campus,
+                        title: appL10n.campus,
                         subtitle: widget.profil.kodeKampus ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.placeOfBirth,
+                        title: appL10n.placeOfBirth,
                         subtitle: widget.profil.tempatLahir ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.dateOfBirth,
+                        title: appL10n.dateOfBirth,
                         subtitle: formattedTanggalLahir,
                       ),
                       ListProfil(
-                        title: appLocalizations.gender,
+                        title: appL10n.gender,
                         subtitle: (widget.profil.jenisKelamin ?? "").isEmpty
                             ? ""
                             : widget.profil.jenisKelamin == "P"
-                            ? "Pria"
-                            : "Wanita",
+                            ? appL10n.male
+                            : appL10n.female,
                       ),
 
                       ListProfil(
-                        title: appLocalizations.religion,
+                        title: appL10n.religion,
                         subtitle: widget.profil.agama?.name ?? "",
                       ),
 
                       ListProfil(
-                        title: appLocalizations.status,
+                        title: appL10n.status,
                         subtitle: widget.profil.status?.status ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.bloodType,
+                        title: appL10n.bloodType,
                         subtitle: widget.profil.golonganDarah ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.nasionality,
+                        title: appL10n.nasionality,
                         subtitle: widget.profil.kewarganegaraan ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.address,
+                        title: appL10n.address,
                         subtitle: widget.profil.alamatMahasiswa ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.noHp,
+                        title: appL10n.noHp,
                         subtitle: widget.profil.noTeleponMahasiswa ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.numberOfSiblings,
+                        title: appL10n.numberOfSiblings,
                         subtitle: widget.profil.jumlahSaudara?.toString() ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.birthOrder,
+                        title: appL10n.birthOrder,
                         subtitle: widget.profil.anakKe?.toString() ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.hobby,
+                        title: appL10n.hobby,
                         subtitle: widget.profil.hobi ?? '',
                       ),
                       ListProfil(
-                        title: appLocalizations.fatherName,
+                        title: appL10n.fatherName,
                         subtitle: widget.profil.namaAyah ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.motherName,
+                        title: appL10n.motherName,
                         subtitle: widget.profil.namaIbu ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.parrentingJob,
+                        title: appL10n.parrentingJob,
                         subtitle: widget.profil.pekerjaanOrangtua ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.parrentAddress,
+                        title: appL10n.parrentAddress,
                         subtitle: widget.profil.alamatOrangtua ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.parentPhoneNumber,
+                        title: appL10n.parentPhoneNumber,
                         subtitle: widget.profil.noTeleponOrangtua ?? "",
                       ),
                       // ListProfil(
@@ -371,19 +370,19 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                       //   subtitle: profil.sekolah?.namaSekolah ?? "",
                       // ),
                       ListProfil(
-                        title: appLocalizations.schoolDepartment,
+                        title: appL10n.schoolDepartment,
                         subtitle: widget.profil.jurusan ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.diplomaNumber,
+                        title: appL10n.diplomaNumber,
                         subtitle: widget.profil.noIjazah ?? "",
                       ),
                       ListProfil(
-                        title: appLocalizations.diplomaDate,
+                        title: appL10n.diplomaDate,
                         subtitle: formattedTanggalIjazah,
                       ),
                       ListProfil(
-                        title: appLocalizations.information,
+                        title: appL10n.information,
                         subtitle: widget.profil.keterangan ?? "",
                       ),
 
@@ -393,7 +392,7 @@ class _InfoProfilePageState extends State<InfoProfilePage> {
                           context.pushNamed('editProfilPage');
                         },
                         style: Theme.of(context).outlinedButtonTheme.style,
-                        child: Text(appLocalizations.editProfile),
+                        child: Text(appL10n.editProfile),
                       ),
                     ],
                   );

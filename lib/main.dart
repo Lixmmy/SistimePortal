@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/router/router.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           final currentLocale = state.locale;
-
+          setLocalization(AppLocalizations.of(context)!);
           return MaterialApp.router(
             routerConfig: myRouter(),
             debugShowCheckedModeBanner: false,
