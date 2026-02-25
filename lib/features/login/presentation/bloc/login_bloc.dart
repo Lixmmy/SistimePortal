@@ -22,25 +22,40 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }) : super(LoginInitial()) {
     on<LoginEventPostLogin>((event, emit) async {
       emit(LoginLoading());
-      Either<MessageExc, Token> result = await postLoginUseCases.postLogin(
-        username: event.username,
-        password: event.password,
-      );
-      result.fold(
-        (l) => emit(LoginFailure(message: l.message)),
-        (r) async {
+      try {
+        Either<MessageExc, Token> result = await postLoginUseCases.postLogin(
+          username: event.username,
+          password: event.password,
+        );
+        result.fold((l) => emit(LoginFailure(message: l.message)), (r) async {
           emit(LoginSuccess());
-        },
-      );
+        });
+      } on MessageExc catch (e) {
+        emit(LoginFailure(message: e.message));
+      } catch (e) {
+        emit(LoginFailure(message: e.toString()));
+      }
     });
 
     on<CheckBiometricSupport>((event, emit) async {
-      final bool canCheckBiometrics = await localAuthentication.canCheckBiometrics;
-      final bool isDeviceSupported = await localAuthentication.isDeviceSupported();
-      emit(LoginBiometricSupportChecked(
-        isSupported: isDeviceSupported,
-        canAuthenticate: canCheckBiometrics && isDeviceSupported,
-      ));
+      final bool canCheckBiometrics =
+          await localAuthentication.canCheckBiometrics;
+      final bool isDeviceSupported = await localAuthentication
+          .isDeviceSupported();
+      final String username = await loginLocalDataSource.getUsername();
+      final String password = await loginLocalDataSource.getPassword();
+      final bool isHaveCredentials = username.isNotEmpty && password.isNotEmpty;
+      final List<BiometricType> availableBiometrics = await localAuthentication
+          .getAvailableBiometrics();
+      final bool hasEnrolledBiometrics = availableBiometrics.isNotEmpty;
+      emit(
+        LoginBiometricSupportChecked(
+          isSupported: isDeviceSupported,
+          canAuthenticate: canCheckBiometrics && isDeviceSupported,
+          hasEnrolledBiometrics: hasEnrolledBiometrics,
+          isHaveCredentials: isHaveCredentials,
+        ),
+      );
     });
 
     on<AuthenticateWithBiometrics>((event, emit) async {
@@ -48,33 +63,47 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final bool didAuthenticate = await localAuthentication.authenticate(
           localizedReason: 'Please authenticate to log in',
-          biometricOnly: true
+          biometricOnly: true,
         );
 
         if (didAuthenticate) {
           final result = await Future.wait([
             loginLocalDataSource.getUsername(),
-           loginLocalDataSource.getPassword()
+            loginLocalDataSource.getPassword(),
           ]);
           final String username = result[0];
           final String password = result[1];
           if (username.isNotEmpty && password.isNotEmpty) {
-            Either<MessageExc, Token> result = await postLoginUseCases.postLogin(
-              username: username,
-              password: password,
-            );
+            Either<MessageExc, Token> result = await postLoginUseCases
+                .postLogin(username: username, password: password);
             result.fold(
-              (l) => emit(LoginBiometricFailure(message: 'Biometric login failed: ${l.message}')),
+              (l) => emit(
+                LoginBiometricFailure(
+                  message: 'Biometric login failed: ${l.message}',
+                ),
+              ),
               (r) => emit(LoginSuccess()),
             );
           } else {
-            emit(const LoginBiometricFailure(message: 'Biometric login failed: No stored credentials.'));
+            emit(
+              const LoginBiometricFailure(
+                message: 'Biometric login failed: No stored credentials.',
+              ),
+            );
           }
         } else {
-          emit(const LoginBiometricFailure(message: 'Biometric authentication cancelled or failed.'));
+          emit(
+            const LoginBiometricFailure(
+              message: 'Biometric authentication cancelled or failed.',
+            ),
+          );
         }
       } catch (e) {
-        emit(LoginBiometricFailure(message: 'Biometric authentication error: ${e.toString()}'));
+        emit(
+          LoginBiometricFailure(
+            message: 'Biometric authentication error: ${e.toString()}',
+          ),
+        );
       }
     });
   }

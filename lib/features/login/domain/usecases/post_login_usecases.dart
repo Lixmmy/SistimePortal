@@ -19,9 +19,9 @@ class PostLoginUseCases {
     if (password.isEmpty) {
       throw MessageExc.unknown(appL10n.passwordCannotBeEmpty);
     }
-    if (password.length < 8) {
-      throw MessageExc.unknown(appL10n.passwordIsTooShort);
-    }
+    // if (password.length < 8) {
+    //   throw MessageExc.unknown(appL10n.passwordIsTooShort);
+    // }
 
     return loginRepositories.postLogin(username: username, password: password);
   }

@@ -7,7 +7,7 @@ import 'package:newsistime/features/khs/domain/entities/khs.dart';
 import 'package:newsistime/features/khs/domain/usecases/get_khs.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -27,9 +27,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
       final username = await SecureStorage().getData('username');
       emit(KhsLoading());
       try {
-        final khsResult = await getKhs.call(
-          id: profil!.idUser.toString(),
-        );
+        final khsResult = await getKhs.call(id: profil!.idUser.toString());
         khsResult.fold(
           (failure) {
             emit(KhsError(message: failure.message));
@@ -82,7 +80,13 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
               groupedKhs.entries.toList()
                 ..sort((a, b) => a.key.compareTo(b.key)),
             );
-            emit(KhsLoaded(groupedKhs: sortedGroupKhs, profil: profil.toEntity(), username: username));
+            emit(
+              KhsLoaded(
+                groupedKhs: sortedGroupKhs,
+                profil: profil.toEntity(),
+                username: username,
+              ),
+            );
           },
         );
       } catch (e) {
@@ -173,9 +177,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                       child: pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
-                          pw.Text(
-                            '${appLocalizations.nim}: $username',
-                          ),
+                          pw.Text('${appLocalizations.nim}: $username'),
                           pw.Text(
                             '${appLocalizations.name}: ${profil.namaMahasiswa ?? ""}',
                           ),

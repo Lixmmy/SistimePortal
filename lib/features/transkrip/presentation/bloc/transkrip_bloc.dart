@@ -7,7 +7,7 @@ import 'package:newsistime/features/profil/data/datasources/local_datasource.dar
 import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
 import 'package:newsistime/features/transkrip/domain/usecases/get_transkrip.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -66,8 +66,9 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                   nilai.quiz,
                   nilai.perbaikan,
                 ];
-                final List<double> validScores =
-                    scores.whereType<double>().toList();
+                final List<double> validScores = scores
+                    .whereType<double>()
+                    .toList();
                 if (validScores.isNotEmpty) {
                   final double totalScore = validScores.reduce((a, b) => a + b);
                   final int count = validScores.length;
@@ -154,9 +155,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                         child: pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            pw.Text(
-                              '${appLocalizations.nim}: $username',
-                            ),
+                            pw.Text('${appLocalizations.nim}: $username'),
                             pw.Text(
                               '${appLocalizations.name}: ${profil.namaMahasiswa}',
                             ),

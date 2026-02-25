@@ -24,11 +24,23 @@ class LoginFailure extends LoginState {
 class LoginBiometricSupportChecked extends LoginState {
   final bool isSupported;
   final bool canAuthenticate;
+  final bool hasEnrolledBiometrics;
+  final bool isHaveCredentials;
 
-  const LoginBiometricSupportChecked({required this.isSupported, required this.canAuthenticate});
+  const LoginBiometricSupportChecked({
+    required this.isSupported,
+    required this.canAuthenticate,
+    required this.hasEnrolledBiometrics,
+    required this.isHaveCredentials,
+  });
 
   @override
-  List<Object> get props => [isSupported, canAuthenticate];
+  List<Object> get props => [
+    isSupported,
+    canAuthenticate,
+    isHaveCredentials,
+    hasEnrolledBiometrics,
+  ];
 }
 
 class LoginBiometricAuthenticating extends LoginState {}

@@ -19,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isObsecure = true;
   bool _canAuthenticate = false;
+  bool _hasEnrolledBiometrics = false;
+  bool _isHaveCredentials = false;
 
   @override
   void initState() {
@@ -125,6 +127,8 @@ class _LoginPageState extends State<LoginPage> {
               if (state is LoginBiometricSupportChecked) {
                 setState(() {
                   _canAuthenticate = state.canAuthenticate;
+                  _hasEnrolledBiometrics = state.hasEnrolledBiometrics;
+                  _isHaveCredentials = state.isHaveCredentials;
                 });
               }
             },
@@ -221,29 +225,33 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             },
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                if (_canAuthenticate)
-                                  IconButton(
-                                    icon: const Icon(Icons.fingerprint),
-                                    onPressed: () {
-                                      context.read<LoginBloc>().add(
-                                        AuthenticateWithBiometrics(),
-                                      );
-                                    },
-                                  ),
-                                TextButton(
-                                  onPressed: () {
-                                    context.pushNamed('forgotPasswordPage');
-                                  },
-                                  child: Text(appL10n.forgotPassword),
-                                ),
-                              ],
-                            ),
+                          TextButton(
+                            onPressed: () {
+                              context.pushNamed('forgotPasswordPage');
+                            },
+                            child: Text(appL10n.forgotPassword),
                           ),
+                          if (_canAuthenticate &&
+                              _hasEnrolledBiometrics &&
+                              _isHaveCredentials)
+                            Center(
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.fingerprint,
+                                  size: 60,
+                                  color:
+                                      Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                                onPressed: () {
+                                  context.read<LoginBloc>().add(
+                                    AuthenticateWithBiometrics(),
+                                  );
+                                },
+                              ),
+                            ),
                           const SizedBox(height: 16),
                           SizedBox(
                             width: double.infinity,

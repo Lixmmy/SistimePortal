@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/custom_widgets/appbarcustom.dart';
-import 'package:newsistime/l10n/app_localizations.dart'; // Untuk lokalisasi string
+import 'package:newsistime/core/localization/l10n/app_localizations.dart'; // Untuk lokalisasi string
 import 'package:newsistime/features/language/domain/entities/app_language.dart'; // Penting: Import AppLanguage entity
 import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
 
@@ -43,8 +43,7 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
           if (state is LanguageLoaded ||
               state is LanguageError ||
               state is LanguageInitial) {
-            final currentLocale =
-                state.locale;
+            final currentLocale = state.locale;
 
             return ListView.separated(
               itemCount: AppLanguage.values.length,
@@ -56,7 +55,10 @@ class _SelectionLanguagePageState extends State<SelectionLanguagePage> {
                     appLanguage.locale.languageCode;
 
                 return ListTile(
-                  title: Text(appLanguage.name, style: Theme.of(context).textTheme.labelSmall,),
+                  title: Text(
+                    appLanguage.name,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                   trailing: isSelected
                       ? const Icon(Icons.check_circle, color: Colors.blue)
                       : null,

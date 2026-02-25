@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           final currentLocale = state.locale;
-          setLocalization(AppLocalizations.of(context)!);
           return MaterialApp.router(
             routerConfig: myRouter(),
             debugShowCheckedModeBanner: false,
@@ -40,6 +39,11 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.system,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
+            builder: (context, child) {
+              final l10n = AppLocalizations.of(context);
+              if (l10n != null) setLocalization(l10n);
+              return child ?? const SizedBox.shrink();
+            },
           );
         },
       ),

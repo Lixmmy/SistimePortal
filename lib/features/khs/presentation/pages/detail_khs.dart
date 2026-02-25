@@ -5,7 +5,7 @@ import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/injection.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 
 class DetailKhs extends StatefulWidget {

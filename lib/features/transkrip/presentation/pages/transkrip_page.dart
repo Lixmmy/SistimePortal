@@ -4,7 +4,7 @@ import 'package:newsistime/features/profil/presentation/widgets/build_info_row.d
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
 import 'package:newsistime/injection.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 
 class TranskripPage extends StatefulWidget {
   const TranskripPage({super.key});
@@ -129,7 +129,8 @@ class _TranskripPageState extends State<TranskripPage> {
                               // ),
                               BuildInfoRow(
                                 label: appLocalizations.studyPrograms,
-                                value: profil.programStudi?.namaProgramstudi ?? '',
+                                value:
+                                    profil.programStudi?.namaProgramstudi ?? '',
                                 valueFlex: 6,
                                 labelFlex: 3,
                                 labelColor:

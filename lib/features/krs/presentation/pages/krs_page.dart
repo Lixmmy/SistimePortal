@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:quickalert/quickalert.dart';
 
 class KrsPage extends StatefulWidget {
@@ -30,7 +30,7 @@ class _KrsPageState extends State<KrsPage> {
     return Scaffold(
       body: BlocConsumer<KrsBloc, KrsState>(
         listener: (context, state) {
-          if(state is KrsTokenExpired){
+          if (state is KrsTokenExpired) {
             QuickAlert.show(
               context: context,
               type: QuickAlertType.error,
@@ -42,7 +42,7 @@ class _KrsPageState extends State<KrsPage> {
             );
           }
           if (state is KrsError) {
-           QuickAlert.show(
+            QuickAlert.show(
               context: context,
               type: QuickAlertType.error,
               title: "error",

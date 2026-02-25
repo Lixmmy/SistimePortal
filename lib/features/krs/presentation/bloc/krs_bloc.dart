@@ -7,7 +7,7 @@ import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
 import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
-import 'package:newsistime/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -21,8 +21,11 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
   final ProfilLocalDataSource profilLocalDataSource;
   final LoginLocalDataSource loginLocalDataSource;
 
-  KrsBloc({required this.getKrs, required this.profilLocalDataSource, required this.loginLocalDataSource})
-    : super(KrsInitial()) {
+  KrsBloc({
+    required this.getKrs,
+    required this.profilLocalDataSource,
+    required this.loginLocalDataSource,
+  }) : super(KrsInitial()) {
     on<FetchKrsData>((event, emit) async {
       final profil = await profilLocalDataSource.getSavedProfilData();
 
@@ -31,7 +34,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
         final id = profil!.idUser.toString();
         final krsResult = await getKrs.execute(id);
         krsResult.fold(
-          (failure) async{
+          (failure) async {
             if (failure.type == MessageExcType.tokenExpired) {
               await loginLocalDataSource.deleteToken();
               emit(KrsTokenExpired(message: failure.message));
