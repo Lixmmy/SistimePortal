@@ -39,3 +39,12 @@ class KhsPdfDownloaded extends KhsState {
   @override
   List<Object> get props => [filePath];
 }
+
+class KhsTokenExpired extends KhsState {
+  final String message;
+
+  const KhsTokenExpired({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

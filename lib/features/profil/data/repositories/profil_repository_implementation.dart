@@ -43,10 +43,10 @@ class ProfilRepositoryImplementation extends ProfilRepository {
       final programStudi = programStudis.firstWhereOrNull(
         (e) => e.kodeProgramstudi == hasil.kodeProgramStudi,
       );
-      final statusList = await statusRemoteDataSource.getStatus();
-      final status = statusList.firstWhereOrNull(
-        (e) => e.idStatus == hasil.idStatus,
-      );
+      // final statusList = await statusRemoteDataSource.getStatus();
+      // final status = statusList.firstWhereOrNull(
+      //   (e) => e.idStatus == hasil.idStatus,
+      // );
       final waktuKuliahList = await waktuKuliahRemoteDataSource
           .getWaktuKuliahList();
       final waktuKuliah = waktuKuliahList.firstWhereOrNull(
@@ -62,7 +62,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
         programStudi: programStudi,
         namaSekolah: hasil.namaSekolah,
         idStatus: hasil.idStatus,
-        status: status,
+        // status: status,
         idWaktuKuliah: hasil.idWaktuKuliah,
         waktuKuliah: waktuKuliah,
         email: hasil.email,

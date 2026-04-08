@@ -1,12 +1,12 @@
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/features/krs/data/models/krs_model.dart';
-// import 'package:newsistime/features/krs/data/models/matkul_model.dart';
-// import 'package:newsistime/features/krs/domain/entities/matkul.dart';
+import 'package:newsistime/features/krs/data/models/matkul_model.dart';
+import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 
 abstract class RemoteKrsDataSource {
   Future<List<KrsModel>> getKrs({required String id});
-  // Future<List<Matkul>> getMataKuliah();
+  Future<List<Matkul>> getMataKuliah();
 }
 
 class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
@@ -34,22 +34,22 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
     }
   }
 
-  // @override
-  // Future<List<Matkul>> getMataKuliah() async {
-  //   try {
-  //     final response = await connectApi.getMataKuliah();
-  //     if (response != null) {
-  //       final List<MatkulModel> matkulModel =
-  //        ListMatkulModel.fromJson(response)
-  //           .listMatkulModel;
-  //       return matkulModel.map((e) => e.toEntity()).toList();
-  //     } else {
-  //       throw MessageExc.api('No data found');
-  //     }
-  //   } on MessageExc {
-  //     rethrow;
-  //   } catch (e) {
-  //     throw MessageExc.unknown('An unexpected error in  occurred: ${e.toString()}');
-  //   }
-  // }
+  @override
+  Future<List<Matkul>> getMataKuliah() async {
+    try {
+      final response = await connectApi.getMataKuliah();
+      if (response != null) {
+        final List<MatkulModel> matkulModel =
+         ListMatkulModel.fromJson(response)
+            .listMatkulModel;
+        return matkulModel.map((e) => e.toEntity()).toList();
+      } else {
+        throw MessageExc.api('No data found');
+      }
+    } on MessageExc {
+      rethrow;
+    } catch (e) {
+      throw MessageExc.unknown('An unexpected error in  occurred: ${e.toString()}');
+    }
+  }
 }

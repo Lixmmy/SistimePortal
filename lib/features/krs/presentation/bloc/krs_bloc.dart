@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
+import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
 import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
 import 'package:newsistime/core/localization/l10n/app_localizations.dart';
@@ -18,11 +19,13 @@ part 'krs_state.dart';
 
 class KrsBloc extends Bloc<KrsEvent, KrsState> {
   final GetKrs getKrs;
+  final GetMataKuliah getMataKuliah;
   final ProfilLocalDataSource profilLocalDataSource;
   final LoginLocalDataSource loginLocalDataSource;
 
   KrsBloc({
     required this.getKrs,
+    required this.getMataKuliah,
     required this.profilLocalDataSource,
     required this.loginLocalDataSource,
   }) : super(KrsInitial()) {
@@ -33,29 +36,58 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
       try {
         final id = profil!.idUser.toString();
         final krsResult = await getKrs.execute(id);
-        krsResult.fold(
-          (failure) async {
-            if (failure.type == MessageExcType.tokenExpired) {
+        final matkulResult = await getMataKuliah.execute();
+        final krsEither = krsResult;
+        final matkulEither = matkulResult;
+        if (krsEither.isLeft() || matkulEither.isLeft()) {
+          // Handle error from either use case
+          final krsErrorMessage = await krsEither.fold((l) async{
+            if (l is KrsTokenExpired)  {
               await loginLocalDataSource.deleteToken();
-              emit(KrsTokenExpired(message: failure.message));
+              emit(KrsTokenExpired(message: l.message));
             }
-            emit(KrsError(message: failure.message));
-          },
-          (krsList) {
-            final Map<int, List<Krs>> groupedKrs = {};
-            for (var krs in krsList) {
-              if (!groupedKrs.containsKey(krs.semester)) {
-                groupedKrs[krs.semester] = [];
-              }
-              groupedKrs[krs.semester]!.add(krs);
+            return l.message;
+          }, (r) async => '');
+          final matkulErrorMessage = matkulEither.fold((l) => l.message, (r) => '');
+          final errorMessage = '$krsErrorMessage$matkulErrorMessage';
+          emit(KrsError(message: errorMessage));
+          return;
+        }
+        final krsList = krsEither.getOrElse(() => []);
+        final matkulList = matkulEither.getOrElse(() => []);
+
+        final matkulMap = {
+          for (var matkul in matkulList) matkul.kodeMataKuliah: matkul,
+        };
+        final groupedKrs = <int, List<Krs>>{};
+
+        for (var krs in krsList) {
+          final matkul = matkulMap[krs.kodeMatakuliah];
+          if (matkul != null) {
+            final semester = matkul.semester;
+            if (!groupedKrs.containsKey(semester)) {
+              groupedKrs[semester] = [];
             }
-            final sortedGroupKrs = Map.fromEntries(
-              groupedKrs.entries.toList()
-                ..sort((a, b) => a.key.compareTo(b.key)),
+            // Create a new Krs object with the sks value from matkul
+            final krsWithSks = Krs(
+              idKrs: krs.idKrs,
+              idSkemaKrs: krs.idSkemaKrs,
+              kodeMatakuliah: krs.kodeMatakuliah,
+              namaMatakuliah: krs.namaMatakuliah,
+              namaDosen: krs.namaDosen,
+              sks: matkul.sks, // Assign the sks value here
             );
-            emit(KrsLoaded(groupedKrs: sortedGroupKrs));
-          },
+            groupedKrs[semester]!.add(krsWithSks);
+          }
+        }
+
+        // Sort keys (semesters) in ascending order
+        final sortedGroupedKrs = Map.fromEntries(
+          groupedKrs.entries.toList()
+            ..sort((e1, e2) => e1.key.compareTo(e2.key)),
         );
+
+        emit(KrsLoaded(groupedKrs: sortedGroupedKrs));
       } catch (e) {
         emit(KrsError(message: e.toString()));
       }

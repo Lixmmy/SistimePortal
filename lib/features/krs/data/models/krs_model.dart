@@ -4,14 +4,12 @@ class KrsModel {
   final int idKrsModel;
   final int idSkemaKrsModel;
   final String kodeMatakuliahModel;
-  final int semesterModel;
   final String namaMatakuliahModel;
   final String namaDosenModel;
 
   KrsModel({
     required this.idKrsModel,
     required this.idSkemaKrsModel,
-    required this.semesterModel,
     required this.kodeMatakuliahModel,
     required this.namaMatakuliahModel,
     required this.namaDosenModel,
@@ -21,7 +19,6 @@ class KrsModel {
     return KrsModel(
       idKrsModel: json['idKrs'],
       idSkemaKrsModel: json['idSkemaKrs'],
-      semesterModel: json['semester'],
       kodeMatakuliahModel: json['kodeMatakuliah'],
       namaMatakuliahModel: json['namaMatakuliah'],
       namaDosenModel: json['namaDosen'],
@@ -32,7 +29,6 @@ class KrsModel {
     return {
       'idKrs': idKrsModel,
       'idSkemaKrs': idSkemaKrsModel,
-      'semester': semesterModel,
       'kodeMataKuliah': kodeMatakuliahModel,
       'namaMataKuliah': namaMatakuliahModel,
       'namaDosen': namaDosenModel,
@@ -43,7 +39,6 @@ class KrsModel {
     return Krs(
       idKrs: idKrsModel,
       idSkemaKrs: idSkemaKrsModel,
-      semester: semesterModel,
       kodeMatakuliah: kodeMatakuliahModel,
       namaMatakuliah: namaMatakuliahModel,
       namaDosen: namaDosenModel,

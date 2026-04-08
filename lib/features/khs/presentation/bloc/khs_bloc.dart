@@ -5,6 +5,7 @@ import 'package:newsistime/core/helper/grade_converter.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/khs/domain/entities/khs.dart';
 import 'package:newsistime/features/khs/domain/usecases/get_khs.dart';
+import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/core/localization/l10n/app_localizations.dart';
@@ -19,9 +20,13 @@ part 'khs_state.dart';
 class KhsBloc extends Bloc<KhsEvent, KhsState> {
   final GetKhs getKhs;
   final ProfilLocalDataSource profilLocalDataSource;
+  final LoginLocalDataSource loginLocalDataSource;
 
-  KhsBloc({required this.getKhs, required this.profilLocalDataSource})
-    : super(KhsInitial()) {
+  KhsBloc({
+    required this.getKhs,
+    required this.profilLocalDataSource,
+    required this.loginLocalDataSource,
+  }) : super(KhsInitial()) {
     on<FetchKhsData>((event, emit) async {
       final profil = await profilLocalDataSource.getSavedProfilData();
       final username = await SecureStorage().getData('username');
@@ -29,7 +34,13 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
       try {
         final khsResult = await getKhs.call(id: profil!.idUser.toString());
         khsResult.fold(
-          (failure) {
+          (failure) async {
+            if (failure is KhsTokenExpired) {
+              await loginLocalDataSource.deleteToken();
+              emit(KhsTokenExpired(message: failure.message));
+            } else {
+              emit(KhsError(message: failure.message));
+            }
             emit(KhsError(message: failure.message));
           },
           (data) {

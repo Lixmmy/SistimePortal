@@ -206,6 +206,10 @@ class ConnectApi {
         .toList();
   }
 
+  Future<dynamic> getMataKuliah() {
+    return _requestGet(mataKuliahRoute, true);
+  }
+
   Future<dynamic> postLogin({
     required String username,
     required String password,

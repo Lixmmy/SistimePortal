@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsistime/custom_widgets/appbarcustom.dart';
+import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
@@ -35,7 +36,9 @@ class NilaiPage extends StatelessWidget {
               value: myInjection<KrsBloc>(),
               child: const KrsPage(),
             ),
-            KhsPage(),
+            BlocProvider.value(
+              value: myInjection<KhsBloc>(),
+              child: KhsPage()),
             TranskripPage(),
             PamPage(),
           ],

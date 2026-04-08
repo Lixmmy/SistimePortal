@@ -193,32 +193,25 @@ GoRouter myRouter() {
         name: 'nilaiPage',
         builder: (context, state) => const NilaiPage(),
       ),
-      ShellRoute(
-        builder: (context, state, child) {
-          return BlocProvider(
-            create: (context) => KhsBloc(
-              getKhs: myInjection(),
-              profilLocalDataSource: myInjection(),
-            ),
-            child: child,
+      GoRoute(
+        path: '/khs_page',
+        name: 'khsPage',
+        builder: (context, state) => BlocProvider.value(
+          value: myInjection<KhsBloc>(),
+          child: const KhsPage(),
+        ),
+      ),
+      GoRoute(
+        path: '/detail_khs_page',
+        name: 'detailKhsPage',
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
+          final int semester = data['semester'];
+          return BlocProvider.value(
+            value: myInjection<KhsBloc>(),
+            child: DetailKhs(semester: semester),
           );
         },
-        routes: [
-          GoRoute(
-            path: '/khs_page',
-            name: 'khsPage',
-            builder: (context, state) => KhsPage(),
-          ),
-          GoRoute(
-            path: '/detail_khs_page',
-            name: 'detailKhsPage',
-            builder: (context, state) {
-              final data = state.extra as Map<String, dynamic>;
-              final int semester = data['semester'];
-              return DetailKhs(semester: semester);
-            },
-          ),
-        ],
       ),
       GoRoute(
         path: 'pam_page',

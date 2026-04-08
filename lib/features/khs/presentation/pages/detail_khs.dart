@@ -59,7 +59,6 @@ class _DetailKrsState extends State<DetailKhs> {
             ),
           ),
           BlocConsumer<KhsBloc, KhsState>(
-            bloc: myInjection<KhsBloc>(),
             listener: (context, state) {
               if (state is KhsLoading) {
                 LoadingManager().show(context);

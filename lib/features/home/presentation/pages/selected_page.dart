@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/features/home/presentation/pages/home_page.dart';
 import 'package:newsistime/features/home/presentation/widgets/bnb.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
@@ -44,6 +45,13 @@ class _SelectedPageState extends State<SelectedPage> {
         listener: (context, state) {
           if (state is ProfilLogout) {
             context.goNamed('launcherPage');
+          }
+          if (state is ProfilLoading) {
+            LoadingManager().show(context);
+          } else {
+            if (LoadingManager().isShowing) {
+              LoadingManager().dismiss();
+            }
           }
           if (state is ProfilTokenExpired) {
             QuickAlert.show(
