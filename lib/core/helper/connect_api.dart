@@ -84,6 +84,7 @@ class ConnectApi {
     try {
       await _ensureInternetConnection();
       Uri uri = Uri(scheme: scheme, host: host, path: endpoint);
+      print(uri);
       final Map<String, String> headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

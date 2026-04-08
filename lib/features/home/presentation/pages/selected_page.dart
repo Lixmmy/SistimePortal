@@ -49,7 +49,7 @@ class _SelectedPageState extends State<SelectedPage> {
             QuickAlert.show(
               context: context,
               type: QuickAlertType.error,
-              text: state.message,
+              text: '${state.message} token',
               confirmBtnText: "OK",
               onConfirmBtnTap: () {
                 context.read<ProfilBloc>().add(LogOutProfil());
