@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
@@ -41,14 +40,17 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
         final matkulEither = matkulResult;
         if (krsEither.isLeft() || matkulEither.isLeft()) {
           // Handle error from either use case
-          final krsErrorMessage = await krsEither.fold((l) async{
-            if (l is KrsTokenExpired)  {
+          final krsErrorMessage = await krsEither.fold((l) async {
+            if (l is KrsTokenExpired) {
               await loginLocalDataSource.deleteToken();
               emit(KrsTokenExpired(message: l.message));
             }
             return l.message;
           }, (r) async => '');
-          final matkulErrorMessage = matkulEither.fold((l) => l.message, (r) => '');
+          final matkulErrorMessage = matkulEither.fold(
+            (l) => l.message,
+            (r) => '',
+          );
           final errorMessage = '$krsErrorMessage$matkulErrorMessage';
           emit(KrsError(message: errorMessage));
           return;
