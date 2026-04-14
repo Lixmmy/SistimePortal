@@ -2,11 +2,16 @@ import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/features/krs/data/models/krs_model.dart';
 import 'package:newsistime/features/krs/data/models/matkul_model.dart';
+import 'package:newsistime/features/krs/data/models/skema_model.dart';
 import 'package:newsistime/features/krs/domain/entities/matkul.dart';
+import 'package:newsistime/features/krs/domain/entities/skedul_krs.dart';
+import 'package:newsistime/features/krs/domain/entities/skema_krs.dart';
 
 abstract class RemoteKrsDataSource {
   Future<List<KrsModel>> getKrs({required String id});
   Future<List<Matkul>> getMataKuliah();
+  Future<List<SkemaKrs>> getSkemaKrs();
+  Future<List<SkedulKrs>> getSkedulKrs(String idSkemaKrs);
 }
 
 class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
@@ -39,9 +44,9 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
     try {
       final response = await connectApi.getMataKuliah();
       if (response != null) {
-        final List<MatkulModel> matkulModel =
-         ListMatkulModel.fromJson(response)
-            .listMatkulModel;
+        final List<MatkulModel> matkulModel = ListMatkulModel.fromJson(
+          response,
+        ).listMatkulModel;
         return matkulModel.map((e) => e.toEntity()).toList();
       } else {
         throw MessageExc.api('No data found');
@@ -49,7 +54,37 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
     } on MessageExc {
       rethrow;
     } catch (e) {
-      throw MessageExc.unknown('An unexpected error in  occurred: ${e.toString()}');
+      throw MessageExc.unknown(
+        'An unexpected error in  occurred: ${e.toString()}',
+      );
+    }
+  }
+
+  @override
+  Future<List<SkemaKrs>> getSkemaKrs() async {
+    try {
+      final response = await connectApi.getSkemaKrs();
+      return response;
+    } on MessageExc {
+      rethrow;
+    } catch (e) {
+      throw MessageExc.unknown(
+        'An unexpected error in getSkemaKrs occurred: ${e.toString()}',
+      );
+    }
+  }
+
+  @override
+  Future<List<SkedulKrs>> getSkedulKrs(String idSkemaKrs) async {
+    try {
+      final response = await connectApi.getSkedulKrs(idSkemaKrs);
+      return response;
+    } on MessageExc {
+      rethrow;
+    } catch (e) {
+      throw MessageExc.unknown(
+        'An unexpected error in getSkedulKrs occurred: ${e.toString()}',
+      );
     }
   }
 }

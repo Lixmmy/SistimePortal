@@ -10,6 +10,10 @@ import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/core/route_config/config.dart';
 import 'package:newsistime/core/route_config/route_endpoint.dart';
 import 'package:newsistime/features/agama/data/models/agama_model.dart';
+import 'package:newsistime/features/krs/data/models/skedul_model.dart';
+import 'package:newsistime/features/krs/data/models/skema_model.dart';
+import 'package:newsistime/features/krs/domain/entities/skedul_krs.dart';
+import 'package:newsistime/features/krs/domain/entities/skema_krs.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
 import 'package:newsistime/features/status/data/models/status_model.dart';
@@ -41,10 +45,19 @@ class ConnectApi {
     }
   }
 
-  Future<dynamic> _requestGet(String endpoint, bool authorization) async {
+  Future<dynamic> _requestGet(
+    String endpoint,
+    bool authorization, {
+    String? idSkemaKrs,
+  }) async {
     try {
       await _ensureInternetConnection();
-      Uri uri = Uri(scheme: scheme, host: host, path: endpoint);
+      Uri uri = Uri(
+        scheme: scheme,
+        host: host,
+        path: endpoint,
+        queryParameters: {'idSkemaKrs': idSkemaKrs},
+      );
       final Map<String, String> headers = {'Accept': 'application/json'};
       if (authorization == true) {
         String token = await secureStorage.getData('token');
@@ -208,6 +221,20 @@ class ConnectApi {
 
   Future<dynamic> getMataKuliah() {
     return _requestGet(mataKuliahRoute, true);
+  }
+
+  Future<List<SkedulKrs>> getSkedulKrs(String idSkemaKrs) async {
+    final List<SkedulModel> response = await _requestGet(
+      getSkedulKrsRoute,
+      true,
+      idSkemaKrs: idSkemaKrs,
+    );
+    return response.map((e) => e.toEntity()).toList();
+  }
+
+  Future<List<SkemaKrs>> getSkemaKrs() async {
+    final List<SkemaModel> response = await _requestGet(getSkemaKrsRoute, true);
+    return response.map((e) => e.toEntity()).toList();
   }
 
   Future<dynamic> postLogin({

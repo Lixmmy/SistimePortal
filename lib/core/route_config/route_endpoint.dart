@@ -9,3 +9,5 @@ const waktuKuliahRoute = 'rest/api/waktukuliah';
 const statusRoute = 'rest/api/status';
 const programStudiRoute = 'rest/api/programstudi';
 const patchMahasiswaRoute = 'rest/api/mahasiswa/iduser';
+const getSkemaKrsRoute = 'rest/api/skemakrs';
+const getSkedulKrsRoute = 'rest/api/skedulkrs';
