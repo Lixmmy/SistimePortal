@@ -30,12 +30,3 @@ class Matkul extends Equatable {
     semester,
   ];
 }
-
-class ListMatkul extends Equatable {
-  final List<Matkul> matkul;
-
-  const ListMatkul({required this.matkul});
-
-  @override
-  List<Object?> get props => [matkul];
-}

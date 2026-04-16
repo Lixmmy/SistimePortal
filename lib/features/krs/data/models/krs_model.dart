@@ -46,23 +46,3 @@ class KrsModel {
     );
   }
 }
-
-class ListKrsModel {
-  final List<KrsModel> listKrsModel;
-
-  const ListKrsModel({required this.listKrsModel});
-
-  factory ListKrsModel.fromJson(List<dynamic> json) {
-    return ListKrsModel(
-      listKrsModel: json.map((e) => KrsModel.fromJson(e)).toList(),
-    );
-  }
-
-  ListKrs toEntity() {
-    return ListKrs(
-      krs: listKrsModel.map((e) {
-        return e.toEntity();
-      }).toList(),
-    );
-  }
-}

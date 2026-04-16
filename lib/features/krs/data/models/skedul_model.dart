@@ -50,21 +50,3 @@ class SkedulModel {
     );
   }
 }
-
-class ListSkedulModel {
-  final List<SkedulModel> listSkedulModel;
-
-  const ListSkedulModel({required this.listSkedulModel});
-
-  factory ListSkedulModel.fromJson(List<dynamic> json) {
-    return ListSkedulModel(
-      listSkedulModel: json.map((e) => SkedulModel.fromJson(e)).toList(),
-    );
-  }
-
-  ListSkedulKrs toEntity() {
-    return ListSkedulKrs(
-      listSkedul: listSkedulModel.map((e) => e.toEntity()).toList(),
-    );
-  }
-}

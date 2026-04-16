@@ -40,21 +40,3 @@ class SkemaModel {
     );
   }
 }
-
-class ListSkemaModel {
-  final List<SkemaModel> listSkemaModel;
-
-  const ListSkemaModel({required this.listSkemaModel});
-
-  factory ListSkemaModel.fromJson(List<dynamic> json) {
-    return ListSkemaModel(
-      listSkemaModel: json.map((e) => SkemaModel.fromJson(e)).toList(),
-    );
-  }
-
-  ListSkemaKrs toEntity() {
-    return ListSkemaKrs(
-      listSkema: listSkemaModel.map((e) => e.toEntity()).toList(),
-    );
-  }
-}

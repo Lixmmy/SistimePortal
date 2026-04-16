@@ -24,8 +24,8 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
         username: username,
         password: password,
       );
-      final token = TokenModel.fromJson(result);
-      return token;
+
+      return result;
     } on MessageExc {
       rethrow;
     } catch (e) {

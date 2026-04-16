@@ -10,13 +10,17 @@ import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/core/route_config/config.dart';
 import 'package:newsistime/core/route_config/route_endpoint.dart';
 import 'package:newsistime/features/agama/data/models/agama_model.dart';
+import 'package:newsistime/features/khs/data/models/khs_model.dart';
+import 'package:newsistime/features/krs/data/models/krs_model.dart';
+import 'package:newsistime/features/krs/data/models/matkul_model.dart';
 import 'package:newsistime/features/krs/data/models/skedul_model.dart';
 import 'package:newsistime/features/krs/data/models/skema_model.dart';
-import 'package:newsistime/features/krs/domain/entities/skedul_krs.dart';
-import 'package:newsistime/features/krs/domain/entities/skema_krs.dart';
+import 'package:newsistime/features/login/data/models/token_model.dart';
+import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
 import 'package:newsistime/features/status/data/models/status_model.dart';
+import 'package:newsistime/features/transkrip/data/models/transkrip_model.dart';
 import 'package:newsistime/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
 
 class ConnectApi {
@@ -177,20 +181,24 @@ class ConnectApi {
     }
   }
 
-  Future<dynamic> getMahasiswa({required String nim}) {
-    return _requestGet('$mahasiswaRoute/$nim', true);
+  Future<ProfilModel> getMahasiswa({required String nim}) async {
+    final response = await _requestGet('$mahasiswaRoute/$nim', true);
+    return ProfilModel.fromjson(response);
   }
 
-  Future<dynamic> getKrs({required String id}) {
-    return _requestGet('$krsRoute/$id', true);
+  Future<List<KrsModel>> getKrs({required String id}) async {
+    final response = await _requestGet('$krsRoute/$id', true);
+    return response.map((e) => KrsModel.fromJson(e)).toList();
   }
 
-  Future<dynamic> getKhs({required String id}) {
-    return _requestGet('$khsRoute/$id', true);
+  Future<List<KhsModel>> getKhs({required String id}) async {
+    final response = await _requestGet('$khsRoute/$id', true);
+    return response.map((e) => KhsModel.fromJson(e)).toList();
   }
 
-  Future<dynamic> getTranskrip({required String nim}) {
-    return _requestGet('$transkripRoute/$nim', true);
+  Future<List<TranskripModel>> getTranskrip({required String nim}) async {
+    final response = await _requestGet('$transkripRoute/$nim', true);
+    return response.map((e) => TranskripModel.fromJson(e)).toList();
   }
 
   Future<List<AgamaModel>> getAgama() async {
@@ -219,35 +227,37 @@ class ConnectApi {
         .toList();
   }
 
-  Future<dynamic> getMataKuliah() {
-    return _requestGet(mataKuliahRoute, true);
+  Future<List<MatkulModel>> getMataKuliah() async {
+    final response = await _requestGet(mataKuliahRoute, true);
+    return response.map((e) => MatkulModel.fromJson(e)).toList();
   }
 
-  Future<List<SkedulKrs>> getSkedulKrs(String idSkemaKrs) async {
-    final List<SkedulModel> response = await _requestGet(
+  Future<List<SkedulModel>> getSkedulKrs(String idSkemaKrs) async {
+    final response = await _requestGet(
       getSkedulKrsRoute,
       true,
       idSkemaKrs: idSkemaKrs,
     );
-    return response.map((e) => e.toEntity()).toList();
+    return response.map((e) => SkedulModel.fromJson(e)).toList();
   }
 
-  Future<List<SkemaKrs>> getSkemaKrs() async {
-    final List<SkemaModel> response = await _requestGet(getSkemaKrsRoute, true);
-    return response.map((e) => e.toEntity()).toList();
+  Future<List<SkemaModel>> getSkemaKrs() async {
+    final response = await _requestGet(getSkemaKrsRoute, true);
+    return response.map((e) => SkemaModel.fromJson(e)).toList();
   }
 
-  Future<dynamic> postLogin({
+  Future<TokenModel> postLogin({
     required String username,
     required String password,
-  }) {
-    return _requestPost(loginRoute, false, {
+  }) async {
+    final response = await _requestPost(loginRoute, false, {
       'username': username,
       'password': password,
     });
+    return TokenModel.fromJson(response);
   }
 
-  Future<dynamic> patchMahasiswa({
+  Future<void> patchMahasiswa({
     required String idUser,
     required UpdateMahasiswaModel updateMahasiswaModel,
   }) {

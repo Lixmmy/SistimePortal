@@ -16,11 +16,3 @@ class SkemaKrs extends Equatable {
   @override
   List<Object?> get props => [id, idTahunAjaran, aktif, keterangan];
 }
-
-class ListSkemaKrs extends Equatable {
-  final List<SkemaKrs> listSkema;
-  const ListSkemaKrs({required this.listSkema});
-
-  @override
-  List<Object?> get props => [listSkema];
-}

@@ -26,13 +26,3 @@ class Krs extends Equatable {
     sks,
   ];
 }
-
-class ListKrs extends Equatable {
-  final List<Krs> krs;
-
-  const ListKrs({required this.krs});
-
-  @override
-  List<Object?> get props => [krs];
-}
-

@@ -21,7 +21,7 @@ class ProfilRemoteDataSourceImplementation extends ProfilRemoteDatasource {
   Future<ProfilModel> getMahasiswa(String nim) async {
     try {
       final response = await connectApi.getMahasiswa(nim: nim);
-      return ProfilModel.fromjson(response);
+      return response;
     } on MessageExc {
       rethrow;
     } catch (e) {

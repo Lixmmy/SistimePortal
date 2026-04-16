@@ -15,14 +15,7 @@ class RemoteTranskripDataSourceImplementation
   Future<List<TranskripModel>> getTranskrip({required String nim}) async {
     try {
       final response = await connectApi.getTranskrip(nim: nim);
-      if (response != null) {
-        final List<TranskripModel> transkripModel = ListTranskripModel.fromJson(
-          response,
-        ).listTranskripModel;
-        return transkripModel;
-      } else {
-        throw MessageExc.api('Failed to fetch transkrip data.');
-      }
+      return response;
     } on MessageExc {
       rethrow;
     } catch (e) {

@@ -55,23 +55,3 @@ class MatkulModel {
     );
   }
 }
-
-class ListMatkulModel {
-  final List<MatkulModel> listMatkulModel;
-
-  const ListMatkulModel({required this.listMatkulModel});
-
-  factory ListMatkulModel.fromJson(List<dynamic> json) {
-    return ListMatkulModel(
-      listMatkulModel: json.map((e) => MatkulModel.fromJson(e)).toList(),
-    );
-  }
-
-  ListMatkul toEntity() {
-    return ListMatkul(
-      matkul: listMatkulModel.map((e) {
-        return e.toEntity();
-      }).toList(),
-    );
-  }
-}
