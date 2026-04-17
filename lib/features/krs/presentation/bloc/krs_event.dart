@@ -7,17 +7,23 @@ abstract class KrsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchKrsData extends KrsEvent {}
+// class FetchKrsData extends KrsEvent {}
 
-class DownloadKrsPdf extends KrsEvent {
-  final AppLocalizations appLocalizations;
-  final int semester;
+// class DownloadKrsPdf extends KrsEvent {
+//   final AppLocalizations appLocalizations;
+//   final int semester;
 
-  const DownloadKrsPdf({
-    required this.appLocalizations,
-    required this.semester,
-  });
+//   const DownloadKrsPdf({
+//     required this.appLocalizations,
+//     required this.semester,
+//   });
 
-  @override
-  List<Object> get props => [appLocalizations, semester];
-}
+//   @override
+//   List<Object> get props => [appLocalizations, semester];
+// }
+
+class FetchSkemaKrs extends KrsEvent {}
+
+class FetchSkedulKrs extends KrsEvent {}
+
+class FetchTahunAjaranKrs extends KrsEvent {}

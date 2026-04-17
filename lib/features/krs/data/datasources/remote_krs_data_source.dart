@@ -4,14 +4,14 @@ import 'package:newsistime/features/krs/data/models/krs_model.dart';
 import 'package:newsistime/features/krs/data/models/matkul_model.dart';
 import 'package:newsistime/features/krs/data/models/skedul_model.dart';
 import 'package:newsistime/features/krs/data/models/skema_model.dart';
-import 'package:newsistime/features/krs/domain/entities/skedul_krs.dart';
-import 'package:newsistime/features/krs/domain/entities/skema_krs.dart';
+import 'package:newsistime/features/krs/data/models/tahun_ajaran_model.dart';
 
 abstract class RemoteKrsDataSource {
   Future<List<KrsModel>> getKrs({required String id});
   Future<List<MatkulModel>> getMataKuliah();
   Future<List<SkemaModel>> getSkemaKrs();
   Future<List<SkedulModel>> getSkedulKrs(String idSkemaKrs);
+  Future<List<TahunAjaranModel>> getTahunAjaran();
 }
 
 class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
@@ -70,6 +70,20 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
     } catch (e) {
       throw MessageExc.unknown(
         'An unexpected error in getSkedulKrs occurred: ${e.toString()}',
+      );
+    }
+  }
+
+  @override
+  Future<List<TahunAjaranModel>> getTahunAjaran() async {
+    try {
+      final response = await connectApi.getTahunAjaran();
+      return response;
+    } on MessageExc {
+      rethrow;
+    } catch (e) {
+      throw MessageExc.unknown(
+        'An unexpected error in getTahunAjaran occurred: ${e.toString()}',
       );
     }
   }

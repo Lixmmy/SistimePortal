@@ -1,48 +1,47 @@
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 
 class KrsModel {
-  final int idKrsModel;
-  final int idSkemaKrsModel;
-  final String kodeMatakuliahModel;
-  final String namaMatakuliahModel;
-  final String namaDosenModel;
+  final int idModel;
+  final int idUsersModel;
+  final int idSkedulModel;
+  final int tipeSkedul;
+  final String? keterangan;
 
   KrsModel({
-    required this.idKrsModel,
-    required this.idSkemaKrsModel,
-    required this.kodeMatakuliahModel,
-    required this.namaMatakuliahModel,
-    required this.namaDosenModel,
+    required this.idModel,
+    required this.idUsersModel,
+    required this.idSkedulModel,
+    required this.tipeSkedul,
+    this.keterangan,
   });
 
   factory KrsModel.fromJson(Map<String, dynamic> json) {
     return KrsModel(
-      idKrsModel: json['idKrs'],
-      idSkemaKrsModel: json['idSkemaKrs'],
-      kodeMatakuliahModel: json['kodeMatakuliah'],
-      namaMatakuliahModel: json['namaMatakuliah'],
-      namaDosenModel: json['namaDosen'],
+      idModel: json['id'],
+      idUsersModel: json['idUsers'],
+      idSkedulModel: json['idSkedul'],
+      tipeSkedul: json['tipeSkedul'],
+      keterangan: json['keterangan'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'idKrs': idKrsModel,
-      'idSkemaKrs': idSkemaKrsModel,
-      'kodeMataKuliah': kodeMatakuliahModel,
-      'namaMataKuliah': namaMatakuliahModel,
-      'namaDosen': namaDosenModel,
+      'id': idModel,
+      'idUsers': idUsersModel,
+      'idSkedul': idSkedulModel,
+      'tipeSkedul': tipeSkedul,
+      'keterangan': keterangan,
     };
   }
 
   Krs toEntity() {
     return Krs(
-      idKrs: idKrsModel,
-      idSkemaKrs: idSkemaKrsModel,
-      kodeMatakuliah: kodeMatakuliahModel,
-      namaMatakuliah: namaMatakuliahModel,
-      namaDosen: namaDosenModel,
-      sks: 0, // Default value, will be updated in BLoC
+      id: idModel,
+      idUser: idUsersModel,
+      idSkedul: idSkedulModel,
+      tipeSkedul: tipeSkedul,
+      keterangan: keterangan, // Default value, will be updated in BLoC
     );
   }
 }

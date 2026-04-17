@@ -4,6 +4,7 @@ import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 import 'package:newsistime/features/krs/domain/entities/skedul_krs.dart';
 import 'package:newsistime/features/krs/domain/entities/skema_krs.dart';
+import 'package:newsistime/features/krs/domain/entities/tahun_ajaran.dart';
 
 abstract class KrsRepositories {
   Future<Either<MessageExc, List<Krs>>> getKrs({required String id});
@@ -12,4 +13,5 @@ abstract class KrsRepositories {
   Future<Either<MessageExc, List<SkedulKrs>>> getSkedulKrs({
     required String idSkemaKrs,
   });
+  Future<Either<MessageExc, List<TahunAjaran>>> getTahunAjaran();
 }

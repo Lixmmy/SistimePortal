@@ -11,14 +11,14 @@ class KrsInitial extends KrsState {}
 
 class KrsLoading extends KrsState {}
 
-class KrsLoaded extends KrsState {
-  final Map<int, List<Krs>> groupedKrs;
+// class KrsLoaded extends KrsState {
+//   final Map<int, List<Krs>> groupedKrs;
 
-  const KrsLoaded({required this.groupedKrs});
+//   const KrsLoaded({required this.groupedKrs});
 
-  @override
-  List<Object> get props => [groupedKrs];
-}
+//   @override
+//   List<Object> get props => [groupedKrs];
+// }
 
 class KrsError extends KrsState {
   final String message;
@@ -32,7 +32,7 @@ class KrsError extends KrsState {
 class KrsPdfDownloaded extends KrsState {
   final String filePath;
 
-  const KrsPdfDownloaded({required this.filePath}); 
+  const KrsPdfDownloaded({required this.filePath});
   @override
   List<Object> get props => [filePath];
 }
@@ -44,4 +44,13 @@ class KrsTokenExpired extends KrsState {
 
   @override
   List<Object> get props => [message];
+}
+
+class KrsLoadedTahunAjaran extends KrsState {
+  final List<TahunAjaran> tahunAjaran;
+
+  const KrsLoadedTahunAjaran({required this.tahunAjaran});
+
+  @override
+  List<Object> get props => [tahunAjaran];
 }

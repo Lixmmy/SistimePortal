@@ -1,0 +1,14 @@
+import 'package:dartz/dartz.dart';
+import 'package:newsistime/core/error/message_exc.dart';
+import 'package:newsistime/features/krs/domain/entities/tahun_ajaran.dart';
+import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
+
+class GetTahunAjaran {
+  final KrsRepositories krsRepositories;
+
+  GetTahunAjaran({required this.krsRepositories});
+
+  Future<Either<MessageExc, List<TahunAjaran>>> execute() async {
+    return await krsRepositories.getTahunAjaran();
+  }
+}

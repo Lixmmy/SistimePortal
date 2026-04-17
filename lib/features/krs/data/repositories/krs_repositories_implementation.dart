@@ -5,10 +5,12 @@ import 'package:newsistime/features/krs/data/models/krs_model.dart';
 import 'package:newsistime/features/krs/data/models/matkul_model.dart';
 import 'package:newsistime/features/krs/data/models/skedul_model.dart';
 import 'package:newsistime/features/krs/data/models/skema_model.dart';
+import 'package:newsistime/features/krs/data/models/tahun_ajaran_model.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 import 'package:newsistime/features/krs/domain/entities/skedul_krs.dart';
 import 'package:newsistime/features/krs/domain/entities/skema_krs.dart';
+import 'package:newsistime/features/krs/domain/entities/tahun_ajaran.dart';
 import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
 
 class KrsRepositoriesImplementation extends KrsRepositories {
@@ -65,6 +67,19 @@ class KrsRepositoriesImplementation extends KrsRepositories {
       final List<SkedulModel> skedulKrs = await remoteKrsDataSource
           .getSkedulKrs(idSkemaKrs);
       return Right(skedulKrs.map((e) => e.toEntity()).toList());
+    } on MessageExc catch (e) {
+      return Left(e);
+    } catch (e) {
+      return Left(MessageExc.unknown(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<MessageExc, List<TahunAjaran>>> getTahunAjaran() async {
+    try {
+      final List<TahunAjaranModel> tahunAjaran = await remoteKrsDataSource
+          .getTahunAjaran();
+      return Right(tahunAjaran.map((e) => e.toEntity()).toList());
     } on MessageExc catch (e) {
       return Left(e);
     } catch (e) {

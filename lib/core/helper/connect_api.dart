@@ -15,6 +15,7 @@ import 'package:newsistime/features/krs/data/models/krs_model.dart';
 import 'package:newsistime/features/krs/data/models/matkul_model.dart';
 import 'package:newsistime/features/krs/data/models/skedul_model.dart';
 import 'package:newsistime/features/krs/data/models/skema_model.dart';
+import 'package:newsistime/features/krs/data/models/tahun_ajaran_model.dart';
 import 'package:newsistime/features/login/data/models/token_model.dart';
 import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
@@ -244,6 +245,11 @@ class ConnectApi {
   Future<List<SkemaModel>> getSkemaKrs() async {
     final response = await _requestGet(getSkemaKrsRoute, true);
     return response.map((e) => SkemaModel.fromJson(e)).toList();
+  }
+
+  Future<List<TahunAjaranModel>> getTahunAjaran() async {
+    final response = await _requestGet(getTahunAjaranRoute, true);
+    return response.map((e) => TahunAjaranModel.fromJson(e)).toList();
   }
 
   Future<TokenModel> postLogin({

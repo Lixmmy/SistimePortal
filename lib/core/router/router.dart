@@ -176,18 +176,18 @@ GoRouter myRouter() {
           child: const KrsPage(),
         ),
       ),
-      GoRoute(
-        path: '/detail_krs_page',
-        name: 'detailKrsPage',
-        builder: (context, state) {
-          final data = state.extra as Map<String, dynamic>;
-          final int semester = data['semester'];
-          return BlocProvider.value(
-            value: myInjection<KrsBloc>(),
-            child: DetailKrs(semester: semester),
-          );
-        },
-      ),
+      // GoRoute(
+      //   path: '/detail_krs_page',
+      //   name: 'detailKrsPage',
+      //   builder: (context, state) {
+      //     final data = state.extra as Map<String, dynamic>;
+      //     final int semester = data['semester'];
+      //     return BlocProvider.value(
+      //       value: myInjection<KrsBloc>(),
+      //       child: DetailKrs(semester: semester),
+      //     );
+      //   },
+      // ),
       GoRoute(
         path: 'nilai_page',
         name: 'nilaiPage',
