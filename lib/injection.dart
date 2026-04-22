@@ -8,6 +8,10 @@ import 'package:newsistime/features/agama/data/repositories/agama_repositories_i
 import 'package:newsistime/features/agama/domain/repositories/agama_repositories.dart';
 import 'package:newsistime/features/agama/domain/usecases/get_agama.dart';
 import 'package:newsistime/features/agama/presentation/bloc/agama_bloc.dart';
+import 'package:newsistime/features/dosen/data/datasources/dosen_remote_data_source.dart';
+import 'package:newsistime/features/dosen/data/repositories/dosen_repositories_implementation.dart';
+import 'package:newsistime/features/dosen/domain/repositories/dosen_repository.dart';
+import 'package:newsistime/features/dosen/domain/usecases/get_dosen.dart';
 import 'package:newsistime/features/khs/data/datasources/remote_khs_data_source.dart';
 import 'package:newsistime/features/khs/data/repositories/khs_repositories_implementation.dart';
 import 'package:newsistime/features/khs/domain/repositories/khs_repositories.dart';
@@ -18,6 +22,9 @@ import 'package:newsistime/features/krs/data/repositories/krs_repositories_imple
 import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
+import 'package:newsistime/features/krs/domain/usecases/get_skedul_krs.dart';
+import 'package:newsistime/features/krs/domain/usecases/get_skema_krs.dart';
+import 'package:newsistime/features/krs/domain/usecases/get_tahun_ajaran.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/language/data/datasources/language_local_data_source.dart';
 import 'package:newsistime/features/language/data/repositories/app_language_repository_implementation.dart';
@@ -44,6 +51,10 @@ import 'package:newsistime/features/status/data/repositories/status_repositories
 import 'package:newsistime/features/status/domain/repositories/status_repositories.dart';
 import 'package:newsistime/features/status/domain/usescase/get_status.dart';
 import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
+import 'package:newsistime/features/status_mahasiswa/data/datasources/status_mahasiswa_remote_data_source.dart';
+import 'package:newsistime/features/status_mahasiswa/data/repositories/status_mahasiswa_repository_implementation.dart';
+import 'package:newsistime/features/status_mahasiswa/domain/repositories/status_mahasiswa_repository.dart';
+import 'package:newsistime/features/status_mahasiswa/domain/usecases/get_status_mahasiswa.dart';
 import 'package:newsistime/features/transkrip/data/datasources/remote_transkrip_data_source.dart';
 import 'package:newsistime/features/transkrip/data/repositories/transkrip_repositories_implementation.dart';
 import 'package:newsistime/features/transkrip/domain/repositories/transkrip_repositories.dart';
@@ -127,6 +138,7 @@ Future<void> init() async {
     () => ProfilRepositoryImplementation(
       profilLocalDataSource: myInjection(),
       profilRemoteDataSourceImplementation: myInjection(),
+      statusMahasiswaRemoteDataSource: myInjection(),
       agamaRemoteDataSource: myInjection(),
       programStudiRemoteDataSource: myInjection(),
       statusRemoteDataSource: myInjection(),
@@ -273,6 +285,9 @@ Future<void> init() async {
   myInjection.registerLazySingleton(
     () => KrsBloc(
       getKrs: myInjection(),
+      getSkedulKrs: myInjection(),
+      getSkemaKrs: myInjection(),
+      getTahunAjaran: myInjection(),
       getMataKuliah: myInjection(),
       profilLocalDataSource: myInjection(),
       loginLocalDataSource: myInjection(),
@@ -284,6 +299,15 @@ Future<void> init() async {
   );
   myInjection.registerLazySingleton(
     () => GetMataKuliah(krsRepositories: myInjection()),
+  );
+  myInjection.registerLazySingleton(
+    () => GetSkedulKrs(krsRepositories: myInjection()),
+  );
+  myInjection.registerLazySingleton(
+    () => GetSkemaKrs(krsRepositories: myInjection()),
+  );
+  myInjection.registerLazySingleton(
+    () => GetTahunAjaran(krsRepositories: myInjection()),
   );
   //Repositories
   myInjection.registerLazySingleton<KrsRepositories>(
@@ -311,5 +335,39 @@ Future<void> init() async {
   //Datasource
   myInjection.registerLazySingleton<RemoteKhsDataSource>(
     () => RemoteKhsDataSourceImplementation(connectApi: myInjection()),
+  );
+
+  //Status Mahasiswa
+  // Use Cases
+  myInjection.registerLazySingleton(
+    () => GetStatusMahasiswa(repository: myInjection()),
+  );
+
+  // Repositories
+  myInjection.registerLazySingleton<StatusMahasiswaRepository>(
+    () => StatusMahasiswaRepositoryImplementation(
+      statusMahasiswaRemoteDataSource: myInjection(),
+    ),
+  );
+
+  //Data Sources
+  myInjection.registerLazySingleton<StatusMahasiswaRemoteDatasource>(
+    () => StatusMahasiswaRemoteDataSourceImplementation(
+      connectApi: myInjection(),
+    ),
+  );
+
+  //Dosen
+  //Use Case
+  myInjection.registerLazySingleton(() => GetDosen(repository: myInjection()));
+
+  //Repository
+  myInjection.registerLazySingleton<DosenRepository>(
+    () => DosenRepositoriesImplementation(remoteDataSource: myInjection()),
+  );
+
+  //Data Source
+  myInjection.registerLazySingleton<DosenRemoteDataSource>(
+    () => DosenRemoteDataSourceImplementation(connectApi: myInjection()),
   );
 }

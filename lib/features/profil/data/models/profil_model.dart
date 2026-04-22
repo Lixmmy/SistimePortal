@@ -2,11 +2,13 @@ import 'package:newsistime/features/agama/data/models/agama_model.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
 import 'package:newsistime/features/status/data/models/status_model.dart';
+import 'package:newsistime/features/status_mahasiswa/data/models/status_mahasiswa_model.dart';
 import 'package:newsistime/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
 
 class ProfilModel {
   final int idPendaftaran;
   final int idUser;
+  final StatusMahasiswaModel? statusMahasiswa;
   final String? idAgama;
   final AgamaModel? agama;
   final String? kodeKampus;
@@ -45,6 +47,7 @@ class ProfilModel {
   const ProfilModel({
     required this.idPendaftaran,
     required this.idUser,
+    this.statusMahasiswa,
     this.idAgama,
     this.agama,
     this.kodeKampus,
@@ -162,6 +165,7 @@ class ProfilModel {
     return {
       'idUser': idUser,
       'idAgama': idAgama,
+      'statusMahasiswa': statusMahasiswa?.toJson(),
       'agama': agama?.toJson(),
       'idPendaftaran': idPendaftaran,
       'kodeKampus': kodeKampus,
@@ -204,6 +208,9 @@ class ProfilModel {
     return ProfilModel(
       idUser: datajson['idUser'],
       idAgama: datajson['idAgama'],
+      statusMahasiswa: datajson['statusMahasiswa'] != null
+          ? StatusMahasiswaModel.fromJson(datajson['statusMahasiswa'])
+          : null,
       agama: datajson['agama'] != null
           ? AgamaModel.fromJson(datajson['agama'])
           : null,
@@ -254,6 +261,7 @@ class ProfilModel {
     return Profil(
       idPendaftaran: idPendaftaran,
       idUser: idUser,
+      statusMahasiswa: statusMahasiswa?.toEntity(),
       idAgama: idAgama,
       agama: agama?.toEntity(),
       kodeKampus: kodeKampus,

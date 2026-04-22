@@ -47,10 +47,25 @@ class KrsTokenExpired extends KrsState {
 }
 
 class KrsLoadedTahunAjaran extends KrsState {
-  final List<TahunAjaran> tahunAjaran;
-
-  const KrsLoadedTahunAjaran({required this.tahunAjaran});
+  final List<TahunAjaran> tahunAjaranAktif;
+  // final List<TahunAjaran> tahunAjaranTidakAktif;
+  const KrsLoadedTahunAjaran({
+    required this.tahunAjaranAktif,
+    // required this.tahunAjaranTidakAktif,
+  });
 
   @override
-  List<Object> get props => [tahunAjaran];
+  List<Object> get props => [
+    tahunAjaranAktif,
+    //  tahunAjaranTidakAktif
+  ];
+}
+
+class KrsLoadedMatakuliah extends KrsState {
+  final List<Matkul> matakuliah;
+
+  const KrsLoadedMatakuliah({required this.matakuliah});
+
+  @override
+  List<Object> get props => [matakuliah];
 }

@@ -7,6 +7,7 @@ import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 import 'package:newsistime/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
 import 'package:newsistime/features/status/data/datasource/status_remote_data_source.dart';
+import 'package:newsistime/features/status_mahasiswa/data/datasources/status_mahasiswa_remote_data_source.dart';
 import 'package:newsistime/features/waktu_kuliah/data/datasources/waktu_kuliah_remote_data_source.dart';
 
 import '../../domain/entities/profil.dart';
@@ -18,6 +19,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
   final ProfilRemoteDatasource profilRemoteDataSourceImplementation;
   final AgamaRemoteDataSource agamaRemoteDataSource;
   final ProgramStudiRemoteDataSource programStudiRemoteDataSource;
+  final StatusMahasiswaRemoteDatasource statusMahasiswaRemoteDataSource;
   final ProfilLocalDataSource profilLocalDataSource;
   final StatusRemoteDataSource statusRemoteDataSource;
   final WaktuKuliahRemoteDataSource waktuKuliahRemoteDataSource;
@@ -26,6 +28,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
     required this.profilLocalDataSource,
     required this.profilRemoteDataSourceImplementation,
     required this.agamaRemoteDataSource,
+    required this.statusMahasiswaRemoteDataSource,
     required this.programStudiRemoteDataSource,
     required this.statusRemoteDataSource,
     required this.waktuKuliahRemoteDataSource,
@@ -47,6 +50,8 @@ class ProfilRepositoryImplementation extends ProfilRepository {
       // final status = statusList.firstWhereOrNull(
       //   (e) => e.idStatus == hasil.idStatus,
       // );
+      final statusMahasiswas = await statusMahasiswaRemoteDataSource
+          .getStatusMahasiswa(hasil.idUser.toString());
       final waktuKuliahList = await waktuKuliahRemoteDataSource
           .getWaktuKuliahList();
       final waktuKuliah = waktuKuliahList.firstWhereOrNull(
@@ -55,6 +60,7 @@ class ProfilRepositoryImplementation extends ProfilRepository {
       final correctProfil = ProfilModel(
         idPendaftaran: hasil.idPendaftaran,
         idUser: hasil.idUser,
+        statusMahasiswa: statusMahasiswas,
         idAgama: hasil.idAgama,
         agama: agama,
         kodeKampus: hasil.kodeKampus,

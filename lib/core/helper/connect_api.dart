@@ -10,6 +10,7 @@ import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/core/route_config/config.dart';
 import 'package:newsistime/core/route_config/route_endpoint.dart';
 import 'package:newsistime/features/agama/data/models/agama_model.dart';
+import 'package:newsistime/features/dosen/data/models/dosen_model.dart';
 import 'package:newsistime/features/khs/data/models/khs_model.dart';
 import 'package:newsistime/features/krs/data/models/krs_model.dart';
 import 'package:newsistime/features/krs/data/models/matkul_model.dart';
@@ -21,6 +22,7 @@ import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
 import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
 import 'package:newsistime/features/status/data/models/status_model.dart';
+import 'package:newsistime/features/status_mahasiswa/data/models/status_mahasiswa_model.dart';
 import 'package:newsistime/features/transkrip/data/models/transkrip_model.dart';
 import 'package:newsistime/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
 
@@ -189,48 +191,66 @@ class ConnectApi {
 
   Future<List<KrsModel>> getKrs({required String id}) async {
     final response = await _requestGet('$krsRoute/$id', true);
-    return response.map((e) => KrsModel.fromJson(e)).toList();
+    return (response as List)
+        .map((e) => KrsModel.fromJson(e))
+        .toList()
+        .cast<KrsModel>();
   }
 
   Future<List<KhsModel>> getKhs({required String id}) async {
     final response = await _requestGet('$khsRoute/$id', true);
-    return response.map((e) => KhsModel.fromJson(e)).toList();
+    return (response as List)
+        .map((e) => KhsModel.fromJson(e))
+        .toList()
+        .cast<KhsModel>();
   }
 
   Future<List<TranskripModel>> getTranskrip({required String nim}) async {
     final response = await _requestGet('$transkripRoute/$nim', true);
-    return response.map((e) => TranskripModel.fromJson(e)).toList();
+    return (response as List)
+        .map((e) => TranskripModel.fromJson(e))
+        .toList()
+        .cast<TranskripModel>();
   }
 
   Future<List<AgamaModel>> getAgama() async {
     final response = await _requestGet(agamaRoute, true);
-    return (response as List).map((item) => AgamaModel.fromJson(item)).toList();
+    return (response as List)
+        .map((item) => AgamaModel.fromJson(item))
+        .toList()
+        .cast<AgamaModel>();
   }
 
   Future<List<WaktuKuliahModel>> getWaktuKuliah() async {
     final response = await _requestGet(waktuKuliahRoute, true);
     return (response as List)
         .map((item) => WaktuKuliahModel.fromJson(item))
-        .toList();
+        .toList()
+        .cast<WaktuKuliahModel>();
   }
 
   Future<List<StatusModel>> getStatus() async {
     final response = await _requestGet(statusRoute, true);
     return (response as List)
         .map((item) => StatusModel.fromJson(item))
-        .toList();
+        .toList()
+        .cast<StatusModel>();
   }
 
   Future<List<ProgramStudiModel>> getProgramStudi() async {
     final response = await _requestGet(programStudiRoute, true);
     return (response as List)
         .map((item) => ProgramStudiModel.fromJson(item))
-        .toList();
+        .toList()
+        .cast<ProgramStudiModel>();
   }
 
   Future<List<MatkulModel>> getMataKuliah() async {
     final response = await _requestGet(mataKuliahRoute, true);
-    return response.map((e) => MatkulModel.fromJson(e)).toList();
+    return (response as List)
+        .map((e) => MatkulModel.fromJson(e))
+        .toList()
+        .cast<MatkulModel>();
   }
 
   Future<List<SkedulModel>> getSkedulKrs(String idSkemaKrs) async {
@@ -239,17 +259,42 @@ class ConnectApi {
       true,
       idSkemaKrs: idSkemaKrs,
     );
-    return response.map((e) => SkedulModel.fromJson(e)).toList();
+    return (response as List)
+        .map((e) => SkedulModel.fromJson(e))
+        .toList()
+        .cast<SkedulModel>();
   }
 
   Future<List<SkemaModel>> getSkemaKrs() async {
     final response = await _requestGet(getSkemaKrsRoute, true);
-    return response.map((e) => SkemaModel.fromJson(e)).toList();
+    return (response as List)
+        .map((e) => SkemaModel.fromJson(e))
+        .toList()
+        .cast<SkemaModel>();
   }
 
   Future<List<TahunAjaranModel>> getTahunAjaran() async {
     final response = await _requestGet(getTahunAjaranRoute, true);
-    return response.map((e) => TahunAjaranModel.fromJson(e)).toList();
+    return (response as List)
+        .map((e) => TahunAjaranModel.fromJson(e))
+        .toList()
+        .cast<TahunAjaranModel>();
+  }
+
+  Future<StatusMahasiswaModel> getStatusMahasiswa(String idUser) async {
+    final response = await _requestGet(
+      '$getStatusMahasiswaRoute/$idUser',
+      true,
+    );
+    return StatusMahasiswaModel.fromJson(response);
+  }
+
+  Future<List<DosenModel>> getDosen() async {
+    final response = await _requestGet(getDosenRoute, true);
+    return (response as List)
+        .map((e) => DosenModel.fromJson(e))
+        .toList()
+        .cast<DosenModel>();
   }
 
   Future<TokenModel> postLogin({

@@ -22,8 +22,13 @@ abstract class KrsEvent extends Equatable {
 //   List<Object> get props => [appLocalizations, semester];
 // }
 
-class FetchSkemaKrs extends KrsEvent {}
+class FetchMatakuliah extends KrsEvent {
+  final int idTahunAjaran;
 
-class FetchSkedulKrs extends KrsEvent {}
+  const FetchMatakuliah({required this.idTahunAjaran});
+
+  @override
+  List<Object> get props => [idTahunAjaran];
+}
 
 class FetchTahunAjaranKrs extends KrsEvent {}

@@ -15,12 +15,7 @@ class RemoteKhsDataSourceImplementation extends RemoteKhsDataSource {
   Future<List<KhsModel>> getKhs({required String id}) async {
     try {
       final response = await connectApi.getKhs(id: id);
-      if (response != null) {
-        final khsModel = ListKhsModel.fromJson(response).listKhsModel;
-        return khsModel;
-      } else {
-        throw MessageExc.api('No data found');
-      }
+      return response;
     } on MessageExc {
       rethrow;
     } catch (e) {

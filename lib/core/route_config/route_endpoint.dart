@@ -12,3 +12,5 @@ const patchMahasiswaRoute = 'rest/api/mahasiswa/iduser';
 const getSkemaKrsRoute = 'rest/api/skemakrs';
 const getSkedulKrsRoute = 'rest/api/skedulkrs';
 const getTahunAjaranRoute = 'rest/api/tahunajaran';
+const getStatusMahasiswaRoute = 'rest/api/statusmahasiswa/iduser';
+const getDosenRoute = 'rest/api/dosen';

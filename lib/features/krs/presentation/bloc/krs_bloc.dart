@@ -3,6 +3,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
+import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 import 'package:newsistime/features/krs/domain/entities/tahun_ajaran.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
@@ -251,11 +252,56 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
           (l) {
             emit(KrsError(message: l.message));
           },
-          (r) {
+          (r) async {
             final listTahunAjaranAktif = r
                 .where((tahun) => tahun.aktif)
                 .toList();
-            emit(KrsLoadedTahunAjaran(tahunAjaran: listTahunAjaranAktif));
+            // final listTahunAjaranTidakAktif = r
+            //     .where((tahun) => !tahun.aktif)
+            //     .toList();
+
+            emit(
+              KrsLoadedTahunAjaran(
+                tahunAjaranAktif: listTahunAjaranAktif,
+                // tahunAjaranTidakAktif: listTahunAjaranTidakAktif,
+              ),
+            );
+          },
+        );
+      } catch (e) {
+        emit(KrsError(message: e.toString()));
+      }
+    });
+
+    on<FetchMatakuliah>((event, emit) async {
+      emit(KrsLoading());
+      try {
+        final listSkemaKrs = await getSkemaKrs.execute();
+
+        listSkemaKrs.fold(
+          (l) {
+            emit(KrsError(message: l.message));
+          },
+          (r) async {
+            final matchSkema = r.firstWhere(
+              (s) =>
+                  s.idTahunAjaran == event.idTahunAjaran &&
+                  s.aktif == true &&
+                  s.keterangan == 'test',
+            );
+            final idSkema = matchSkema.id.toString();
+            final listSkedulKrs = await getSkedulKrs.execute(idSkema);
+            listSkedulKrs.fold(
+              (l) {
+                emit(KrsError(message: l.message));
+              },
+              (r) async {
+                final listMatkul = await getMataKuliah.execute();
+                listMatkul.fold((l) {
+                  emit(KrsError(message: l.message));
+                }, (r) async {});
+              },
+            );
           },
         );
       } catch (e) {

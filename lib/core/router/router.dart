@@ -9,7 +9,7 @@ import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/features/khs/presentation/pages/detail_khs.dart';
 import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
-import 'package:newsistime/features/krs/presentation/pages/detail_krs.dart';
+// import 'package:newsistime/features/krs/presentation/pages/detail_krs.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
 import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';

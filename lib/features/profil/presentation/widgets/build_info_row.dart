@@ -5,6 +5,7 @@ class BuildInfoRow extends StatelessWidget {
   final String? value;
   final Color labelColor;
   final Color valueColor;
+  final bool needColon;
   final int labelFlex;
   final int valueFlex;
 
@@ -14,6 +15,7 @@ class BuildInfoRow extends StatelessWidget {
     this.value,
     this.labelFlex = 4,
     this.valueFlex = 6,
+    this.needColon = true,
     this.labelColor = Colors.white,
     this.valueColor = Colors.white,
   });
@@ -34,12 +36,14 @@ class BuildInfoRow extends StatelessWidget {
               ).textTheme.bodySmall?.copyWith(color: labelColor),
             ),
           ),
-          Text(
-            ':',
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: labelColor),
-          ),
+          needColon
+              ? Text(
+                  ':',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: labelColor),
+                )
+              : SizedBox.shrink(),
           SizedBox(width: 5),
           Expanded(
             flex: valueFlex,
