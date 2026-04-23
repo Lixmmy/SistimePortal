@@ -284,6 +284,7 @@ Future<void> init() async {
   //krs bloc
   myInjection.registerLazySingleton(
     () => KrsBloc(
+      getDosen: myInjection(),
       getKrs: myInjection(),
       getSkedulKrs: myInjection(),
       getSkemaKrs: myInjection(),

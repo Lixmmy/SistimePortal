@@ -9,6 +9,7 @@ import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/features/khs/presentation/pages/detail_khs.dart';
 import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:newsistime/features/krs/presentation/pages/detail_krs.dart';
 // import 'package:newsistime/features/krs/presentation/pages/detail_krs.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
 import 'package:newsistime/features/language/presentation/pages/selection_language.dart';
@@ -176,18 +177,18 @@ GoRouter myRouter() {
           child: const KrsPage(),
         ),
       ),
-      // GoRoute(
-      //   path: '/detail_krs_page',
-      //   name: 'detailKrsPage',
-      //   builder: (context, state) {
-      //     final data = state.extra as Map<String, dynamic>;
-      //     final int semester = data['semester'];
-      //     return BlocProvider.value(
-      //       value: myInjection<KrsBloc>(),
-      //       child: DetailKrs(semester: semester),
-      //     );
-      //   },
-      // ),
+      GoRoute(
+        path: '/detail_krs_page',
+        name: 'detailKrsPage',
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
+          final int idTahunAjaran = data['idTahunAjaran'];
+          return BlocProvider.value(
+            value: myInjection<KrsBloc>(),
+            child: DetailKrs(idTahunAjaran: idTahunAjaran),
+          );
+        },
+      ),
       GoRoute(
         path: 'nilai_page',
         name: 'nilaiPage',

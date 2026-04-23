@@ -10,18 +10,18 @@ class DosenRepositoriesImplementation extends DosenRepository {
   DosenRepositoriesImplementation({required this.remoteDataSource});
 
   @override
-  Future<Either<String, List<Dosen>>> getDosen() async {
+  Future<Either<MessageExc, List<Dosen>>> getDosen() async {
     try {
       final response = await remoteDataSource.getDosen();
       return Right(response.map((e) => e.toEntity()).toList());
     } on MessageExc catch (e) {
       if (e.type == MessageExcType.tokenExpired) {
-        return Left(e.message);
+        return Left(e);
       } else {
-        return Left(e.message);
+        return Left(e);
       }
     } catch (e) {
-      return Left(e.toString());
+      return Left(MessageExc.unknown(e.toString()));
     }
   }
 }

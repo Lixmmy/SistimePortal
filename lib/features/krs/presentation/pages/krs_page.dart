@@ -62,55 +62,63 @@ class _KrsPageState extends State<KrsPage> {
               itemCount: listTahunAjaranAktif.length,
               itemBuilder: (context, index) {
                 final tahunAjaran = listTahunAjaranAktif[index];
-                return Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.only(bottom: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white.withAlpha(150)
-                          : Colors.black.withAlpha(150),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Column(
-                              children: [
-                                BuildInfoRow(
-                                  label: "Tahun Ajaran",
-                                  needColon: false,
-                                  value: tahunAjaran.tahun.toString(),
-                                ),
-                                BuildInfoRow(
-                                  label: "Semester",
-                                  needColon: false,
-                                  value: tahunAjaran.semester.toString(),
-                                ),
-                                BuildInfoRow(
-                                  label: "Keterangan",
-                                  needColon: false,
-                                  value: tahunAjaran.keterangan,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Flexible(
-                            child: Icon(
-                              Icons.edit,
-                              size: 30,
-                              color: tahunAjaran.aktif
-                                  ? Colors.green
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ],
+                return InkWell(
+                  onTap: () {
+                    context.pushNamed(
+                      'detailKrsPage',
+                      extra: {'idTahunAjaran': tahunAjaran.id},
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white.withAlpha(150)
+                            : Colors.black.withAlpha(150),
                       ),
-                    ],
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                children: [
+                                  BuildInfoRow(
+                                    label: "Tahun Ajaran",
+                                    needColon: false,
+                                    value: tahunAjaran.tahun.toString(),
+                                  ),
+                                  BuildInfoRow(
+                                    label: "Semester",
+                                    needColon: false,
+                                    value: tahunAjaran.semester.toString(),
+                                  ),
+                                  BuildInfoRow(
+                                    label: "Keterangan",
+                                    needColon: false,
+                                    value: tahunAjaran.keterangan,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Flexible(
+                              child: Icon(
+                                Icons.edit,
+                                size: 30,
+                                color: tahunAjaran.aktif
+                                    ? Colors.green
+                                    : Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
