@@ -33,7 +33,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
       emit(KhsLoading());
       try {
         final khsResult = await getKhs.call(id: profil!.idUser.toString());
-        khsResult.fold(
+        await khsResult.fold(
           (failure) async {
             if (failure is KhsTokenExpired) {
               await loginLocalDataSource.deleteToken();
@@ -41,7 +41,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
             } else {
               emit(KhsError(message: failure.message));
             }
-            emit(KhsError(message: failure.message));
+            // emit(KhsError(message: failure.message)); // Duplicated emit removed
           },
           (data) {
             final groupedKhs = <int, List<Khs>>{};

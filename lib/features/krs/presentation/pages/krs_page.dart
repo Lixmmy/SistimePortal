@@ -92,16 +92,46 @@ class _KrsPageState extends State<KrsPage> {
                                     label: "Tahun Ajaran",
                                     needColon: false,
                                     value: tahunAjaran.tahun.toString(),
+                                    labelColor:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    valueColor:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   BuildInfoRow(
                                     label: "Semester",
                                     needColon: false,
                                     value: tahunAjaran.semester.toString(),
+                                    labelColor:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    valueColor:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                   BuildInfoRow(
                                     label: "Keterangan",
                                     needColon: false,
                                     value: tahunAjaran.keterangan,
+                                    labelColor:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                    valueColor:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ],
                               ),

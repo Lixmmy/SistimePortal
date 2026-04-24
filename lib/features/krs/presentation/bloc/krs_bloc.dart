@@ -257,7 +257,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
           (l) {
             emit(KrsError(message: l.message));
           },
-          (r) async {
+          (r) {
             final listTahunAjaranAktif = r
                 .where((tahun) => tahun.aktif)
                 .toList();
@@ -284,8 +284,8 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
         final listSkemaKrs = await getSkemaKrs.execute();
         final profil = await profilLocalDataSource.getSavedProfilData();
 
-        listSkemaKrs.fold(
-          (skemaFailure) {
+        await listSkemaKrs.fold(
+          (skemaFailure) async {
             emit(KrsError(message: skemaFailure.message));
           },
           (skemaSuccess) async {
@@ -293,44 +293,47 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
               (s) =>
                   s.idTahunAjaran == event.idTahunAjaran &&
                   s.aktif == true &&
-                  s.keterangan == 'test',
+                  s.keterangan == '',
             );
             final idSkema = matchSkema.id.toString();
             final listSkedulKrs = await getSkedulKrs.execute(idSkema);
-            listSkedulKrs.fold(
-              (skedulFailure) {
+            await listSkedulKrs.fold(
+              (skedulFailure) async {
                 emit(KrsError(message: skedulFailure.message));
               },
               (skedulSuccess) async {
                 final matkulList = await getMataKuliah.execute();
-                matkulList.fold(
-                  (matkulFailure) {
+                await matkulList.fold(
+                  (matkulFailure) async {
                     emit(KrsError(message: matkulFailure.message));
                   },
                   (matkulSuccess) async {
                     final matkulMap = {
                       for (var matkul in matkulSuccess)
-                        matkul.kodeMataKuliah: matkul,
+                        matkul.id.toString(): matkul,
                     };
                     final dosenList = await getDosen.call();
-                    dosenList.fold(
-                      (dosenFailure) {
+                    await dosenList.fold(
+                      (dosenFailure) async {
                         emit(KrsError(message: dosenFailure.message));
                       },
-                      (dosenSuccess) {
+                      (dosenSuccess) async {
                         final dosenMap = {
                           for (var dosen in dosenSuccess)
                             dosen.id.toString(): dosen,
                         };
+                        if (profil == null || profil.statusMahasiswa == null) {
+                          emit(
+                            const KrsError(
+                              message:
+                                  'Profile or Status Mahasiswa data is missing.',
+                            ),
+                          );
+                          return;
+                        }
                         final kodeKelasMahasiswa =
-                            profil!.statusMahasiswa!.kodeKelas;
-                        // final skedulKrsWithMatkul = skedulSuccess.map((skedul) {
-                        //   final matkul = matkulMap[skedul.idMataKuliah.toString()];
-                        //   final dosen = dosenMap[skedul.idDosen.toString()];
-                        //   final angkatanMahasiswa = kodeKelasMahasiswa.characters.takeLast(2);
+                            profil.statusMahasiswa!.kodeKelas;
 
-                        //   return JadwalKrs(matkul: matkul!, dosen: dosen!, tipeSkedul: tipeSkedul, idUser: idUser)
-                        // }).toList();
                         int extractYear(String kodeKelas) {
                           String yearChar = kodeKelas.characters
                               .takeLast(2)
@@ -355,16 +358,24 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
                                   matkulMap[skedul.idMataKuliah.toString()];
                               final dosen = dosenMap[skedul.idDosen.toString()];
                               int tipeSkedul =
-                                  (skedul.kodeKelas == kodeKelasMahasiswa)
+                                  (skedul.kodeKelas.toLowerCase() ==
+                                      kodeKelasMahasiswa.toLowerCase())
                                   ? 0
                                   : 1;
+
+                              if (matkul == null || dosen == null) {
+                                return null;
+                              }
+
                               return JadwalKrs(
-                                matkul: matkul!,
-                                dosen: dosen!,
+                                matkul: matkul,
+                                dosen: dosen,
                                 tipeSkedul: tipeSkedul,
                                 idUser: profil.idUser,
                               );
-                            });
+                            })
+                            .whereType<JadwalKrs>()
+                            .toList();
                         final matakuliahWajib = skedulKrsFinal
                             .where((skedul) => skedul.tipeSkedul == 0)
                             .toList();

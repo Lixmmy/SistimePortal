@@ -27,7 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           username: event.username,
           password: event.password,
         );
-        result.fold((l) => emit(LoginFailure(message: l.message)), (r) async {
+        result.fold((l) => emit(LoginFailure(message: l.message)), (r) {
           emit(LoginSuccess());
         });
       } on MessageExc catch (e) {

@@ -63,7 +63,7 @@ class ConnectApi {
         scheme: scheme,
         host: host,
         path: endpoint,
-        queryParameters: {'idSkemaKrs': idSkemaKrs},
+        queryParameters: idSkemaKrs != null ? {'idSkemaKrs': idSkemaKrs} : null,
       );
       final Map<String, String> headers = {'Accept': 'application/json'};
       if (authorization == true) {
@@ -76,6 +76,7 @@ class ConnectApi {
       final response = await http
           .get(uri, headers: headers)
           .timeout(const Duration(seconds: 30));
+      print(uri);
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
