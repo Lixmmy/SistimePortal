@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
 import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:newsistime/core/theme/theme.dart';
+import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 
 class DetailKrs extends StatefulWidget {
@@ -77,56 +77,83 @@ class _DetailKrsState extends State<DetailKrs> {
               }
 
               if (state is KrsLoadedMatakuliah) {
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    final matkul = state.matakuliahWajib[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.only(bottom: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                ? Colors.white.withAlpha(150)
-                                : Colors.black.withAlpha(150),
+                return SliverMainAxisGroup(
+                  slivers: [
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final matkul = state.matakuliahWajib[index];
+                        return _buildMatkulItem(
+                          context,
+                          matkul,
+                          appLocalizations,
+                        );
+                      }, childCount: state.matakuliahWajib.length),
+                    ),
+                    if (state.selectedMatakuliahPilihan.isNotEmpty)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            "Matakuliah Tambahan Terpilih",
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                    if (state.selectedMatakuliahPilihan.isNotEmpty)
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          final matkul = state.selectedMatakuliahPilihan[index];
+                          return _buildMatkulItem(
+                            context,
+                            matkul,
+                            appLocalizations,
+                          );
+                        }, childCount: state.selectedMatakuliahPilihan.length),
+                      ),
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 16.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              matkul.matkul.namaMataKuliah,
-                              style: Theme.of(context).textTheme.labelSmall,
+                            Flexible(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  _showMatakuliahPilihan(context, state);
+                                },
+                                child: Text("Tambah Matakuliah"),
+                              ),
                             ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text:
-                                        '${appLocalizations.code}: ${matkul.matkul.kodeMataKuliah} | ${appLocalizations.sks}: ${matkul.matkul.sks}\n',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${appLocalizations.lecture}: ${matkul.dosen.namaDosen}',
-                                    style: Theme.of(context).textTheme.bodySmall
-                                        ?.copyWith(
-                                          color: AppTheme.primaryColorA0,
-                                        ),
-                                  ),
-                                ],
+                            Flexible(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  _krsBloc.add(PostKrsEvent());
+                                },
+                                child: Text("Ajukan KRS"),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    );
-                  }, childCount: state.matakuliahWajib.length),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 16.0,
+                        ),
+                        child: Flexible(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Download PDF"),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               }
               return SliverToBoxAdapter(
@@ -136,6 +163,185 @@ class _DetailKrsState extends State<DetailKrs> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMatkulItem(
+    BuildContext context,
+    JadwalKrs matkul,
+    AppLocalizations? appLocalizations,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white.withAlpha(150)
+                : Colors.black.withAlpha(150),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              matkul.matkul.namaMataKuliah,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:
+                        '${appLocalizations?.code}: ${matkul.matkul.kodeMataKuliah} | ${appLocalizations?.sks}: ${matkul.matkul.sks} | Kelas: ${matkul.kodeKelas}\n',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  TextSpan(
+                    text:
+                        '${appLocalizations?.lecture}: ${matkul.dosen.namaDosen}',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppTheme.primaryColorA0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showMatakuliahPilihan(BuildContext context, KrsLoadedMatakuliah state) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return BlocBuilder<KrsBloc, KrsState>(
+          bloc: _krsBloc,
+          builder: (context, currentState) {
+            if (currentState is KrsLoadedMatakuliah) {
+              return AlertDialog(
+                backgroundColor: Colors.white,
+                contentPadding: EdgeInsets.zero,
+                content: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: const BoxDecoration(
+                        color: Colors.white, // Background putih solid
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                        ),
+                        border: Border(
+                          bottom: BorderSide(color: Colors.black12),
+                        ), // Garis pemisah tipis
+                      ),
+                      child: Text(
+                        "Pilih Matakuliah Tambahan",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                    Flexible(
+                      child: SizedBox(
+                        width: double.maxFinite,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: currentState.matakuliahPilihan.length,
+                          itemBuilder: (context, index) {
+                            final matkul =
+                                currentState.matakuliahPilihan[index];
+                            final isSelected = currentState
+                                .selectedMatakuliahPilihan
+                                .contains(matkul);
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                                horizontal: 12.0,
+                              ),
+                              child: CheckboxListTile(
+                                title: Text(matkul.matkul.namaMataKuliah),
+                                subtitle: Text(
+                                  '${matkul.matkul.kodeMataKuliah} | ${matkul.matkul.sks} SKS | Kelas: ${matkul.kodeKelas}',
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                value: isSelected,
+                                onChanged: (bool? value) {
+                                  _krsBloc.add(
+                                    ToggleMatakuliahSelection(
+                                      matakuliah: matkul,
+                                    ),
+                                  );
+                                },
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                activeColor: AppTheme.primaryColorA0,
+                                checkboxShape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  side: BorderSide(
+                                    color: isSelected
+                                        ? AppTheme.primaryColorA0
+                                        : Theme.of(
+                                            context,
+                                          ).unselectedWidgetColor,
+                                    width: 2,
+                                  ),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side: BorderSide(
+                                    color: isSelected
+                                        ? AppTheme.primaryColorA0
+                                        : Theme.of(context).dividerColor,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+
+                                dense: true,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: Colors.white, // Background putih solid
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
+                        ),
+                        border: Border(
+                          top: BorderSide(color: Colors.black12),
+                        ), // Garis pemisah tipis
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text("Selesai"),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        );
+      },
     );
   }
 }

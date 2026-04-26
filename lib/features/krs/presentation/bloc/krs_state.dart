@@ -64,12 +64,27 @@ class KrsLoadedTahunAjaran extends KrsState {
 class KrsLoadedMatakuliah extends KrsState {
   final List<JadwalKrs> matakuliahWajib;
   final List<JadwalKrs> matakuliahPilihan;
+  final List<JadwalKrs> selectedMatakuliahPilihan;
 
   const KrsLoadedMatakuliah({
     required this.matakuliahWajib,
     required this.matakuliahPilihan,
+    this.selectedMatakuliahPilihan = const [],
   });
 
   @override
-  List<Object> get props => [matakuliahWajib, matakuliahPilihan];
+  List<Object> get props => [
+    matakuliahWajib,
+    matakuliahPilihan,
+    selectedMatakuliahPilihan,
+  ];
+}
+
+class KrsPostSuccess extends KrsState {
+  final String message;
+
+  const KrsPostSuccess({required this.message});
+
+  @override
+  List<Object> get props => [message];
 }

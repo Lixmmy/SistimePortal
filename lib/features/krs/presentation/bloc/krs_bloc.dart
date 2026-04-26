@@ -6,13 +6,13 @@ import 'package:equatable/equatable.dart';
 import 'package:newsistime/features/dosen/domain/usecases/get_dosen.dart';
 import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
-import 'package:newsistime/features/krs/domain/entities/matkul.dart';
 import 'package:newsistime/features/krs/domain/entities/tahun_ajaran.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_skedul_krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_skema_krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_tahun_ajaran.dart';
+import 'package:newsistime/features/krs/domain/usecases/post_krs.dart';
 import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
 import 'package:newsistime/core/localization/l10n/app_localizations.dart';
@@ -31,6 +31,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
   final GetSkemaKrs getSkemaKrs;
   final GetSkedulKrs getSkedulKrs;
   final GetDosen getDosen;
+  final PostKrs postKrs;
   final ProfilLocalDataSource profilLocalDataSource;
   final LoginLocalDataSource loginLocalDataSource;
 
@@ -41,6 +42,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
     required this.getSkedulKrs,
     required this.getMataKuliah,
     required this.getDosen,
+    required this.postKrs,
     required this.profilLocalDataSource,
     required this.loginLocalDataSource,
   }) : super(KrsInitial()) {
@@ -350,7 +352,7 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
                                   skedul.kodeKelas == kodeKelasMahasiswa;
                               bool isTambahan =
                                   skedul.kodeKelas != kodeKelasMahasiswa &&
-                                  tahunSkedul <= angkatanMahasiswa;
+                                  tahunSkedul > angkatanMahasiswa;
                               return isWajib || isTambahan;
                             })
                             .map((skedul) {
@@ -371,7 +373,10 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
                                 matkul: matkul,
                                 dosen: dosen,
                                 tipeSkedul: tipeSkedul,
+                                idSkedul: skedul.id,
                                 idUser: profil.idUser,
+                                keterangan: skedul.keterangan,
+                                kodeKelas: skedul.kodeKelas,
                               );
                             })
                             .whereType<JadwalKrs>()
@@ -398,6 +403,66 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
         );
       } catch (e) {
         emit(KrsError(message: e.toString()));
+      }
+    });
+
+    on<ToggleMatakuliahSelection>((event, emit) {
+      if (state is KrsLoadedMatakuliah) {
+        final currentState = state as KrsLoadedMatakuliah;
+        final updatedSelection = List<JadwalKrs>.from(
+          currentState.selectedMatakuliahPilihan,
+        );
+
+        if (updatedSelection.contains(event.matakuliah)) {
+          updatedSelection.remove(event.matakuliah);
+        } else {
+          updatedSelection.add(event.matakuliah);
+        }
+
+        emit(
+          KrsLoadedMatakuliah(
+            matakuliahWajib: currentState.matakuliahWajib,
+            matakuliahPilihan: currentState.matakuliahPilihan,
+            selectedMatakuliahPilihan: updatedSelection,
+          ),
+        );
+      }
+    });
+
+    on<PostKrsEvent>((event, emit) async {
+      if (state is KrsLoadedMatakuliah) {
+        final currentState = state as KrsLoadedMatakuliah;
+        final matakuliahWajib = currentState.matakuliahWajib;
+        final selectedMatakuliahPilihan =
+            currentState.selectedMatakuliahPilihan;
+
+        final List<JadwalKrs> allSelectedMatakuliah = [
+          ...matakuliahWajib,
+          ...selectedMatakuliahPilihan,
+        ];
+
+        final listKrs = allSelectedMatakuliah.map((jadwal) {
+          return Krs(
+            id: jadwal.matkul.id,
+            idUser: jadwal.idUser,
+            idSkedul: jadwal.idSkedul,
+            tipeSkedul: jadwal.tipeSkedul,
+            keterangan: jadwal.keterangan,
+          );
+        }).toList();
+        try {
+          final postResult = await postKrs.call(krs: listKrs);
+          postResult.fold(
+            (failure) {
+              emit(KrsError(message: failure.message));
+            },
+            (success) {
+              emit(const KrsPostSuccess(message: "KRS berhasil dikirim"));
+            },
+          );
+        } catch (e) {
+          emit(KrsError(message: e.toString()));
+        }
       }
     });
   }

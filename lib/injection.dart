@@ -25,6 +25,7 @@ import 'package:newsistime/features/krs/domain/usecases/get_mata_kuliah.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_skedul_krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_skema_krs.dart';
 import 'package:newsistime/features/krs/domain/usecases/get_tahun_ajaran.dart';
+import 'package:newsistime/features/krs/domain/usecases/post_krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/language/data/datasources/language_local_data_source.dart';
 import 'package:newsistime/features/language/data/repositories/app_language_repository_implementation.dart';
@@ -290,6 +291,7 @@ Future<void> init() async {
       getSkemaKrs: myInjection(),
       getTahunAjaran: myInjection(),
       getMataKuliah: myInjection(),
+      postKrs: myInjection(),
       profilLocalDataSource: myInjection(),
       loginLocalDataSource: myInjection(),
     ),
@@ -301,6 +303,7 @@ Future<void> init() async {
   myInjection.registerLazySingleton(
     () => GetMataKuliah(krsRepositories: myInjection()),
   );
+  myInjection.registerLazySingleton(() => PostKrs(myInjection()));
   myInjection.registerLazySingleton(
     () => GetSkedulKrs(krsRepositories: myInjection()),
   );

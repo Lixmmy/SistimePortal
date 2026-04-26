@@ -86,4 +86,18 @@ class KrsRepositoriesImplementation extends KrsRepositories {
       return Left(MessageExc.unknown(e.toString()));
     }
   }
+
+  @override
+  Future<Either<MessageExc, List<Krs>>> postKrs({
+    required List<Krs> krs,
+  }) async {
+    try {
+      final response = await remoteKrsDataSource.postKrs(krs: krs);
+      return Right(response.map((e) => e.toEntity()).toList());
+    } on MessageExc catch (e) {
+      return Left(e);
+    } catch (e) {
+      return Left(MessageExc.unknown(e.toString()));
+    }
+  }
 }

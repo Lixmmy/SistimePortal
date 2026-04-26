@@ -32,3 +32,14 @@ class FetchMatakuliah extends KrsEvent {
 }
 
 class FetchTahunAjaranKrs extends KrsEvent {}
+
+class ToggleMatakuliahSelection extends KrsEvent {
+  final JadwalKrs matakuliah;
+
+  const ToggleMatakuliahSelection({required this.matakuliah});
+
+  @override
+  List<Object> get props => [matakuliah];
+}
+
+final class PostKrsEvent extends KrsEvent {}

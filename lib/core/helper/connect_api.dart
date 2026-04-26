@@ -17,6 +17,7 @@ import 'package:newsistime/features/krs/data/models/matkul_model.dart';
 import 'package:newsistime/features/krs/data/models/skedul_model.dart';
 import 'package:newsistime/features/krs/data/models/skema_model.dart';
 import 'package:newsistime/features/krs/data/models/tahun_ajaran_model.dart';
+import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/login/data/models/token_model.dart';
 import 'package:newsistime/features/profil/data/models/profil_model.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
@@ -100,7 +101,7 @@ class ConnectApi {
   Future<dynamic> _requestPost(
     String endpoint,
     bool authorization,
-    Map<String, dynamic> body,
+    dynamic body,
   ) async {
     try {
       await _ensureInternetConnection();
@@ -318,5 +319,24 @@ class ConnectApi {
       true,
       updateMahasiswaModel.toJson(),
     );
+  }
+
+  Future<List<KrsModel>> postKrs({required List<Krs> krs}) async {
+    final body = krs
+        .map(
+          (e) => {
+            'id': e.id,
+            'idUser': e.idUser,
+            'idSkedul': e.idSkedul,
+            'tipeSkedul': e.tipeSkedul,
+            'keterangan': e.keterangan,
+          },
+        )
+        .toList();
+    final response = await _requestPost(krsRoute, true, body);
+    return (response as List)
+        .map((e) => KrsModel.fromJson(e))
+        .toList()
+        .cast<KrsModel>();
   }
 }

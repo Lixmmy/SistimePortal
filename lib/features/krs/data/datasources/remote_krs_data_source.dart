@@ -5,6 +5,7 @@ import 'package:newsistime/features/krs/data/models/matkul_model.dart';
 import 'package:newsistime/features/krs/data/models/skedul_model.dart';
 import 'package:newsistime/features/krs/data/models/skema_model.dart';
 import 'package:newsistime/features/krs/data/models/tahun_ajaran_model.dart';
+import 'package:newsistime/features/krs/domain/entities/krs.dart';
 
 abstract class RemoteKrsDataSource {
   Future<List<KrsModel>> getKrs({required String id});
@@ -12,6 +13,7 @@ abstract class RemoteKrsDataSource {
   Future<List<SkemaModel>> getSkemaKrs();
   Future<List<SkedulModel>> getSkedulKrs(String idSkemaKrs);
   Future<List<TahunAjaranModel>> getTahunAjaran();
+  Future<List<KrsModel>> postKrs({required List<Krs> krs});
 }
 
 class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
@@ -84,6 +86,20 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
     } catch (e) {
       throw MessageExc.unknown(
         'An unexpected error in getTahunAjaran occurred: ${e.toString()}',
+      );
+    }
+  }
+
+  @override
+  Future<List<KrsModel>> postKrs({required List<Krs> krs}) async {
+    try {
+      final response = await connectApi.postKrs(krs: krs);
+      return response;
+    } on MessageExc {
+      rethrow;
+    } catch (e) {
+      throw MessageExc.unknown(
+        'An unexpected error in postKrs occurred: ${e.toString()}',
       );
     }
   }
