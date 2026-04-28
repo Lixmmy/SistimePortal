@@ -113,5 +113,9 @@
   "login": "Login",
   "forgotPassword": "Lupa Password",
   "ifYouveForgottenYourPassword": "Jika kamu lupa password",
-  "pleaseEnterYourEmailAddressToResetYourPassword": "Silahkan masukkan emailmu untuk reset password"
+  "pleaseEnterYourEmailAddressToResetYourPassword": "Silahkan masukkan emailmu untuk reset password",
+  "schoolYear": "Tahun Ajaran",
+  "optionalAdditionalCourses": "Mata Kuliah Tambahan (Opsional)",
+  "addCourse": "Tambah Mata Kuliah",
+  "downlaodPdf": "Download PDF"
 }

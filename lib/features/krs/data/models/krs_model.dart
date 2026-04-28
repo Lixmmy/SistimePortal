@@ -18,7 +18,7 @@ class KrsModel {
   factory KrsModel.fromJson(Map<String, dynamic> json) {
     return KrsModel(
       idModel: json['id'],
-      idUsersModel: json['idUsers'],
+      idUsersModel: json['idUser'],
       idSkedulModel: json['idSkedul'],
       tipeSkedul: json['tipeSkedul'],
       keterangan: json['keterangan'],

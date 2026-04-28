@@ -781,6 +781,30 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Silahkan masukkan emailmu untuk reset password'**
   String get pleaseEnterYourEmailAddressToResetYourPassword;
+
+  /// No description provided for @schoolYear.
+  ///
+  /// In id, this message translates to:
+  /// **'Tahun Ajaran'**
+  String get schoolYear;
+
+  /// No description provided for @optionalAdditionalCourses.
+  ///
+  /// In id, this message translates to:
+  /// **'Mata Kuliah Tambahan (Opsional)'**
+  String get optionalAdditionalCourses;
+
+  /// No description provided for @addCourse.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah Mata Kuliah'**
+  String get addCourse;
+
+  /// No description provided for @downlaodPdf.
+  ///
+  /// In id, this message translates to:
+  /// **'Download PDF'**
+  String get downlaodPdf;
 }
 
 class _AppLocalizationsDelegate

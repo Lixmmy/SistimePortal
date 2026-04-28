@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
+import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 
 class DetailKrs extends StatefulWidget {
@@ -30,54 +31,62 @@ class _DetailKrsState extends State<DetailKrs> {
     final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: [
-          SliverAppBar(
-            title: RichText(
-              text: TextSpan(
-                children: [
-                  WidgetSpan(
-                    child: Image.asset(
-                      'images/logo_stmik.png',
-                      width: 30,
-                      height: 30,
+      body: BlocConsumer<KrsBloc, KrsState>(
+        listener: (context, state) {},
+        buildWhen: (previous, current) {
+          if (current is KrsTokenExpired ||
+              current is KrsError ||
+              current is KrsPdfDownloaded ||
+              current is KrsPostSuccess) {
+            return false;
+          }
+          return true; // Rebuild UI untuk state lainnya
+        },
+        builder: (context, state) {
+          if (state is KrsLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is KrsLoadedMatakuliah) {
+            return CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                SliverAppBar(
+                  title: RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Image.asset(
+                            'images/logo_stmik.png',
+                            width: 30,
+                            height: 30,
+                          ),
+                        ),
+                        WidgetSpan(
+                          child: SizedBox(width: 8),
+                        ), // Spacing between logo and text
+                        TextSpan(
+                          text: 'STMIK',
+                          style: Theme.of(context).appBarTheme.titleTextStyle
+                              ?.copyWith(fontWeight: FontWeight.w200),
+                        ),
+                        TextSpan(
+                          text: ' TIME',
+                          style: Theme.of(context).appBarTheme.titleTextStyle
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
-                  WidgetSpan(
-                    child: SizedBox(width: 8),
-                  ), // Spacing between logo and text
-                  TextSpan(
-                    text: 'STMIK',
-                    style: Theme.of(context).appBarTheme.titleTextStyle
-                        ?.copyWith(fontWeight: FontWeight.w200),
+                  pinned: true,
+                  leading: IconButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: Icon(Icons.arrow_back),
                   ),
-                  TextSpan(
-                    text: ' TIME',
-                    style: Theme.of(context).appBarTheme.titleTextStyle
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            pinned: true,
-            leading: IconButton(
-              onPressed: () {
-                context.pop();
-              },
-              icon: Icon(Icons.arrow_back),
-            ),
-          ),
-          BlocBuilder<KrsBloc, KrsState>(
-            builder: (context, state) {
-              if (state is KrsLoading) {
-                return const SliverFillRemaining(
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              }
+                ),
 
-              if (state is KrsLoadedMatakuliah) {
-                return SliverMainAxisGroup(
+                SliverMainAxisGroup(
                   slivers: [
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
@@ -94,7 +103,7 @@ class _DetailKrsState extends State<DetailKrs> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            "Matakuliah Tambahan Terpilih",
+                            appLocalizations.optionalAdditionalCourses,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
@@ -110,35 +119,36 @@ class _DetailKrsState extends State<DetailKrs> {
                           );
                         }, childCount: state.selectedMatakuliahPilihan.length),
                       ),
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 16.0,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Flexible(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  _showMatakuliahPilihan(context, state);
-                                },
-                                child: Text("Tambah Matakuliah"),
+                    if (!state.isAlreadyFilled)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 16.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Flexible(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    _showMatakuliahPilihan(context, state);
+                                  },
+                                  child: Text(appLocalizations.addCourse),
+                                ),
                               ),
-                            ),
-                            Flexible(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  _krsBloc.add(PostKrsEvent());
-                                },
-                                child: Text("Ajukan KRS"),
+                              Flexible(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    _krsBloc.add(PostKrsEvent());
+                                  },
+                                  child: Text(appLocalizations.submit),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                     SliverToBoxAdapter(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -147,21 +157,25 @@ class _DetailKrsState extends State<DetailKrs> {
                         ),
                         child: Flexible(
                           child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Download PDF"),
+                            onPressed: () {
+                              _krsBloc.add(
+                                DownloadKrsPdf(
+                                  appLocalizations: appLocalizations,
+                                ),
+                              );
+                            },
+                            child: Text(appLocalizations.downlaodPdf),
                           ),
                         ),
                       ),
                     ),
                   ],
-                );
-              }
-              return SliverToBoxAdapter(
-                child: Center(child: SizedBox.shrink()),
-              );
-            },
-          ),
-        ],
+                ),
+              ],
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }
@@ -224,15 +238,21 @@ class _DetailKrsState extends State<DetailKrs> {
           builder: (context, currentState) {
             if (currentState is KrsLoadedMatakuliah) {
               return AlertDialog(
-                backgroundColor: Colors.white,
+                backgroundColor:
+                    Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : AppTheme.surfaceDarkColorA10, // Background putih solid
                 contentPadding: EdgeInsets.zero,
                 content: Column(
                   children: [
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(20),
-                      decoration: const BoxDecoration(
-                        color: Colors.white, // Background putih solid
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.white
+                            : AppTheme
+                                  .surfaceDarkColorA10, // Background putih solid
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15),
@@ -264,7 +284,12 @@ class _DetailKrsState extends State<DetailKrs> {
                                 horizontal: 12.0,
                               ),
                               child: CheckboxListTile(
-                                title: Text(matkul.matkul.namaMataKuliah),
+                                title: Text(
+                                  matkul.matkul.namaMataKuliah,
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.labelMedium,
+                                ),
                                 subtitle: Text(
                                   '${matkul.matkul.kodeMataKuliah} | ${matkul.matkul.sks} SKS | Kelas: ${matkul.kodeKelas}',
                                   style: Theme.of(context).textTheme.bodySmall,
@@ -285,10 +310,7 @@ class _DetailKrsState extends State<DetailKrs> {
                                   side: BorderSide(
                                     color: isSelected
                                         ? AppTheme.primaryColorA0
-                                        : Theme.of(
-                                            context,
-                                          ).unselectedWidgetColor,
-                                    width: 2,
+                                        : Theme.of(context).dividerColor,
                                   ),
                                 ),
                                 shape: RoundedRectangleBorder(
@@ -303,7 +325,6 @@ class _DetailKrsState extends State<DetailKrs> {
                                   horizontal: 8,
                                   vertical: 4,
                                 ),
-
                                 dense: true,
                               ),
                             );
@@ -317,8 +338,11 @@ class _DetailKrsState extends State<DetailKrs> {
                         horizontal: 10,
                         vertical: 5,
                       ),
-                      decoration: const BoxDecoration(
-                        color: Colors.white, // Background putih solid
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.white
+                            : AppTheme
+                                  .surfaceDarkColorA10, // Background putih solid
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(15),
                           bottomRight: Radius.circular(15),

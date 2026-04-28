@@ -11,15 +11,6 @@ class KrsInitial extends KrsState {}
 
 class KrsLoading extends KrsState {}
 
-// class KrsLoaded extends KrsState {
-//   final Map<int, List<Krs>> groupedKrs;
-
-//   const KrsLoaded({required this.groupedKrs});
-
-//   @override
-//   List<Object> get props => [groupedKrs];
-// }
-
 class KrsError extends KrsState {
   final String message;
 
@@ -65,11 +56,13 @@ class KrsLoadedMatakuliah extends KrsState {
   final List<JadwalKrs> matakuliahWajib;
   final List<JadwalKrs> matakuliahPilihan;
   final List<JadwalKrs> selectedMatakuliahPilihan;
+  final bool isAlreadyFilled;
 
   const KrsLoadedMatakuliah({
     required this.matakuliahWajib,
     required this.matakuliahPilihan,
     this.selectedMatakuliahPilihan = const [],
+    this.isAlreadyFilled = false,
   });
 
   @override
@@ -77,6 +70,7 @@ class KrsLoadedMatakuliah extends KrsState {
     matakuliahWajib,
     matakuliahPilihan,
     selectedMatakuliahPilihan,
+    isAlreadyFilled,
   ];
 }
 

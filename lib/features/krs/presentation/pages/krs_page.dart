@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:quickalert/models/quickalert_type.dart';
@@ -26,6 +27,7 @@ class _KrsPageState extends State<KrsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     return BlocConsumer<KrsBloc, KrsState>(
       listener: (context, state) {
         if (state is KrsTokenExpired) {
@@ -63,11 +65,12 @@ class _KrsPageState extends State<KrsPage> {
               itemBuilder: (context, index) {
                 final tahunAjaran = listTahunAjaranAktif[index];
                 return InkWell(
-                  onTap: () {
-                    context.pushNamed(
+                  onTap: () async {
+                    await context.pushNamed(
                       'detailKrsPage',
                       extra: {'idTahunAjaran': tahunAjaran.id},
                     );
+                    _krsBloc.add(FetchTahunAjaranKrs());
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -89,7 +92,7 @@ class _KrsPageState extends State<KrsPage> {
                               child: Column(
                                 children: [
                                   BuildInfoRow(
-                                    label: "Tahun Ajaran",
+                                    label: appLocalizations.schoolYear,
                                     needColon: false,
                                     value: tahunAjaran.tahun.toString(),
                                     labelColor:
@@ -104,7 +107,7 @@ class _KrsPageState extends State<KrsPage> {
                                         : Colors.black,
                                   ),
                                   BuildInfoRow(
-                                    label: "Semester",
+                                    label: appLocalizations.semester,
                                     needColon: false,
                                     value: tahunAjaran.semester.toString(),
                                     labelColor:
@@ -119,7 +122,7 @@ class _KrsPageState extends State<KrsPage> {
                                         : Colors.black,
                                   ),
                                   BuildInfoRow(
-                                    label: "Keterangan",
+                                    label: appLocalizations.information,
                                     needColon: false,
                                     value: tahunAjaran.keterangan,
                                     labelColor:

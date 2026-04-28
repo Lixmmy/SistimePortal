@@ -356,4 +356,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pleaseEnterYourEmailAddressToResetYourPassword =>
       'please enter your email address to reset your password';
+
+  @override
+  String get schoolYear => 'School Year';
+
+  @override
+  String get optionalAdditionalCourses => 'Optional Additional Courses';
+
+  @override
+  String get addCourse => 'Add Course';
+
+  @override
+  String get downlaodPdf => 'Download PDF';
 }

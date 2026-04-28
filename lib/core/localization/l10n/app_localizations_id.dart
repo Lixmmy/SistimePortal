@@ -355,4 +355,16 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get pleaseEnterYourEmailAddressToResetYourPassword =>
       'Silahkan masukkan emailmu untuk reset password';
+
+  @override
+  String get schoolYear => 'Tahun Ajaran';
+
+  @override
+  String get optionalAdditionalCourses => 'Mata Kuliah Tambahan (Opsional)';
+
+  @override
+  String get addCourse => 'Tambah Mata Kuliah';
+
+  @override
+  String get downlaodPdf => 'Download PDF';
 }

@@ -113,5 +113,9 @@
   "login": "Login",
   "forgotPassword": "Forgot Password",
   "ifYouveForgottenYourPassword": "If you've forgotten your password",
-  "pleaseEnterYourEmailAddressToResetYourPassword": "please enter your email address to reset your password"
+  "pleaseEnterYourEmailAddressToResetYourPassword": "please enter your email address to reset your password",
+  "schoolYear": "School Year",
+  "optionalAdditionalCourses": "Optional Additional Courses",
+  "addCourse": "Add Course",
+  "downlaodPdf": "Download PDF"
 }

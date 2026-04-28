@@ -244,7 +244,9 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                             children: row
                                 .map(
                                   (cell) => pw.Container(
-                                    alignment: pw.Alignment.centerLeft,
+                                    alignment: row.indexOf(cell) != 2
+                                        ? pw.Alignment.center
+                                        : pw.Alignment.centerLeft,
                                     padding: const pw.EdgeInsets.all(4),
                                     child: pw.Text(
                                       cell,
