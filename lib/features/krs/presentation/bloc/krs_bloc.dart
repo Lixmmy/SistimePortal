@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/dosen/domain/usecases/get_dosen.dart';
 import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
@@ -215,8 +216,13 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
       try {
         final tahunAjaranResult = await getTahunAjaran.execute();
         tahunAjaranResult.fold(
-          (l) {
-            emit(KrsError(message: l.message));
+          (l) async {
+            if (l.type == MessageExcType.tokenExpired) {
+              await loginLocalDataSource.deleteToken();
+              emit(KrsTokenExpired(message: l.message));
+            } else {
+              emit(KrsError(message: l.message));
+            }
           },
           (r) {
             final listTahunAjaranAktif = r

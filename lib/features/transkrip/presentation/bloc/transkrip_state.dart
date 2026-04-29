@@ -58,3 +58,12 @@ final class TranskripPdfDownloaded extends TranskripState {
   @override
   List<Object?> get props => [filePath];
 }
+
+final class TranskripTokenExpired extends TranskripState {
+  final String message;
+
+  const TranskripTokenExpired({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

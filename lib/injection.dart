@@ -122,6 +122,7 @@ Future<void> init() async {
       getMahasiswa: myInjection(),
       patchMahasiswa: myInjection(),
       logOutUseCases: myInjection(),
+      loginLocalDataSource: myInjection(),
     ),
   );
   //usecases
@@ -265,6 +266,7 @@ Future<void> init() async {
     () => TranskripBloc(
       getTranskrip: myInjection(),
       profilLocalDataSource: myInjection(),
+      loginLocalDataSource: myInjection(),
     ),
   );
   //Use cases

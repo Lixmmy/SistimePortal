@@ -36,11 +36,22 @@ class _TranskripPageState extends State<TranskripPage> {
               title: appL10n.error,
               text: state.message,
               onConfirmBtnTap: () {
-                if (state.message.contains("Token")) {
+                if (state.message.toLowerCase().contains("token")) {
                   context.goNamed("launcherPage");
                 } else {
                   context.pop();
                 }
+              },
+            );
+          }
+          if (state is TranskripTokenExpired) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: appL10n.tokenExpired,
+              text: state.message,
+              onConfirmBtnTap: () {
+                context.goNamed("launcherPage");
               },
             );
           }

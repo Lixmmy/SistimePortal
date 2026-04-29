@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/localization/localization_service.dart';
+import 'package:newsistime/core/route_config/config.dart';
+import 'package:newsistime/core/route_config/route_endpoint.dart';
 import 'package:newsistime/core/theme/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LauncherPage extends StatefulWidget {
   const LauncherPage({super.key});
@@ -129,25 +132,28 @@ class _LauncherPageState extends State<LauncherPage> {
                       child: Text(appL10n.already),
                     ),
                   ),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     context.pushNamed('registerPage');
-                  //   },
-                  //   style: ButtonStyle(
-                  //     overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                  //     foregroundColor: WidgetStatePropertyAll(
-                  //       Theme.brightnessOf(context) == Brightness.dark
-                  //           ? Colors.white
-                  //           : Colors.black,
-                  //     ),
-                  //     textStyle: WidgetStatePropertyAll(
-                  //       Theme.of(context).textTheme.labelMedium?.copyWith(
-                  //         fontWeight: FontWeight.w500,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   child: Text(appL10n.not),
-                  // ),
+                  TextButton(
+                    onPressed: () async {
+                      await launchUrl(
+                        Uri(scheme: scheme, host: host, path: registrasiRoute),
+                        mode: LaunchMode.inAppWebView,
+                      );
+                    },
+                    style: ButtonStyle(
+                      overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                      foregroundColor: WidgetStatePropertyAll(
+                        Theme.brightnessOf(context) == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                      textStyle: WidgetStatePropertyAll(
+                        Theme.of(context).textTheme.labelMedium?.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    child: Text(appL10n.not),
+                  ),
                 ],
               ),
             ),

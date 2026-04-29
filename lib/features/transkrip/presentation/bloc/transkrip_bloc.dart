@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/grade_converter.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
@@ -13,16 +14,20 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
+
 part 'transkrip_event.dart';
 part 'transkrip_state.dart';
 
 class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
   final GetTranskrip _getTranskrip;
   final ProfilLocalDataSource _profilLocalDataSource;
+  final LoginLocalDataSource loginLocalDataSource;
 
   TranskripBloc({
     required GetTranskrip getTranskrip,
     required ProfilLocalDataSource profilLocalDataSource,
+    required this.loginLocalDataSource,
   }) : _getTranskrip = getTranskrip,
        _profilLocalDataSource = profilLocalDataSource,
        super(TranskripInitial()) {
@@ -34,7 +39,12 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
         final result = await _getTranskrip.execute(profil!.idUser.toString());
         await result.fold(
           (failure) async {
-            emit(TranskripError(message: failure.message));
+            if (failure.type == MessageExcType.tokenExpired) {
+              await loginLocalDataSource.deleteToken();
+              emit(TranskripTokenExpired(message: failure.message));
+            } else {
+              emit(TranskripError(message: failure.message));
+            }
           },
           (data) async {
             int passedCourses = 0;

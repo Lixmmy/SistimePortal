@@ -39,11 +39,22 @@ class _KrsPageState extends State<KrsPage> {
               title: appL10n.error,
               text: state.message,
               onConfirmBtnTap: () {
-                if (state.message.contains("Token")) {
+                if (state.message.toLowerCase().contains("token")) {
                   context.goNamed("launcherPage");
                 } else {
-                  context.pop();
+                  Navigator.of(context).pop();
                 }
+              },
+            );
+          }
+          if (state is KrsTokenExpired) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: appL10n.tokenExpired,
+              text: state.message,
+              onConfirmBtnTap: () {
+                context.goNamed("launcherPage");
               },
             );
           }

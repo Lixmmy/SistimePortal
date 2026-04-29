@@ -14,3 +14,4 @@ const getSkedulKrsRoute = 'rest/api/skedul';
 const getTahunAjaranRoute = 'rest/api/tahunajaran';
 const getStatusMahasiswaRoute = 'rest/api/statusmahasiswa/iduser';
 const getDosenRoute = 'rest/api/dosen';
+const registrasiRoute = 'registrasi.xhtml';

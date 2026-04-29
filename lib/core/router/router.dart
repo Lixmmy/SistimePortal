@@ -214,6 +214,7 @@ GoRouter myRouter() {
             create: (context) => TranskripBloc(
               getTranskrip: myInjection(),
               profilLocalDataSource: myInjection(),
+              loginLocalDataSource: myInjection(),
             ),
             child: TranskripPage(),
           );

@@ -47,6 +47,16 @@ class _ProfilPageState extends State<ProfilPage> {
                   title: appL10n.error,
                   text: state.message,
                 );
+              } else if (state is ProfilTokenExpired) {
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.error,
+                  title: appL10n.tokenExpired,
+                  text: state.message,
+                  onConfirmBtnTap: () {
+                    context.goNamed('launcherPage');
+                  },
+                );
               } else if (state is ProfilLogout) {
                 context.goNamed('launcherPage');
               }
