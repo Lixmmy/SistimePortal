@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/dosen/domain/usecases/get_dosen.dart';
 import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
 import 'package:newsistime/features/krs/domain/entities/krs.dart';
@@ -50,7 +51,9 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
   }) : super(KrsInitial()) {
     on<DownloadKrsPdf>((event, emit) async {
       final currentState = state;
-      if (currentState is KrsLoadedMatakuliah) {
+      final profil = await profilLocalDataSource.getSavedProfilData();
+      final username = await SecureStorage().getData('username');
+      if (currentState is KrsLoadedMatakuliah && profil != null) {
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
@@ -95,6 +98,34 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
                     ),
 
                     pw.SizedBox(height: 20),
+                    pw.Container(
+                      width: double.infinity,
+                      padding: const pw.EdgeInsets.all(10),
+                      margin: const pw.EdgeInsets.only(bottom: 10),
+                      decoration: pw.BoxDecoration(
+                        color: PdfColors.white,
+                        borderRadius: pw.BorderRadius.circular(10),
+                        border: pw.Border.all(
+                          color: PdfColor.fromInt(0x96000000),
+                        ),
+                      ),
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text('${appLocalizations.nim}: $username'),
+                          pw.Text(
+                            '${appLocalizations.name}: ${profil.namaMahasiswa}',
+                          ),
+                          pw.Text(
+                            '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi}',
+                          ),
+                          pw.Text(
+                            '${appLocalizations.roomClass}: ${profil.statusMahasiswa?.kodeKelas}',
+                          ),
+                        ],
+                      ),
+                    ),
+                    pw.SizedBox(height: 10),
                     pw.Table(
                       border: pw.TableBorder.all(),
                       columnWidths: {
@@ -183,14 +214,14 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
             final listTahunAjaranAktif = r
                 .where((tahun) => tahun.aktif)
                 .toList();
-            // final listTahunAjaranTidakAktif = r
-            //     .where((tahun) => !tahun.aktif)
-            //     .toList();
+            final listTahunAjaranTidakAktif = r
+                .where((tahun) => !tahun.aktif)
+                .toList();
 
             emit(
               KrsLoadedTahunAjaran(
                 tahunAjaranAktif: listTahunAjaranAktif,
-                // tahunAjaranTidakAktif: listTahunAjaranTidakAktif,
+                tahunAjaranTidakAktif: listTahunAjaranTidakAktif,
               ),
             );
           },
@@ -212,10 +243,10 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
           },
           (skemaSuccess) async {
             final matchSkema = skemaSuccess.firstWhere(
-              (s) =>
-                  s.idTahunAjaran == event.idTahunAjaran &&
-                  s.aktif == true &&
-                  s.keterangan == '',
+              (s) => s.idTahunAjaran == event.idTahunAjaran,
+              // &&
+              // s.aktif == true &&
+              // s.keterangan == '',
             );
             final idSkema = matchSkema.id.toString();
             final listSkedulKrs = await getSkedulKrs.execute(idSkema);
@@ -418,7 +449,15 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
         final matakuliahWajib = currentState.matakuliahWajib;
         final selectedMatakuliahPilihan =
             currentState.selectedMatakuliahPilihan;
-
+        final profil = await profilLocalDataSource.getSavedProfilData();
+        if (profil == null) {
+          emit(
+            const KrsError(
+              message: 'Profile data is missing. Cannot post KRS.',
+            ),
+          );
+          return;
+        }
         final List<JadwalKrs> allSelectedMatakuliah = [
           ...matakuliahWajib,
           ...selectedMatakuliahPilihan,
@@ -434,7 +473,10 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
           );
         }).toList();
         try {
-          final postResult = await postKrs.call(krs: listKrs);
+          final postResult = await postKrs.call(
+            id: profil.idUser.toString(),
+            krs: listKrs,
+          );
           postResult.fold(
             (failure) {
               emit(KrsError(message: failure.message));

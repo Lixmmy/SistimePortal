@@ -364,8 +364,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get optionalAdditionalCourses => 'Optional Additional Courses';
 
   @override
+  String get chooseAdditionalCourse => 'Choose Additional Course';
+
+  @override
   String get addCourse => 'Add Course';
 
   @override
   String get downlaodPdf => 'Download PDF';
+
+  @override
+  String get finish => 'Finish';
 }

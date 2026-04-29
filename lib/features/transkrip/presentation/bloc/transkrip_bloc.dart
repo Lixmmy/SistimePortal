@@ -163,6 +163,9 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
                             pw.Text(
                               '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi}',
                             ),
+                            pw.Text(
+                              '${appLocalizations.roomClass}: ${profil.statusMahasiswa?.kodeKelas}',
+                            ),
                           ],
                         ),
                       ),

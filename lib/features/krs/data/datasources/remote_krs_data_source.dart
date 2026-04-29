@@ -13,7 +13,7 @@ abstract class RemoteKrsDataSource {
   Future<List<SkemaModel>> getSkemaKrs();
   Future<List<SkedulModel>> getSkedulKrs(String idSkemaKrs);
   Future<List<TahunAjaranModel>> getTahunAjaran();
-  Future<List<KrsModel>> postKrs({required List<Krs> krs});
+  Future<List<KrsModel>> postKrs({required String id, required List<Krs> krs});
 }
 
 class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
@@ -91,9 +91,12 @@ class RemoteKrsDataSourceImplementation extends RemoteKrsDataSource {
   }
 
   @override
-  Future<List<KrsModel>> postKrs({required List<Krs> krs}) async {
+  Future<List<KrsModel>> postKrs({
+    required String id,
+    required List<Krs> krs,
+  }) async {
     try {
-      final response = await connectApi.postKrs(krs: krs);
+      final response = await connectApi.postKrs(id: id, krs: krs);
       return response;
     } on MessageExc {
       rethrow;

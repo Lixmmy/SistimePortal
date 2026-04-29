@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/localization/l10n/app_localizations.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
-import 'package:newsistime/features/krs/domain/entities/krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
 
 class DetailKrs extends StatefulWidget {
@@ -28,8 +28,6 @@ class _DetailKrsState extends State<DetailKrs> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
-
     return Scaffold(
       body: BlocConsumer<KrsBloc, KrsState>(
         listener: (context, state) {},
@@ -91,11 +89,7 @@ class _DetailKrsState extends State<DetailKrs> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final matkul = state.matakuliahWajib[index];
-                        return _buildMatkulItem(
-                          context,
-                          matkul,
-                          appLocalizations,
-                        );
+                        return _buildMatkulItem(context, matkul, appL10n);
                       }, childCount: state.matakuliahWajib.length),
                     ),
                     if (state.selectedMatakuliahPilihan.isNotEmpty)
@@ -103,7 +97,7 @@ class _DetailKrsState extends State<DetailKrs> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            appLocalizations.optionalAdditionalCourses,
+                            appL10n.optionalAdditionalCourses,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
@@ -112,11 +106,7 @@ class _DetailKrsState extends State<DetailKrs> {
                       SliverList(
                         delegate: SliverChildBuilderDelegate((context, index) {
                           final matkul = state.selectedMatakuliahPilihan[index];
-                          return _buildMatkulItem(
-                            context,
-                            matkul,
-                            appLocalizations,
-                          );
+                          return _buildMatkulItem(context, matkul, appL10n);
                         }, childCount: state.selectedMatakuliahPilihan.length),
                       ),
                     if (!state.isAlreadyFilled)
@@ -134,7 +124,7 @@ class _DetailKrsState extends State<DetailKrs> {
                                   onPressed: () {
                                     _showMatakuliahPilihan(context, state);
                                   },
-                                  child: Text(appLocalizations.addCourse),
+                                  child: Text(appL10n.addCourse),
                                 ),
                               ),
                               Flexible(
@@ -142,7 +132,7 @@ class _DetailKrsState extends State<DetailKrs> {
                                   onPressed: () {
                                     _krsBloc.add(PostKrsEvent());
                                   },
-                                  child: Text(appLocalizations.submit),
+                                  child: Text(appL10n.submit),
                                 ),
                               ),
                             ],
@@ -159,12 +149,10 @@ class _DetailKrsState extends State<DetailKrs> {
                           child: ElevatedButton(
                             onPressed: () {
                               _krsBloc.add(
-                                DownloadKrsPdf(
-                                  appLocalizations: appLocalizations,
-                                ),
+                                DownloadKrsPdf(appLocalizations: appL10n),
                               );
                             },
-                            child: Text(appLocalizations.downlaodPdf),
+                            child: Text(appL10n.downlaodPdf),
                           ),
                         ),
                       ),
@@ -210,7 +198,7 @@ class _DetailKrsState extends State<DetailKrs> {
                 children: [
                   TextSpan(
                     text:
-                        '${appLocalizations?.code}: ${matkul.matkul.kodeMataKuliah} | ${appLocalizations?.sks}: ${matkul.matkul.sks} | Kelas: ${matkul.kodeKelas}\n',
+                        '${appLocalizations?.code}: ${matkul.matkul.kodeMataKuliah} | ${appLocalizations?.sks}: ${matkul.matkul.sks} | ${appL10n.roomClass}: ${matkul.kodeKelas}\n',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   TextSpan(
@@ -262,7 +250,7 @@ class _DetailKrsState extends State<DetailKrs> {
                         ), // Garis pemisah tipis
                       ),
                       child: Text(
-                        "Pilih Matakuliah Tambahan",
+                        appL10n.chooseAdditionalCourse,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
@@ -291,7 +279,7 @@ class _DetailKrsState extends State<DetailKrs> {
                                   ).textTheme.labelMedium,
                                 ),
                                 subtitle: Text(
-                                  '${matkul.matkul.kodeMataKuliah} | ${matkul.matkul.sks} SKS | Kelas: ${matkul.kodeKelas}',
+                                  '${matkul.matkul.kodeMataKuliah} | ${matkul.matkul.sks} ${appL10n.sks} | ${appL10n.roomClass}: ${matkul.kodeKelas}',
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                                 value: isSelected,
@@ -355,7 +343,7 @@ class _DetailKrsState extends State<DetailKrs> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text("Selesai"),
+                        child: Text(appL10n.finish),
                       ),
                     ),
                   ],

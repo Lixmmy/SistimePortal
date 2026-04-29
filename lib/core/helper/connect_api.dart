@@ -77,7 +77,6 @@ class ConnectApi {
       final response = await http
           .get(uri, headers: headers)
           .timeout(const Duration(seconds: 30));
-      print(uri);
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
@@ -106,7 +105,6 @@ class ConnectApi {
     try {
       await _ensureInternetConnection();
       Uri uri = Uri(scheme: scheme, host: host, path: endpoint);
-      print(uri);
       final Map<String, String> headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -321,7 +319,10 @@ class ConnectApi {
     );
   }
 
-  Future<List<KrsModel>> postKrs({required List<Krs> krs}) async {
+  Future<List<KrsModel>> postKrs({
+    required String id,
+    required List<Krs> krs,
+  }) async {
     final body = krs
         .map(
           (e) => {
@@ -333,7 +334,7 @@ class ConnectApi {
           },
         )
         .toList();
-    final response = await _requestPost(krsRoute, true, body);
+    final response = await _requestPost('$krsRoute/$id', true, body);
     return (response as List)
         .map((e) => KrsModel.fromJson(e))
         .toList()

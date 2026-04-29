@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newsistime/core/theme/theme.dart';
+import 'package:newsistime/core/helper/grade_converter.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 
 class ListTranskrip extends StatelessWidget {
@@ -25,7 +26,7 @@ class ListTranskrip extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall,
             ),
             subtitle: Text(
-              'Kode: ${transkrip.kodeMatkul} | SKS: ${transkrip.sks}',
+              '${appL10n.code}: ${transkrip.kodeMatkul} | ${appL10n.sks}: ${transkrip.sks}',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             trailing: Text(
@@ -46,20 +47,5 @@ class ListTranskrip extends StatelessWidget {
         );
       },
     );
-  }
-
-  Color getGradeColor(String letterGrade) {
-    switch (letterGrade) {
-      case 'A':
-        return Colors.green;
-      case 'B':
-        return AppTheme.primaryColorA0;
-      case 'C':
-        return Colors.yellow;
-      case 'D':
-        return Colors.orange;
-      default:
-        return Colors.red;
-    }
   }
 }

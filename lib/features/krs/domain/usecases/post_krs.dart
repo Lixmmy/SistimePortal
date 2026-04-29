@@ -8,7 +8,10 @@ class PostKrs {
 
   PostKrs(this.repository);
 
-  Future<Either<MessageExc, List<Krs>>> call({required List<Krs> krs}) async {
-    return await repository.postKrs(krs: krs);
+  Future<Either<MessageExc, List<Krs>>> call({
+    required String id,
+    required List<Krs> krs,
+  }) async {
+    return await repository.postKrs(id: id, krs: krs);
   }
 }

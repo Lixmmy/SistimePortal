@@ -16,11 +16,9 @@ import 'package:newsistime/features/language/presentation/pages/selection_langua
 import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 import 'package:newsistime/features/login/presentation/pages/login_page.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
-import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
-import 'package:newsistime/features/register/presentation/pages/register_page.dart';
 import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
@@ -42,7 +40,6 @@ GoRouter myRouter() {
       final bool isGuestRoute =
           currentPath == '/launcher_page' ||
           currentPath == '/login_page' ||
-          currentPath == '/register_page' ||
           currentPath == '/forgot_password_page';
 
       if (!isAuthenticated) {
@@ -80,11 +77,6 @@ GoRouter myRouter() {
         path: '/forgot_password_page',
         name: 'forgotPasswordPage',
         builder: (context, state) => const ForgotPasswordPage(),
-      ),
-      GoRoute(
-        path: '/register_page',
-        name: 'registerPage',
-        builder: (context, state) => const RegisterPage(),
       ),
       ShellRoute(
         builder: (context, state, child) {
@@ -213,11 +205,6 @@ GoRouter myRouter() {
             child: DetailKhs(semester: semester),
           );
         },
-      ),
-      GoRoute(
-        path: 'pam_page',
-        name: 'pamPage',
-        builder: (context, state) => const PamPage(),
       ),
       GoRoute(
         path: 'transkrip_page',

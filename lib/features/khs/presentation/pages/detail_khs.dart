@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
+import 'package:newsistime/core/helper/grade_converter.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/injection.dart';
-import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 
 class DetailKhs extends StatefulWidget {
@@ -19,7 +19,6 @@ class DetailKhs extends StatefulWidget {
 class _DetailKrsState extends State<DetailKhs> {
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -59,23 +58,14 @@ class _DetailKrsState extends State<DetailKhs> {
             ),
           ),
           BlocConsumer<KhsBloc, KhsState>(
-            listener: (context, state) {
-              if (state is KhsLoading) {
-                LoadingManager().show(context);
-              } else {
-                if (LoadingManager().isShowing) {
-                  LoadingManager().dismiss();
-                }
+            listener: (context, state) {},
+            buildWhen: (previous, current) {
+              if (current is KhsTokenExpired ||
+                  current is KhsError ||
+                  current is KhsPdfDownloaded) {
+                return false;
               }
-              if (state is KhsPdfDownloaded) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("berhasil download pdf"),
-                    duration: Duration(seconds: 1),
-                  ),
-                );
-                myInjection<KhsBloc>().add(FetchKhsData());
-              }
+              return true;
             },
             builder: (context, state) {
               if (state is KhsLoaded) {
@@ -86,7 +76,7 @@ class _DetailKrsState extends State<DetailKhs> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          appLocalizations.studyResultsCard,
+                          appL10n.studyResultsCard,
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                       ),
@@ -110,7 +100,7 @@ class _DetailKrsState extends State<DetailKhs> {
                           child: Column(
                             children: [
                               BuildInfoRow(
-                                label: appLocalizations.nim,
+                                label: appL10n.nim,
                                 value: state.username,
                                 valueFlex: 6,
                                 labelFlex: 3,
@@ -126,7 +116,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                     : Colors.black,
                               ),
                               BuildInfoRow(
-                                label: appLocalizations.name,
+                                label: appL10n.name,
                                 value: state.profil.namaMahasiswa,
                                 valueFlex: 6,
                                 labelFlex: 3,
@@ -142,7 +132,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                     : Colors.black,
                               ),
                               BuildInfoRow(
-                                label: appLocalizations.studyPrograms,
+                                label: appL10n.studyPrograms,
                                 value:
                                     state
                                         .profil
@@ -163,7 +153,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                     : Colors.black,
                               ),
                               BuildInfoRow(
-                                label: appLocalizations.semester,
+                                label: appL10n.semester,
                                 value: widget.semester.toString(),
                                 valueFlex: 6,
                                 labelFlex: 3,
@@ -208,7 +198,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
                                 Text(
-                                  '${appLocalizations.code}: ${khsItem?.kodeMatakuliah ?? ''} | ${appLocalizations.sks}: ${khsItem?.sks ?? ''}',
+                                  '${appL10n.code}: ${khsItem?.kodeMatakuliah ?? ''} | ${appL10n.sks}: ${khsItem?.sks ?? ''}',
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                                 Row(
@@ -222,8 +212,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                         children: [
                                           if (khsItem?.nilais?.absensi != null)
                                             BuildInfoRow(
-                                              label: appLocalizations
-                                                  .attendanceGrade,
+                                              label: appL10n.attendanceGrade,
                                               value:
                                                   khsItem?.nilais?.absensi
                                                       ?.toString() ??
@@ -240,7 +229,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                             ),
                                           if (khsItem?.nilais?.quiz != null)
                                             BuildInfoRow(
-                                              label: appLocalizations.quizGrade,
+                                              label: appL10n.quizGrade,
                                               value:
                                                   khsItem?.nilais?.quiz
                                                       ?.toString() ??
@@ -257,8 +246,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                             ),
                                           if (khsItem?.nilais?.tugas != null)
                                             BuildInfoRow(
-                                              label: appLocalizations
-                                                  .assignmentGrade,
+                                              label: appL10n.assignmentGrade,
                                               value:
                                                   khsItem?.nilais?.tugas
                                                       ?.toString() ??
@@ -275,8 +263,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                             ),
                                           if (khsItem?.nilais?.project != null)
                                             BuildInfoRow(
-                                              label:
-                                                  appLocalizations.projectScore,
+                                              label: appL10n.projectScore,
                                               value:
                                                   khsItem?.nilais?.project
                                                       ?.toString() ??
@@ -293,8 +280,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                             ),
                                           if (khsItem?.nilais?.uts != null)
                                             BuildInfoRow(
-                                              label:
-                                                  appLocalizations.midTermGrade,
+                                              label: appL10n.midTermGrade,
                                               value:
                                                   khsItem?.nilais?.uts
                                                       ?.toString() ??
@@ -311,8 +297,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                             ),
                                           if (khsItem?.nilais?.uas != null)
                                             BuildInfoRow(
-                                              label:
-                                                  appLocalizations.finalGrade,
+                                              label: appL10n.finalGrade,
                                               value:
                                                   khsItem?.nilais?.uas
                                                       ?.toString() ??
@@ -330,8 +315,7 @@ class _DetailKrsState extends State<DetailKhs> {
                                           if (khsItem?.nilais?.perbaikan !=
                                               null)
                                             BuildInfoRow(
-                                              label:
-                                                  appLocalizations.improvement,
+                                              label: appL10n.improvement,
                                               value:
                                                   khsItem?.nilais?.perbaikan
                                                       ?.toString() ??
@@ -379,7 +363,7 @@ class _DetailKrsState extends State<DetailKhs> {
                           onPressed: () {
                             myInjection<KhsBloc>().add(
                               DownloadKhsPdf(
-                                appLocalizations: appLocalizations,
+                                appLocalizations: appL10n,
                                 semester: widget.semester,
                               ),
                             );
@@ -399,20 +383,5 @@ class _DetailKrsState extends State<DetailKhs> {
         ],
       ),
     );
-  }
-}
-
-Color getGradeColor(String letterGrade) {
-  switch (letterGrade) {
-    case 'A':
-      return Colors.green;
-    case 'B':
-      return AppTheme.primaryColorA0;
-    case 'C':
-      return Colors.yellow;
-    case 'D':
-      return Colors.orange;
-    default:
-      return Colors.red;
   }
 }

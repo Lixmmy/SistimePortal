@@ -14,5 +14,8 @@ abstract class KrsRepositories {
     required String idSkemaKrs,
   });
   Future<Either<MessageExc, List<TahunAjaran>>> getTahunAjaran();
-  Future<Either<MessageExc, List<Krs>>> postKrs({required List<Krs> krs});
+  Future<Either<MessageExc, List<Krs>>> postKrs({
+    required String id,
+    required List<Krs> krs,
+  });
 }

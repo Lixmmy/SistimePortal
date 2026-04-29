@@ -52,6 +52,7 @@ class _EditProfileState extends State<EditProfile> {
                   title: 'Success',
                   text: state.message,
                 ).then((_) {
+                  // ignore: use_build_context_synchronously
                   context.pop();
                 });
               } else if (state is ProfilError) {

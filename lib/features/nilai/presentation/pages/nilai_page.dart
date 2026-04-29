@@ -3,7 +3,6 @@ import 'package:newsistime/custom_widgets/appbarcustom.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
 import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
 import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
-import 'package:newsistime/features/pam/presentation/pages/pam_page.dart';
 import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
@@ -15,7 +14,7 @@ class NilaiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: AppBarCustom(
           isTextRich: true,
@@ -26,7 +25,6 @@ class NilaiPage extends StatelessWidget {
               Tab(text: 'KRS'),
               Tab(text: 'KHS'),
               Tab(text: 'TRANSKRIP'),
-              Tab(text: 'PAM'),
             ],
           ),
         ),
@@ -36,11 +34,8 @@ class NilaiPage extends StatelessWidget {
               value: myInjection<KrsBloc>(),
               child: const KrsPage(),
             ),
-            BlocProvider.value(
-              value: myInjection<KhsBloc>(),
-              child: KhsPage()),
+            BlocProvider.value(value: myInjection<KhsBloc>(), child: KhsPage()),
             TranskripPage(),
-            PamPage(),
           ],
         ),
       ),

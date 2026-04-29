@@ -794,6 +794,12 @@ abstract class AppLocalizations {
   /// **'Mata Kuliah Tambahan (Opsional)'**
   String get optionalAdditionalCourses;
 
+  /// No description provided for @chooseAdditionalCourse.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih Mata Kuliah Tambahan'**
+  String get chooseAdditionalCourse;
+
   /// No description provided for @addCourse.
   ///
   /// In id, this message translates to:
@@ -805,6 +811,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Download PDF'**
   String get downlaodPdf;
+
+  /// No description provided for @finish.
+  ///
+  /// In id, this message translates to:
+  /// **'Selesai'**
+  String get finish;
 }
 
 class _AppLocalizationsDelegate

@@ -116,6 +116,8 @@
   "pleaseEnterYourEmailAddressToResetYourPassword": "Silahkan masukkan emailmu untuk reset password",
   "schoolYear": "Tahun Ajaran",
   "optionalAdditionalCourses": "Mata Kuliah Tambahan (Opsional)",
+  "chooseAdditionalCourse": "Pilih Mata Kuliah Tambahan",
   "addCourse": "Tambah Mata Kuliah",
-  "downlaodPdf": "Download PDF"
+  "downlaodPdf": "Download PDF",
+  "finish": "Selesai"
 }

@@ -89,10 +89,11 @@ class KrsRepositoriesImplementation extends KrsRepositories {
 
   @override
   Future<Either<MessageExc, List<Krs>>> postKrs({
+    required String id,
     required List<Krs> krs,
   }) async {
     try {
-      final response = await remoteKrsDataSource.postKrs(krs: krs);
+      final response = await remoteKrsDataSource.postKrs(id: id, krs: krs);
       return Right(response.map((e) => e.toEntity()).toList());
     } on MessageExc catch (e) {
       return Left(e);

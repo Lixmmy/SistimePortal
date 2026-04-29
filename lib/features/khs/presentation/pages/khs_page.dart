@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
-import 'package:newsistime/core/localization/l10n/app_localizations.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class KhsPage extends StatefulWidget {
   const KhsPage({super.key});
@@ -25,18 +27,21 @@ class _KhsPageState extends State<KhsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return BlocConsumer<KhsBloc, KhsState>(
       listener: (context, state) {
-        if (state is KhsTokenExpired) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
-          context.goNamed('launcherPage');
-        }
         if (state is KhsError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            title: appL10n.error,
+            text: state.message,
+            onConfirmBtnTap: () {
+              if (state.message.toLowerCase().contains('token')) {
+                context.goNamed('launcherPage');
+              } else {
+                context.pop();
+              }
+            },
           );
         }
       },
@@ -58,7 +63,7 @@ class _KhsPageState extends State<KhsPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
                       title: Text(
-                        '${appLocalizations.semester} $semester',
+                        '${appL10n.semester} $semester',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       onTap: () {

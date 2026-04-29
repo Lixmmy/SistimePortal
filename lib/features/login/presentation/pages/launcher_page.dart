@@ -129,25 +129,25 @@ class _LauncherPageState extends State<LauncherPage> {
                       child: Text(appL10n.already),
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      context.pushNamed('registerPage');
-                    },
-                    style: ButtonStyle(
-                      overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                      foregroundColor: WidgetStatePropertyAll(
-                        Theme.brightnessOf(context) == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                      textStyle: WidgetStatePropertyAll(
-                        Theme.of(context).textTheme.labelMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    child: Text(appL10n.not),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     context.pushNamed('registerPage');
+                  //   },
+                  //   style: ButtonStyle(
+                  //     overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                  //     foregroundColor: WidgetStatePropertyAll(
+                  //       Theme.brightnessOf(context) == Brightness.dark
+                  //           ? Colors.white
+                  //           : Colors.black,
+                  //     ),
+                  //     textStyle: WidgetStatePropertyAll(
+                  //       Theme.of(context).textTheme.labelMedium?.copyWith(
+                  //         fontWeight: FontWeight.w500,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   child: Text(appL10n.not),
+                  // ),
                 ],
               ),
             ),

@@ -363,8 +363,14 @@ class AppLocalizationsId extends AppLocalizations {
   String get optionalAdditionalCourses => 'Mata Kuliah Tambahan (Opsional)';
 
   @override
+  String get chooseAdditionalCourse => 'Pilih Mata Kuliah Tambahan';
+
+  @override
   String get addCourse => 'Tambah Mata Kuliah';
 
   @override
   String get downlaodPdf => 'Download PDF';
+
+  @override
+  String get finish => 'Selesai';
 }

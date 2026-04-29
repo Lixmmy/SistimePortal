@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:newsistime/core/theme/theme.dart';
+
 String konversiNilaiKeHuruf(double nilaiAkhir) {
   if (nilaiAkhir >= 90) {
     return 'A';
@@ -24,5 +27,20 @@ double getBobot(String letterGrade) {
       return 1.0;
     default:
       return 0.0;
+  }
+}
+
+Color getGradeColor(String letterGrade) {
+  switch (letterGrade) {
+    case 'A':
+      return Colors.green;
+    case 'B':
+      return AppTheme.primaryColorA0;
+    case 'C':
+      return Colors.yellow;
+    case 'D':
+      return Colors.orange;
+    default:
+      return Colors.red;
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
 import 'package:newsistime/injection.dart';
-import 'package:newsistime/core/localization/l10n/app_localizations.dart';
 
 class TranskripPage extends StatefulWidget {
   const TranskripPage({super.key});
@@ -22,7 +22,6 @@ class _TranskripPageState extends State<TranskripPage> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: BlocConsumer<TranskripBloc, TranskripState>(
         bloc: myInjection<TranskripBloc>(),
@@ -60,7 +59,7 @@ class _TranskripPageState extends State<TranskripPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          appLocalizations.valueTranscript,
+                          appL10n.valueTranscript,
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                         const SizedBox(height: 10),
@@ -80,7 +79,7 @@ class _TranskripPageState extends State<TranskripPage> {
                           child: Column(
                             children: [
                               BuildInfoRow(
-                                label: appLocalizations.nim,
+                                label: appL10n.nim,
                                 value: state.username,
                                 valueFlex: 6,
                                 labelFlex: 3,
@@ -96,7 +95,7 @@ class _TranskripPageState extends State<TranskripPage> {
                                     : Colors.black,
                               ),
                               BuildInfoRow(
-                                label: appLocalizations.name,
+                                label: appL10n.name,
                                 value: profil.namaMahasiswa,
                                 valueFlex: 6,
                                 labelFlex: 3,
@@ -111,24 +110,24 @@ class _TranskripPageState extends State<TranskripPage> {
                                     ? Colors.white
                                     : Colors.black,
                               ),
-                              // BuildInfoRow(
-                              //   label: appLocalizations.roomClass,
-                              //   value: 'Ti D 22',
-                              //   valueFlex: 6,
-                              //   labelFlex: 3,
-                              //   labelColor:
-                              //       Theme.of(context).brightness ==
-                              //           Brightness.dark
-                              //       ? Colors.white
-                              //       : Colors.black,
-                              //   valueColor:
-                              //       Theme.of(context).brightness ==
-                              //           Brightness.dark
-                              //       ? Colors.white
-                              //       : Colors.black,
-                              // ),
                               BuildInfoRow(
-                                label: appLocalizations.studyPrograms,
+                                label: appL10n.roomClass,
+                                value: profil.statusMahasiswa!.kodeKelas,
+                                valueFlex: 6,
+                                labelFlex: 3,
+                                labelColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                valueColor:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              BuildInfoRow(
+                                label: appL10n.studyPrograms,
                                 value:
                                     profil.programStudi?.namaProgramstudi ?? '',
                                 valueFlex: 6,
@@ -165,11 +164,11 @@ class _TranskripPageState extends State<TranskripPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                appLocalizations.summary,
+                                appL10n.summary,
                                 style: Theme.of(context).textTheme.labelLarge,
                               ),
                               BuildInfoRow(
-                                label: appLocalizations.numberOfCoursesPassed,
+                                label: appL10n.numberOfCoursesPassed,
                                 value: state.passedCourses.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
@@ -185,8 +184,7 @@ class _TranskripPageState extends State<TranskripPage> {
                                     : Colors.black,
                               ),
                               BuildInfoRow(
-                                label:
-                                    appLocalizations.numberOfCoursesNotPassed,
+                                label: appL10n.numberOfCoursesNotPassed,
                                 value: state.failedCourses.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
@@ -202,7 +200,7 @@ class _TranskripPageState extends State<TranskripPage> {
                                     : Colors.black,
                               ),
                               BuildInfoRow(
-                                label: appLocalizations.numberofCredits,
+                                label: appL10n.numberofCredits,
                                 value: state.totalSks.toString(),
                                 valueFlex: 3,
                                 labelFlex: 6,
@@ -218,7 +216,7 @@ class _TranskripPageState extends State<TranskripPage> {
                                     : Colors.black,
                               ),
                               BuildInfoRow(
-                                label: appLocalizations.temporaryGPA,
+                                label: appL10n.temporaryGPA,
                                 value: state.gpa.toStringAsFixed(2),
                                 valueFlex: 3,
                                 labelFlex: 6,
@@ -241,7 +239,7 @@ class _TranskripPageState extends State<TranskripPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               myInjection<TranskripBloc>().add(
-                                DownloadTranskripPdf(appLocalizations),
+                                DownloadTranskripPdf(appL10n),
                               );
                             },
                             child: Text("Download PDF"),

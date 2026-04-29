@@ -10,8 +10,8 @@ class AgamaBloc extends Bloc<AgamaEvent, AgamaState> {
   final GetAgama _getAgama;
 
   AgamaBloc({required GetAgama getAgama})
-      : _getAgama = getAgama,
-        super(AgamaInitial()) {
+    : _getAgama = getAgama,
+      super(AgamaInitial()) {
     on<FetchAgamaList>((event, emit) async {
       emit(AgamaLoading());
       final result = await _getAgama.execute();

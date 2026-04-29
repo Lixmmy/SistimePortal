@@ -117,5 +117,7 @@
   "schoolYear": "School Year",
   "optionalAdditionalCourses": "Optional Additional Courses",
   "addCourse": "Add Course",
-  "downlaodPdf": "Download PDF"
+  "chooseAdditionalCourse": "Choose Additional Course",
+  "downlaodPdf": "Download PDF",
+  "finish": "Finish"
 }
