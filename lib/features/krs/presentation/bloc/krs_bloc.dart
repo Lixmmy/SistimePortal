@@ -51,9 +51,16 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
   }) : super(KrsInitial()) {
     on<DownloadKrsPdf>((event, emit) async {
       final currentState = state;
+      KrsLoadedMatakuliah? dataState;
+
+      if (currentState is KrsLoadedMatakuliah) {
+        dataState = currentState;
+      }
+
       final profil = await profilLocalDataSource.getSavedProfilData();
       final username = await SecureStorage().getData('username');
-      if (currentState is KrsLoadedMatakuliah && profil != null) {
+
+      if (dataState != null && profil != null) {
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
@@ -63,8 +70,8 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
               pageFormat: PdfPageFormat.a4,
               build: (pw.Context context) {
                 final List<JadwalKrs> semesterData = [
-                  ...currentState.matakuliahWajib,
-                  ...currentState.selectedMatakuliahPilihan,
+                  ...dataState!.matakuliahWajib,
+                  ...dataState.selectedMatakuliahPilihan,
                 ];
 
                 final List<String> headers = [
@@ -187,9 +194,10 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
               .toString();
           final file = File("${output.path}/Krs_$timestamp.pdf");
           await file.writeAsBytes(await pdf.save());
-          OpenFile.open(file.path); // <-- Comment out or remove this line
+          OpenFile.open(file.path);
 
           emit(KrsPdfDownloaded(filePath: file.path));
+          emit(dataState);
         } catch (e) {
           emit(KrsError(message: 'Failed to generate PDF: ${e.toString()}'));
         }

@@ -374,4 +374,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finish => 'Finish';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get areYouSureYouWantToSubmitIt =>
+      'Are you sure you want to submit it?';
+
+  @override
+  String get yes => 'Yes';
 }

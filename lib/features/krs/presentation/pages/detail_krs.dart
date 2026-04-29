@@ -6,6 +6,8 @@ import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/core/theme/theme.dart';
 import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
 import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class DetailKrs extends StatefulWidget {
   final int idTahunAjaran;
@@ -30,7 +32,16 @@ class _DetailKrsState extends State<DetailKrs> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<KrsBloc, KrsState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is KrsPostSuccess) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.success,
+              text: state.message,
+              title: appL10n.success,
+            );
+          }
+        },
         buildWhen: (previous, current) {
           if (current is KrsTokenExpired ||
               current is KrsError ||
@@ -130,7 +141,20 @@ class _DetailKrsState extends State<DetailKrs> {
                               Flexible(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    _krsBloc.add(PostKrsEvent());
+                                    QuickAlert.show(
+                                      context: context,
+                                      type: QuickAlertType.info,
+                                      title:
+                                          appL10n.areYouSureYouWantToSubmitIt,
+                                      confirmBtnText: appL10n.yes,
+                                      cancelBtnText: appL10n.no,
+                                      onCancelBtnTap: () {
+                                        context.pop();
+                                      },
+                                      onConfirmBtnTap: () {
+                                        _krsBloc.add(PostKrsEvent());
+                                      },
+                                    );
                                   },
                                   child: Text(appL10n.submit),
                                 ),
@@ -145,21 +169,24 @@ class _DetailKrsState extends State<DetailKrs> {
                           horizontal: 8.0,
                           vertical: 16.0,
                         ),
-                        child: Flexible(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              _krsBloc.add(
-                                DownloadKrsPdf(appLocalizations: appL10n),
-                              );
-                            },
-                            child: Text(appL10n.downlaodPdf),
-                          ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _krsBloc.add(
+                              DownloadKrsPdf(appLocalizations: appL10n),
+                            );
+                          },
+                          child: Text(appL10n.downlaodPdf),
                         ),
                       ),
                     ),
                   ],
                 ),
               ],
+            );
+          }
+          if (state is KrsError) {
+            return SliverFillRemaining(
+              child: Center(child: Text(state.message)),
             );
           }
           return const SizedBox.shrink();

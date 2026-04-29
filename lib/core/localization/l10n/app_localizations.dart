@@ -817,6 +817,24 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Selesai'**
   String get finish;
+
+  /// No description provided for @success.
+  ///
+  /// In id, this message translates to:
+  /// **'Sukses'**
+  String get success;
+
+  /// No description provided for @areYouSureYouWantToSubmitIt.
+  ///
+  /// In id, this message translates to:
+  /// **'Apakah anda yakin ingin mengajukannya?'**
+  String get areYouSureYouWantToSubmitIt;
+
+  /// No description provided for @yes.
+  ///
+  /// In id, this message translates to:
+  /// **'Ya'**
+  String get yes;
 }
 
 class _AppLocalizationsDelegate

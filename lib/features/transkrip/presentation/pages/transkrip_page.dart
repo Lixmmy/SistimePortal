@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
 import 'package:newsistime/injection.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class TranskripPage extends StatefulWidget {
   const TranskripPage({super.key});
@@ -27,11 +30,18 @@ class _TranskripPageState extends State<TranskripPage> {
         bloc: myInjection<TranskripBloc>(),
         listener: (context, state) {
           if (state is TranskripError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('error: ${state.message}'),
-                duration: const Duration(seconds: 2),
-              ),
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: appL10n.error,
+              text: state.message,
+              onConfirmBtnTap: () {
+                if (state.message.contains("token")) {
+                  context.goNamed("launcherPage");
+                } else {
+                  context.pop();
+                }
+              },
             );
           }
           if (state is TranskripPdfDownloaded) {

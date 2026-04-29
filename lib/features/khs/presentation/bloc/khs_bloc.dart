@@ -107,9 +107,16 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
 
     on<DownloadKhsPdf>((event, emit) async {
       final currentState = state;
+      KhsLoaded? dataState;
+
+      if (currentState is KhsLoaded) {
+        dataState = currentState;
+      }
+
       final profil = await profilLocalDataSource.getSavedProfilData();
       final username = await SecureStorage().getData('username');
-      if (currentState is KhsLoaded && profil != null) {
+
+      if (dataState != null && profil != null) {
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
@@ -119,7 +126,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
               pageFormat: PdfPageFormat.a4,
               build: (pw.Context context) {
                 // ignore: collection_methods_unrelated_type
-                final semesterData = currentState.groupedKhs[event.semester]!;
+                final semesterData = dataState!.groupedKhs[event.semester]!;
                 final bool hasQuiz = semesterData.any(
                   (e) => e.nilais?.quiz != null,
                 );
@@ -269,9 +276,10 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
               .toString();
           final file = File("${output.path}/Khs_$timestamp.pdf");
           await file.writeAsBytes(await pdf.save());
-          OpenFile.open(file.path); // <-- Comment out or remove this line
+          OpenFile.open(file.path);
 
           emit(KhsPdfDownloaded(filePath: file.path));
+          emit(dataState);
         } catch (e) {
           emit(KhsError(message: 'Failed to generate PDF: ${e.toString()}'));
         }

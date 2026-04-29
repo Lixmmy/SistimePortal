@@ -373,4 +373,14 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get finish => 'Selesai';
+
+  @override
+  String get success => 'Sukses';
+
+  @override
+  String get areYouSureYouWantToSubmitIt =>
+      'Apakah anda yakin ingin mengajukannya?';
+
+  @override
+  String get yes => 'Ya';
 }

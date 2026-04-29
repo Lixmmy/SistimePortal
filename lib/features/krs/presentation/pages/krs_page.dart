@@ -29,82 +29,95 @@ class _KrsPageState extends State<KrsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<KrsBloc, KrsState>(
-      listener: (context, state) {
-        if (state is KrsError) {
-          QuickAlert.show(
-            context: context,
-            type: QuickAlertType.error,
-            title: appL10n.error,
-            text: state.message,
-            onConfirmBtnTap: () {
-              if (state.message.contains("token")) {
-                context.goNamed("launcherPage");
-              } else {
-                context.pop();
-              }
-            },
-          );
-        }
-      },
-      builder: (context, state) {
-        if (state is KrsLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (state is KrsLoadedTahunAjaran) {
-          final listTahunAjaranAktif = state.tahunAjaranAktif;
-          final listTahunAjaranTidakAktif = state.tahunAjaranTidakAktif;
+    return Scaffold(
+      body: BlocConsumer<KrsBloc, KrsState>(
+        listener: (context, state) {
+          if (state is KrsError) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: appL10n.error,
+              text: state.message,
+              onConfirmBtnTap: () {
+                if (state.message.contains("token")) {
+                  context.goNamed("launcherPage");
+                } else {
+                  context.pop();
+                }
+              },
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is KrsLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is KrsLoadedTahunAjaran) {
+            final listTahunAjaranAktif = state.tahunAjaranAktif;
+            final listTahunAjaranTidakAktif = state.tahunAjaranTidakAktif;
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                ListView.builder(
-                  itemCount: listTahunAjaranAktif.length,
-                  itemBuilder: (context, index) {
-                    final tahunAjaran = listTahunAjaranAktif[index];
-                    return InkWell(
-                      onTap: () async {
-                        await context.pushNamed(
-                          'detailKrsPage',
-                          extra: {'idTahunAjaran': tahunAjaran.id},
+            if (listTahunAjaranAktif.isEmpty &&
+                listTahunAjaranTidakAktif.isEmpty) {
+              return const Center(child: Text("Tidak ada data tahun ajaran."));
+            }
+
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  if (listTahunAjaranAktif.isNotEmpty)
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: listTahunAjaranAktif.length,
+                      itemBuilder: (context, index) {
+                        final tahunAjaran = listTahunAjaranAktif[index];
+                        return InkWell(
+                          onTap: () async {
+                            await context.pushNamed(
+                              'detailKrsPage',
+                              extra: {'idTahunAjaran': tahunAjaran.id},
+                            );
+                            _krsBloc.add(FetchTahunAjaranKrs());
+                          },
+                          child: buildTahunAjaranList(
+                            context,
+                            appL10n,
+                            tahunAjaran,
+                          ),
                         );
-                        _krsBloc.add(FetchTahunAjaranKrs());
                       },
-                      child: buildTahunAjaranList(
-                        context,
-                        appL10n,
-                        tahunAjaran,
-                      ),
-                    );
-                  },
-                ),
-                ListView.builder(
-                  itemCount: listTahunAjaranTidakAktif.length,
-                  itemBuilder: (context, index) {
-                    final tahunAjaran = listTahunAjaranAktif[index];
-                    return InkWell(
-                      onTap: () async {
-                        await context.pushNamed(
-                          'detailKrsPage',
-                          extra: {'idTahunAjaran': tahunAjaran.id},
+                    ),
+                  if (listTahunAjaranTidakAktif.isNotEmpty)
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: listTahunAjaranTidakAktif.length,
+                      itemBuilder: (context, index) {
+                        final tahunAjaran = listTahunAjaranTidakAktif[index];
+                        return InkWell(
+                          onTap: () async {
+                            await context.pushNamed(
+                              'detailKrsPage',
+                              extra: {'idTahunAjaran': tahunAjaran.id},
+                            );
+                            _krsBloc.add(FetchTahunAjaranKrs());
+                          },
+                          child: buildTahunAjaranList(
+                            context,
+                            appL10n,
+                            tahunAjaran,
+                          ),
                         );
-                        _krsBloc.add(FetchTahunAjaranKrs());
                       },
-                      child: buildTahunAjaranList(
-                        context,
-                        appL10n,
-                        tahunAjaran,
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        }
-        return SizedBox.shrink();
-      },
+                    ),
+                ],
+              ),
+            );
+          }
+          return const SizedBox.shrink();
+        },
+      ),
     );
   }
 

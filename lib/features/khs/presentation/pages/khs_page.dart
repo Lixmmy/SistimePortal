@@ -45,6 +45,7 @@ class _KhsPageState extends State<KhsPage> {
           );
         }
       },
+
       builder: (context, state) {
         if (state is KhsLoading) {
           return const Center(child: CircularProgressIndicator());
@@ -66,11 +67,12 @@ class _KhsPageState extends State<KhsPage> {
                         '${appL10n.semester} $semester',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                      onTap: () {
-                        context.pushNamed(
+                      onTap: () async {
+                        await context.pushNamed(
                           'detailKhsPage',
                           extra: {'semester': semester},
                         );
+                        _khsBloc.add(FetchKhsData());
                       },
                       shape: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
