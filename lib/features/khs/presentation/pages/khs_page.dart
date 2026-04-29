@@ -36,7 +36,7 @@ class _KhsPageState extends State<KhsPage> {
             title: appL10n.error,
             text: state.message,
             onConfirmBtnTap: () {
-              if (state.message.toLowerCase().contains('token')) {
+              if (state.message.toLowerCase().contains('Token')) {
                 context.goNamed('launcherPage');
               } else {
                 context.pop();

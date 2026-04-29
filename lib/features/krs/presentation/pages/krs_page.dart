@@ -39,7 +39,7 @@ class _KrsPageState extends State<KrsPage> {
               title: appL10n.error,
               text: state.message,
               onConfirmBtnTap: () {
-                if (state.message.contains("token")) {
+                if (state.message.contains("Token")) {
                   context.goNamed("launcherPage");
                 } else {
                   context.pop();

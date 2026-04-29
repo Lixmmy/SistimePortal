@@ -60,7 +60,11 @@ class _SelectedPageState extends State<SelectedPage> {
               text: state.message,
               confirmBtnText: 'OK',
               onConfirmBtnTap: () {
-                context.read<ProfilBloc>().add(LogOutProfil());
+                if (state.message.contains("Token")) {
+                  context.read<ProfilBloc>().add(LogOutProfil());
+                } else {
+                  context.pop();
+                }
               },
             );
           }

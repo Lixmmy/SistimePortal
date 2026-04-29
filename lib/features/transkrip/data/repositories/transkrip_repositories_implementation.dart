@@ -14,11 +14,11 @@ class TranskripRepositoriesImplementation extends TranskripRepositories {
 
   @override
   Future<Either<MessageExc, List<Transkrip>>> getTranskrip({
-    required String nim,
+    required String idUser,
   }) async {
     try {
       final List<TranskripModel> transkrip = await remoteTranskripDataSource
-          .getTranskrip(nim: nim);
+          .getTranskrip(idUser: idUser);
       return Right(transkrip.map((e) => e.toEntity()).toList());
     } on MessageExc catch (e) {
       return Left(e);

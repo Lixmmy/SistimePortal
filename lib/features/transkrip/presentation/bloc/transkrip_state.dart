@@ -31,7 +31,14 @@ final class TranskripLoaded extends TranskripState {
   });
 
   @override
-  List<Object?> get props => [profil, listTranskrip, passedCourses, failedCourses, totalSks, gpa];
+  List<Object?> get props => [
+    profil,
+    listTranskrip,
+    passedCourses,
+    failedCourses,
+    totalSks,
+    gpa,
+  ];
 }
 
 final class TranskripError extends TranskripState {

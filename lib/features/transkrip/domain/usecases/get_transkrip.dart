@@ -8,8 +8,7 @@ class GetTranskrip {
 
   GetTranskrip({required this.transkripRepositories});
 
-  Future<Either<MessageExc, List<Transkrip>>> execute(String nim) async {
-    return await transkripRepositories.getTranskrip(nim: nim);
+  Future<Either<MessageExc, List<Transkrip>>> execute(String idUser) async {
+    return await transkripRepositories.getTranskrip(idUser: idUser);
   }
-
 }

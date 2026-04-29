@@ -94,7 +94,15 @@ class _DetailKrsState extends State<DetailKrs> {
                     icon: Icon(Icons.arrow_back),
                   ),
                 ),
-
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      appL10n.studyPlanCard,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                  ),
+                ),
                 SliverMainAxisGroup(
                   slivers: [
                     SliverList(

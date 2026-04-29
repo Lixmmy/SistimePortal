@@ -84,7 +84,7 @@ class ConnectApi {
       } else if (response.statusCode == 404) {
         throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else if (response.statusCode == 500) {
-        throw MessageExc.api(response.body);
+        throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else {
         throw MessageExc.unknown(response.body);
       }
@@ -126,7 +126,7 @@ class ConnectApi {
       } else if (response.statusCode == 404) {
         throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else if (response.statusCode == 500) {
-        throw MessageExc.api(response.body);
+        throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else {
         throw MessageExc.unknown(response.body);
       }
@@ -171,7 +171,7 @@ class ConnectApi {
       } else if (response.statusCode == 404) {
         throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else if (response.statusCode == 500) {
-        throw MessageExc.api(response.body);
+        throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else {
         throw MessageExc.unknown(response.body);
       }
@@ -205,8 +205,8 @@ class ConnectApi {
         .cast<KhsModel>();
   }
 
-  Future<List<TranskripModel>> getTranskrip({required String nim}) async {
-    final response = await _requestGet('$transkripRoute/$nim', true);
+  Future<List<TranskripModel>> getTranskrip({required String idUser}) async {
+    final response = await _requestGet('$transkripRoute/$idUser', true);
     return (response as List)
         .map((e) => TranskripModel.fromJson(e))
         .toList()

@@ -3,7 +3,7 @@ import 'package:newsistime/core/helper/connect_api.dart';
 import 'package:newsistime/features/transkrip/data/models/transkrip_model.dart';
 
 abstract class RemoteTranskripDataSource {
-  Future<List<TranskripModel>> getTranskrip({required String nim});
+  Future<List<TranskripModel>> getTranskrip({required String idUser});
 }
 
 class RemoteTranskripDataSourceImplementation
@@ -12,9 +12,9 @@ class RemoteTranskripDataSourceImplementation
   RemoteTranskripDataSourceImplementation({required this.connectApi});
 
   @override
-  Future<List<TranskripModel>> getTranskrip({required String nim}) async {
+  Future<List<TranskripModel>> getTranskrip({required String idUser}) async {
     try {
-      final response = await connectApi.getTranskrip(nim: nim);
+      final response = await connectApi.getTranskrip(idUser: idUser);
       return response;
     } on MessageExc {
       rethrow;

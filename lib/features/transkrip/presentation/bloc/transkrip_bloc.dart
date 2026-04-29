@@ -31,7 +31,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
       try {
         final profil = await _profilLocalDataSource.getSavedProfilData();
         final username = await SecureStorage().getData('username');
-        final result = await _getTranskrip.execute(username);
+        final result = await _getTranskrip.execute(profil!.idUser.toString());
         await result.fold(
           (failure) async {
             emit(TranskripError(message: failure.message));
