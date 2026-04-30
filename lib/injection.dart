@@ -122,7 +122,6 @@ Future<void> init() async {
       getMahasiswa: myInjection(),
       patchMahasiswa: myInjection(),
       logOutUseCases: myInjection(),
-      loginLocalDataSource: myInjection(),
     ),
   );
   //usecases

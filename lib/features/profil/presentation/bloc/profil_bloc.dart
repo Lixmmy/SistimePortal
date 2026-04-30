@@ -2,8 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
-import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
-import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
 import 'package:newsistime/features/profil/domain/usecases/patch_mahasiswa.dart';
 import 'package:newsistime/features/login/domain/usecases/log_out_usecases.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
@@ -17,12 +15,10 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
   final GetMahasiswa getMahasiswa;
   final LogOutUseCases logOutUseCases;
   final PatchMahasiswa patchMahasiswa;
-  final LoginLocalDataSource loginLocalDataSource;
   ProfilBloc({
     required this.getMahasiswa,
     required this.patchMahasiswa,
     required this.logOutUseCases,
-    required this.loginLocalDataSource,
   }) : super(ProfilInitial()) {
     on<ProfilGetMahasiswa>((event, emit) async {
       emit(ProfilLoading());
@@ -37,7 +33,6 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
       hasilGetMahasiswa.fold(
         (leftHasilGetMahasiswa) async {
           if (leftHasilGetMahasiswa.type == MessageExcType.tokenExpired) {
-            await loginLocalDataSource.deleteToken();
             emit(ProfilTokenExpired(message: leftHasilGetMahasiswa.message));
           } else {
             emit(ProfilError(message: leftHasilGetMahasiswa.toString()));
@@ -58,14 +53,12 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
       result.fold(
         (failure) async {
           if (failure.type == MessageExcType.tokenExpired) {
-            await loginLocalDataSource.deleteToken();
             emit(ProfilTokenExpired(message: failure.message));
           } else {
             emit(ProfilError(message: failure.message));
           }
         },
         (_) {
-          // Success case for void, _ indicates we don't care about the value
           emit(ProfilSuccessUpdate(message: 'Profile updated successfully.'));
           add(ProfilGetMahasiswa());
         },

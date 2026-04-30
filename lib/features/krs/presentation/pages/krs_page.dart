@@ -38,13 +38,6 @@ class _KrsPageState extends State<KrsPage> {
               type: QuickAlertType.error,
               title: appL10n.error,
               text: state.message,
-              onConfirmBtnTap: () {
-                if (state.message.toLowerCase().contains("token")) {
-                  context.goNamed("launcherPage");
-                } else {
-                  Navigator.of(context).pop();
-                }
-              },
             );
           }
           if (state is KrsTokenExpired) {

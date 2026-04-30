@@ -151,7 +151,7 @@ class _DetailKrsState extends State<DetailKrs> {
                                   onPressed: () {
                                     QuickAlert.show(
                                       context: context,
-                                      type: QuickAlertType.info,
+                                      type: QuickAlertType.confirm,
                                       title:
                                           appL10n.areYouSureYouWantToSubmitIt,
                                       confirmBtnText: appL10n.yes,
@@ -161,6 +161,7 @@ class _DetailKrsState extends State<DetailKrs> {
                                       },
                                       onConfirmBtnTap: () {
                                         _krsBloc.add(PostKrsEvent());
+                                        context.pop();
                                       },
                                     );
                                   },

@@ -35,13 +35,6 @@ class _KhsPageState extends State<KhsPage> {
             type: QuickAlertType.error,
             title: appL10n.error,
             text: state.message,
-            onConfirmBtnTap: () {
-              if (state.message.toLowerCase().contains('token')) {
-                context.goNamed('launcherPage');
-              } else {
-                context.pop();
-              }
-            },
           );
         }
         if (state is KhsTokenExpired) {
