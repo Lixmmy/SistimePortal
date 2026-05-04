@@ -109,7 +109,7 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
             final double gpa = totalSks > 0 ? totalBobot / totalSks : 0;
             emit(
               TranskripLoaded(
-                profil: profil!,
+                profil: profil,
                 username: username,
                 listTranskrip: enrichedTranskripList,
                 passedCourses: passedCourses,

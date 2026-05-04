@@ -7,7 +7,6 @@ import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.d
 import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
 import 'package:newsistime/injection.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class TranskripPage extends StatefulWidget {
   const TranskripPage({super.key});

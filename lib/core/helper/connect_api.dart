@@ -109,8 +109,8 @@ class ConnectApi {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       };
+      String token = await secureStorage.getData('token');
       if (authorization == true) {
-        String token = await secureStorage.getData('token');
         if (token.isEmpty) {
           throw MessageExc.tokenExpired();
         }
@@ -122,7 +122,11 @@ class ConnectApi {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
-        throw MessageExc.tokenExpired();
+        if (token.isEmpty) {
+          throw MessageExc.api(response.body);
+        } else {
+          throw MessageExc.tokenExpired();
+        }
       } else if (response.statusCode == 404) {
         throw MessageExc.api("Page Not Found: ${response.statusCode}");
       } else if (response.statusCode == 500) {
