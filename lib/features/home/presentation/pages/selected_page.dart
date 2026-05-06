@@ -59,12 +59,15 @@ class _SelectedPageState extends State<SelectedPage> {
               type: QuickAlertType.error,
               text: state.message,
               confirmBtnText: 'OK',
+            );
+          } else if (state is ProfilTokenExpired) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              text: state.message,
+              confirmBtnText: 'OK',
               onConfirmBtnTap: () {
-                if (state.message.contains("Token")) {
-                  context.read<ProfilBloc>().add(LogOutProfil());
-                } else {
-                  context.pop();
-                }
+                context.read<ProfilBloc>().add(LogOutProfil());
               },
             );
           }
