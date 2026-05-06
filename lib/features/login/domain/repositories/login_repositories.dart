@@ -8,4 +8,7 @@ abstract class LoginRepositories {
     required String password,
   });
   Future<Either<MessageExc, void>> logOut();
+  Future<Either<MessageExc, void>> postChangePassword({
+    required String newPassword,
+  });
 }

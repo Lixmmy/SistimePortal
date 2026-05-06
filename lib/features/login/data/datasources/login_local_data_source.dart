@@ -9,6 +9,7 @@ abstract class LoginLocalDataSource {
   Future<void> deleteUsername();
   Future<void> savePassword(String password);
   Future<String> getPassword();
+  Future<void> deletePassword();
 }
 
 class LoginLocalDataSourceImpl implements LoginLocalDataSource {
@@ -44,6 +45,11 @@ class LoginLocalDataSourceImpl implements LoginLocalDataSource {
   @override
   Future<void> deleteUsername() {
     return secureStorage.deleteData('username');
+  }
+
+  @override
+  Future<void> deletePassword() {
+    return secureStorage.deleteData('password');
   }
 
   @override

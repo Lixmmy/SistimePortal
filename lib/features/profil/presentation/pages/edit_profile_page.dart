@@ -11,14 +11,14 @@ import 'package:newsistime/features/profil/presentation/widgets/entry_form.dart'
 import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
 import 'package:quickalert/quickalert.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<EditProfilePage> createState() => _EditProfileState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _EditProfileState extends State<EditProfilePage> {
   @override
   void initState() {
     super.initState();

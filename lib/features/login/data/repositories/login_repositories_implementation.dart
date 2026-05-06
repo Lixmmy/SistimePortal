@@ -54,4 +54,26 @@ class LoginRepositoriesImplementation extends LoginRepositories {
       return Left(MessageExc.api(e.toString()));
     }
   }
+
+  @override
+  Future<Either<MessageExc, void>> postChangePassword({
+    required String newPassword,
+  }) async {
+    try {
+      await loginRemoteDataSource.postChangePassword(newPassword);
+      Future.wait([
+        loginLocalDataSource.deletePassword(),
+        loginLocalDataSource.savePassword(newPassword),
+      ]);
+      return Right(null);
+    } on MessageExc catch (e) {
+      if (e.type == MessageExcType.networkError) {
+        return Left(e);
+      } else {
+        return Left(MessageExc.unknown(e.toString()));
+      }
+    } catch (e) {
+      return Left(MessageExc.api(e.toString()));
+    }
+  }
 }

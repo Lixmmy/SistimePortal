@@ -17,13 +17,13 @@ import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 import 'package:newsistime/features/login/presentation/pages/login_page.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
-import 'package:newsistime/features/profil/presentation/pages/edit_profile.dart';
-import 'package:newsistime/features/profil/presentation/pages/id_card.dart';
+import 'package:newsistime/features/profil/presentation/pages/edit_profile_page.dart';
+import 'package:newsistime/features/profil/presentation/pages/id_card_page.dart';
 import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
 import '../../features/profil/presentation/bloc/profil_bloc.dart';
-import '../../features/profil/presentation/pages/info_profile.dart';
+import '../../features/profil/presentation/pages/info_profile_page.dart';
 import '../../features/profil/presentation/pages/profil_page.dart';
 import '../../features/login/presentation/pages/launcher_page.dart';
 import '../../injection.dart';
@@ -97,7 +97,7 @@ GoRouter myRouter() {
           GoRoute(
             path: '/edit_profil_page',
             name: 'editProfilPage',
-            builder: (context, state) => EditProfile(),
+            builder: (context, state) => EditProfilePage(),
           ),
         ],
       ),
@@ -127,10 +127,10 @@ GoRouter myRouter() {
           ),
           GoRoute(
             path: '/id_card',
-            name: 'idCard',
+            name: 'IdCardPage',
             builder: (context, state) {
               final extra = state.extra as Map<String, dynamic>;
-              return IdCard(
+              return IdCardPage(
                 profil: extra['profil'] as Profil,
                 username: extra['username'] as String,
               );

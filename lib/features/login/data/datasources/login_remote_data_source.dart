@@ -7,6 +7,7 @@ abstract class LoginRemoteDataSource {
     required String username,
     required String password,
   });
+  Future<void> postChangePassword(String newPassword);
 }
 
 class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
@@ -30,6 +31,17 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
       rethrow;
     } catch (e) {
       throw MessageExc.api(e.toString());
+    }
+  }
+
+  @override
+  Future<void> postChangePassword(String newPassword) async {
+    try {
+      return await connectApi.postChangePassword(newPassword: newPassword);
+    } on MessageExc {
+      rethrow;
+    } catch (e) {
+      throw MessageExc.api('An error in Changepassword : ${e.toString()}');
     }
   }
 }

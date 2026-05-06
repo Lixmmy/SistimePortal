@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/core/error/message_exc.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
+import 'package:newsistime/features/login/domain/usecases/post_change_password.dart';
 import 'package:newsistime/features/profil/domain/usecases/patch_mahasiswa.dart';
 import 'package:newsistime/features/login/domain/usecases/log_out_usecases.dart';
 import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
@@ -15,10 +16,12 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
   final GetMahasiswa getMahasiswa;
   final LogOutUseCases logOutUseCases;
   final PatchMahasiswa patchMahasiswa;
+  final PostChangePassword postChangePassword;
   ProfilBloc({
     required this.getMahasiswa,
     required this.patchMahasiswa,
     required this.logOutUseCases,
+    required this.postChangePassword,
   }) : super(ProfilInitial()) {
     on<ProfilGetMahasiswa>((event, emit) async {
       emit(ProfilLoading());
@@ -73,6 +76,22 @@ class ProfilBloc extends Bloc<ProfilEvent, ProfilState> {
         },
         (_) {
           emit(ProfilLogout());
+        },
+      );
+    });
+
+    on<ProfilChangePassword>((event, emit) async {
+      emit(ProfilLoading());
+      final result = await postChangePassword.execute(
+        newPassword: event.newPassword,
+      );
+      result.fold(
+        (failure) {
+          emit(ProfilError(message: failure.message));
+        },
+        (_) {
+          emit(ProfilSuccessUpdate(message: 'Berhasil Merubah Password'));
+          add(ProfilGetMahasiswa());
         },
       );
     });

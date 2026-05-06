@@ -344,4 +344,8 @@ class ConnectApi {
         .toList()
         .cast<KrsModel>();
   }
+
+  Future<void> postChangePassword({required String newPassword}) async {
+    return _requestPost(changePassword, true, {"password": newPassword});
+  }
 }

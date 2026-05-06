@@ -38,6 +38,7 @@ import 'package:newsistime/features/login/data/datasources/login_remote_data_sou
 import 'package:newsistime/features/login/data/repositories/login_repositories_implementation.dart';
 import 'package:newsistime/features/login/domain/repositories/login_repositories.dart';
 import 'package:newsistime/features/login/domain/usecases/log_out_usecases.dart';
+import 'package:newsistime/features/login/domain/usecases/post_change_password.dart';
 import 'package:newsistime/features/login/domain/usecases/post_login_usecases.dart';
 import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 import 'package:newsistime/features/profil/domain/usecases/patch_mahasiswa.dart';
@@ -101,6 +102,9 @@ Future<void> init() async {
   myInjection.registerLazySingleton(
     () => PostLoginUseCases(loginRepositories: myInjection()),
   );
+  myInjection.registerLazySingleton(
+    () => PostChangePassword(loginRepositories: myInjection()),
+  );
   //Repositories
   myInjection.registerLazySingleton<LoginRepositories>(
     () => LoginRepositoriesImplementation(
@@ -122,6 +126,7 @@ Future<void> init() async {
       getMahasiswa: myInjection(),
       patchMahasiswa: myInjection(),
       logOutUseCases: myInjection(),
+      postChangePassword: myInjection(),
     ),
   );
   //usecases

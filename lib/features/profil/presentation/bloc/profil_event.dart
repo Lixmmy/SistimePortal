@@ -22,4 +22,13 @@ class ProfilUpdateMahasiswa extends ProfilEvent {
   List<Object?> get props => [idUser, updateProfil];
 }
 
+class ProfilChangePassword extends ProfilEvent {
+  final String newPassword;
+
+  const ProfilChangePassword({required this.newPassword});
+
+  @override
+  List<Object?> get props => [newPassword];
+}
+
 class LogOutProfil extends ProfilEvent {}
