@@ -352,6 +352,6 @@ class ConnectApi {
   }
 
   Future<void> postChangePassword({required String newPassword}) async {
-    return _requestPost(changePassword, true, {"password": newPassword});
+    return _requestPost(changePasswordRoute, true, {"password": newPassword});
   }
 }

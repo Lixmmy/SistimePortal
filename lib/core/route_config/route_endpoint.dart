@@ -15,4 +15,5 @@ const getTahunAjaranRoute = 'rest/api/tahunajaran';
 const getStatusMahasiswaRoute = 'rest/api/statusmahasiswa/iduser';
 const getDosenRoute = 'rest/api/dosen';
 const registrasiRoute = 'registrasi.xhtml';
-const changePassword = 'rest/api/password';
+const changePasswordRoute = 'rest/api/password';
+const forgotPasswordRoute = 'lupapassword.xhtml';
