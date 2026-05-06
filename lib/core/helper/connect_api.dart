@@ -78,7 +78,10 @@ class ConnectApi {
           .get(uri, headers: headers)
           .timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        if (response.body.isNotEmpty) {
+          return jsonDecode(response.body);
+        }
+        return null;
       } else if (response.statusCode == 401) {
         throw MessageExc.tokenExpired();
       } else if (response.statusCode == 404) {
@@ -120,7 +123,10 @@ class ConnectApi {
           .post(uri, headers: headers, body: json.encode(body))
           .timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        if (response.body.isNotEmpty) {
+          return jsonDecode(response.body);
+        }
+        return null;
       } else if (response.statusCode == 401) {
         if (token.isEmpty) {
           throw MessageExc.api(response.body);

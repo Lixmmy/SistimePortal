@@ -6,10 +6,10 @@ import 'package:newsistime/core/localization/localization_service.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
 import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
 
-class IdCard extends StatelessWidget {
+class IdCardPage extends StatelessWidget {
   final String username;
   final Profil profil;
-  const IdCard({super.key, required this.username, required this.profil});
+  const IdCardPage({super.key, required this.username, required this.profil});
 
   @override
   Widget build(BuildContext context) {

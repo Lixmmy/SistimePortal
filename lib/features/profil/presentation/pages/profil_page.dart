@@ -153,6 +153,9 @@ class _ProfilPageState extends State<ProfilPage> {
                             CustomMenuProfil(
                               label: appL10n.changePassword,
                               icon: Icons.lock,
+                              onPressed: () {
+                                context.pushNamed('changePasswordPage');
+                              },
                             ),
                             CustomMenuProfil(
                               label: 'Logout',

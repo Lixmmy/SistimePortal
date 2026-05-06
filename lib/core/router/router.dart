@@ -17,6 +17,7 @@ import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
 import 'package:newsistime/features/login/presentation/pages/login_page.dart';
 import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
 import 'package:newsistime/features/profil/domain/entities/profil.dart';
+import 'package:newsistime/features/profil/presentation/pages/change_password_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/edit_profile_page.dart';
 import 'package:newsistime/features/profil/presentation/pages/id_card_page.dart';
 import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
@@ -141,6 +142,13 @@ GoRouter myRouter() {
             name: 'selectedPage',
             builder: (context, state) {
               return const SelectedPage();
+            },
+          ),
+          GoRoute(
+            path: '/change_password_page',
+            name: 'changePasswordPage',
+            builder: (context, state) {
+              return const ChangePasswordPage();
             },
           ),
         ],

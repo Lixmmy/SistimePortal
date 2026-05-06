@@ -18,6 +18,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isObsecure = true;
   @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarCustom(
@@ -51,38 +57,54 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             );
           }
         },
-        child: Column(
-          children: [
-            TextField(
-              controller: _passwordController,
-              textInputAction: TextInputAction.done,
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: _isObsecure,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                hintText: 'Password',
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _isObsecure ? Icons.visibility_off : Icons.visibility,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _passwordController,
+                textInputAction: TextInputAction.done,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: _isObsecure,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  hintText: 'Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isObsecure ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isObsecure = !_isObsecure;
+                      });
+                    },
+                  ),
+                ),
+                onSubmitted: (value) {
+                  context.read<ProfilBloc>().add(
+                    ProfilChangePassword(newPassword: _passwordController.text),
+                  );
+                },
+              ),
+              SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      _isObsecure = !_isObsecure;
-                    });
+                    context.read<ProfilBloc>().add(
+                      ProfilChangePassword(
+                        newPassword: _passwordController.text,
+                      ),
+                    );
                   },
+                  child: Text("Ganti"),
                 ),
               ),
-              onSubmitted: (value) {
-                context.read<ProfilBloc>().add(
-                  ProfilChangePassword(
-                    newPassword: _passwordController.toString(),
-                  ),
-                );
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
