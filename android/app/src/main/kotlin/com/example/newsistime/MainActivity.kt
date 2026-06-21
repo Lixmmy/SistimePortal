@@ -1,4 +1,4 @@
-package com.example.newsistime
+package com.example.sistime_portal
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

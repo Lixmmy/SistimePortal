@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/features/profil/presentation/widgets/custom_menu_profil.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/features/profil/presentation/widgets/custom_menu_profil.dart';
 import 'package:quickalert/quickalert.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';

@@ -1,7 +1,7 @@
 // File: utils/loading_manager.dart
 
 import 'package:flutter/material.dart';
-import 'package:newsistime/core/loading/loading_screen.dart';
+import 'package:sistime_portal/core/loading/loading_screen.dart';
 
 /// A singleton class to manage the loading overlay.
 class LoadingManager {
@@ -22,10 +22,7 @@ class LoadingManager {
         builder: (context) {
           return const Stack(
             children: [
-              ModalBarrier(
-                color: Colors.black54, 
-                dismissible: false, 
-              ),
+              ModalBarrier(color: Colors.black54, dismissible: false),
               LoadingScreen(),
             ],
           );

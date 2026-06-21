@@ -1,4 +1,4 @@
-import 'package:newsistime/features/program_studi/domain/entities/program_studi.dart';
+import 'package:sistime_portal/features/program_studi/domain/entities/program_studi.dart';
 
 class ProgramStudiModel {
   final String kodeProgramstudi;

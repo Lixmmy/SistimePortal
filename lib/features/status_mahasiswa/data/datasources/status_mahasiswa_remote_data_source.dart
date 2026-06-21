@@ -1,6 +1,6 @@
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/helper/connect_api.dart';
-import 'package:newsistime/features/status_mahasiswa/data/models/status_mahasiswa_model.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/helper/connect_api.dart';
+import 'package:sistime_portal/features/status_mahasiswa/data/models/status_mahasiswa_model.dart';
 
 abstract class StatusMahasiswaRemoteDatasource {
   Future<StatusMahasiswaModel> getStatusMahasiswa(String idUser);

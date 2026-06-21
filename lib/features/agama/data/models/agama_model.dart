@@ -1,4 +1,4 @@
-import 'package:newsistime/features/agama/domain/entities/agama.dart';
+import 'package:sistime_portal/features/agama/domain/entities/agama.dart';
 
 class AgamaModel {
   final String id;

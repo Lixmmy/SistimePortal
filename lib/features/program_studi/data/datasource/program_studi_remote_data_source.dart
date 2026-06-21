@@ -1,6 +1,6 @@
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/helper/connect_api.dart';
-import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/helper/connect_api.dart';
+import 'package:sistime_portal/features/program_studi/data/models/program_studi_models.dart';
 
 abstract class ProgramStudiRemoteDataSource {
   Future<List<ProgramStudiModel>> getProgramStudi();

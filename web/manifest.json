@@ -1,6 +1,6 @@
 {
-    "name": "newsistime",
-    "short_name": "newsistime",
+    "name": "sistime_portal",
+    "short_name": "sistime_portal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

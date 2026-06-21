@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/helper/date_formatter.dart';
-import 'package:newsistime/custom_widgets/appbarcustom.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/features/profil/domain/entities/profil.dart';
-import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
+import 'package:sistime_portal/core/helper/date_formatter.dart';
+import 'package:sistime_portal/custom_widgets/appbarcustom.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/features/profil/domain/entities/profil.dart';
+import 'package:sistime_portal/features/profil/presentation/widgets/build_info_row.dart';
 
 class IdCardPage extends StatelessWidget {
   final String username;

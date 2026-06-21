@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/custom_widgets/appbarcustom.dart';
-import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/custom_widgets/appbarcustom.dart';
+import 'package:sistime_portal/features/profil/presentation/bloc/profil_bloc.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 

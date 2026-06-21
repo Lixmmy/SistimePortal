@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
-import 'package:newsistime/features/program_studi/data/datasource/local_program_studi_data_source.dart';
-import 'package:newsistime/features/program_studi/domain/entities/program_studi.dart';
-import 'package:newsistime/features/program_studi/domain/repositories/program_studi_repositories.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
+import 'package:sistime_portal/features/program_studi/data/datasource/local_program_studi_data_source.dart';
+import 'package:sistime_portal/features/program_studi/domain/entities/program_studi.dart';
+import 'package:sistime_portal/features/program_studi/domain/repositories/program_studi_repositories.dart';
 
 class ProgramStudiRepositoriesImplementation
     implements ProgramStudiRepositories {

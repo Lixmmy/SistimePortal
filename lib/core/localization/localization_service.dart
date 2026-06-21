@@ -1,4 +1,4 @@
-import 'package:newsistime/core/localization/l10n/app_localizations.dart';
+import 'package:sistime_portal/core/localization/l10n/app_localizations.dart';
 
 AppLocalizations? _appLocalizations;
 

@@ -1,4 +1,4 @@
-import 'package:newsistime/features/login/domain/entities/token.dart';
+import 'package:sistime_portal/features/login/domain/entities/token.dart';
 
 class TokenModel {
   final String token;

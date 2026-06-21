@@ -1,6 +1,6 @@
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/helper/connect_api.dart';
-import 'package:newsistime/features/login/data/models/token_model.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/helper/connect_api.dart';
+import 'package:sistime_portal/features/login/data/models/token_model.dart';
 
 abstract class LoginRemoteDataSource {
   Future<TokenModel> postLogin({

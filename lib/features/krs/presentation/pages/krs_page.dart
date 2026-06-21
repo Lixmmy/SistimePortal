@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/localization/l10n/app_localizations.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/features/krs/domain/entities/tahun_ajaran.dart';
-import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
-import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
+import 'package:sistime_portal/core/localization/l10n/app_localizations.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/features/krs/domain/entities/tahun_ajaran.dart';
+import 'package:sistime_portal/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:sistime_portal/features/profil/presentation/widgets/build_info_row.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 

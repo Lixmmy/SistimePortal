@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newsistime/core/theme/theme.dart';
+import 'package:sistime_portal/core/theme/theme.dart';
 
 class ListProfil extends StatelessWidget {
   final String title;

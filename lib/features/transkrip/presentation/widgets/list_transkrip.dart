@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newsistime/core/helper/grade_converter.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
+import 'package:sistime_portal/core/helper/grade_converter.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/features/transkrip/presentation/bloc/transkrip_bloc.dart';
 
 class ListTranskrip extends StatelessWidget {
   final TranskripLoaded state;

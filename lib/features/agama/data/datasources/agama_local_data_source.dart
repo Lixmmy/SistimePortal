@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:newsistime/core/helper/secure_storage.dart';
-import 'package:newsistime/features/agama/data/models/agama_model.dart';
+import 'package:sistime_portal/core/helper/secure_storage.dart';
+import 'package:sistime_portal/features/agama/data/models/agama_model.dart';
 
 abstract class AgamaLocalDataSource {
   Future<List<AgamaModel>> getSavedAgama();

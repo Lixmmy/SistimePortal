@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/language/data/datasources/language_local_data_source.dart';
-import 'package:newsistime/features/language/domain/repositories/app_language_repository.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/language/data/datasources/language_local_data_source.dart';
+import 'package:sistime_portal/features/language/domain/repositories/app_language_repository.dart';
 
 class AppLanguageRepositoryImplementation extends AppLanguageRepository {
   final LanguageLocalDataSource languageLocalDataSource;

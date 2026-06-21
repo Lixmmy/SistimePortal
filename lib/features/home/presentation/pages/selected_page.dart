@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
-import 'package:newsistime/features/home/presentation/pages/home_page.dart';
-import 'package:newsistime/features/home/presentation/widgets/bnb.dart';
-import 'package:newsistime/features/nilai/presentation/pages/nilai_page.dart';
-import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
-import 'package:newsistime/features/profil/presentation/pages/profil_page.dart';
+import 'package:sistime_portal/core/loading/loading_manage.dart';
+import 'package:sistime_portal/features/home/presentation/pages/home_page.dart';
+import 'package:sistime_portal/features/home/presentation/widgets/bnb.dart';
+import 'package:sistime_portal/features/nilai/presentation/pages/nilai_page.dart';
+import 'package:sistime_portal/features/profil/presentation/bloc/profil_bloc.dart';
+import 'package:sistime_portal/features/profil/presentation/pages/profil_page.dart';
 import 'package:quickalert/quickalert.dart';
 
 class SelectedPage extends StatefulWidget {

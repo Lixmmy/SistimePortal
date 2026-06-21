@@ -1,7 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/profil/data/models/update_mahasiswa_model.dart';
 
 import '../entities/profil.dart';
 

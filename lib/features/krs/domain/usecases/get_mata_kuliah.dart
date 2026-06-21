@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/krs/domain/entities/matkul.dart';
-import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/krs/domain/entities/matkul.dart';
+import 'package:sistime_portal/features/krs/domain/repositories/krs_repositories.dart';
 
 class GetMataKuliah {
   final KrsRepositories krsRepositories;

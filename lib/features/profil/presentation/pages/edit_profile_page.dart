@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/helper/date_formatter.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/features/agama/presentation/bloc/agama_bloc.dart';
-import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
-import 'package:newsistime/features/profil/domain/entities/profil.dart';
-import 'package:newsistime/features/profil/presentation/bloc/profil_bloc.dart';
-import 'package:newsistime/features/profil/presentation/widgets/entry_form.dart';
-import 'package:newsistime/features/status/presentation/bloc/status_bloc.dart';
+import 'package:sistime_portal/core/helper/date_formatter.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/features/agama/presentation/bloc/agama_bloc.dart';
+import 'package:sistime_portal/features/profil/data/models/update_mahasiswa_model.dart';
+import 'package:sistime_portal/features/profil/domain/entities/profil.dart';
+import 'package:sistime_portal/features/profil/presentation/bloc/profil_bloc.dart';
+import 'package:sistime_portal/features/profil/presentation/widgets/entry_form.dart';
+import 'package:sistime_portal/features/status/presentation/bloc/status_bloc.dart';
 import 'package:quickalert/quickalert.dart';
 
 class EditProfilePage extends StatefulWidget {

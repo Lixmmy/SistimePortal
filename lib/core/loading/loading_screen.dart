@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 // ignore: depend_on_referenced_packages
-import 'package:newsistime/custom_widgets/container_view.dart';
-
+import 'package:sistime_portal/custom_widgets/container_view.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});

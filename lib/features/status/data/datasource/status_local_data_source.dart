@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:newsistime/features/status/data/models/status_model.dart';
-import 'package:newsistime/core/helper/secure_storage.dart';
+import 'package:sistime_portal/features/status/data/models/status_model.dart';
+import 'package:sistime_portal/core/helper/secure_storage.dart';
 
 abstract class StatusLocalDataSource {
   Future<List<StatusModel>> getSavedStatus();

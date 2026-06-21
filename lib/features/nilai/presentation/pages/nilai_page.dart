@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:newsistime/custom_widgets/appbarcustom.dart';
-import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
-import 'package:newsistime/features/khs/presentation/pages/khs_page.dart';
-import 'package:newsistime/features/krs/presentation/pages/krs_page.dart';
-import 'package:newsistime/features/transkrip/presentation/pages/transkrip_page.dart';
+import 'package:sistime_portal/custom_widgets/appbarcustom.dart';
+import 'package:sistime_portal/features/khs/presentation/bloc/khs_bloc.dart';
+import 'package:sistime_portal/features/khs/presentation/pages/khs_page.dart';
+import 'package:sistime_portal/features/krs/presentation/pages/krs_page.dart';
+import 'package:sistime_portal/features/transkrip/presentation/pages/transkrip_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
-import 'package:newsistime/injection.dart';
+import 'package:sistime_portal/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:sistime_portal/injection.dart';
 
 class NilaiPage extends StatelessWidget {
   const NilaiPage({super.key});

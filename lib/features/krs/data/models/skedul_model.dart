@@ -1,4 +1,4 @@
-import 'package:newsistime/features/krs/domain/entities/skedul_krs.dart';
+import 'package:sistime_portal/features/krs/domain/entities/skedul_krs.dart';
 
 class SkedulModel {
   final int idModel;

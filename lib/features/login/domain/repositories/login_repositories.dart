@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/login/domain/entities/token.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/login/domain/entities/token.dart';
 
 abstract class LoginRepositories {
   Future<Either<MessageExc, Token>> postLogin({

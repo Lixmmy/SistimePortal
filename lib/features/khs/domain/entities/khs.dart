@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/features/transkrip/domain/entities/nilai.dart';
+import 'package:sistime_portal/features/transkrip/domain/entities/nilai.dart';
 
 class Khs extends Equatable {
   final int idKrs;

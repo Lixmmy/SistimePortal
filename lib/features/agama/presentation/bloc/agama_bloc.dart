@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/features/agama/domain/entities/agama.dart';
-import 'package:newsistime/features/agama/domain/usecases/get_agama.dart';
+import 'package:sistime_portal/features/agama/domain/entities/agama.dart';
+import 'package:sistime_portal/features/agama/domain/usecases/get_agama.dart';
 
 part 'agama_event.dart';
 part 'agama_state.dart';

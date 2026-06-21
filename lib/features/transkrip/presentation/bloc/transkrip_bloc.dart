@@ -1,20 +1,20 @@
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/helper/grade_converter.dart';
-import 'package:newsistime/core/helper/secure_storage.dart';
-import 'package:newsistime/features/profil/data/datasources/local_datasource.dart';
-import 'package:newsistime/features/profil/data/models/profil_model.dart';
-import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
-import 'package:newsistime/features/transkrip/domain/usecases/get_transkrip.dart';
-import 'package:newsistime/core/localization/l10n/app_localizations.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/helper/grade_converter.dart';
+import 'package:sistime_portal/core/helper/secure_storage.dart';
+import 'package:sistime_portal/features/profil/data/datasources/local_datasource.dart';
+import 'package:sistime_portal/features/profil/data/models/profil_model.dart';
+import 'package:sistime_portal/features/transkrip/domain/entities/transkrip.dart';
+import 'package:sistime_portal/features/transkrip/domain/usecases/get_transkrip.dart';
+import 'package:sistime_portal/core/localization/l10n/app_localizations.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
+import 'package:sistime_portal/features/login/data/datasources/login_local_data_source.dart';
 
 part 'transkrip_event.dart';
 part 'transkrip_state.dart';

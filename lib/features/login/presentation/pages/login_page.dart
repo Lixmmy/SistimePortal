@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/core/route_config/config.dart';
-import 'package:newsistime/core/route_config/route_endpoint.dart';
-import 'package:newsistime/core/theme/theme.dart';
+import 'package:sistime_portal/core/loading/loading_manage.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/core/route_config/config.dart';
+import 'package:sistime_portal/core/route_config/route_endpoint.dart';
+import 'package:sistime_portal/core/theme/theme.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:newsistime/features/login/presentation/bloc/login_bloc.dart';
+import 'package:sistime_portal/features/login/presentation/bloc/login_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:newsistime/features/status_mahasiswa/domain/entities/status_mahasiswa.dart';
+import 'package:sistime_portal/features/status_mahasiswa/domain/entities/status_mahasiswa.dart';
 
 class StatusMahasiswaModel {
   final String statusMahasiswa;

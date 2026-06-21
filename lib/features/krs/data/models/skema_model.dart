@@ -1,4 +1,4 @@
-import 'package:newsistime/features/krs/domain/entities/skema_krs.dart';
+import 'package:sistime_portal/features/krs/domain/entities/skema_krs.dart';
 
 class SkemaModel {
   final int idModel;

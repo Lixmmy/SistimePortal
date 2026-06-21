@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/krs/data/datasources/remote_krs_data_source.dart';
-import 'package:newsistime/features/krs/data/models/krs_model.dart';
-import 'package:newsistime/features/krs/data/models/matkul_model.dart';
-import 'package:newsistime/features/krs/data/models/skedul_model.dart';
-import 'package:newsistime/features/krs/data/models/skema_model.dart';
-import 'package:newsistime/features/krs/data/models/tahun_ajaran_model.dart';
-import 'package:newsistime/features/krs/domain/entities/krs.dart';
-import 'package:newsistime/features/krs/domain/entities/matkul.dart';
-import 'package:newsistime/features/krs/domain/entities/skedul_krs.dart';
-import 'package:newsistime/features/krs/domain/entities/skema_krs.dart';
-import 'package:newsistime/features/krs/domain/entities/tahun_ajaran.dart';
-import 'package:newsistime/features/krs/domain/repositories/krs_repositories.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/krs/data/datasources/remote_krs_data_source.dart';
+import 'package:sistime_portal/features/krs/data/models/krs_model.dart';
+import 'package:sistime_portal/features/krs/data/models/matkul_model.dart';
+import 'package:sistime_portal/features/krs/data/models/skedul_model.dart';
+import 'package:sistime_portal/features/krs/data/models/skema_model.dart';
+import 'package:sistime_portal/features/krs/data/models/tahun_ajaran_model.dart';
+import 'package:sistime_portal/features/krs/domain/entities/krs.dart';
+import 'package:sistime_portal/features/krs/domain/entities/matkul.dart';
+import 'package:sistime_portal/features/krs/domain/entities/skedul_krs.dart';
+import 'package:sistime_portal/features/krs/domain/entities/skema_krs.dart';
+import 'package:sistime_portal/features/krs/domain/entities/tahun_ajaran.dart';
+import 'package:sistime_portal/features/krs/domain/repositories/krs_repositories.dart';
 
 class KrsRepositoriesImplementation extends KrsRepositories {
   final RemoteKrsDataSource remoteKrsDataSource;

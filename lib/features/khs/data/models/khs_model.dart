@@ -1,5 +1,5 @@
-import 'package:newsistime/features/khs/domain/entities/khs.dart';
-import 'package:newsistime/features/transkrip/data/models/nilai_model.dart';
+import 'package:sistime_portal/features/khs/domain/entities/khs.dart';
+import 'package:sistime_portal/features/transkrip/data/models/nilai_model.dart';
 
 class KhsModel {
   final int idKrsModel;

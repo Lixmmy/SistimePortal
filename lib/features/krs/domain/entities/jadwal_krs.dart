@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/features/dosen/domain/entities/dosen.dart';
-import 'package:newsistime/features/krs/domain/entities/matkul.dart';
+import 'package:sistime_portal/features/dosen/domain/entities/dosen.dart';
+import 'package:sistime_portal/features/krs/domain/entities/matkul.dart';
 
 class JadwalKrs extends Equatable {
   final Matkul matkul;

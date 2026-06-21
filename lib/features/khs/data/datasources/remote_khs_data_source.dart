@@ -1,6 +1,6 @@
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/helper/connect_api.dart';
-import 'package:newsistime/features/khs/data/models/khs_model.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/helper/connect_api.dart';
+import 'package:sistime_portal/features/khs/data/models/khs_model.dart';
 
 abstract class RemoteKhsDataSource {
   Future<List<KhsModel>> getKhs({required String id});

@@ -1,11 +1,11 @@
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/helper/connect_api.dart';
-import 'package:newsistime/features/krs/data/models/krs_model.dart';
-import 'package:newsistime/features/krs/data/models/matkul_model.dart';
-import 'package:newsistime/features/krs/data/models/skedul_model.dart';
-import 'package:newsistime/features/krs/data/models/skema_model.dart';
-import 'package:newsistime/features/krs/data/models/tahun_ajaran_model.dart';
-import 'package:newsistime/features/krs/domain/entities/krs.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/helper/connect_api.dart';
+import 'package:sistime_portal/features/krs/data/models/krs_model.dart';
+import 'package:sistime_portal/features/krs/data/models/matkul_model.dart';
+import 'package:sistime_portal/features/krs/data/models/skedul_model.dart';
+import 'package:sistime_portal/features/krs/data/models/skema_model.dart';
+import 'package:sistime_portal/features/krs/data/models/tahun_ajaran_model.dart';
+import 'package:sistime_portal/features/krs/domain/entities/krs.dart';
 
 abstract class RemoteKrsDataSource {
   Future<List<KrsModel>> getKrs({required String id});

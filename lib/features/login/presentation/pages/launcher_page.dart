@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/core/route_config/config.dart';
-import 'package:newsistime/core/route_config/route_endpoint.dart';
-import 'package:newsistime/core/theme/theme.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/core/route_config/config.dart';
+import 'package:sistime_portal/core/route_config/route_endpoint.dart';
+import 'package:sistime_portal/core/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LauncherPage extends StatefulWidget {

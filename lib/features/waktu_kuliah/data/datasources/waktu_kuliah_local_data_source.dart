@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-import 'package:newsistime/core/helper/secure_storage.dart';
-import 'package:newsistime/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
+import 'package:sistime_portal/core/helper/secure_storage.dart';
+import 'package:sistime_portal/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
 
 abstract class WaktuKuliahLocalDataSource {
   Future<void> savedWaktuKuliah(List<WaktuKuliahModel> waktuKuliah);
   Future<List<WaktuKuliahModel>> getSavedWaktuKuliah();
 }
 
-class WaktuKuliahLocalDataSourceImplementation extends WaktuKuliahLocalDataSource{
-    final SecureStorage secureStorage;
-    static const String _waktuKuliah = 'waktu_kuliah_data';
+class WaktuKuliahLocalDataSourceImplementation
+    extends WaktuKuliahLocalDataSource {
+  final SecureStorage secureStorage;
+  static const String _waktuKuliah = 'waktu_kuliah_data';
   WaktuKuliahLocalDataSourceImplementation({required this.secureStorage});
 
-
   @override
-  Future<List<WaktuKuliahModel>> getSavedWaktuKuliah() async{
+  Future<List<WaktuKuliahModel>> getSavedWaktuKuliah() async {
     try {
       final jsonString = await secureStorage.getData(_waktuKuliah);
       if (jsonString.isEmpty) {
