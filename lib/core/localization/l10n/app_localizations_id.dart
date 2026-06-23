@@ -70,7 +70,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get studentCard => 'Kartu Tanda Mahasiswa';
 
   @override
-  String get identityCard => 'Kartu Indentitas';
+  String get identityCard => 'Kartu Identitas';
 
   @override
   String get placeAndDateOfBirth => 'Tempat/Tgl Lahir';

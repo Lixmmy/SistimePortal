@@ -142,7 +142,7 @@ class _ProfilPageState extends State<ProfilPage> {
                               icon: Icons.badge,
                               onPressed: () {
                                 context.pushNamed(
-                                  'idCard',
+                                  'IdCardPage',
                                   extra: {
                                     'profil': profil,
                                     'username': state.username,
