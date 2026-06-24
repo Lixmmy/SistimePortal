@@ -1,11 +1,14 @@
 // import 'dart:io';
 
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/core/error/message_exc.dart';
+import 'package:newsistime/core/helper/grade_converter.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/dosen/domain/usecases/get_dosen.dart';
 import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
@@ -66,8 +69,10 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
 
+          final ByteData bytes = await rootBundle.load('images/logo_stmik.png');
+          final Uint8List imageBytes = bytes.buffer.asUint8List();
           pdf.addPage(
-            pw.Page(
+            pw.MultiPage(
               pageFormat: PdfPageFormat.a4,
               build: (pw.Context context) {
                 final List<JadwalKrs> semesterData = [
@@ -94,99 +99,116 @@ class KrsBloc extends Bloc<KrsEvent, KrsState> {
                   return row;
                 }).toList();
 
-                return pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text(
-                      appLocalizations.studyPlanCard,
-                      style: pw.TextStyle(
-                        fontSize: 24,
-                        fontWeight: pw.FontWeight.bold,
-                      ),
-                    ),
-
-                    pw.SizedBox(height: 20),
-                    pw.Container(
-                      width: double.infinity,
-                      padding: const pw.EdgeInsets.all(10),
-                      margin: const pw.EdgeInsets.only(bottom: 10),
-                      decoration: pw.BoxDecoration(
-                        color: PdfColors.white,
-                        borderRadius: pw.BorderRadius.circular(10),
-                        border: pw.Border.all(
-                          color: PdfColor.fromInt(0x96000000),
+                return [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    children: [
+                      pw.Text(
+                        appLocalizations.studyPlanCard,
+                        style: pw.TextStyle(
+                          fontSize: 24,
+                          fontWeight: pw.FontWeight.bold,
                         ),
                       ),
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.end,
                         children: [
-                          pw.Text('${appLocalizations.nim}: $username'),
-                          pw.Text(
-                            '${appLocalizations.name}: ${profil.namaMahasiswa}',
+                          pw.Image(
+                            pw.MemoryImage(imageBytes),
+                            width: 80,
+                            height: 80,
                           ),
                           pw.Text(
-                            '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi}',
-                          ),
-                          pw.Text(
-                            '${appLocalizations.roomClass}: ${profil.statusMahasiswa?.kodeKelas}',
+                            'Studi STMIK Time\nJalan Merbabu No. 32 blok AA-BB Medan\ntelp: (061) 4561932 email: stmiktime@gmail.com',
+                            style: pw.TextStyle(fontSize: 12),
+                            textAlign: pw.TextAlign.right,
                           ),
                         ],
                       ),
+                    ],
+                  ),
+
+                  pw.SizedBox(height: 20),
+                  pw.Container(
+                    width: double.infinity,
+                    padding: const pw.EdgeInsets.all(10),
+                    margin: const pw.EdgeInsets.only(bottom: 10),
+                    decoration: pw.BoxDecoration(
+                      color: PdfColors.white,
+                      borderRadius: pw.BorderRadius.circular(10),
+                      border: pw.Border.all(
+                        color: PdfColor.fromInt(0x96000000),
+                      ),
                     ),
-                    pw.SizedBox(height: 10),
-                    pw.Table(
-                      border: pw.TableBorder.all(),
-                      columnWidths: {
-                        0: const pw.FlexColumnWidth(1),
-                        1: const pw.FlexColumnWidth(1.5),
-                        2: const pw.FlexColumnWidth(3),
-                        3: const pw.FlexColumnWidth(2),
-                        4: const pw.FlexColumnWidth(1),
-                      },
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
-                        pw.TableRow(
-                          children: headers
+                        pw.Text('${appLocalizations.nim}: $username'),
+                        pw.Text(
+                          '${appLocalizations.name}: ${profil.namaMahasiswa}',
+                        ),
+                        pw.Text(
+                          '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi}',
+                        ),
+                        pw.Text(
+                          '${appLocalizations.roomClass}: ${profil.statusMahasiswa?.kodeKelas}',
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.SizedBox(height: 10),
+                  pw.Table(
+                    border: pw.TableBorder.all(),
+                    columnWidths: {
+                      0: const pw.FlexColumnWidth(1),
+                      1: const pw.FlexColumnWidth(1.5),
+                      2: const pw.FlexColumnWidth(3),
+                      3: const pw.FlexColumnWidth(2),
+                      4: const pw.FlexColumnWidth(1),
+                    },
+                    children: [
+                      pw.TableRow(
+                        children: headers
+                            .map(
+                              (header) => pw.Container(
+                                alignment: pw.Alignment.center,
+                                padding: const pw.EdgeInsets.all(4),
+                                child: pw.Text(
+                                  header,
+                                  style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                  textAlign: pw.TextAlign.center,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      ...data.map(
+                        (row) => pw.TableRow(
+                          children: row
                               .map(
-                                (header) => pw.Container(
-                                  alignment: pw.Alignment.center,
+                                (cell) => pw.Container(
+                                  alignment:
+                                      row.indexOf(cell) == 4 ||
+                                          row.indexOf(cell) == 0 ||
+                                          row.indexOf(cell) == 1
+                                      ? pw.Alignment.center
+                                      : pw.Alignment.centerLeft,
                                   padding: const pw.EdgeInsets.all(4),
                                   child: pw.Text(
-                                    header,
-                                    style: pw.TextStyle(
-                                      fontWeight: pw.FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
-                                    textAlign: pw.TextAlign.center,
+                                    cell,
+                                    style: pw.TextStyle(fontSize: 12),
                                   ),
                                 ),
                               )
                               .toList(),
                         ),
-                        ...data.map(
-                          (row) => pw.TableRow(
-                            children: row
-                                .map(
-                                  (cell) => pw.Container(
-                                    alignment:
-                                        row.indexOf(cell) == 4 ||
-                                            row.indexOf(cell) == 0 ||
-                                            row.indexOf(cell) == 1
-                                        ? pw.Alignment.center
-                                        : pw.Alignment.centerLeft,
-                                    padding: const pw.EdgeInsets.all(4),
-                                    child: pw.Text(
-                                      cell,
-                                      style: pw.TextStyle(fontSize: 12),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
+                      ),
+                    ],
+                  ),
+                ];
               },
             ),
           );

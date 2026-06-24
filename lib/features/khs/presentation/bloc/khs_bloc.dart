@@ -120,154 +120,147 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
+          final semesterData = dataState.groupedKhs[event.semester]!;
+          final bool hasQuiz = semesterData.any((e) => e.nilais?.quiz != null);
+          final bool hasProject = semesterData.any(
+            (e) => e.nilais?.project != null,
+          );
+          final bool hasImprovement = semesterData.any(
+            (e) => e.nilais?.perbaikan != null,
+          );
+
+          final List<String> headers = [
+            appLocalizations.no,
+            appLocalizations.courseCode,
+            appLocalizations.course,
+            appLocalizations.sks,
+            if (hasQuiz) appLocalizations.quiz,
+            if (hasProject) appLocalizations.project,
+            appLocalizations.attendance,
+            appLocalizations.assignment,
+            appLocalizations.uts,
+            appLocalizations.uas,
+            if (hasImprovement) appLocalizations.improvement,
+            appLocalizations.grade,
+          ];
+
+          final List<List<String>> data = semesterData.map((khs) {
+            final List<String> row = [
+              (semesterData.indexOf(khs) + 1).toString(),
+              khs.kodeMatakuliah,
+              khs.namaMatakuliah,
+              khs.sks.toString(),
+              if (hasQuiz) khs.nilais?.quiz?.toString() ?? '',
+              if (hasProject) khs.nilais?.project?.toString() ?? '',
+              khs.nilais?.absensi?.toString() ?? '',
+              khs.nilais?.tugas?.toString() ?? '',
+              khs.nilais?.uts?.toString() ?? "",
+              khs.nilais?.uas?.toString() ?? "",
+              if (hasImprovement) khs.nilais?.perbaikan?.toString() ?? '',
+              khs.letterGrade ?? '',
+            ];
+            return row;
+          }).toList();
 
           pdf.addPage(
-            pw.Page(
+            pw.MultiPage(
               pageFormat: PdfPageFormat.a4,
               build: (pw.Context context) {
-                // ignore: collection_methods_unrelated_type
-                final semesterData = dataState!.groupedKhs[event.semester]!;
-                final bool hasQuiz = semesterData.any(
-                  (e) => e.nilais?.quiz != null,
-                );
-                final bool hasProject = semesterData.any(
-                  (e) => e.nilais?.project != null,
-                );
-                final bool hasImprovement = semesterData.any(
-                  (e) => e.nilais?.perbaikan != null,
-                );
-
-                final List<String> headers = [
-                  appLocalizations.no,
-                  appLocalizations.courseCode,
-                  appLocalizations.course,
-                  appLocalizations.sks,
-                  if (hasQuiz) appLocalizations.quiz,
-                  if (hasProject) appLocalizations.project,
-                  appLocalizations.attendance,
-                  appLocalizations.assignment,
-                  appLocalizations.uts,
-                  appLocalizations.uas,
-                  if (hasImprovement) appLocalizations.improvement,
-                  appLocalizations.grade,
-                ];
-
-                final List<List<String>> data = semesterData.map((khs) {
-                  final List<String> row = [
-                    (semesterData.indexOf(khs) + 1).toString(),
-                    khs.kodeMatakuliah,
-                    khs.namaMatakuliah,
-                    khs.sks.toString(),
-                    if (hasQuiz) khs.nilais?.quiz?.toString() ?? '',
-                    if (hasProject) khs.nilais?.project?.toString() ?? '',
-                    khs.nilais?.absensi?.toString() ?? '',
-                    khs.nilais?.tugas?.toString() ?? '',
-                    khs.nilais?.uts?.toString() ?? "",
-                    khs.nilais?.uas?.toString() ?? "",
-                    if (hasImprovement) khs.nilais?.perbaikan?.toString() ?? '',
-                    khs.letterGrade ?? '',
-                  ];
-                  return row;
-                }).toList();
-
-                return pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text(
-                      appLocalizations.studyResultsCard,
-                      style: pw.TextStyle(
-                        fontSize: 24,
-                        fontWeight: pw.FontWeight.bold,
+                return [
+                  pw.Text(
+                    appLocalizations.studyResultsCard,
+                    style: pw.TextStyle(
+                      fontSize: 24,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Container(
+                    width: double.infinity,
+                    padding: const pw.EdgeInsets.all(10),
+                    margin: const pw.EdgeInsets.only(bottom: 10),
+                    decoration: pw.BoxDecoration(
+                      color: PdfColors.white,
+                      borderRadius: pw.BorderRadius.circular(10),
+                      border: pw.Border.all(
+                        color: PdfColor.fromInt(0x96000000),
                       ),
                     ),
-                    pw.SizedBox(height: 20),
-                    pw.Container(
-                      width: double.infinity,
-                      padding: const pw.EdgeInsets.all(10),
-                      margin: const pw.EdgeInsets.only(bottom: 10),
-                      decoration: pw.BoxDecoration(
-                        color: PdfColors.white,
-                        borderRadius: pw.BorderRadius.circular(10),
-                        border: pw.Border.all(
-                          color: PdfColor.fromInt(0x96000000),
-                        ),
-                      ),
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Text('${appLocalizations.nim}: $username'),
-                          pw.Text(
-                            '${appLocalizations.name}: ${profil.namaMahasiswa ?? ""}',
-                          ),
-                          pw.Text(
-                            '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi ?? ""}',
-                          ),
-                          pw.Text(
-                            '${appLocalizations.semester}: ${event.semester}',
-                          ),
-                        ],
-                      ),
-                    ),
-                    pw.Table(
-                      border: pw.TableBorder.all(),
-                      columnWidths: {
-                        0: const pw.FlexColumnWidth(0.8),
-                        1: const pw.FlexColumnWidth(1.5),
-                        2: const pw.FlexColumnWidth(2),
-                        3: const pw.FlexColumnWidth(1),
-                        4: const pw.FlexColumnWidth(1.2),
-                        5: const pw.FlexColumnWidth(1.2),
-                        6: const pw.FlexColumnWidth(1.2),
-                        7: const pw.FlexColumnWidth(1.2),
-                        8: const pw.FlexColumnWidth(1.2),
-                        9: const pw.FlexColumnWidth(1.2),
-                        10: const pw.FlexColumnWidth(1.2),
-                        11: const pw.FlexColumnWidth(1),
-                      },
-                      tableWidth: pw.TableWidth.max,
-                      defaultVerticalAlignment:
-                          pw.TableCellVerticalAlignment.middle,
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
-                        pw.TableRow(
-                          children: headers
+                        pw.Text('${appLocalizations.nim}: $username'),
+                        pw.Text(
+                          '${appLocalizations.name}: ${profil.namaMahasiswa ?? ""}',
+                        ),
+                        pw.Text(
+                          '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi ?? ""}',
+                        ),
+                        pw.Text(
+                          '${appLocalizations.semester}: ${event.semester}',
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Table(
+                    border: pw.TableBorder.all(),
+                    columnWidths: {
+                      0: const pw.FlexColumnWidth(0.8),
+                      1: const pw.FlexColumnWidth(1.5),
+                      2: const pw.FlexColumnWidth(2),
+                      3: const pw.FlexColumnWidth(1),
+                      4: const pw.FlexColumnWidth(1.2),
+                      5: const pw.FlexColumnWidth(1.2),
+                      6: const pw.FlexColumnWidth(1.2),
+                      7: const pw.FlexColumnWidth(1.2),
+                      8: const pw.FlexColumnWidth(1.2),
+                      9: const pw.FlexColumnWidth(1.2),
+                      10: const pw.FlexColumnWidth(1.2),
+                      11: const pw.FlexColumnWidth(1),
+                    },
+                    tableWidth: pw.TableWidth.max,
+                    defaultVerticalAlignment:
+                        pw.TableCellVerticalAlignment.middle,
+                    children: [
+                      pw.TableRow(
+                        children: headers
+                            .map(
+                              (header) => pw.Container(
+                                alignment: pw.Alignment.center,
+                                padding: const pw.EdgeInsets.all(4),
+                                child: pw.Text(
+                                  header,
+                                  style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                  textAlign: pw.TextAlign.center,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      ...data.map(
+                        (row) => pw.TableRow(
+                          children: row
                               .map(
-                                (header) => pw.Container(
-                                  alignment: pw.Alignment.center,
+                                (cell) => pw.Container(
+                                  alignment: row.indexOf(cell) != 2
+                                      ? pw.Alignment.center
+                                      : pw.Alignment.centerLeft,
                                   padding: const pw.EdgeInsets.all(4),
                                   child: pw.Text(
-                                    header,
-                                    style: pw.TextStyle(
-                                      fontWeight: pw.FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
-                                    textAlign: pw.TextAlign.center,
+                                    cell,
+                                    style: pw.TextStyle(fontSize: 12),
                                   ),
                                 ),
                               )
                               .toList(),
                         ),
-                        ...data.map(
-                          (row) => pw.TableRow(
-                            children: row
-                                .map(
-                                  (cell) => pw.Container(
-                                    alignment: row.indexOf(cell) != 2
-                                        ? pw.Alignment.center
-                                        : pw.Alignment.centerLeft,
-                                    padding: const pw.EdgeInsets.all(4),
-                                    child: pw.Text(
-                                      cell,
-                                      style: pw.TextStyle(fontSize: 12),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
+                      ),
+                    ],
+                  ),
+                ];
               },
             ),
           );

@@ -134,106 +134,106 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
+          final List<List<String>> tableData = List.generate(
+            currentState.listTranskrip.length,
+            (index) {
+              final transkrip = currentState.listTranskrip[index];
+              return [
+                (index + 1).toString(),
+                transkrip.kodeMatkul,
+                transkrip.matkul,
+                transkrip.sks.toString(),
+                transkrip.letterGrade ?? '',
+              ];
+            },
+          );
 
           pdf.addPage(
             pw.MultiPage(
               pageFormat: PdfPageFormat.a4,
+              maxPages: 100,
               build: (pw.Context context) {
                 return [
-                  pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text(
-                        appLocalizations.valueTranscript,
-                        style: pw.TextStyle(
-                          fontSize: 24,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
+                  pw.Text(
+                    appLocalizations.valueTranscript,
+                    style: pw.TextStyle(
+                      fontSize: 24,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Container(
+                    width: double.infinity,
+                    padding: const pw.EdgeInsets.all(10),
+                    margin: const pw.EdgeInsets.only(bottom: 10),
+                    decoration: pw.BoxDecoration(
+                      color: PdfColors.white,
+                      borderRadius: pw.BorderRadius.circular(10),
+                      border: pw.Border.all(
+                        color: PdfColor.fromInt(0x96000000),
                       ),
-                      pw.SizedBox(height: 20),
-                      pw.Container(
-                        width: double.infinity,
-                        padding: const pw.EdgeInsets.all(10),
-                        margin: const pw.EdgeInsets.only(bottom: 10),
-                        decoration: pw.BoxDecoration(
-                          color: PdfColors.white,
-                          borderRadius: pw.BorderRadius.circular(10),
-                          border: pw.Border.all(
-                            color: PdfColor.fromInt(0x96000000),
-                          ),
+                    ),
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('${appLocalizations.nim}: $username'),
+                        pw.Text(
+                          '${appLocalizations.name}: ${profil.namaMahasiswa}',
                         ),
-                        child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Text('${appLocalizations.nim}: $username'),
-                            pw.Text(
-                              '${appLocalizations.name}: ${profil.namaMahasiswa}',
-                            ),
 
-                            pw.Text(
-                              '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi}',
-                            ),
-                            pw.Text(
-                              '${appLocalizations.roomClass}: ${profil.statusMahasiswa?.kodeKelas}',
-                            ),
-                          ],
+                        pw.Text(
+                          '${appLocalizations.studyPrograms}: ${profil.programStudi?.namaProgramstudi}',
                         ),
-                      ),
-                      pw.TableHelper.fromTextArray(
-                        headers: [
-                          appLocalizations.no,
-                          appLocalizations.courseCode,
-                          appLocalizations.course,
-                          appLocalizations.sks,
-                          appLocalizations.grade,
-                        ],
-                        headerStyle: pw.TextStyle(
-                          fontWeight: pw.FontWeight.bold,
-                          fontSize: 12,
+                        pw.Text(
+                          '${appLocalizations.roomClass}: ${profil.statusMahasiswa?.kodeKelas}',
                         ),
-                        cellStyle: pw.TextStyle(fontSize: 12),
-                        data: currentState.listTranskrip.map((t) {
-                          return [
-                            (currentState.listTranskrip.indexOf(t) + 1)
-                                .toString(),
-                            t.kodeMatkul,
-                            t.matkul,
-                            t.sks.toString(),
-                            t.letterGrade ?? '',
-                          ];
-                        }).toList(),
-                      ),
-                      pw.Container(
-                        width: double.infinity,
-                        padding: const pw.EdgeInsets.all(10),
-                        margin: const pw.EdgeInsets.only(top: 10),
-                        decoration: pw.BoxDecoration(
-                          color: PdfColors.white,
-                          borderRadius: pw.BorderRadius.circular(10),
-                          border: pw.Border.all(
-                            color: PdfColor.fromInt(0x96000000),
-                          ),
-                        ),
-                        child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Text(appLocalizations.summary),
-                            pw.Text(
-                              '${appLocalizations.numberOfCoursesPassed}: ${currentState.passedCourses}',
-                            ),
-                            pw.Text(
-                              '${appLocalizations.numberOfCoursesNotPassed}: ${currentState.failedCourses}',
-                            ),
-                            pw.Text(
-                              '${appLocalizations.numberofCredits}: ${currentState.totalSks}',
-                            ),
-                            pw.Text(
-                              '${appLocalizations.gpa}: ${currentState.gpa.toStringAsFixed(2)}',
-                            ),
-                          ],
-                        ),
-                      ),
+                      ],
+                    ),
+                  ),
+                  pw.TableHelper.fromTextArray(
+                    headers: [
+                      appLocalizations.no,
+                      appLocalizations.courseCode,
+                      appLocalizations.course,
+                      appLocalizations.sks,
+                      appLocalizations.grade,
                     ],
+                    headerStyle: pw.TextStyle(
+                      fontWeight: pw.FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                    cellStyle: pw.TextStyle(fontSize: 12),
+                    data: tableData,
+                  ),
+                  pw.Container(
+                    width: double.infinity,
+                    padding: const pw.EdgeInsets.all(10),
+                    margin: const pw.EdgeInsets.only(top: 10),
+                    decoration: pw.BoxDecoration(
+                      color: PdfColors.white,
+                      borderRadius: pw.BorderRadius.circular(10),
+                      border: pw.Border.all(
+                        color: PdfColor.fromInt(0x96000000),
+                      ),
+                    ),
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(appLocalizations.summary),
+                        pw.Text(
+                          '${appLocalizations.numberOfCoursesPassed}: ${currentState.passedCourses}',
+                        ),
+                        pw.Text(
+                          '${appLocalizations.numberOfCoursesNotPassed}: ${currentState.failedCourses}',
+                        ),
+                        pw.Text(
+                          '${appLocalizations.numberofCredits}: ${currentState.totalSks}',
+                        ),
+                        pw.Text(
+                          '${appLocalizations.gpa}: ${currentState.gpa.toStringAsFixed(2)}',
+                        ),
+                      ],
+                    ),
                   ),
                 ];
               },
