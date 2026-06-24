@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/features/login/domain/entities/token.dart';
-import 'package:newsistime/features/login/domain/repositories/login_repositories.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/features/login/domain/entities/token.dart';
+import 'package:sistime_portal/features/login/domain/repositories/login_repositories.dart';
 
 class PostLoginUseCases {
   final LoginRepositories loginRepositories;

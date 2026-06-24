@@ -1,4 +1,4 @@
-import 'package:newsistime/core/localization/localization_service.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
 
 enum MessageExcType { networkError, apiError, tokenExpired, unknown }
 

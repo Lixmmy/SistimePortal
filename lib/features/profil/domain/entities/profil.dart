@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/features/agama/domain/entities/agama.dart';
-import 'package:newsistime/features/program_studi/domain/entities/program_studi.dart';
-import 'package:newsistime/features/status/domain/entities/status.dart';
-import 'package:newsistime/features/status_mahasiswa/domain/entities/status_mahasiswa.dart';
-import 'package:newsistime/features/waktu_kuliah/domain/entities/waktu_kuliah.dart';
+import 'package:sistime_portal/features/agama/domain/entities/agama.dart';
+import 'package:sistime_portal/features/program_studi/domain/entities/program_studi.dart';
+import 'package:sistime_portal/features/status/domain/entities/status.dart';
+import 'package:sistime_portal/features/status_mahasiswa/domain/entities/status_mahasiswa.dart';
+import 'package:sistime_portal/features/waktu_kuliah/domain/entities/waktu_kuliah.dart';
 
 class Profil extends Equatable {
   final int idPendaftaran;

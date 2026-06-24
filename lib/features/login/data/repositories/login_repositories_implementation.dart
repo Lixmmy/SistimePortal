@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/features/login/data/datasources/login_local_data_source.dart';
-import 'package:newsistime/features/login/data/datasources/login_remote_data_source.dart';
-import 'package:newsistime/features/login/domain/entities/token.dart';
-import 'package:newsistime/features/login/domain/repositories/login_repositories.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/features/login/data/datasources/login_local_data_source.dart';
+import 'package:sistime_portal/features/login/data/datasources/login_remote_data_source.dart';
+import 'package:sistime_portal/features/login/domain/entities/token.dart';
+import 'package:sistime_portal/features/login/domain/repositories/login_repositories.dart';
 
 class LoginRepositoriesImplementation extends LoginRepositories {
   final LoginRemoteDataSource loginRemoteDataSource;

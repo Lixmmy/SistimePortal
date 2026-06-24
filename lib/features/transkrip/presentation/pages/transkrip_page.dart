@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
-import 'package:newsistime/features/transkrip/presentation/bloc/transkrip_bloc.dart';
-import 'package:newsistime/features/transkrip/presentation/widgets/list_transkrip.dart';
-import 'package:newsistime/injection.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/features/profil/presentation/widgets/build_info_row.dart';
+import 'package:sistime_portal/features/transkrip/presentation/bloc/transkrip_bloc.dart';
+import 'package:sistime_portal/features/transkrip/presentation/widgets/list_transkrip.dart';
+import 'package:sistime_portal/injection.dart';
 import 'package:quickalert/quickalert.dart';
 
 class TranskripPage extends StatefulWidget {

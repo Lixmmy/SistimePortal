@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/helper/grade_converter.dart';
 import 'package:newsistime/core/helper/secure_storage.dart';
 import 'package:newsistime/features/dosen/domain/usecases/get_dosen.dart';
 import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';

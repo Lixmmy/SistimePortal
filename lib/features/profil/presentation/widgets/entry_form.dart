@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:newsistime/core/theme/theme.dart';
+import 'package:sistime_portal/core/theme/theme.dart';
 
 class EntryForm extends StatefulWidget {
   const EntryForm({

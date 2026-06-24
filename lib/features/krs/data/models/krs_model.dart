@@ -1,4 +1,4 @@
-import 'package:newsistime/features/krs/domain/entities/krs.dart';
+import 'package:sistime_portal/features/krs/domain/entities/krs.dart';
 
 class KrsModel {
   final int idModel;

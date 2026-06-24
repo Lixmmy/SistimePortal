@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/helper/date_formatter.dart';
-import 'package:newsistime/core/loading/loading_manage.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/core/theme/theme.dart';
+import 'package:sistime_portal/core/helper/date_formatter.dart';
+import 'package:sistime_portal/core/loading/loading_manage.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/core/theme/theme.dart';
 import '../widgets/list_profil.dart';
 import '../../domain/entities/profil.dart';
 import '../bloc/profil_bloc.dart';

@@ -1,4 +1,4 @@
-import 'package:newsistime/features/transkrip/domain/entities/nilai.dart';
+import 'package:sistime_portal/features/transkrip/domain/entities/nilai.dart';
 
 double? _parseDouble(dynamic value) {
   if (value is String) {

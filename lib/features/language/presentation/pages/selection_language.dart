@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsistime/custom_widgets/appbarcustom.dart';
-import 'package:newsistime/core/localization/l10n/app_localizations.dart'; // Untuk lokalisasi string
-import 'package:newsistime/features/language/domain/entities/app_language.dart'; // Penting: Import AppLanguage entity
-import 'package:newsistime/features/language/presentation/bloc/language_bloc.dart';
+import 'package:sistime_portal/custom_widgets/appbarcustom.dart';
+import 'package:sistime_portal/core/localization/l10n/app_localizations.dart'; // Untuk lokalisasi string
+import 'package:sistime_portal/features/language/domain/entities/app_language.dart'; // Penting: Import AppLanguage entity
+import 'package:sistime_portal/features/language/presentation/bloc/language_bloc.dart';
 
 class SelectionLanguagePage extends StatefulWidget {
   const SelectionLanguagePage({super.key});

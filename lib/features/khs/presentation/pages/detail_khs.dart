@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/helper/grade_converter.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/core/theme/theme.dart';
-import 'package:newsistime/features/khs/presentation/bloc/khs_bloc.dart';
-import 'package:newsistime/injection.dart';
-import 'package:newsistime/features/profil/presentation/widgets/build_info_row.dart';
+import 'package:sistime_portal/core/helper/grade_converter.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/core/theme/theme.dart';
+import 'package:sistime_portal/features/khs/presentation/bloc/khs_bloc.dart';
+import 'package:sistime_portal/injection.dart';
+import 'package:sistime_portal/features/profil/presentation/widgets/build_info_row.dart';
 
 class DetailKhs extends StatefulWidget {
   const DetailKhs({super.key, required this.semester});

@@ -1,5 +1,5 @@
-import 'package:newsistime/features/transkrip/data/models/nilai_model.dart';
-import 'package:newsistime/features/transkrip/domain/entities/transkrip.dart';
+import 'package:sistime_portal/features/transkrip/data/models/nilai_model.dart';
+import 'package:sistime_portal/features/transkrip/domain/entities/transkrip.dart';
 
 class TranskripModel {
   final int krsIdModel;
@@ -66,4 +66,3 @@ class ListTranskripModel {
     );
   }
 }
-

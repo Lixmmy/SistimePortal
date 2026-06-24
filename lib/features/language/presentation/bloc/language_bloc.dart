@@ -2,17 +2,17 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/language/domain/entities/app_language.dart';
-import 'package:newsistime/features/language/domain/usecases/get_current_local.dart';
-import 'package:newsistime/features/language/domain/usecases/save_locale.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/language/domain/entities/app_language.dart';
+import 'package:sistime_portal/features/language/domain/usecases/get_current_local.dart';
+import 'package:sistime_portal/features/language/domain/usecases/save_locale.dart';
 
 part 'language_event.dart';
 part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   final GetCurrentLocal getCurrentLanguage;
-  final SaveLocale setLanguage; 
+  final SaveLocale setLanguage;
 
   LanguageBloc({required this.getCurrentLanguage, required this.setLanguage})
     : super(const LanguageInitial(locale: Locale('id'))) {
@@ -25,8 +25,8 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     Emitter<LanguageState> emit,
   ) async {
     emit(LanguageLoading(locale: state.locale));
-    Either<MessageExc, Locale> hasilGetCurrentLanguage = await getCurrentLanguage
-        .execute();
+    Either<MessageExc, Locale> hasilGetCurrentLanguage =
+        await getCurrentLanguage.execute();
     hasilGetCurrentLanguage.fold(
       (failure) => emit(
         LanguageError(message: 'Failed to get language', locale: state.locale),
@@ -52,10 +52,8 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
           locale: state.locale,
         ),
       ),
-      (locale) => emit(
-        LanguageChangedSuccess(locale: event.appLanguage.locale),
-      ), 
+      (locale) =>
+          emit(LanguageChangedSuccess(locale: event.appLanguage.locale)),
     );
   }
-  
 }

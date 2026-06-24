@@ -1,4 +1,4 @@
-import 'package:newsistime/features/krs/domain/entities/tahun_ajaran.dart';
+import 'package:sistime_portal/features/krs/domain/entities/tahun_ajaran.dart';
 
 class TahunAjaranModel {
   final int id;

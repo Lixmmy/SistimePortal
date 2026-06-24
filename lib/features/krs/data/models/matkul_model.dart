@@ -1,4 +1,4 @@
-import 'package:newsistime/features/krs/domain/entities/matkul.dart';
+import 'package:sistime_portal/features/krs/domain/entities/matkul.dart';
 
 class MatkulModel {
   final int id;

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:newsistime/features/profil/data/models/profil_model.dart';
+import 'package:sistime_portal/features/profil/data/models/profil_model.dart';
 import '../../../../core/helper/secure_storage.dart';
 
 abstract class ProfilLocalDataSource {

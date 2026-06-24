@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/dosen/domain/entities/dosen.dart';
-import 'package:newsistime/features/dosen/domain/repositories/dosen_repository.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/dosen/domain/entities/dosen.dart';
+import 'package:sistime_portal/features/dosen/domain/repositories/dosen_repository.dart';
 
 class GetDosen {
   final DosenRepository repository;

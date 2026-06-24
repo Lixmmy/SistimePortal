@@ -1,14 +1,14 @@
 import 'package:collection/collection.dart';
 import 'package:dartz/dartz.dart';
 
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/agama/data/datasources/agama_remote_data_source.dart';
-import 'package:newsistime/features/profil/data/models/profil_model.dart';
-import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
-import 'package:newsistime/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
-import 'package:newsistime/features/status/data/datasource/status_remote_data_source.dart';
-import 'package:newsistime/features/status_mahasiswa/data/datasources/status_mahasiswa_remote_data_source.dart';
-import 'package:newsistime/features/waktu_kuliah/data/datasources/waktu_kuliah_remote_data_source.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/agama/data/datasources/agama_remote_data_source.dart';
+import 'package:sistime_portal/features/profil/data/models/profil_model.dart';
+import 'package:sistime_portal/features/profil/data/models/update_mahasiswa_model.dart';
+import 'package:sistime_portal/features/program_studi/data/datasource/program_studi_remote_data_source.dart';
+import 'package:sistime_portal/features/status/data/datasource/status_remote_data_source.dart';
+import 'package:sistime_portal/features/status_mahasiswa/data/datasources/status_mahasiswa_remote_data_source.dart';
+import 'package:sistime_portal/features/waktu_kuliah/data/datasources/waktu_kuliah_remote_data_source.dart';
 
 import '../../domain/entities/profil.dart';
 import '../../domain/repositories/profil_repository.dart';

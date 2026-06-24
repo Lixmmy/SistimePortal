@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newsistime/custom_widgets/appbarcustom.dart';
+import 'package:sistime_portal/custom_widgets/appbarcustom.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -1,4 +1,4 @@
-import 'package:newsistime/core/helper/secure_storage.dart';
+import 'package:sistime_portal/core/helper/secure_storage.dart';
 
 abstract class LoginLocalDataSource {
   Future<void> saveToken(String token);

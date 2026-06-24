@@ -215,7 +215,7 @@ abstract class AppLocalizations {
   /// No description provided for @identityCard.
   ///
   /// In id, this message translates to:
-  /// **'Kartu Indentitas'**
+  /// **'Kartu Identitas'**
   String get identityCard;
 
   /// No description provided for @placeAndDateOfBirth.

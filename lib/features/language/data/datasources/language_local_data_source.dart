@@ -1,4 +1,4 @@
-import 'package:newsistime/core/helper/secure_storage.dart';
+import 'package:sistime_portal/core/helper/secure_storage.dart';
 
 abstract class LanguageLocalDataSource {
   Future<void> saveLanguage(String langCode);

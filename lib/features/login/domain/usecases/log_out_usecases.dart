@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/login/domain/repositories/login_repositories.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/login/domain/repositories/login_repositories.dart';
 
 class LogOutUseCases {
   final LoginRepositories loginRepositories;

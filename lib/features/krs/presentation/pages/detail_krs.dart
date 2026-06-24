@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newsistime/core/localization/l10n/app_localizations.dart';
-import 'package:newsistime/core/localization/localization_service.dart';
-import 'package:newsistime/core/theme/theme.dart';
-import 'package:newsistime/features/krs/domain/entities/jadwal_krs.dart';
-import 'package:newsistime/features/krs/presentation/bloc/krs_bloc.dart';
+import 'package:sistime_portal/core/localization/l10n/app_localizations.dart';
+import 'package:sistime_portal/core/localization/localization_service.dart';
+import 'package:sistime_portal/core/theme/theme.dart';
+import 'package:sistime_portal/features/krs/domain/entities/jadwal_krs.dart';
+import 'package:sistime_portal/features/krs/presentation/bloc/krs_bloc.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 

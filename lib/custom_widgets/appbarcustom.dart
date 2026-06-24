@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newsistime/core/theme/theme.dart';
+import 'package:sistime_portal/core/theme/theme.dart';
 
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   final bool isTextRich;
@@ -53,10 +53,13 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
       bottom: PreferredSize(
         preferredSize: preferredSize,
         child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.dark ? AppTheme.surfaceDarkColorA0 :Colors.white,
-         
-        ), child: tabBar),
+          decoration: BoxDecoration(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? AppTheme.surfaceDarkColorA0
+                : Colors.white,
+          ),
+          child: tabBar,
+        ),
       ),
       leading: isShowBackButton ? leading : null,
     );

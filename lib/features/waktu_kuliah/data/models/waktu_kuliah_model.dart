@@ -1,4 +1,4 @@
-import 'package:newsistime/features/waktu_kuliah/domain/entities/waktu_kuliah.dart';
+import 'package:sistime_portal/features/waktu_kuliah/domain/entities/waktu_kuliah.dart';
 
 class WaktuKuliahModel {
   final int idWaktuKuliah;

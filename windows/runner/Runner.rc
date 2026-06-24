@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "newsistime" "\0"
+            VALUE "FileDescription", "sistime_portal" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "newsistime" "\0"
+            VALUE "InternalName", "sistime_portal" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "newsistime.exe" "\0"
-            VALUE "ProductName", "newsistime" "\0"
+            VALUE "OriginalFilename", "sistime_portal.exe" "\0"
+            VALUE "ProductName", "sistime_portal" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

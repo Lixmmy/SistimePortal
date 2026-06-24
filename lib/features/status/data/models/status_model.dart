@@ -1,4 +1,4 @@
-import 'package:newsistime/features/status/domain/entities/status.dart';
+import 'package:sistime_portal/features/status/domain/entities/status.dart';
 
 class StatusModel {
   final int idStatus;

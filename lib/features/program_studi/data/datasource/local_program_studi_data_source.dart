@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:newsistime/core/helper/secure_storage.dart';
-import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
+import 'package:sistime_portal/core/helper/secure_storage.dart';
+import 'package:sistime_portal/features/program_studi/data/models/program_studi_models.dart';
 
 abstract class LocalProgramStudiDataSource {
   Future<List<ProgramStudiModel>> getSavedProgramStudi();

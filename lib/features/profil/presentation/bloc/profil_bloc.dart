@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/core/helper/secure_storage.dart';
-import 'package:newsistime/features/login/domain/usecases/post_change_password.dart';
-import 'package:newsistime/features/profil/domain/usecases/patch_mahasiswa.dart';
-import 'package:newsistime/features/login/domain/usecases/log_out_usecases.dart';
-import 'package:newsistime/features/profil/data/models/update_mahasiswa_model.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/core/helper/secure_storage.dart';
+import 'package:sistime_portal/features/login/domain/usecases/post_change_password.dart';
+import 'package:sistime_portal/features/profil/domain/usecases/patch_mahasiswa.dart';
+import 'package:sistime_portal/features/login/domain/usecases/log_out_usecases.dart';
+import 'package:sistime_portal/features/profil/data/models/update_mahasiswa_model.dart';
 import '../../domain/entities/profil.dart';
 import '../../domain/usecases/get_mahasiswa.dart';
 import 'package:dartz/dartz.dart';

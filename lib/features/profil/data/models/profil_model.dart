@@ -1,9 +1,9 @@
-import 'package:newsistime/features/agama/data/models/agama_model.dart';
-import 'package:newsistime/features/profil/domain/entities/profil.dart';
-import 'package:newsistime/features/program_studi/data/models/program_studi_models.dart';
-import 'package:newsistime/features/status/data/models/status_model.dart';
-import 'package:newsistime/features/status_mahasiswa/data/models/status_mahasiswa_model.dart';
-import 'package:newsistime/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
+import 'package:sistime_portal/features/agama/data/models/agama_model.dart';
+import 'package:sistime_portal/features/profil/domain/entities/profil.dart';
+import 'package:sistime_portal/features/program_studi/data/models/program_studi_models.dart';
+import 'package:sistime_portal/features/status/data/models/status_model.dart';
+import 'package:sistime_portal/features/status_mahasiswa/data/models/status_mahasiswa_model.dart';
+import 'package:sistime_portal/features/waktu_kuliah/data/models/waktu_kuliah_model.dart';
 
 class ProfilModel {
   final int idPendaftaran;

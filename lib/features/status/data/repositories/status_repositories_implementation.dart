@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:newsistime/core/error/message_exc.dart';
-import 'package:newsistime/features/status/data/datasource/status_remote_data_source.dart';
-import 'package:newsistime/features/status/domain/entities/status.dart';
-import 'package:newsistime/features/status/domain/repositories/status_repositories.dart';
-import 'package:newsistime/features/status/data/datasource/status_local_data_source.dart';
+import 'package:sistime_portal/core/error/message_exc.dart';
+import 'package:sistime_portal/features/status/data/datasource/status_remote_data_source.dart';
+import 'package:sistime_portal/features/status/domain/entities/status.dart';
+import 'package:sistime_portal/features/status/domain/repositories/status_repositories.dart';
+import 'package:sistime_portal/features/status/data/datasource/status_local_data_source.dart';
 
 class StatusRepositoriesImplementation implements StatusRepositories {
   final StatusLocalDataSource statusLocalDataSource;
