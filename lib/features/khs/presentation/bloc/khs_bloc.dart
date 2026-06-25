@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 import 'package:sistime_portal/core/error/message_exc.dart';
 import 'package:sistime_portal/core/helper/grade_converter.dart';
 import 'package:sistime_portal/core/helper/secure_storage.dart';
@@ -59,26 +61,31 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
               ];
               String? currentLetterGrade;
               if (nilai != null) {
-                final List<double?> scores = [
-                  nilai.tugas,
-                  nilai.uts,
-                  nilai.uas,
-                  nilai.absensi,
-                  nilai.project,
-                  nilai.quiz,
-                  nilai.perbaikan,
-                ];
-                final List<double> validScores = scores
-                    .whereType<double>()
-                    .toList();
-                if (validScores.isNotEmpty) {
-                  final double totalScore = validScores.reduce((a, b) => a + b);
-                  final int count = validScores.length;
-                  if (count >= minRequiredScores.length) {
-                    final double averageScore = totalScore / count;
-                    currentLetterGrade = konversiNilaiKeHuruf(averageScore);
-                  } else {
-                    currentLetterGrade = 'E';
+                if (nilai.perbaikan != null) {
+                  currentLetterGrade = konversiNilaiKeHuruf(nilai.perbaikan!);
+                } else {
+                  final List<double?> scores = [
+                    nilai.tugas,
+                    nilai.uts,
+                    nilai.uas,
+                    nilai.absensi,
+                    nilai.project,
+                    nilai.quiz,
+                  ];
+                  final List<double> validScores = scores
+                      .whereType<double>()
+                      .toList();
+                  if (validScores.isNotEmpty) {
+                    final double totalScore = validScores.reduce(
+                      (a, b) => a + b,
+                    );
+                    final int count = validScores.length;
+                    if (count >= minRequiredScores.length) {
+                      final double averageScore = totalScore / count;
+                      currentLetterGrade = konversiNilaiKeHuruf(averageScore);
+                    } else {
+                      currentLetterGrade = 'E';
+                    }
                   }
                 }
               }
@@ -120,6 +127,8 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
+          final ByteData bytes = await rootBundle.load('images/logo_stmik.png');
+          final Uint8List imageBytes = bytes.buffer.asUint8List();
           final semesterData = dataState.groupedKhs[event.semester]!;
           final bool hasQuiz = semesterData.any((e) => e.nilais?.quiz != null);
           final bool hasProject = semesterData.any(
@@ -161,12 +170,52 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
             ];
             return row;
           }).toList();
+          final int timestamp = DateTime.now().millisecondsSinceEpoch;
+          final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+          final String formattedDate = DateFormat(
+            'dd-MM-yyyy, HH:mm:ss',
+            'id_ID',
+          ).format(date);
 
           pdf.addPage(
             pw.MultiPage(
               pageFormat: PdfPageFormat.a4,
               build: (pw.Context context) {
                 return [
+                  pw.Header(
+                    level: 0,
+                    child: pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+
+                      children: [
+                        pw.Expanded(
+                          flex: 2,
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              pw.Image(
+                                pw.MemoryImage(imageBytes),
+                                width: 80,
+                                height: 80,
+                              ),
+                              pw.Text(
+                                'Studi STMIK Time\nJalan Merbabu No. 32 blok AA-BB Medan\ntelp: (061) 4561932 email: stmiktime@gmail.com',
+                                style: pw.TextStyle(fontSize: 12),
+                                textAlign: pw.TextAlign.left,
+                              ),
+                            ],
+                          ),
+                        ),
+                        pw.Flexible(
+                          child: pw.Text(
+                            'created on: $formattedDate',
+                            style: pw.TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   pw.Text(
                     appLocalizations.studyResultsCard,
                     style: pw.TextStyle(
@@ -174,6 +223,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
                       fontWeight: pw.FontWeight.bold,
                     ),
                   ),
+
                   pw.SizedBox(height: 20),
                   pw.Container(
                     width: double.infinity,
@@ -265,8 +315,7 @@ class KhsBloc extends Bloc<KhsEvent, KhsState> {
             ),
           );
           final output = await getTemporaryDirectory();
-          final String timestamp = DateTime.now().millisecondsSinceEpoch
-              .toString();
+
           final file = File("${output.path}/Khs_$timestamp.pdf");
           await file.writeAsBytes(await pdf.save());
           OpenFile.open(file.path);

@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 import 'package:sistime_portal/core/error/message_exc.dart';
 import 'package:sistime_portal/core/helper/grade_converter.dart';
 import 'package:sistime_portal/core/helper/secure_storage.dart';
@@ -134,6 +137,8 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
         try {
           final AppLocalizations appLocalizations = event.appLocalizations;
           final pdf = pw.Document();
+          final ByteData bytes = await rootBundle.load('images/logo_stmik.png');
+          final Uint8List imageBytes = bytes.buffer.asUint8List();
           final List<List<String>> tableData = List.generate(
             currentState.listTranskrip.length,
             (index) {
@@ -147,15 +152,54 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
               ];
             },
           );
-
+          final int timestamp = DateTime.now().millisecondsSinceEpoch;
+          final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+          final String formattedDate = DateFormat(
+            'dd-MM-yyyy, HH:mm:ss',
+            'id_ID',
+          ).format(date);
           pdf.addPage(
             pw.MultiPage(
               pageFormat: PdfPageFormat.a4,
               maxPages: 100,
               build: (pw.Context context) {
                 return [
+                  pw.Header(
+                    level: 0,
+                    child: pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+
+                      children: [
+                        pw.Expanded(
+                          flex: 2,
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              pw.Image(
+                                pw.MemoryImage(imageBytes),
+                                width: 80,
+                                height: 80,
+                              ),
+                              pw.Text(
+                                'Studi STMIK Time\nJalan Merbabu No. 32 blok AA-BB Medan\ntelp: (061) 4561932 email: stmiktime@gmail.com',
+                                style: pw.TextStyle(fontSize: 12),
+                                textAlign: pw.TextAlign.left,
+                              ),
+                            ],
+                          ),
+                        ),
+                        pw.Flexible(
+                          child: pw.Text(
+                            'created on: $formattedDate',
+                            style: pw.TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   pw.Text(
-                    appLocalizations.valueTranscript,
+                    appLocalizations.studyPlanCard,
                     style: pw.TextStyle(
                       fontSize: 24,
                       fontWeight: pw.FontWeight.bold,
@@ -241,8 +285,6 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
           );
 
           final output = await getTemporaryDirectory();
-          final String timestamp = DateTime.now().millisecondsSinceEpoch
-              .toString();
           final file = File("${output.path}/transkrip_$timestamp.pdf");
           await file.writeAsBytes(await pdf.save());
           OpenFile.open(file.path);
