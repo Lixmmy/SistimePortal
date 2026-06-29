@@ -70,29 +70,34 @@ class TranskripBloc extends Bloc<TranskripEvent, TranskripState> {
               totalSks += transkrip.sks;
 
               if (nilai != null) {
-                final List<double?> scores = [
-                  nilai.tugas,
-                  nilai.uts,
-                  nilai.uas,
-                  nilai.absensi,
-                  nilai.project,
-                  nilai.quiz,
-                  nilai.perbaikan,
-                ];
-                final List<double> validScores = scores
-                    .whereType<double>()
-                    .toList();
-                if (validScores.isNotEmpty) {
-                  final double totalScore = validScores.reduce((a, b) => a + b);
-                  final int count = validScores.length;
-                  if (count >= minRequiredScores.length) {
-                    final double averageScore = totalScore / count;
-                    currentLetterGrade = konversiNilaiKeHuruf(averageScore);
-                  } else {
-                    currentLetterGrade = 'E';
-                  }
-
+                if (nilai.perbaikan != null) {
+                  currentLetterGrade = konversiNilaiKeHuruf(nilai.perbaikan!);
                   totalBobot += getBobot(currentLetterGrade) * transkrip.sks;
+                } else {
+                  final List<double?> scores = [
+                    nilai.tugas,
+                    nilai.uts,
+                    nilai.uas,
+                    nilai.absensi,
+                    nilai.project,
+                    nilai.quiz,
+                  ];
+                  final List<double> validScores = scores
+                      .whereType<double>()
+                      .toList();
+                  if (validScores.isNotEmpty) {
+                    final double totalScore = validScores.reduce(
+                      (a, b) => a + b,
+                    );
+                    final int count = validScores.length;
+                    if (count >= minRequiredScores.length) {
+                      final double averageScore = totalScore / count;
+                      currentLetterGrade = konversiNilaiKeHuruf(averageScore);
+                    } else {
+                      currentLetterGrade = 'E';
+                    }
+                    totalBobot += getBobot(currentLetterGrade) * transkrip.sks;
+                  }
                 }
               }
 
